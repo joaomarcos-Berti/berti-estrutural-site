@@ -1,0 +1,135 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "images/uploads"
+public_folder: "/images/uploads"
+
+locale: pt
+
+collections:
+
+  # ─────────────────────────────────────────
+  # PORTFÓLIO — lista de obras
+  # ─────────────────────────────────────────
+  - name: "portfolio"
+    label: "Portfólio de Obras"
+    files:
+      - label: "Lista de obras"
+        name: "portfolio_items"
+        file: "content/portfolio.json"
+        format: json
+        fields:
+          - label: "Obras"
+            name: "items"
+            widget: "list"
+            label_singular: "Obra"
+            summary: "{{fields.title}}"
+            fields:
+              - label: "Título da obra"
+                name: "title"
+                widget: "string"
+                hint: "Ex: Galpão Industrial — Curitiba, PR"
+
+              - label: "Categoria"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Industrial",     value: "industrial" }
+                  - { label: "Logística",       value: "logistica" }
+                  - { label: "Comercial",       value: "comercial" }
+                  - { label: "Agroindustrial",  value: "agroindustrial" }
+
+              - label: "ID do vídeo no YouTube"
+                name: "youtube_id"
+                widget: "string"
+                required: false
+                hint: "Só o código do vídeo. Ex: no link youtube.com/watch?v=dQw4w9WgXcQ, cole apenas: dQw4w9WgXcQ"
+
+              - label: "Foto da obra"
+                name: "thumbnail"
+                widget: "image"
+                required: false
+                hint: "Foto que aparece no card. Tamanho ideal: 800×450px."
+
+              - label: "Localização"
+                name: "location"
+                widget: "string"
+                hint: "Ex: Curitiba — PR"
+
+              - label: "Área"
+                name: "area"
+                widget: "string"
+                required: false
+                hint: "Ex: 3.200 m²"
+
+              - label: "Detalhes técnicos"
+                name: "details"
+                widget: "string"
+                required: false
+                hint: "Ex: Vão livre 30m · Cobertura termoacústica"
+
+              - label: "Destaque (aparece primeiro)"
+                name: "featured"
+                widget: "boolean"
+                default: false
+
+  # ─────────────────────────────────────────
+  # BLOG — lista de artigos
+  # ─────────────────────────────────────────
+  - name: "blog"
+    label: "Blog Técnico"
+    files:
+      - label: "Artigos do blog"
+        name: "blog_posts"
+        file: "content/blog.json"
+        format: json
+        fields:
+          - label: "Artigos"
+            name: "items"
+            widget: "list"
+            label_singular: "Artigo"
+            summary: "{{fields.title}}"
+            fields:
+              - label: "Título do artigo"
+                name: "title"
+                widget: "string"
+
+              - label: "Categoria"
+                name: "category"
+                widget: "select"
+                options:
+                  - { label: "Técnico",   value: "Técnico" }
+                  - { label: "Projeto",   value: "Projeto" }
+                  - { label: "Gestão",    value: "Gestão" }
+                  - { label: "Mercado",   value: "Mercado" }
+                  - { label: "Normas",    value: "Normas" }
+
+              - label: "Data"
+                name: "date"
+                widget: "string"
+                hint: "Ex: 12 de maio de 2025"
+
+              - label: "Tempo de leitura"
+                name: "reading_time"
+                widget: "string"
+                default: "5 min de leitura"
+
+              - label: "Resumo (aparece no card)"
+                name: "excerpt"
+                widget: "text"
+                hint: "2-3 frases. Máximo 200 caracteres."
+
+              - label: "Imagem de capa"
+                name: "image"
+                widget: "image"
+                required: false
+
+              - label: "Conteúdo completo"
+                name: "body"
+                widget: "markdown"
+
+              - label: "Publicado"
+                name: "published"
+                widget: "boolean"
+                default: true
