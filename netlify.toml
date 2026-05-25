@@ -1,0 +1,26 @@
+# Configuração Netlify — Berti Estrutural
+# Este arquivo configura o deploy automático no Netlify
+
+[build]
+  # Não há processo de build — site estático puro
+  publish = "."
+
+# Redireciona /admin para a pasta admin
+[[redirects]]
+  from = "/admin"
+  to   = "/admin/index.html"
+  status = 200
+
+# Ativa o Netlify Identity widget (necessário para login no painel)
+[[headers]]
+  for = "/admin/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-XSS-Protection = "1; mode=block"
+    Content-Security-Policy = "default-src 'self' 'unsafe-inline' 'unsafe-eval' https:; img-src * data:;"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
