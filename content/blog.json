@@ -1,0 +1,34 @@
+{
+  "items": [
+    {
+      "title": "Montagem parafusada vs soldada: o que é mais seguro e por quê",
+      "category": "Técnico",
+      "date": "12 de maio de 2025",
+      "reading_time": "5 min de leitura",
+      "excerpt": "Entenda as diferenças técnicas, vantagens construtivas e por que a Berti Estrutural adota 100% de montagem parafusada em campo.",
+      "image": "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=80&auto=format&fit=crop",
+      "body": "A escolha entre montagem parafusada e soldada é uma das decisões técnicas mais importantes em uma obra de estrutura metálica...",
+      "published": true
+    },
+    {
+      "title": "O que é BIM e como ele reduz custos na sua obra de estrutura metálica",
+      "category": "Projeto",
+      "date": "3 de maio de 2025",
+      "reading_time": "7 min de leitura",
+      "excerpt": "Modelagem BIM não é só visualização 3D. Veja como ela elimina conflitos de projeto antes da obra e pode economizar até 15% do custo total.",
+      "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80&auto=format&fit=crop",
+      "body": "BIM (Building Information Modeling) é uma metodologia de trabalho que centraliza todas as informações de um projeto em um modelo digital tridimensional e inteligente...",
+      "published": true
+    },
+    {
+      "title": "Como avaliar um orçamento de estrutura metálica sem ser engenheiro",
+      "category": "Gestão",
+      "date": "22 de abril de 2025",
+      "reading_time": "6 min de leitura",
+      "excerpt": "Dicas práticas para gestores e construtores avaliarem propostas de estrutura metálica e evitarem surpresas desagradáveis no contrato.",
+      "image": "https://images.unsplash.com/photo-1460472178825-e5240623afd5?w=800&q=80&auto=format&fit=crop",
+      "body": "Receber um orçamento de estrutura metálica pode ser confuso para quem não é engenheiro. Neste artigo explicamos os itens essenciais que você deve checar...",
+      "published": true
+    }
+  ]
+}
