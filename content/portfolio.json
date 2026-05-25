@@ -1,0 +1,64 @@
+{
+  "items": [
+    {
+      "title": "Galpão Industrial — Paraná",
+      "category": "industrial",
+      "youtube_id": "",
+      "thumbnail": "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80&auto=format&fit=crop",
+      "location": "Curitiba — PR",
+      "area": "3.200 m²",
+      "details": "Vão livre 30m · Cobertura termoacústica",
+      "featured": true
+    },
+    {
+      "title": "Centro Logístico — São Paulo",
+      "category": "logistica",
+      "youtube_id": "",
+      "thumbnail": "https://images.unsplash.com/photo-1586528116311-ad8dd3c8310d?w=800&q=80&auto=format&fit=crop",
+      "location": "São Paulo — SP",
+      "area": "8.500 m²",
+      "details": "Pé-direito 12m · Docas laterais",
+      "featured": true
+    },
+    {
+      "title": "Armazém Agroindustrial — Mato Grosso",
+      "category": "agroindustrial",
+      "youtube_id": "",
+      "thumbnail": "https://images.unsplash.com/photo-1500382017468-9049fed747ef?w=800&q=80&auto=format&fit=crop",
+      "location": "Sinop — MT",
+      "area": "5.000 m²",
+      "details": "Capacidade 8.000 ton · Ventilação natural",
+      "featured": false
+    },
+    {
+      "title": "Estrutura Comercial — Curitiba",
+      "category": "comercial",
+      "youtube_id": "",
+      "thumbnail": "https://images.unsplash.com/photo-1486325212027-8081e485255e?w=800&q=80&auto=format&fit=crop",
+      "location": "Curitiba — PR",
+      "area": "1.800 m²",
+      "details": "Mezanino metálico · Fachada ACM",
+      "featured": false
+    },
+    {
+      "title": "Fábrica Automotiva — ABC Paulista",
+      "category": "industrial",
+      "youtube_id": "",
+      "thumbnail": "https://images.unsplash.com/photo-1541888946425-d81bb19240f5?w=800&q=80&auto=format&fit=crop",
+      "location": "Santo André — SP",
+      "area": "12.000 m²",
+      "details": "Ponte rolante 20t · Estrutura especial",
+      "featured": false
+    },
+    {
+      "title": "Armazém Frigorífico — Santa Catarina",
+      "category": "logistica",
+      "youtube_id": "",
+      "thumbnail": "https://images.unsplash.com/photo-1590650046871-92c887180603?w=800&q=80&auto=format&fit=crop",
+      "location": "Chapecó — SC",
+      "area": "4.200 m²",
+      "details": "Câmara fria integrada · Painéis PUR",
+      "featured": false
+    }
+  ]
+}
