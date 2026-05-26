@@ -12,14 +12,14 @@
   <meta property="og:url" content="https://www.bertiestrutural.com.br" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet" />
   <style>
 /* ═══════════════════════════════════════
    RESET & BASE
 ═══════════════════════════════════════ */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 html { scroll-behavior: smooth; font-size: 16px; }
-body { font-family: 'Inter', sans-serif; color: #111827; background: #fff; line-height: 1.6; overflow-x: hidden; }
+body { font-family: 'DM Sans', sans-serif; color: #000101; background: #fff; line-height: 1.6; overflow-x: hidden; }
 img { max-width: 100%; display: block; object-fit: cover; }
 a { text-decoration: none; color: inherit; }
 button { font-family: inherit; cursor: pointer; }
@@ -28,22 +28,23 @@ button { font-family: inherit; cursor: pointer; }
    TOKENS
 ═══════════════════════════════════════ */
 :root {
-  --navy:     #0b1f4a;
-  --blue:     #1a4b8c;
-  --blue-mid: #1e5fad;
-  --blue-lt:  #e8f1ff;
-  --accent:   #2979d4;
-  --gold:     #e8810a;
-  --gray:     #6b7280;
-  --gray-lt:  #f8fafc;
-  --border:   #e5e9f0;
-  --dark:     #080f1e;
+  --navy:     #061922;
+  --blue:     #47b6f1;
+  --blue-mid: #2da6e8;
+  --blue-lt:  rgba(71,182,241,.10);
+  --accent:   #47b6f1;
+  --gold:     #47b6f1;
+  --gray:     #4b5563;
+  --gray-lt:  #f4f7fa;
+  --border:   #e2e8f0;
+  --dark:     #061922;
   --white:    #ffffff;
+  --black:    #000101;
   --r:        10px;
   --r-lg:     16px;
   --r-xl:     24px;
-  --sh:       0 4px 24px rgba(11,31,74,.10);
-  --sh-lg:    0 16px 56px rgba(11,31,74,.18);
+  --sh:       0 4px 24px rgba(6,25,34,.12);
+  --sh-lg:    0 16px 56px rgba(6,25,34,.20);
 }
 
 /* ═══════════════════════════════════════
@@ -61,23 +62,23 @@ button { font-family: inherit; cursor: pointer; }
   padding: 6px 14px; border-radius: 100px; margin-bottom: 18px;
 }
 .tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-.tag-light { color: #93c5fd; background: rgba(147,197,253,.12); }
+.tag-light { color: #47b6f1; background: rgba(71,182,241,.12); }
 
-.h1 { font-size: clamp(2.6rem, 5.5vw, 4.2rem); font-weight: 900; line-height: 1.1; letter-spacing: -.025em; }
-.h2 { font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 800; line-height: 1.18; letter-spacing: -.02em; }
-.h3 { font-size: 1.15rem; font-weight: 700; line-height: 1.3; }
-.lead { font-size: 1.1rem; line-height: 1.75; color: var(--gray); }
+.h1 { font-family: 'Rajdhani', sans-serif; font-size: clamp(2.8rem, 5.5vw, 4.4rem); font-weight: 700; line-height: 1.05; letter-spacing: .01em; text-transform: uppercase; }
+.h2 { font-family: 'Rajdhani', sans-serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: .01em; text-transform: uppercase; }
+.h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 600; line-height: 1.3; letter-spacing: .02em; text-transform: uppercase; }
+.lead { font-size: 1.05rem; line-height: 1.75; color: var(--gray); font-weight: 400; }
 
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
   padding: 15px 30px; border-radius: var(--r); font-size: 15px; font-weight: 700;
   border: 2px solid transparent; transition: all .22s ease; white-space: nowrap;
 }
-.btn-primary   { background: var(--blue); color: #fff; }
-.btn-primary:hover { background: var(--accent); transform: translateY(-2px); box-shadow: 0 8px 28px rgba(41,121,212,.35); }
-.btn-outline   { background: transparent; color: var(--blue); border-color: var(--blue); }
-.btn-outline:hover { background: var(--blue-lt); }
-.btn-white     { background: #fff; color: var(--navy); }
+.btn-primary   { background: var(--blue); color: var(--black); font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.btn-primary:hover { background: #2da6e8; transform: translateY(-2px); box-shadow: 0 8px 28px rgba(71,182,241,.40); }
+.btn-outline   { background: transparent; color: var(--blue); border-color: var(--blue); font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
+.btn-outline:hover { background: var(--blue-lt); color: var(--blue); }
+.btn-white     { background: #fff; color: var(--navy); font-family: 'Rajdhani', sans-serif; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
 .btn-white:hover { background: var(--blue-lt); color: var(--blue); }
 .btn-ghost-white { background: rgba(255,255,255,.1); color: #fff; border-color: rgba(255,255,255,.3); backdrop-filter: blur(8px); }
 .btn-ghost-white:hover { background: rgba(255,255,255,.2); border-color: rgba(255,255,255,.5); }
@@ -97,13 +98,18 @@ header.solid {
 }
 .header-inner { display: flex; align-items: center; justify-content: space-between; height: 72px; }
 
-.logo { display: flex; align-items: center; gap: 10px; font-size: 19px; font-weight: 800; letter-spacing: -.03em; color: var(--white); transition: color .3s; }
-header.solid .logo { color: var(--navy); }
+.logo { display: flex; align-items: center; gap: 10px; transition: opacity .3s; }
+.logo:hover { opacity: .85; }
 .logo-mark {
-  width: 38px; height: 38px; border-radius: 9px; background: var(--blue);
+  width: 42px; height: 42px; border-radius: 8px; background: var(--blue);
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+  clip-path: polygon(10% 0%, 90% 0%, 100% 10%, 100% 90%, 90% 100%, 10% 100%, 0% 90%, 0% 10%);
 }
-.logo-mark svg { width: 22px; height: 22px; }
+.logo-mark svg { width: 30px; height: 30px; }
+.logo-text { display: flex; flex-direction: column; line-height: 1; }
+.logo-text-berti { font-family: 'Rajdhani', sans-serif; font-size: 18px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; color: #fff; transition: color .3s; }
+.logo-text-est { font-family: 'Rajdhani', sans-serif; font-size: 11px; font-weight: 400; letter-spacing: .18em; text-transform: uppercase; color: var(--blue); }
+header.solid .logo-text-berti { color: var(--black); }
 
 nav { display: flex; align-items: center; gap: 2px; }
 nav a {
@@ -116,8 +122,8 @@ header.solid nav a:hover { color: var(--blue); background: var(--blue-lt); }
 .nav-cta { margin-left: 10px; }
 header.transparent .nav-cta { background: rgba(255,255,255,.15); color: #fff; border-color: rgba(255,255,255,.4); backdrop-filter: blur(8px); }
 header.transparent .nav-cta:hover { background: rgba(255,255,255,.25); }
-header.solid .nav-cta { background: var(--blue); color: #fff; border-color: var(--blue); }
-header.solid .nav-cta:hover { background: var(--accent); }
+header.solid .nav-cta { background: var(--blue); color: var(--black); border-color: var(--blue); }
+header.solid .nav-cta:hover { background: var(--blue-mid); }
 
 .hamburger { display: none; flex-direction: column; gap: 5px; background: none; border: none; padding: 8px; border-radius: 8px; }
 .hamburger span { width: 22px; height: 2px; background: #fff; border-radius: 2px; transition: .3s; display: block; }
@@ -157,7 +163,7 @@ header.solid .hamburger span { background: var(--navy); }
 .hero-eyebrow-text { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.7); letter-spacing: .05em; }
 
 .hero h1 { color: #fff; margin-bottom: 22px; }
-.hero h1 span { color: #93c5fd; }
+.hero h1 span { color: #47b6f1; }
 .hero-lead { font-size: 1.15rem; color: rgba(255,255,255,.7); line-height: 1.7; margin-bottom: 40px; max-width: 520px; }
 .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; margin-bottom: 56px; }
 
@@ -182,7 +188,7 @@ header.solid .hamburger span { background: var(--navy); }
 .hero-card-item { display: flex; align-items: center; gap: 14px; padding: 14px 0; border-bottom: 1px solid rgba(255,255,255,.08); }
 .hero-card-item:last-child { border-bottom: none; }
 .hero-card-ico { width: 40px; height: 40px; border-radius: 10px; background: rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.hero-card-ico svg { width: 20px; height: 20px; stroke: #93c5fd; fill: none; stroke-width: 2; }
+.hero-card-ico svg { width: 20px; height: 20px; stroke: #47b6f1; fill: none; stroke-width: 2; }
 .hero-card-label { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.9); }
 .hero-card-sub { font-size: 12px; color: rgba(255,255,255,.45); margin-top: 2px; }
 .hero-card-badge { margin-left: auto; padding: 4px 10px; border-radius: 100px; background: rgba(34,197,94,.15); color: #4ade80; font-size: 11px; font-weight: 700; flex-shrink: 0; }
@@ -260,8 +266,8 @@ header.solid .hamburger span { background: var(--navy); }
 .servico-num-label { font-size: 11px; font-weight: 700; letter-spacing: .1em; color: #3b82f6; text-transform: uppercase; margin-bottom: 14px; }
 .servico-card h3 { font-size: 17px; font-weight: 700; color: #fff; margin-bottom: 12px; }
 .servico-card p  { font-size: 14px; color: #94a3b8; line-height: 1.65; }
-.servico-card-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-size: 13px; font-weight: 600; color: #60a5fa; }
-.servico-card-link svg { width: 14px; height: 14px; stroke: #60a5fa; fill: none; transition: transform .18s; }
+.servico-card-link { display: inline-flex; align-items: center; gap: 6px; margin-top: 16px; font-size: 13px; font-weight: 600; color: #47b6f1; }
+.servico-card-link svg { width: 14px; height: 14px; stroke: #47b6f1; fill: none; transition: transform .18s; }
 .servico-card:hover .servico-card-link svg { transform: translateX(3px); }
 
 /* ═══════════════════════════════════════
@@ -432,7 +438,7 @@ input, textarea, select {
 }
 input:focus, textarea:focus, select:focus {
   border-color: var(--accent); background: #fff;
-  box-shadow: 0 0 0 3px rgba(41,121,212,.12);
+  box-shadow: 0 0 0 3px rgba(71,182,241,.15);
 }
 textarea { resize: vertical; min-height: 108px; }
 .form-submit {
@@ -539,11 +545,22 @@ footer { background: var(--dark); color: rgba(255,255,255,.6); padding: 72px 0 3
     <div class="header-inner">
       <a href="#" class="logo">
         <div class="logo-mark">
-          <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M2 20h20M4 20V9l8-6 8 6v11M9 20v-5h6v5"/>
+          <!-- BE monogram: B + three bars -->
+          <svg viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <!-- Letter B -->
+            <path d="M4 6h8c2.2 0 4 1.8 4 4s-1.8 4-4 4h-8z" fill="#000101"/>
+            <path d="M4 14h9c2.2 0 4 1.8 4 4s-1.8 4-4 4H4z" fill="#000101"/>
+            <rect x="4" y="6" width="3" height="16" fill="#000101"/>
+            <!-- Three bars (E) -->
+            <rect x="19" y="6"  width="9" height="3.5" rx="1" fill="#000101"/>
+            <rect x="19" y="13" width="9" height="3.5" rx="1" fill="#000101"/>
+            <rect x="19" y="20" width="9" height="3.5" rx="1" fill="#000101"/>
           </svg>
         </div>
-        Berti Estrutural
+        <div class="logo-text">
+          <span class="logo-text-berti">Berti</span>
+          <span class="logo-text-est">Estrutural</span>
+        </div>
       </a>
       <nav>
         <a href="#sobre">Empresa</a>
@@ -748,7 +765,7 @@ footer { background: var(--dark); color: rgba(255,255,255,.6); padding: 72px 0 3
 <section class="section-dark" id="servicos">
   <div class="container">
     <div class="fade-up" style="max-width:640px;margin-bottom:0;">
-      <span class="tag tag-light"><span class="tag-dot" style="background:#93c5fd;"></span>O que fazemos</span>
+      <span class="tag tag-light"><span class="tag-dot" style="background:#47b6f1;"></span>O que fazemos</span>
       <h2 class="h2" style="color:#fff;margin-bottom:12px;">Soluções completas do projeto à montagem</h2>
       <p style="color:#94a3b8;font-size:1.05rem;">Atendemos obras industriais, logísticas, comerciais e agroindustriais com soluções integradas e gestão completa do início ao fim.</p>
     </div>
@@ -937,4 +954,298 @@ footer { background: var(--dark); color: rgba(255,255,255,.6); padding: 72px 0 3
           <svg class="dep-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           <svg class="dep-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
           <svg class="dep-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          <svg class="dep-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7
+          <svg class="dep-star" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <p class="dep-text">Contratamos a Berti para um galpão em Mato Grosso com logística complexa. A capacidade de coordenação é surpreendente. Do projeto BIM à montagem final, execução perfeita. Recomendo sem hesitar.</p>
+        <div class="dep-author">
+          <div class="dep-avatar">JP</div>
+          <div>
+            <div class="dep-name">João Paulo Ferreira</div>
+            <div class="dep-role">Proprietário — Agro Ferreira</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ CTA BAND ═══ -->
+<div class="cta-band">
+  <div class="cta-band-bg"></div>
+  <div class="cta-band-deco"></div>
+  <div class="container">
+    <div class="fade-up">
+      <h2 class="h2">Pronto para construir com quem entende de estrutura?</h2>
+      <p>Fale com nossos engenheiros. Orçamento técnico detalhado em até 24 horas.</p>
+      <div class="cta-band-actions">
+        <a href="#contato" class="btn btn-white">Solicitar orçamento gratuito</a>
+        <a href="https://wa.me/5541999999999?text=Olá%2C+gostaria+de+um+orçamento+de+estrutura+metálica" target="_blank" class="btn btn-ghost-white">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Chamar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONTATO ═══ -->
+<section class="section" id="contato">
+  <div class="container">
+    <div class="contato-grid">
+      <div class="fade-up">
+        <div class="contato-img">
+          <img src="https://images.unsplash.com/photo-1518005068251-37900150dfca?w=900&q=85&auto=format&fit=crop" alt="Obra Berti Estrutural" loading="lazy" />
+        </div>
+        <span class="tag"><span class="tag-dot"></span>Fale conosco</span>
+        <h2 class="h2" style="margin-bottom:14px;">Solicite seu orçamento sem compromisso</h2>
+        <p>Nossos engenheiros analisam seu projeto e retornam com uma proposta técnica detalhada em até 24 horas úteis.</p>
+        <div class="contato-item">
+          <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 11 19.79 19.79 0 01.1 2.38a2 2 0 012-2.18h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.29 6.29l1.45-1.45a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/></svg></div>
+          <div><div class="c-lbl">Telefone / WhatsApp</div><div class="c-val">(XX) XXXXX-XXXX</div></div>
+        </div>
+        <div class="contato-item">
+          <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg></div>
+          <div><div class="c-lbl">E-mail comercial</div><div class="c-val">comercial@bertiestrutural.com.br</div></div>
+        </div>
+        <div class="contato-item">
+          <div class="c-ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+          <div><div class="c-lbl">Localização</div><div class="c-val">Curitiba — PR &nbsp;·&nbsp; Atendimento nacional</div></div>
+        </div>
+      </div>
+      <div class="form-card fade-up">
+        <h3>Solicitar Orçamento</h3>
+        <p class="sub">Preencha abaixo. Retorno em até 24 horas.</p>
+        <div class="form-row">
+          <div><label for="nome">Nome completo</label><input type="text" id="nome" placeholder="Seu nome" /></div>
+          <div><label for="empresa">Empresa</label><input type="text" id="empresa" placeholder="Nome da empresa" /></div>
+        </div>
+        <div class="form-row">
+          <div><label for="email">E-mail</label><input type="email" id="email" placeholder="email@empresa.com" /></div>
+          <div><label for="tel">Telefone / WhatsApp</label><input type="tel" id="tel" placeholder="(41) 99999-9999" /></div>
+        </div>
+        <div class="form-group">
+          <label for="tipo">Tipo de obra</label>
+          <select id="tipo">
+            <option value="">Selecione o tipo de obra</option>
+            <option>Galpão Industrial</option>
+            <option>Centro Logístico / Armazém</option>
+            <option>Estrutura Agroindustrial</option>
+            <option>Estrutura Comercial</option>
+            <option>Cobertura / Mezanino</option>
+            <option>Consultoria Técnica</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="mensagem">Descrição do projeto</label>
+          <textarea id="mensagem" placeholder="Área aproximada, localização, prazo desejado e informações relevantes..."></textarea>
+        </div>
+        <button class="form-submit" onclick="submitForm()">Enviar solicitação de orçamento →</button>
+        <button class="wa-btn" onclick="openWA()">
+          <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          Ou chame no WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="logo footer-logo">
+          <div class="logo-mark"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 20h20M4 20V9l8-6 8 6v11M9 20v-5h6v5"/></svg></div>
+          Berti Estrutural
+        </div>
+        <p class="footer-desc">21 anos entregando estruturas metálicas com engenharia de ponta, precisão e compromisso. Mais de 900 obras realizadas em todo o Brasil.</p>
+        <div class="footer-socials">
+          <a href="#" class="soc-btn" aria-label="Instagram"><svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></a>
+          <a href="#" class="soc-btn" aria-label="YouTube"><svg viewBox="0 0 24 24"><path d="M22.54 6.42a2.78 2.78 0 00-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 00-1.95 1.96A29 29 0 001 12a29 29 0 00.46 5.58A2.78 2.78 0 003.41 19.6C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 001.95-1.95A29 29 0 0023 12a29 29 0 00-.46-5.58z"/><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"/></svg></a>
+          <a href="#" class="soc-btn" aria-label="LinkedIn"><svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg></a>
+          <a href="#" class="soc-btn" aria-label="Facebook"><svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/></svg></a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Empresa</h4>
+        <ul>
+          <li><a href="#sobre">Sobre nós</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#portfolio">Portfólio</a></li>
+          <li><a href="#depoimentos">Depoimentos</a></li>
+          <li><a href="#blog">Blog</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Serviços</h4>
+        <ul>
+          <li><a href="#servicos">Projeto BIM</a></li>
+          <li><a href="#servicos">Fabricação</a></li>
+          <li><a href="#servicos">Montagem metálica</a></li>
+          <li><a href="#servicos">Galpões industriais</a></li>
+          <li><a href="#servicos">Consultoria técnica</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contato</h4>
+        <ul>
+          <li><a href="#contato">Solicitar orçamento</a></li>
+          <li><a href="https://wa.me/5541999999999" target="_blank">WhatsApp direto</a></li>
+          <li><a href="mailto:comercial@bertiestrutural.com.br">E-mail comercial</a></li>
+          <li><a href="#blog">Artigos técnicos</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Berti Estrutural — Todos os direitos reservados</span>
+      <span>CNPJ: XX.XXX.XXX/0001-XX &nbsp;·&nbsp; Curitiba — PR</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+/* ── Header scroll ── */
+const hdr = document.getElementById('site-header');
+function updateHeader() {
+  if (window.scrollY > 60) { hdr.classList.remove('transparent'); hdr.classList.add('solid'); }
+  else { hdr.classList.remove('solid'); hdr.classList.add('transparent'); }
+}
+window.addEventListener('scroll', updateHeader, { passive: true });
+updateHeader();
+
+/* ── Hero BG parallax load ── */
+const heroBg = document.getElementById('hero-bg');
+setTimeout(() => heroBg.classList.add('loaded'), 100);
+
+/* ── Mobile menu ── */
+const ham = document.getElementById('hamburger');
+const mnav = document.getElementById('mobile-nav');
+ham.addEventListener('click', () => mnav.classList.toggle('open'));
+mnav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mnav.classList.remove('open')));
+
+/* ── Fade up observer ── */
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
+}, { threshold: 0.10 });
+document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+/* ── Counter animation ── */
+function animateCounter(el) {
+  const target  = parseInt(el.dataset.target, 10);
+  const suffix  = el.dataset.suffix || '';
+  const duration = 1800;
+  const step = 16;
+  const increments = Math.ceil(duration / step);
+  let current = 0;
+  const inc = target / increments;
+  const timer = setInterval(() => {
+    current = Math.min(current + inc, target);
+    el.textContent = Math.round(current) + suffix;
+    if (current >= target) clearInterval(timer);
+  }, step);
+}
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('[data-target]').forEach(animateCounter);
+      counterObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.3 });
+const statsBand = document.querySelector('.stats-band');
+if (statsBand) counterObserver.observe(statsBand);
+
+/* ── Portfolio filter ── */
+function filterPortfolio(cat, btn) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.portfolio-card').forEach(card => {
+    if (cat === 'todos' || card.dataset.cat === cat) card.classList.remove('hidden');
+    else card.classList.add('hidden');
+  });
+}
+
+/* ── Video modal ── */
+function openVideo(videoId, title) {
+  if (!videoId || videoId.startsWith('SUBSTITUA')) {
+    alert('Vídeo em breve! Substitua "SUBSTITUA_ID_VIDEO_X" pelo ID real do YouTube.');
+    return;
+  }
+  document.getElementById('modal-iframe').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
+  document.getElementById('video-modal').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+function closeVideo() {
+  document.getElementById('video-modal').classList.remove('open');
+  document.getElementById('modal-iframe').src = '';
+  document.body.style.overflow = '';
+}
+function closeIfOutside(e) { if (e.target.id === 'video-modal') closeVideo(); }
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
+
+/* ── WhatsApp ── */
+function openWA() {
+  const num = '5541999999999'; // SUBSTITUA pelo número real com DDD
+  const msg = encodeURIComponent('Olá, Berti Estrutural! Gostaria de solicitar um orçamento de estrutura metálica.');
+  window.open('https://wa.me/' + num + '?text=' + msg, '_blank');
+}
+
+/* ══════════════════════════════════════
+   CARREGAMENTO DINÂMICO — PORTFÓLIO
+══════════════════════════════════════ */
+const catLabels = { industrial:'Industrial', logistica:'Logística', comercial:'Comercial', agroindustrial:'Agroindustrial' };
+
+function buildPortfolioCard(item) {
+  const hasVideo = item.youtube_id && item.youtube_id.trim() !== '';
+  const thumb = item.thumbnail || 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80&auto=format&fit=crop';
+  const cat   = catLabels[item.category] || item.category;
+  const meta  = [item.area, item.details].filter(Boolean).join(' · ');
+  const onClick = hasVideo
+    ? `openVideo('${item.youtube_id}','${item.title.replace(/'/g,"\\'")}')`
+    : `openVideo('','${item.title.replace(/'/g,"\\'")}')`;
+  return `
+    <div class="portfolio-card" data-cat="${item.category}" onclick="${onClick}">
+      <div class="p-thumb">
+        <img src="${thumb}" alt="${item.title}" loading="lazy" />
+        <div class="p-overlay"><div class="p-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
+        <div class="p-cat-badge">${cat}</div>
+      </div>
+      <div class="p-body">
+        <div class="p-title">${item.title}</div>
+        ${meta ? `<div class="p-meta">${meta}</div>` : ''}
+      </div>
+    </div>`;
+}
+
+async function loadPortfolio() {
+  const grid = document.getElementById('portfolio-grid');
+  try {
+    const res  = await fetch('content/portfolio.json');
+    const data = await res.json();
+    const items = data.items || [];
+    if (!items.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--gray);">Nenhuma obra cadastrada ainda.</div>'; return; }
+    grid.innerHTML = items.map(buildPortfolioCard).join('');
+    // re-observe new cards
+    grid.querySelectorAll('.portfolio-card').forEach(el => { el.classList.add('fade-up'); observer.observe(el); });
+  } catch(e) {
+    // Fallback em caso de arquivo não encontrado (abertura local sem servidor)
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--gray);font-size:14px;">Para ver as obras, abra o site via servidor. <br>Use <code>npx serve .</code> ou faça o deploy no Netlify.</div>';
+  }
+}
+
+/* ══════════════════════════════════════
+   CARREGAMENTO DINÂMICO — BLOG
+══════════════════════════════════════ */
+function buildBlogCard(item) {
+  const img = item.image || 'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=80&auto=format&fit=crop';
+  return `
+    <article class="blog-card fade-up">
+      <div class="blog-thumb">
+        <img src="${img}" alt="${item.title}" loading="lazy" />
+        <div class="blog-category">${item.category}</div>
+      </div>
+      <div class="blog-body">
+        <div class="blog-meta">${item.date} &nbsp;·&nbsp; ${item.reading_time}</div>
+        <h3>${item.title}</h3>
+        <p>${item.excerp
