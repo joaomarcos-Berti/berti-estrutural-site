@@ -10,6 +10,7 @@
   <meta property="og:description" content="21 anos de experiência. Mais de 900 obras entregues com precisão, segurança e controle total." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.bertiestrutural.com.br" />
+  <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet" />
@@ -144,12 +145,21 @@ header.solid .hamburger span { background: var(--navy); }
 }
 .hero-bg {
   position: absolute; inset: 0; z-index: 0;
-  background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1920&q=85&auto=format&fit=crop');
-  background-size: cover; background-position: center 30%;
-  transform: scale(1.04);
-  transition: transform 8s ease-out;
+  overflow: hidden; background: var(--dark);
 }
-.hero-bg.loaded { transform: scale(1); }
+spline-viewer {
+  width: 100%; height: 100%;
+  position: absolute; inset: 0;
+  --spline-viewer-branding: none;
+}
+/* Fallback para mobile: oculta Spline e usa imagem estática */
+@media (max-width: 768px) {
+  spline-viewer { display: none; }
+  .hero-bg {
+    background-image: url('https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=1200&q=80&auto=format&fit=crop');
+    background-size: cover; background-position: center 30%;
+  }
+}
 .hero-overlay {
   position: absolute; inset: 0; z-index: 1;
   background: linear-gradient(105deg, rgba(8,15,30,.88) 0%, rgba(8,15,30,.70) 55%, rgba(11,31,74,.50) 100%);
@@ -585,7 +595,9 @@ footer { background: var(--dark); color: rgba(255,255,255,.6); padding: 72px 0 3
 
 <!-- ═══ HERO ═══ -->
 <section class="hero" id="inicio">
-  <div class="hero-bg" id="hero-bg"></div>
+  <div class="hero-bg" id="hero-bg">
+    <spline-viewer url="https://prod.spline.design/58sJQ0j5tzHdjws6/scene.splinecode" loading="eager"></spline-viewer>
+  </div>
   <div class="hero-overlay"></div>
   <div class="hero-content">
     <div class="container">
@@ -1114,9 +1126,7 @@ function updateHeader() {
 window.addEventListener('scroll', updateHeader, { passive: true });
 updateHeader();
 
-/* ── Hero BG parallax load ── */
-const heroBg = document.getElementById('hero-bg');
-setTimeout(() => heroBg.classList.add('loaded'), 100);
+/* ── Hero BG: Spline 3D — sem parallax necessário ── */
 
 /* ── Mobile menu ── */
 const ham = document.getElementById('hamburger');
@@ -1248,4 +1258,32 @@ function buildBlogCard(item) {
       <div class="blog-body">
         <div class="blog-meta">${item.date} &nbsp;·&nbsp; ${item.reading_time}</div>
         <h3>${item.title}</h3>
-        <p>${item.excerp
+        <p>${item.excerpt}</p>
+        <a href="#" class="blog-link">Ler artigo completo <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
+      </div>
+    </article>`;
+}
+
+async function loadBlog() {
+  const grid = document.getElementById('blog-grid');
+  try {
+    const res  = await fetch('content/blog.json');
+    const data = await res.json();
+    const items = (data.items || []).filter(p => p.published !== false).slice(0, 3);
+    if (!items.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--gray);">Nenhum artigo publicado ainda.</div>'; return; }
+    grid.innerHTML = items.map(buildBlogCard).join('');
+    grid.querySelectorAll('.blog-card').forEach(el => observer.observe(el));
+  } catch(e) {
+    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--gray);font-size:14px;">Para ver os artigos, abra o site via servidor.</div>';
+  }
+}
+
+// Inicia carregamento assim que DOM estiver pronto
+document.addEventListener('DOMContentLoaded', () => { loadPortfolio(); loadBlog(); });
+
+/* ── Form submit ── */
+function submitForm() {
+  const nome  = document.getElementById('nome').value.trim();
+  const email = document.getElementById('email').value.trim();
+  const tel   = document.getElementById('tel').value.trim();
+  if (!nome || !email) { alert('Por favor, preencha nome e e-mail para con
