@@ -11,10 +11,22 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://www.bertiestrutural.com.br" />
   <script type="module" src="https://unpkg.com/@splinetool/viewer@1.9.82/build/spline-viewer.js"></script>
+  <link rel="icon" type="image/png" href="arquivos site/favicons/favicon.png" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@400;500;600;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&display=swap" rel="stylesheet" />
   <style>
+/* ═══════════════════════════════════════
+   FONTES LOCAIS
+═══════════════════════════════════════ */
+@font-face {
+  font-family: 'Code';
+  src: url('arquivos site/fontes/CODE-Bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* ═══════════════════════════════════════
    RESET & BASE
 ═══════════════════════════════════════ */
@@ -65,9 +77,9 @@ button { font-family: inherit; cursor: pointer; }
 .tag-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
 .tag-light { color: #47b6f1; background: rgba(71,182,241,.12); }
 
-.h1 { font-family: 'Rajdhani', sans-serif; font-size: clamp(2.8rem, 5.5vw, 4.4rem); font-weight: 700; line-height: 1.05; letter-spacing: .01em; text-transform: uppercase; }
-.h2 { font-family: 'Rajdhani', sans-serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: .01em; text-transform: uppercase; }
-.h3 { font-family: 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 600; line-height: 1.3; letter-spacing: .02em; text-transform: uppercase; }
+.h1 { font-family: 'Code', 'Rajdhani', sans-serif; font-size: clamp(2.8rem, 5.5vw, 4.4rem); font-weight: 700; line-height: 1.05; letter-spacing: .01em; text-transform: uppercase; }
+.h2 { font-family: 'Code', 'Rajdhani', sans-serif; font-size: clamp(2rem, 3.5vw, 3rem); font-weight: 700; line-height: 1.1; letter-spacing: .01em; text-transform: uppercase; }
+.h3 { font-family: 'Code', 'Rajdhani', sans-serif; font-size: 1.2rem; font-weight: 600; line-height: 1.3; letter-spacing: .02em; text-transform: uppercase; }
 .lead { font-size: 1.05rem; line-height: 1.75; color: var(--gray); font-weight: 400; }
 
 .btn {
@@ -204,8 +216,78 @@ spline-viewer {
 .hero-card-badge { margin-left: auto; padding: 4px 10px; border-radius: 100px; background: rgba(34,197,94,.15); color: #4ade80; font-size: 11px; font-weight: 700; flex-shrink: 0; }
 
 /* Scroll indicator */
-.scroll-hint { position: absolute; bottom: 32px; left: 50%; transform: translateX(-50%); z-index: 2; display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,.4); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
+.scroll-hint { position: absolute; bottom: 88px; left: 50%; transform: translateX(-50%); z-index: 4; display: flex; flex-direction: column; align-items: center; gap: 8px; color: rgba(255,255,255,.4); font-size: 11px; letter-spacing: .08em; text-transform: uppercase; }
 .scroll-arrow { width: 24px; height: 24px; border: 1.5px solid rgba(255,255,255,.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; animation: bounce-y 2s infinite; }
+
+/* ═══════════════════════════════════════
+   CAROUSEL HERO
+═══════════════════════════════════════ */
+.carousel-slides { position: absolute; inset: 0; z-index: 0; }
+.carousel-slide {
+  position: absolute; inset: 0;
+  background-size: cover; background-position: center;
+  opacity: 0; transition: opacity 1.2s ease;
+}
+.carousel-slide.active { opacity: 1; }
+
+/* Caption bar at bottom */
+.carousel-caption {
+  position: absolute; bottom: 0; left: 0; right: 0; z-index: 4;
+  background: linear-gradient(to top, rgba(6,25,34,.85) 0%, transparent 100%);
+  padding: 28px 40px 24px;
+  display: flex; align-items: flex-end; justify-content: space-between; gap: 20px;
+}
+.carousel-obra {
+  display: flex; align-items: center; gap: 14px;
+}
+.carousel-obra-num {
+  font-family: 'Code','Rajdhani',sans-serif;
+  font-size: 2rem; font-weight: 700; color: var(--blue);
+  line-height: 1; min-width: 2.2ch;
+}
+.carousel-obra-info { }
+.carousel-obra-name {
+  font-family: 'Code','Rajdhani',sans-serif;
+  font-size: 1.1rem; font-weight: 700; color: #fff;
+  text-transform: uppercase; letter-spacing: .06em;
+  display: block;
+}
+.carousel-obra-loc {
+  font-size: 12px; color: rgba(255,255,255,.55);
+  letter-spacing: .04em; margin-top: 2px; display: block;
+}
+
+/* Navigation dots */
+.carousel-dots {
+  display: flex; align-items: center; gap: 8px; flex-shrink: 0;
+}
+.carousel-dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: rgba(255,255,255,.3); border: none; cursor: pointer;
+  transition: all .3s; padding: 0;
+}
+.carousel-dot.active { background: var(--blue); width: 24px; border-radius: 4px; }
+
+/* Arrows */
+.carousel-arrow {
+  position: absolute; top: 50%; transform: translateY(-50%); z-index: 4;
+  width: 44px; height: 44px; border-radius: 50%;
+  background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2);
+  backdrop-filter: blur(8px); cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: all .2s; color: #fff;
+}
+.carousel-arrow:hover { background: var(--blue); border-color: var(--blue); color: #000101; }
+.carousel-arrow svg { width: 18px; height: 18px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+.carousel-arrow-prev { left: 28px; }
+.carousel-arrow-next { right: 28px; }
+
+/* Barra de progresso */
+.carousel-progress {
+  position: absolute; bottom: 0; left: 0; height: 3px; z-index: 5;
+  background: var(--blue); width: 0%;
+  transition: width 0s linear;
+}
+.carousel-progress.running { transition: width 5.5s linear; width: 100%; }
 .scroll-arrow svg { width: 12px; height: 12px; stroke: rgba(255,255,255,.5); fill: none; }
 @keyframes bounce-y { 0%,100%{ transform: translateY(0); } 50%{ transform: translateY(4px); } }
 
@@ -328,6 +410,69 @@ spline-viewer {
 .p-body { padding: 16px 20px 20px; background: #fff; }
 .p-title { font-size: 15px; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
 .p-meta { font-size: 13px; color: var(--gray); }
+
+/* ═══════════════════════════════════════
+   ONDE A BERTI CONSTRÓI — portfolio real
+═══════════════════════════════════════ */
+.berti-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  margin-top: 48px;
+}
+.berti-card {
+  position: relative; border-radius: var(--r-xl);
+  overflow: hidden; cursor: pointer;
+  box-shadow: var(--sh);
+  transition: transform .3s cubic-bezier(.2,.8,.2,1), box-shadow .3s;
+}
+.berti-card:hover { transform: translateY(-8px); box-shadow: var(--sh-lg); }
+
+.berti-img-main,
+.berti-img-hover {
+  width: 100%; aspect-ratio: 4/3;
+  object-fit: cover; display: block;
+  transition: opacity .5s ease;
+}
+.berti-img-hover {
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  opacity: 0;
+}
+.berti-card:hover .berti-img-hover { opacity: 1; }
+.berti-card:hover .berti-img-main  { opacity: 0; }
+
+.berti-card-label {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  padding: 48px 24px 20px;
+  background: linear-gradient(to top, rgba(6,25,34,.92) 0%, transparent 100%);
+  z-index: 2;
+}
+.berti-tipologia {
+  font-family: 'Code','Rajdhani',sans-serif;
+  font-size: 1.15rem; font-weight: 700;
+  color: #fff; text-transform: uppercase; letter-spacing: .08em;
+  display: block;
+}
+.berti-cat-badge {
+  display: inline-block; margin-top: 6px;
+  background: var(--blue); color: var(--black);
+  font-size: 11px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase;
+  padding: 3px 10px; border-radius: 100px;
+}
+.berti-hover-hint {
+  position: absolute; top: 16px; right: 16px; z-index: 2;
+  background: rgba(255,255,255,.12); backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 100px; padding: 5px 12px;
+  font-size: 11px; color: rgba(255,255,255,.7);
+  opacity: 0; transition: opacity .3s;
+}
+.berti-card:hover .berti-hover-hint { opacity: 1; }
+
+@media (max-width: 768px) {
+  .berti-grid { grid-template-columns: 1fr; gap: 16px; }
+}
 
 /* VIDEO MODAL */
 .modal-overlay {
@@ -593,16 +738,34 @@ footer { background: var(--dark); color: rgba(255,255,255,.6); padding: 72px 0 3
   </nav>
 </header>
 
-<!-- ═══ HERO ═══ -->
+<!-- ═══ HERO CARROSSEL ═══ -->
 <section class="hero" id="inicio">
-  <div class="hero-bg" id="hero-bg">
-    <spline-viewer url="https://prod.spline.design/58sJQ0j5tzHdjws6/scene.splinecode" loading="eager"></spline-viewer>
+
+  <!-- Slides de fundo -->
+  <div class="carousel-slides" id="carousel-slides">
+    <div class="carousel-slide active" style="background-image:url('assets/carousel/01.webp')"></div>
+    <div class="carousel-slide"        style="background-image:url('assets/carousel/02.webp')"></div>
+    <div class="carousel-slide"        style="background-image:url('assets/carousel/03.webp')"></div>
+    <div class="carousel-slide"        style="background-image:url('assets/carousel/04.webp')"></div>
+    <div class="carousel-slide"        style="background-image:url('assets/carousel/05.webp')"></div>
   </div>
+
+  <!-- Overlay escuro -->
   <div class="hero-overlay"></div>
+
+  <!-- Setas de navegação -->
+  <button class="carousel-arrow carousel-arrow-prev" onclick="carouselStep(-1)" aria-label="Anterior">
+    <svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg>
+  </button>
+  <button class="carousel-arrow carousel-arrow-next" onclick="carouselStep(1)" aria-label="Próximo">
+    <svg viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+  </button>
+
+  <!-- Conteúdo central -->
   <div class="hero-content">
     <div class="container">
       <div class="hero-grid">
-        <!-- Left -->
+        <!-- Esquerda -->
         <div>
           <div class="hero-eyebrow">
             <span class="hero-pulse"></span>
@@ -618,75 +781,63 @@ footer { background: var(--dark); color: rgba(255,255,255,.6); padding: 72px 0 3
             <a href="#portfolio" class="btn btn-ghost-white">Ver portfólio de obras</a>
           </div>
           <div class="hero-stats-bar">
-            <div class="hero-stat">
-              <div class="hero-stat-num">21<sup>+</sup></div>
-              <div class="hero-stat-lbl">Anos de mercado</div>
-            </div>
-            <div class="hero-stat">
-              <div class="hero-stat-num">900<sup>+</sup></div>
-              <div class="hero-stat-lbl">Obras entregues</div>
-            </div>
-            <div class="hero-stat">
-              <div class="hero-stat-num">95<sup>%</sup></div>
-              <div class="hero-stat-lbl">Sem retrabalho</div>
-            </div>
-            <div class="hero-stat">
-              <div class="hero-stat-num">8</div>
-              <div class="hero-stat-lbl">Estados atendidos</div>
-            </div>
+            <div class="hero-stat"><div class="hero-stat-num">21<sup>+</sup></div><div class="hero-stat-lbl">Anos de mercado</div></div>
+            <div class="hero-stat"><div class="hero-stat-num">900<sup>+</sup></div><div class="hero-stat-lbl">Obras entregues</div></div>
+            <div class="hero-stat"><div class="hero-stat-num">95<sup>%</sup></div><div class="hero-stat-lbl">Sem retrabalho</div></div>
+            <div class="hero-stat"><div class="hero-stat-num">8</div><div class="hero-stat-lbl">Estados atendidos</div></div>
           </div>
         </div>
-        <!-- Right card -->
+        <!-- Direita: card de diferenciais -->
         <div class="hero-card">
           <div class="hero-card-title">Diferenciais técnicos</div>
           <div class="hero-card-item">
-            <div class="hero-card-ico">
-              <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-            </div>
-            <div>
-              <div class="hero-card-label">Projeto BIM 3D</div>
-              <div class="hero-card-sub">Modelagem precisa antes da obra</div>
-            </div>
+            <div class="hero-card-ico"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+            <div><div class="hero-card-label">Projeto BIM 3D</div><div class="hero-card-sub">Modelagem precisa antes da obra</div></div>
             <div class="hero-card-badge">Ativo</div>
           </div>
           <div class="hero-card-item">
-            <div class="hero-card-ico">
-              <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-            </div>
-            <div>
-              <div class="hero-card-label">100% Parafusada</div>
-              <div class="hero-card-sub">Sem solda em campo</div>
-            </div>
+            <div class="hero-card-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+            <div><div class="hero-card-label">100% Parafusada</div><div class="hero-card-sub">Sem solda em campo</div></div>
             <div class="hero-card-badge">Ativo</div>
           </div>
           <div class="hero-card-item">
-            <div class="hero-card-ico">
-              <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <div>
-              <div class="hero-card-label">Entrega no prazo</div>
-              <div class="hero-card-sub">95% das obras no prazo</div>
-            </div>
+            <div class="hero-card-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
+            <div><div class="hero-card-label">Entrega no prazo</div><div class="hero-card-sub">95% das obras no prazo</div></div>
             <div class="hero-card-badge">Ativo</div>
           </div>
           <div class="hero-card-item">
-            <div class="hero-card-ico">
-              <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
-            </div>
-            <div>
-              <div class="hero-card-label">Rastreabilidade total</div>
-              <div class="hero-card-sub">Documentação completa da obra</div>
-            </div>
+            <div class="hero-card-ico"><svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
+            <div><div class="hero-card-label">Rastreabilidade total</div><div class="hero-card-sub">Documentação completa da obra</div></div>
             <div class="hero-card-badge">Ativo</div>
           </div>
         </div>
       </div>
     </div>
   </div>
-  <div class="scroll-hint">
-    <div class="scroll-arrow">
-      <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+
+  <!-- Legenda da obra + dots -->
+  <div class="carousel-caption">
+    <div class="carousel-obra">
+      <div class="carousel-obra-num" id="slide-num">01</div>
+      <div class="carousel-obra-info">
+        <span class="carousel-obra-name" id="slide-name">Sky Mall</span>
+        <span class="carousel-obra-loc"  id="slide-loc">Londrina – PR</span>
+      </div>
     </div>
+    <div class="carousel-dots" id="carousel-dots">
+      <button class="carousel-dot active" onclick="goToSlide(0)" aria-label="Slide 1"></button>
+      <button class="carousel-dot"        onclick="goToSlide(1)" aria-label="Slide 2"></button>
+      <button class="carousel-dot"        onclick="goToSlide(2)" aria-label="Slide 3"></button>
+      <button class="carousel-dot"        onclick="goToSlide(3)" aria-label="Slide 4"></button>
+      <button class="carousel-dot"        onclick="goToSlide(4)" aria-label="Slide 5"></button>
+    </div>
+  </div>
+
+  <!-- Barra de progresso -->
+  <div class="carousel-progress" id="carousel-progress"></div>
+
+  <div class="scroll-hint">
+    <div class="scroll-arrow"><svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg></div>
     Rolar
   </div>
 </section>
@@ -823,26 +974,54 @@ footer { background: var(--dark); color: rgba(255,255,255,.6); padding: 72px 0 3
 </section>
 
 <!-- ═══ PORTFÓLIO ═══ -->
-<section class="section" id="portfolio">
+<section class="section-dark" id="portfolio">
   <div class="container">
-    <div class="portfolio-header fade-up">
-      <div>
-        <span class="tag"><span class="tag-dot"></span>Portfólio de obras</span>
-        <h2 class="h2">Obras que falam por nós</h2>
-        <p style="color:var(--gray);margin-top:8px;max-width:480px;">Mais de 900 obras entregues em todo o Brasil. Clique nas obras para ver o vídeo completo.</p>
+    <div class="fade-up" style="text-align:center;max-width:640px;margin:0 auto 8px;">
+      <span class="tag tag-light"><span class="tag-dot" style="background:#47b6f1;"></span>Onde a Berti Constrói</span>
+      <h2 class="h2" style="color:#fff;">Tipologias que dominamos</h2>
+      <p style="color:rgba(255,255,255,.55);margin-top:12px;line-height:1.7;">Passe o mouse sobre cada tipologia para ver mais detalhes da obra. Mais de 900 projetos entregues em todo o Brasil.</p>
+    </div>
+
+    <div class="berti-grid fade-up">
+
+      <!-- Industrial -->
+      <div class="berti-card">
+        <img class="berti-img-main" src="assets/portfolio/industrial-1.webp" alt="Estrutura Industrial Berti Estrutural" loading="lazy">
+        <img class="berti-img-hover" src="assets/portfolio/industrial-2.webp" alt="Detalhe Industrial" loading="lazy">
+        <div class="berti-card-label">
+          <span class="berti-tipologia">Industrial</span>
+          <span class="berti-cat-badge">Galpões &amp; Fábricas</span>
+        </div>
+        <div class="berti-hover-hint">Ver detalhe →</div>
       </div>
-      <a href="#contato" class="btn btn-outline">Solicitar visita técnica</a>
+
+      <!-- Comercial -->
+      <div class="berti-card">
+        <img class="berti-img-main" src="assets/portfolio/comercial-1.webp" alt="Estrutura Comercial Berti Estrutural" loading="lazy">
+        <img class="berti-img-hover" src="assets/portfolio/comercial-2.webp" alt="Detalhe Comercial" loading="lazy">
+        <div class="berti-card-label">
+          <span class="berti-tipologia">Comercial</span>
+          <span class="berti-cat-badge">Lojas &amp; Centros Comerciais</span>
+        </div>
+        <div class="berti-hover-hint">Ver detalhe →</div>
+      </div>
+
+      <!-- Supermercado -->
+      <div class="berti-card">
+        <img class="berti-img-main" src="assets/portfolio/supermercado-1.webp" alt="Estrutura Supermercado Berti Estrutural" loading="lazy">
+        <img class="berti-img-hover" src="assets/portfolio/supermercado-2.webp" alt="Detalhe Supermercado" loading="lazy">
+        <div class="berti-card-label">
+          <span class="berti-tipologia">Supermercado</span>
+          <span class="berti-cat-badge">Varejo &amp; Atacado</span>
+        </div>
+        <div class="berti-hover-hint">Ver detalhe →</div>
+      </div>
+
     </div>
-    <div class="portfolio-tabs fade-up">
-      <button class="tab-btn active" onclick="filterPortfolio('todos',this)">Todos</button>
-      <button class="tab-btn" onclick="filterPortfolio('industrial',this)">Industrial</button>
-      <button class="tab-btn" onclick="filterPortfolio('logistica',this)">Logística</button>
-      <button class="tab-btn" onclick="filterPortfolio('comercial',this)">Comercial</button>
-      <button class="tab-btn" onclick="filterPortfolio('agroindustrial',this)">Agroindustrial</button>
-    </div>
-    <!-- Cards carregados dinamicamente via JS a partir de content/portfolio.json -->
-    <div class="portfolio-grid" id="portfolio-grid">
-      <div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--gray);">Carregando obras...</div>
+
+    <div class="fade-up" style="text-align:center;margin-top:40px;">
+      <a href="#contato" class="btn btn-primary">Solicitar orçamento</a>
+      <a href="https://www.youtube.com/@Bertiestruturalengenharia" target="_blank" rel="noopener" class="btn btn-ghost-white" style="margin-left:12px;">Ver todas as obras no YouTube</a>
     </div>
   </div>
 </section>
@@ -1123,167 +1302,4 @@ function updateHeader() {
   if (window.scrollY > 60) { hdr.classList.remove('transparent'); hdr.classList.add('solid'); }
   else { hdr.classList.remove('solid'); hdr.classList.add('transparent'); }
 }
-window.addEventListener('scroll', updateHeader, { passive: true });
-updateHeader();
-
-/* ── Hero BG: Spline 3D — sem parallax necessário ── */
-
-/* ── Mobile menu ── */
-const ham = document.getElementById('hamburger');
-const mnav = document.getElementById('mobile-nav');
-ham.addEventListener('click', () => mnav.classList.toggle('open'));
-mnav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => mnav.classList.remove('open')));
-
-/* ── Fade up observer ── */
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); } });
-}, { threshold: 0.10 });
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-/* ── Counter animation ── */
-function animateCounter(el) {
-  const target  = parseInt(el.dataset.target, 10);
-  const suffix  = el.dataset.suffix || '';
-  const duration = 1800;
-  const step = 16;
-  const increments = Math.ceil(duration / step);
-  let current = 0;
-  const inc = target / increments;
-  const timer = setInterval(() => {
-    current = Math.min(current + inc, target);
-    el.textContent = Math.round(current) + suffix;
-    if (current >= target) clearInterval(timer);
-  }, step);
-}
-const counterObserver = new IntersectionObserver((entries) => {
-  entries.forEach(e => {
-    if (e.isIntersecting) {
-      e.target.querySelectorAll('[data-target]').forEach(animateCounter);
-      counterObserver.unobserve(e.target);
-    }
-  });
-}, { threshold: 0.3 });
-const statsBand = document.querySelector('.stats-band');
-if (statsBand) counterObserver.observe(statsBand);
-
-/* ── Portfolio filter ── */
-function filterPortfolio(cat, btn) {
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-  document.querySelectorAll('.portfolio-card').forEach(card => {
-    if (cat === 'todos' || card.dataset.cat === cat) card.classList.remove('hidden');
-    else card.classList.add('hidden');
-  });
-}
-
-/* ── Video modal ── */
-function openVideo(videoId, title) {
-  if (!videoId || videoId.startsWith('SUBSTITUA')) {
-    alert('Vídeo em breve! Substitua "SUBSTITUA_ID_VIDEO_X" pelo ID real do YouTube.');
-    return;
-  }
-  document.getElementById('modal-iframe').src = 'https://www.youtube.com/embed/' + videoId + '?autoplay=1&rel=0';
-  document.getElementById('video-modal').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-function closeVideo() {
-  document.getElementById('video-modal').classList.remove('open');
-  document.getElementById('modal-iframe').src = '';
-  document.body.style.overflow = '';
-}
-function closeIfOutside(e) { if (e.target.id === 'video-modal') closeVideo(); }
-document.addEventListener('keydown', e => { if (e.key === 'Escape') closeVideo(); });
-
-/* ── WhatsApp ── */
-function openWA() {
-  const num = '5541999999999'; // SUBSTITUA pelo número real com DDD
-  const msg = encodeURIComponent('Olá, Berti Estrutural! Gostaria de solicitar um orçamento de estrutura metálica.');
-  window.open('https://wa.me/' + num + '?text=' + msg, '_blank');
-}
-
-/* ══════════════════════════════════════
-   CARREGAMENTO DINÂMICO — PORTFÓLIO
-══════════════════════════════════════ */
-const catLabels = { industrial:'Industrial', logistica:'Logística', comercial:'Comercial', agroindustrial:'Agroindustrial' };
-
-function buildPortfolioCard(item) {
-  const hasVideo = item.youtube_id && item.youtube_id.trim() !== '';
-  const thumb = item.thumbnail || 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&q=80&auto=format&fit=crop';
-  const cat   = catLabels[item.category] || item.category;
-  const meta  = [item.area, item.details].filter(Boolean).join(' · ');
-  const onClick = hasVideo
-    ? `openVideo('${item.youtube_id}','${item.title.replace(/'/g,"\\'")}')`
-    : `openVideo('','${item.title.replace(/'/g,"\\'")}')`;
-  return `
-    <div class="portfolio-card" data-cat="${item.category}" onclick="${onClick}">
-      <div class="p-thumb">
-        <img src="${thumb}" alt="${item.title}" loading="lazy" />
-        <div class="p-overlay"><div class="p-play"><svg viewBox="0 0 24 24"><polygon points="5 3 19 12 5 21 5 3"/></svg></div></div>
-        <div class="p-cat-badge">${cat}</div>
-      </div>
-      <div class="p-body">
-        <div class="p-title">${item.title}</div>
-        ${meta ? `<div class="p-meta">${meta}</div>` : ''}
-      </div>
-    </div>`;
-}
-
-async function loadPortfolio() {
-  const grid = document.getElementById('portfolio-grid');
-  try {
-    const res  = await fetch('content/portfolio.json');
-    const data = await res.json();
-    const items = data.items || [];
-    if (!items.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--gray);">Nenhuma obra cadastrada ainda.</div>'; return; }
-    grid.innerHTML = items.map(buildPortfolioCard).join('');
-    // re-observe new cards
-    grid.querySelectorAll('.portfolio-card').forEach(el => { el.classList.add('fade-up'); observer.observe(el); });
-  } catch(e) {
-    // Fallback em caso de arquivo não encontrado (abertura local sem servidor)
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--gray);font-size:14px;">Para ver as obras, abra o site via servidor. <br>Use <code>npx serve .</code> ou faça o deploy no Netlify.</div>';
-  }
-}
-
-/* ══════════════════════════════════════
-   CARREGAMENTO DINÂMICO — BLOG
-══════════════════════════════════════ */
-function buildBlogCard(item) {
-  const img = item.image || 'https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=80&auto=format&fit=crop';
-  return `
-    <article class="blog-card fade-up">
-      <div class="blog-thumb">
-        <img src="${img}" alt="${item.title}" loading="lazy" />
-        <div class="blog-category">${item.category}</div>
-      </div>
-      <div class="blog-body">
-        <div class="blog-meta">${item.date} &nbsp;·&nbsp; ${item.reading_time}</div>
-        <h3>${item.title}</h3>
-        <p>${item.excerpt}</p>
-        <a href="#" class="blog-link">Ler artigo completo <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg></a>
-      </div>
-    </article>`;
-}
-
-async function loadBlog() {
-  const grid = document.getElementById('blog-grid');
-  try {
-    const res  = await fetch('content/blog.json');
-    const data = await res.json();
-    const items = (data.items || []).filter(p => p.published !== false).slice(0, 3);
-    if (!items.length) { grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--gray);">Nenhum artigo publicado ainda.</div>'; return; }
-    grid.innerHTML = items.map(buildBlogCard).join('');
-    grid.querySelectorAll('.blog-card').forEach(el => observer.observe(el));
-  } catch(e) {
-    grid.innerHTML = '<div style="grid-column:1/-1;text-align:center;padding:24px;color:var(--gray);font-size:14px;">Para ver os artigos, abra o site via servidor.</div>';
-  }
-}
-
-// Inicia carregamento assim que DOM estiver pronto
-document.addEventListener('DOMContentLoaded', () => { loadPortfolio(); loadBlog(); });
-
-/* ── Form submit ── */
-function submitForm() {
-  const nome  = document.getElementById('nome').value.trim();
-  const email = document.getElementById('email').value.trim();
-  const tel   = document.getElementById('tel').value.trim();
-  if (!nome || !email) { alert('Por favor, preencha nome e e-mail para con
+window.addEventListener('scroll', updateHead
