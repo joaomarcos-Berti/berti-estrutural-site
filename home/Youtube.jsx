@@ -10,16 +10,16 @@ const { useState: useStateYT } = React;
 // Vídeo destaque + sugestões do canal.
 // IDs do YouTube — substitua os 3 secundários conforme o canal evolui.
 const VIDEO_DESTAQUE = {
-  id: 'CribQWoMuGE',
-  title: 'Berti Estrutural — institucional',
+  id: 'otXMdsi8LIY',
+  title: 'Carba Mall – Londrina PR | Estrutura Metálica em BIM',
   meta: 'Vídeo destaque do canal',
-  poster: 'assets/photos/equipe-canteiro.jpg',
+  poster: 'assets/photos/aerial.jpg',
 };
 const VIDEOS_SECUNDARIOS = [
-  { id: 'CribQWoMuGE', title: 'Montagem · obra em execução',       meta: 'há 2 semanas', placeholder: true },
-  { id: 'CribQWoMuGE', title: 'BIM na prática · do 3D ao chão',   meta: 'há 1 mês',     placeholder: true },
-  { id: 'CribQWoMuGE', title: 'Drone · obra entregue',             meta: 'há 2 meses',   placeholder: true },
-  { id: 'CribQWoMuGE', title: 'Bastidores · fábrica Berti',        meta: 'há 3 meses',   placeholder: true },
+  { id: 'Pj-tA7g7X1w', title: 'Millenium Open Mall – Londrina | Berti Estrutural',          meta: 'há 13 dias',   placeholder: false },
+  { id: '4qlqqPA_6hs', title: 'Super Muffato – Medianeira PR | Berti Estrutural',            meta: 'há 2 semanas', placeholder: false },
+  { id: 'noonzrTGMuY', title: 'Super Muffato – Francisco Beltrão PR | Berti Estrutural',     meta: 'há 3 semanas', placeholder: false },
+  { id: 'LqoWuLdZlNI', title: 'Supermercado Bavaresco – Paranaguá PR | Berti Estrutural',   meta: 'há 1 mês',     placeholder: false },
 ];
 
 const CHANNEL_URL = 'https://www.youtube.com/@Bertiestruturalengenharia';
