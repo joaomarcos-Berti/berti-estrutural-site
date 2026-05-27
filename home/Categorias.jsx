@@ -50,6 +50,7 @@ function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
       <div style={{
         display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 64,
         alignItems: 'end', marginBottom: 64,
+        maxWidth: 1440, margin: '0 auto 64px',
       }}>
         <div>
           <div style={{
@@ -85,6 +86,7 @@ function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
       {/* Grid de categorias */}
       <div style={{
         display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28,
+        maxWidth: 1440, margin: '0 auto',
       }}>
         {HOME_CATEGORIES.map((cat) => (
           <a key={cat.key} href={`#obras-${cat.key}`} style={{
@@ -184,7 +186,7 @@ function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
       </div>
 
       {/* Link para portfólio completo */}
-      <div style={{ marginTop: 56, textAlign: 'center' }}>
+      <div style={{ marginTop: 56, textAlign: 'center', maxWidth: 1440, margin: '56px auto 0' }}>
         <a href="#portfolio" style={{
           display: 'inline-flex', alignItems: 'center', gap: 12,
           background: 'transparent', color: HOME_BRAND.ink,
