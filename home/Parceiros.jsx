@@ -22,38 +22,26 @@ function HomeParceiros({ speedSec = 38 }) {
   return (
     <section id="parceiros" style={{
       background: '#fff',
-      borderTop: '1px solid rgba(10,10,10,0.06)',
       borderBottom: '1px solid rgba(10,10,10,0.06)',
-      padding: '52px 0 60px',
+      padding: '22px 0 24px',
       fontFamily: '"Open Sans", system-ui, sans-serif',
       overflow: 'hidden',
     }}>
-      {/* Cabeçalho dentro do container estreito */}
+      {/* Cabeçalho compacto */}
       <div style={{ maxWidth: 1160, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 32, padding: '0 32px' }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 10,
-            fontFamily: '"Barlow Condensed", sans-serif',
-            color: HOME_BRAND.blueDark, fontSize: 11.5, fontWeight: 700,
-            letterSpacing: '0.22em', textTransform: 'uppercase',
-            marginBottom: 8,
-          }}>
-            <span style={{ width: 22, height: 1, background: HOME_BRAND.blueDark }} />
-            Obras entregues
-            <span style={{ width: 22, height: 1, background: HOME_BRAND.blueDark }} />
-          </div>
+        <div style={{ textAlign: 'center', marginBottom: 16, padding: '0 32px' }}>
           <h2 style={{
             fontFamily: '"Barlow Condensed", sans-serif',
-            fontWeight: 700, fontSize: 'clamp(17px, 1.5vw, 22px)', lineHeight: 1.15,
-            letterSpacing: '0.04em', textTransform: 'uppercase',
-            margin: 0, color: 'rgba(10,10,10,0.62)',
+            fontWeight: 600, fontSize: 'clamp(11px, 1vw, 13px)', lineHeight: 1.2,
+            letterSpacing: '0.20em', textTransform: 'uppercase',
+            margin: 0, color: 'rgba(10,10,10,0.45)',
           }}>
             Quem já construiu com a Berti
           </h2>
         </div>
       </div>
 
-      {/* Faixa do carrossel — FULL-WIDTH (extende até as laterais) */}
+      {/* Faixa do carrossel — FULL-WIDTH */}
       <div style={{
         position: 'relative',
         width: '100%',
@@ -71,7 +59,7 @@ function HomeParceiros({ speedSec = 38 }) {
           {looped.map((p, i) => (
             <div key={`${p.name}-${i}`} style={{
               flex: '0 0 auto',
-              width: 180, height: 100,
+              width: 180, height: 90,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               padding: '0 20px',
               borderRight: '1px solid rgba(10,10,10,0.06)',
@@ -79,12 +67,12 @@ function HomeParceiros({ speedSec = 38 }) {
               <img src={p.logo} alt={p.name} title={p.name} style={{
                 maxWidth: '100%', maxHeight: '100%',
                 objectFit: 'contain',
-                filter: 'grayscale(1)',
-                opacity: 0.55,
-                transition: 'filter 280ms ease, opacity 280ms ease',
+                filter: 'none',
+                opacity: 0.85,
+                transition: 'opacity 280ms ease',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.filter = 'none'; e.currentTarget.style.opacity = '1'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.filter = 'grayscale(1)'; e.currentTarget.style.opacity = '0.55'; }}
+              onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; }}
+              onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.85'; }}
               />
             </div>
           ))}
