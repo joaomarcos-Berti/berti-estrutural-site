@@ -1,24 +1,24 @@
 /* global React, HOME_BRAND, HOME_PHOTO */
 // ============================================================================
-// HOME Â· HERO
-// VÃ­deo-slideshow ao fundo passando as obras + bloco escuro Ã  direita com
-// tÃ­tulo forte, subtÃ­tulo e dois CTAs (OrÃ§amento / Obras).
+// HOME · HERO
+// Vídeo-slideshow ao fundo passando as obras + bloco escuro à direita com
+// título forte, subtítulo e dois CTAs (Orçamento / Obras).
 // ============================================================================
 const { useState: useStateHero, useEffect: useEffectHero, useRef: useRefHero } = React;
 
-// Fotos que rodam no "vÃ­deo" de fundo
+// Fotos que rodam no "vídeo" de fundo
 const HERO_FRAMES = [
-  { src: HOME_PHOTO.aerial,             label: 'Sky Mall â Londrina PR' },
-  { src: HOME_PHOTO.interiorTruss,      label: 'Nipponflex â MaringÃ¡ PR' },
-  { src: HOME_PHOTO.supermarketCeiling, label: 'Supermercado Camilo â Marialva PR' },
-  { src: HOME_PHOTO.factoryInterior,    label: 'Projeto Comercial â IvaiporÃ£ PR' },
-  { src: HOME_PHOTO.canopy,             label: 'Supermercado Bavaresco â Pontal do ParanÃ¡ PR' },
+  { src: HOME_PHOTO.aerial,             label: 'Sky Mall – Londrina PR' },
+  { src: HOME_PHOTO.interiorTruss,      label: 'Nipponflex – Maringá PR' },
+  { src: HOME_PHOTO.supermarketCeiling, label: 'Supermercado Camilo – Marialva PR' },
+  { src: HOME_PHOTO.factoryInterior,    label: 'Projeto Comercial – Ivaiporã PR' },
+  { src: HOME_PHOTO.canopy,             label: 'Supermercado Bavaresco – Pontal do Paraná PR' },
 ];
 
 function HomeHero({
   align = 'left',        // 'right' | 'left'
-  overlay = 0.62,         // 0..1 â opacidade do vÃ©u escuro
-  cycleMs = 5000,         // duraÃ§Ã£o de cada quadro
+  overlay = 0.62,         // 0..1 — opacidade do véu escuro
+  cycleMs = 5000,         // duração de cada quadro
   accent = HOME_BRAND.blue,
   ctaSecondary = 'outline', // 'outline' | 'whatsapp'
 }) {
@@ -41,7 +41,7 @@ function HomeHero({
       background: '#000', color: '#fff',
       fontFamily: '"Open Sans", system-ui, sans-serif',
     }}>
-      {/* =================== BACKGROUND Â· slideshow Ken Burns =================== */}
+      {/* =================== BACKGROUND · slideshow Ken Burns =================== */}
       <div style={{ position: 'absolute', inset: 0, zIndex: 0 }}>
         {HERO_FRAMES.map((f, i) => (
           <div key={f.src} style={{
@@ -60,21 +60,21 @@ function HomeHero({
         ))}
       </div>
 
-      {/* =================== VÃ©u escuro (overlay) =================== */}
+      {/* =================== Véu escuro (overlay) =================== */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 1,
         background: blockAlignRight
           ? `linear-gradient(90deg, rgba(0,0,0,${overlay * 0.45}) 0%, rgba(0,0,0,${overlay * 0.55}) 40%, rgba(0,0,0,${overlay + 0.18}) 100%)`
           : `linear-gradient(270deg, rgba(0,0,0,${overlay * 0.45}) 0%, rgba(0,0,0,${overlay * 0.55}) 40%, rgba(0,0,0,${overlay + 0.18}) 100%)`,
       }} />
-      {/* Vinheta sutil pra cravar o tÃ­tulo */}
+      {/* Vinheta sutil pra cravar o título */}
       <div style={{
         position: 'absolute', inset: 0, zIndex: 1,
         background: 'radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.45) 100%)',
         pointerEvents: 'none',
       }} />
 
-      {/* =================== ConteÃºdo Â· bloco com folga lateral =================== */}
+      {/* =================== Conteúdo · bloco com folga lateral =================== */}
       <div style={{
         position: 'relative', zIndex: 5,
         height: '100%',
@@ -84,7 +84,7 @@ function HomeHero({
         padding: '120px 0 80px',
         maxWidth: 1440,
         margin: '0 auto',
-        // Folga lateral pra o tÃ­tulo nÃ£o colar na borda â empurra pro miolo da pÃ¡gina
+        // Folga lateral pra o título não colar na borda — empurra pro miolo da página
         paddingLeft:  blockAlignRight ? 64 : 'clamp(80px, 10vw, 180px)',
         paddingRight: blockAlignRight ? 'clamp(80px, 10vw, 180px)' : 64,
       }}>
@@ -101,7 +101,7 @@ function HomeHero({
             marginBottom: 28,
           }}>
             <span style={{ width: 32, height: 1, background: accent, display: 'inline-block' }} />
-            Desde 2009 Â· Londrina Â· PR
+            Desde 2009 · Londrina · PR
           </div>
 
           {/* Headline */}
@@ -118,10 +118,10 @@ function HomeHero({
           }}>
             Engenharia<br/>
             especializada em<br/>
-            <span style={{ color: accent }}>estruturas metÃ¡licas.</span>
+            <span style={{ color: accent }}>estruturas metálicas.</span>
           </h1>
 
-          {/* SubtÃ­tulo */}
+          {/* Subtítulo */}
           <p style={{
             fontSize: 17.5, lineHeight: 1.6,
             color: 'rgba(255,255,255,0.88)',
@@ -129,9 +129,9 @@ function HomeHero({
             maxWidth: 580,
             textShadow: '0 2px 14px rgba(0,0,0,0.5)',
           }}>
-            SoluÃ§Ãµes personalizadas em estruturas metÃ¡licas, unindo seguranÃ§a,
-            certificaÃ§Ã£o e excelente custo-benefÃ­cio. Engenharia de alta performance,
-            do projeto BIM Ã  montagem em obra, com precisÃ£o, tecnologia e
+            Soluções personalizadas em estruturas metálicas, unindo segurança,
+            certificação e excelente custo-benefício. Engenharia de alta performance,
+            do projeto BIM à montagem em obra, com precisão, tecnologia e
             compromisso com cada entrega.
           </p>
 
@@ -147,7 +147,7 @@ function HomeHero({
             onMouseEnter={(e) => { e.currentTarget.style.background = '#fff'; e.currentTarget.style.transform = 'translateY(-2px)'; }}
             onMouseLeave={(e) => { e.currentTarget.style.background = accent; e.currentTarget.style.transform = 'translateY(0)'; }}
             >
-              Solicitar OrÃ§amento <span aria-hidden="true">â</span>
+              Solicitar Orçamento <span aria-hidden="true">→</span>
             </a>
 
             {ctaSecondary === 'whatsapp' ? (
@@ -181,7 +181,7 @@ function HomeHero({
           }}>
             {[
               { v: '17', u: 'anos', l: 'no mercado' },
-              { v: '+30', u: 'mil t', l: 'de aÃ§o entregue' },
+              { v: '+30', u: 'mil t', l: 'de aço entregue' },
               { v: 'BIM', u: '', l: 'projeto digital' },
             ].map((s) => (
               <div key={s.l}>
