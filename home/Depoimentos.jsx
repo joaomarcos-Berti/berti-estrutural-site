@@ -1,32 +1,32 @@
 /* global React, HOME_BRAND */
 // ============================================================================
-// HOME · DEPOIMENTOS · dados reais
+// HOME Â· DEPOIMENTOS Â· dados reais
 // ============================================================================
 
 const DEPOIMENTOS = [
   {
-    quote: 'Sistema prático, funcional, com bom custo-benefício. Gostamos muito do trabalho, tanto do Gustavo quanto do Carlos, pessoas honestas e sérias.',
+    quote: 'Sistema prÃ¡tico, funcional, com bom custo-benefÃ­cio. Gostamos muito do trabalho, tanto do Gustavo quanto do Carlos, pessoas honestas e sÃ©rias.',
     name:  'Valdenir G. de Sales',
-    role:  'Diretor Presidente · Nipponflex',
-    photo: 'assets/depoimentos/1.jpg',
+    role:  'Diretor Presidente Â· Nipponflex',
+    photo: 'assets/depoimentos/1.jpg?v=2',
   },
   {
-    quote: 'Parceria com a Berti garantiu rápida execução com qualidade e retorno financeiro consequentemente melhor.',
-    name:  'Raul Fulgêncio',
-    role:  'Raul Fulgêncio Negócios Imobiliários',
-    photo: 'assets/depoimentos/2.jpg',
+    quote: 'Parceria com a Berti garantiu rÃ¡pida execuÃ§Ã£o com qualidade e retorno financeiro consequentemente melhor.',
+    name:  'Raul FulgÃªncio',
+    role:  'Raul FulgÃªncio NegÃ³cios ImobiliÃ¡rios',
+    photo: 'assets/depoimentos/2.jpg?v=2',
   },
   {
-    quote: 'A obra foi bem econômica e eficiente, o que permitiu economizar e até antecipar a inauguração, o que foi muito importante para nós, e estamos muito satisfeitos com essa parceria.',
+    quote: 'A obra foi bem econÃ´mica e eficiente, o que permitiu economizar e atÃ© antecipar a inauguraÃ§Ã£o, o que foi muito importante para nÃ³s, e estamos muito satisfeitos com essa parceria.',
     name:  'Arlei Luiz Camilo',
-    role:  'Proprietário · GCA Alimentos',
-    photo: 'assets/depoimentos/3.jpg',
+    role:  'ProprietÃ¡rio Â· GCA Alimentos',
+    photo: 'assets/depoimentos/3.jpg?v=2',
   },
   {
-    quote: 'O projeto tinha uma estrutura muito diferenciada, onde só a Berti poderia executar isso para nós.',
+    quote: 'O projeto tinha uma estrutura muito diferenciada, onde sÃ³ a Berti poderia executar isso para nÃ³s.',
     name:  'Claudio Haruo Mukai',
-    role:  'Diretor de Engenharia · SISA Construções',
-    photo: 'assets/depoimentos/4.jpg',
+    role:  'Diretor de Engenharia Â· SISA ConstruÃ§Ãµes',
+    photo: 'assets/depoimentos/4.jpg?v=2',
   },
 ];
 
@@ -40,7 +40,7 @@ function HomeDepoimentos() {
     }}>
       <div style={{ maxWidth: 1440, margin: '0 auto' }}>
 
-        {/* Cabeçalho */}
+        {/* CabeÃ§alho */}
         <div style={{
           display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 64,
           alignItems: 'end', marginBottom: 56,
@@ -70,12 +70,12 @@ function HomeDepoimentos() {
             color: 'rgba(10,10,10,0.65)',
             maxWidth: 540, justifySelf: 'end', margin: 0,
           }}>
-            A confiança dos nossos clientes é a métrica mais importante. Cada projeto
-            entregue é uma parceria que continua — ouça quem já construiu com a Berti.
+            A confianÃ§a dos nossos clientes Ã© a mÃ©trica mais importante. Cada projeto
+            entregue Ã© uma parceria que continua â ouÃ§a quem jÃ¡ construiu com a Berti.
           </p>
         </div>
 
-        {/* Grid 2×2 */}
+        {/* Grid 2Ã2 */}
         <div style={{
           display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 28,
         }}>
