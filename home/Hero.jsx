@@ -8,17 +8,17 @@ const { useState: useStateHero, useEffect: useEffectHero, useRef: useRefHero } =
 
 // Fotos que rodam no "vídeo" de fundo
 const HERO_FRAMES = [
-  { src: HOME_PHOTO.aerial,             label: 'Sky Mall – Londrina PR' },
-  { src: HOME_PHOTO.interiorTruss,      label: 'Nipponflex – Maringá PR' },
-  { src: HOME_PHOTO.supermarketCeiling, label: 'Supermercado Camilo – Marialva PR' },
-  { src: HOME_PHOTO.factoryInterior,    label: 'Projeto Comercial – Ivaiporã PR' },
-  { src: HOME_PHOTO.canopy,             label: 'Supermercado Bavaresco – Pontal do Paraná PR' },
+  { src: HOME_PHOTO.aerial,             label: 'Centro Logístico · Londrina · 4.200 m²' },
+  { src: HOME_PHOTO.interiorTruss,      label: 'Showroom Automotivo · 1.800 m²' },
+  { src: HOME_PHOTO.supermarketCeiling, label: 'Atacarejo · 6.500 m²' },
+  { src: HOME_PHOTO.factoryInterior,    label: 'Indústria · 12.000 m²' },
+  { src: HOME_PHOTO.canopy,             label: 'Cobertura · 900 m²' },
 ];
 
 function HomeHero({
   align = 'left',        // 'right' | 'left'
   overlay = 0.62,         // 0..1 — opacidade do véu escuro
-  cycleMs = 5000,         // duração de cada quadro
+  cycleMs = 6000,         // duração de cada quadro
   accent = HOME_BRAND.blue,
   ctaSecondary = 'outline', // 'outline' | 'whatsapp'
 }) {
@@ -129,10 +129,9 @@ function HomeHero({
             maxWidth: 580,
             textShadow: '0 2px 14px rgba(0,0,0,0.5)',
           }}>
-            Soluções personalizadas em estruturas metálicas, unindo segurança,
-            certificação e excelente custo-benefício. Engenharia de alta performance,
-            do projeto BIM à montagem em obra, com precisão, tecnologia e
-            compromisso com cada entrega.
+            Projetamos, fabricamos e montamos estruturas metálicas para supermercados,
+            indústrias e grandes empreendimentos — do modelo BIM à peça
+            instalada em obra.
           </p>
 
           {/* CTAs */}
