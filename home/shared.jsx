@@ -92,10 +92,9 @@ function HomeNavBar({ overlay = true }) {
       <nav style={{ display: 'flex', gap: 36, fontSize: 12.5, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
         {[
           { label: 'Empresa',  href: 'Empresa.html' },
-          { label: 'Obras',    href: 'Home%20Berti.html#obras' },
-          { label: 'Serviços', href: 'Home%20Berti.html#servicos' },
-          { label: 'Blog',     href: 'Home%20Berti.html#blog' },
-          { label: 'Contato',  href: 'Home%20Berti.html#contato' },
+          { label: 'Obras',    href: 'Obras.html' },
+          { label: 'Blog',     href: 'Blog.html' },
+          { label: 'Contato',  href: 'Contato.html' },
         ].map((x) => (
           <a key={x.label} href={x.href} style={{
             color: 'rgba(255,255,255,0.85)', textDecoration: 'none',
@@ -108,7 +107,7 @@ function HomeNavBar({ overlay = true }) {
         ))}
       </nav>
 
-      <a href="#orcamento" style={{
+      <a href="Contato.html" style={{
         background: HOME_BRAND.blue, color: '#000',
         padding: '11px 20px', fontSize: 12.5, fontWeight: 800,
         textTransform: 'uppercase', letterSpacing: '0.12em',
@@ -136,7 +135,7 @@ function HomeFooter() {
   return (
     <footer style={{
       background: '#050607', color: 'rgba(255,255,255,0.62)',
-      padding: '72px 64px 28px',
+      padding: '72px clamp(64px, 8vw, 140px) 28px',
       borderTop: '1px solid rgba(255,255,255,0.06)',
       fontFamily: '"Open Sans", system-ui, sans-serif',
     }}>
@@ -165,8 +164,8 @@ function HomeFooter() {
             fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase',
             marginBottom: 18, color: HOME_BRAND.blue, fontWeight: 700,
           }}>Navegação</div>
-          {['Empresa', 'Obras', 'Serviços', 'Blog', 'Contato'].map((it) => (
-            <a key={it} href={`#${it.toLowerCase()}`} style={{
+          {['Empresa', 'Obras', 'Blog', 'Contato'].map((it) => (
+            <a key={it} href={it === 'Empresa' ? 'Empresa.html' : it === 'Obras' ? 'Obras.html' : it === 'Blog' ? 'Blog.html' : it === 'Contato' ? 'Contato.html' : `#${it.toLowerCase()}`} style={{
               display: 'block', color: 'rgba(255,255,255,0.7)', textDecoration: 'none',
               fontSize: 13.5, padding: '6px 0',
             }}>{it}</a>
@@ -180,7 +179,7 @@ function HomeFooter() {
             marginBottom: 18, color: HOME_BRAND.blue, fontWeight: 700,
           }}>Segmentos</div>
           {['Supermercados', 'Comercial', 'Industrial', 'Esportivo'].map((it) => (
-            <a key={it} href="#obras" style={{
+            <a key={it} href="Obras.html" style={{
               display: 'block', color: 'rgba(255,255,255,0.7)', textDecoration: 'none',
               fontSize: 13.5, padding: '6px 0',
             }}>{it}</a>
