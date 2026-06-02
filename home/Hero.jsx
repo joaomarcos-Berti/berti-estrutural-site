@@ -136,7 +136,7 @@ function HomeHero({
 
           {/* CTAs */}
           <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-            <a href="#orcamento" style={{
+            <a href="Contato.html" style={{
               background: accent, color: '#000',
               padding: '18px 32px', fontSize: 13.5, fontWeight: 800,
               textTransform: 'uppercase', letterSpacing: '0.14em',
