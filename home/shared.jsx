@@ -19,7 +19,7 @@ const HOME_BRAND = {
 const HOME_PHOTO = {
   aerial:              'assets/photos/aerial.jpg',
   interiorTruss:       'assets/photos/interior-truss.jpg',
-  canopy:              'assets/photos/canopy.jpg',h
+  canopy:              'assets/photos/canopy.jpg',
   supermarketCeiling:  'assets/photos/supermarket-ceiling.jpg',
   supermarketBanners:  'assets/photos/supermarket-banners.jpg',
   sportCanopy:         'assets/photos/sport-canopy.jpg',
