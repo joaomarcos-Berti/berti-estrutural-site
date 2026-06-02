@@ -1,6 +1,6 @@
 /* global React */
 // ============================================================================
-// HOME · TOKENS + CHROME COMPARTILHADO
+// HOME Â· TOKENS + CHROME COMPARTILHADO
 // ============================================================================
 const { useState, useEffect, useRef } = React;
 
@@ -30,7 +30,7 @@ const HOME_LOGO_BE    = 'assets/logo-be-mark.png';
 const HOME_LOGO_BERTI = 'assets/logo-berti.png';
 
 // ============================================================================
-// NAVBAR · transparente sobre o hero, sólida ao rolar
+// NAVBAR Â· transparente sobre o hero, sÃ³lida ao rolar
 // ============================================================================
 function HomeNavBar({ overlay = true }) {
   const [scrolled, setScrolled] = useState(false);
@@ -70,11 +70,11 @@ function HomeNavBar({ overlay = true }) {
           if (txt) { txt.style.width = '0px'; txt.style.opacity = '0'; txt.style.marginLeft = '0px'; }
         }}
       >
-        {/* Quadrado azul "BE" — sempre visível */}
+        {/* Quadrado azul "BE" â sempre visÃ­vel */}
         <img src={HOME_LOGO_BE} alt="Berti Estrutural" style={{
           height: 44, display: 'block', flexShrink: 0,
         }} />
-        {/* Wordmark — aparece no hover */}
+        {/* Wordmark â aparece no hover */}
         <span data-berti-wordmark style={{
           display: 'inline-block',
           width: 0, opacity: 0, marginLeft: 0,
@@ -91,6 +91,7 @@ function HomeNavBar({ overlay = true }) {
 
       <nav style={{ display: 'flex', gap: 36, fontSize: 12.5, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
         {[
+          { label: 'Home', href: 'index.html' },
           { label: 'Empresa',  href: 'Empresa.html' },
           { label: 'Obras',    href: 'Obras.html' },
           { label: 'Blog',     href: 'Blog.html' },
@@ -116,7 +117,7 @@ function HomeNavBar({ overlay = true }) {
       }}
       onMouseEnter={(e) => e.currentTarget.style.background = '#fff'}
       onMouseLeave={(e) => e.currentTarget.style.background = HOME_BRAND.blue}
-      >Solicitar Orçamento</a>
+      >Solicitar OrÃ§amento</a>
     </header>
   );
 }
@@ -140,7 +141,7 @@ function HomeFooter() {
       fontFamily: '"Open Sans", system-ui, sans-serif',
     }}>
       <div style={{ display: 'grid', gridTemplateColumns: '2.2fr 1fr 1fr 1.4fr', gap: 48, marginBottom: 48 }}>
-        {/* Marca + endereço */}
+        {/* Marca + endereÃ§o */}
         <div>
           <img src={HOME_LOGO_BE} alt="Berti Estrutural" style={{
             height: 72, display: 'block',
@@ -149,21 +150,21 @@ function HomeFooter() {
             fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 22,
             color: '#fff', marginTop: 22, lineHeight: 1.2, textTransform: 'uppercase',
             letterSpacing: '0.01em',
-          }}>A estrutura por trás<br/>de grandes obras.</div>
+          }}>A estrutura por trÃ¡s<br/>de grandes obras.</div>
           <div style={{ marginTop: 26, fontSize: 13.5, lineHeight: 1.65 }}>
-            <div style={{ color: HOME_BRAND.blue, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 6 }}>Endereço</div>
-            Condomínio Torre Montello<br/>
-            Av. Ayrton Senna da Silva, 550 — Sala 103<br/>
-            Palhano 1 · Londrina — PR · 86055-630
+            <div style={{ color: HOME_BRAND.blue, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 6 }}>EndereÃ§o</div>
+            CondomÃ­nio Torre Montello<br/>
+            Av. Ayrton Senna da Silva, 550 â Sala 103<br/>
+            Palhano 1 Â· Londrina â PR Â· 86055-630
           </div>
         </div>
 
-        {/* Navegação */}
+        {/* NavegaÃ§Ã£o */}
         <div>
           <div style={{
             fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase',
             marginBottom: 18, color: HOME_BRAND.blue, fontWeight: 700,
-          }}>Navegação</div>
+          }}>NavegaÃ§Ã£o</div>
           {['Home', 'Empresa', 'Obras', 'Blog', 'Contato'].map((it) => (
             <a key={it} href={it === 'Home' ? 'index.html' : it === 'Empresa' ? 'Empresa.html' : it === 'Obras' ? 'Obras.html' : it === 'Blog' ? 'Blog.html' : it === 'Contato' ? 'Contato.html' : `#${it.toLowerCase()}`} style={{
               display: 'block', color: 'rgba(255,255,255,0.7)', textDecoration: 'none',
@@ -233,14 +234,14 @@ function HomeFooter() {
         fontSize: 11.5, opacity: 0.6,
         borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24, letterSpacing: '0.04em',
       }}>
-        <span>© 2026 Berti Estrutural Engenharia Ltda · CNPJ 10.835.867/0001-10</span>
-        <span>Londrina · PR · Brasil</span>
+        <span>Â© 2026 Berti Estrutural Engenharia Ltda Â· CNPJ 10.835.867/0001-10</span>
+        <span>Londrina Â· PR Â· Brasil</span>
       </div>
     </footer>
   );
 }
 
-// ── Ícones SVG inline para redes sociais ─────────────────────────────────
+// ââ Ãcones SVG inline para redes sociais âââââââââââââââââââââââââââââââââ
 function SocialIcon({ kind }) {
   const s = { width: 18, height: 18, fill: 'currentColor' };
   if (kind === 'instagram') return (
@@ -258,7 +259,7 @@ function SocialIcon({ kind }) {
   return null;
 }
 
-// Tornar acessível aos outros scripts babel
+// Tornar acessÃ­vel aos outros scripts babel
 Object.assign(window, {
   HOME_BRAND, HOME_PHOTO, HOME_LOGO_BE, HOME_LOGO_BERTI,
   HomeNavBar, HomeFooter,
