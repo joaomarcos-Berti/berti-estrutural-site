@@ -8,11 +8,11 @@ const { useState: useStateHero, useEffect: useEffectHero, useRef: useRefHero } =
 
 // Fotos que rodam no "vídeo" de fundo
 const HERO_FRAMES = [
-  { src: HOME_PHOTO.aerial,             label: 'Centro Logístico · Londrina · 4.200 m²' },
-  { src: HOME_PHOTO.interiorTruss,      label: 'Showroom Automotivo · 1.800 m²' },
-  { src: HOME_PHOTO.supermarketCeiling, label: 'Atacarejo · 6.500 m²' },
-  { src: HOME_PHOTO.factoryInterior,    label: 'Indústria · 12.000 m²' },
-  { src: HOME_PHOTO.canopy,             label: 'Cobertura · 900 m²' },
+{ src: 'assets/photos/hero-01.jpg', label: 'Sky Mall · Londrina · PR' },
+{ src: 'assets/photos/hero-02.jpg', label: 'Nipponflex · Maringá · PR' },
+{ src: 'assets/photos/hero-03.jpg', label: 'Supermercado Camilo · Marialva · PR' },
+{ src: 'assets/photos/hero-04.jpg', label: 'Projeto Comercial · Ivaiporã · PR' },
+{ src: 'assets/photos/hero-05.jpg', label: 'Supermercado Bavaresco · Pontal do Paraná · PR' },
 ];
 
 function HomeHero({
