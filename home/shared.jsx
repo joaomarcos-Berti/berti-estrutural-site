@@ -117,7 +117,7 @@ function HomeNavBar({ overlay = true }) {
       }}
       onMouseEnter={(e) => e.currentTarget.style.background = '#fff'}
       onMouseLeave={(e) => e.currentTarget.style.background = HOME_BRAND.blue}
-      >Solicitar OrÃ§amento</a>
+      >Solicitar Orçamento</a>
     </header>
   );
 }
