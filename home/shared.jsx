@@ -112,7 +112,7 @@ function HomeNavBar({ overlay = true }) {
         background: HOME_BRAND.blue, color: '#000',
         padding: '11px 20px', fontSize: 12.5, fontWeight: 800,
         textTransform: 'uppercase', letterSpacing: '0.12em',
-        textDecoration: 'none', display: 'inline-block',
+        textDecoration: 'none', display: solid ? 'inline-block' : 'none',
         transition: 'background 180ms ease',
       }}
       onMouseEnter={(e) => e.currentTarget.style.background = '#fff'}
