@@ -187,7 +187,7 @@ function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
 
       {/* Link para portfólio completo */}
       <div style={{ marginTop: 56, textAlign: 'center', maxWidth: 1440, margin: '56px auto 0' }}>
-        <a href="#portfolio" style={{
+        <a href="Obras.html" style={{
           display: 'inline-flex', alignItems: 'center', gap: 12,
           background: 'transparent', color: HOME_BRAND.ink,
           padding: '16px 32px',
