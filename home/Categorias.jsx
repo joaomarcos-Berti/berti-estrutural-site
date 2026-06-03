@@ -88,7 +88,7 @@ function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
         maxWidth: 1440, margin: '0 auto',
       }}>
         {HOME_CATEGORIES.map((cat) => (
-          <a key={cat.key} href={`#obras-${cat.key}`} style={{
+          <a key={cat.key} href={`Obras.html#${cat.key}`} style={{
             position: 'relative', display: 'block',
             textDecoration: 'none', color: 'inherit',
             background: '#fff',
