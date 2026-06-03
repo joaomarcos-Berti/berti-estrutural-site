@@ -110,15 +110,6 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
         </div>
 
         {/* Lado ficha */}
-        {obra.youtube && (
-          <div style={{ marginTop: 16, marginBottom: 8 }}>
-            <iframe
-              width="100%" height="200"
-              src={`https://www.youtube.com/embed/${(obra.youtube.match(/(?:youtu\.be\/|v=)([^&?#]+)/)||[])[1]||''}`}
-              title="Vídeo da obra" frameBorder="0" allowFullScreen
-              style={{ borderRadius: 4, display: 'block' }} />
-          </div>
-        )}
 
         <div style={{ padding: 'clamp(28px, 3vw, 44px)', color: '#fff', overflowY: 'auto' }}>
           <div style={{
@@ -161,6 +152,15 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
             ))}
           </div>
 
+          {obra.youtube && (
+            <div style={{ marginTop: 16, marginBottom: 12 }}>
+              <iframe
+                width="100%" height="200"
+                src={`https://www.youtube.com/embed/${(obra.youtube.match(/(?:youtu\.be\/|v=)([^&?#]+)/)||[])[1]||''}`}
+                title="Vídeo da obra" frameBorder="0" allowFullScreen
+                style={{ borderRadius: 4, display: 'block' }} />
+            </div>
+          )}
           <a href="Home%20Berti.html#orcamento" style={{
             display: 'inline-flex', alignItems: 'center', gap: 10, marginTop: 28,
             background: accent, color: '#000', padding: '14px 26px',
