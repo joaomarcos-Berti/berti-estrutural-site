@@ -110,6 +110,16 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
         </div>
 
         {/* Lado ficha */}
+        {obra.youtube && (
+          <div style={{ marginTop: 16, marginBottom: 8 }}>
+            <iframe
+              width="100%" height="200"
+              src={`https://www.youtube.com/embed/${(obra.youtube.match(/(?:youtu\.be\/|v=)([^&?#]+)/)||[])[1]||''}`}
+              title="Vídeo da obra" frameBorder="0" allowFullScreen
+              style={{ borderRadius: 4, display: 'block' }} />
+          </div>
+        )}
+
         <div style={{ padding: 'clamp(28px, 3vw, 44px)', color: '#fff', overflowY: 'auto' }}>
           <div style={{
             fontFamily: '"Barlow Condensed", sans-serif', color: accent,
@@ -156,16 +166,7 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
             background: accent, color: '#000', padding: '14px 26px',
             fontSize: 12.5, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase',
             textDecoration: 'none',
-          {obra.youtube && (
-            <div style={{ marginTop: 14, marginBottom: 6 }}>
-              <iframe width="100%" height="210"
-                src={`https://www.youtube.com/embed/${(obra.youtube.match(/(?:youtu\.be\/|v=)([^&?#]+)/)||[])[1]||''}`}
-                title="Vídeo da obra" frameBorder="0" allowFullScreen
-                style={{ borderRadius: 4, display: 'block' }} />
-            </div>
-          )}
-
-          }}>Quero uma obra assim <span>→</span></a>
+}}>Quero uma obra assim <span>→</span></a>
         </div>
       </div>
 
