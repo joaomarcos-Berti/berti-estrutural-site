@@ -79,7 +79,7 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
         {/* Lado imagem */}
         <div style={{ position: 'relative', background: '#05080c', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
           <div style={{ position: 'relative', flex: 1, minHeight: 0 }}>
-            <img key={obra.gallery[active]} src={obra.gallery[active]} alt={obra.title} style={{
+            <img key={(obra.gallery || [obra.cover])[active]} src={(obra.gallery || [obra.cover])[active]} alt={obra.title} style={{
               position: 'absolute', inset: 0, width: '100%', height: '100%',
               objectFit: 'contain', background: '#0a0a0a', display: 'block', animation: 'obraFade 280ms ease',
             }} />
@@ -93,9 +93,9 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
             }}>{obra.catLabel}</div>
           </div>
           {/* Miniaturas */}
-          {obra.gallery.length > 1 && (
+          {(obra.gallery || [obra.cover]).length > 1 && (
             <div style={{ display: 'flex', gap: 8, padding: 12, background: '#05080c' }}>
-              {obra.gallery.map((g, i) => (
+              {(obra.gallery || [obra.cover]).map((g, i) => (
                 <button key={g} onClick={() => setActive(i)} style={{
                   width: 84, height: 58, padding: 0, border: 'none', cursor: 'pointer',
                   outline: i === active ? `2px solid ${accent}` : '2px solid transparent',
