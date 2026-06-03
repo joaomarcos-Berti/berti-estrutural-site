@@ -159,12 +159,12 @@ function HomeFooter() {
           </div>
         </div>
 
-        {/* NavegaÃ§Ã£o */}
+        {/* Navegação */}
         <div>
           <div style={{
             fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase',
             marginBottom: 18, color: HOME_BRAND.blue, fontWeight: 700,
-          }}>NavegaÃ§Ã£o</div>
+          }}>Navegação</div>
           {['Home', 'Empresa', 'Obras', 'Blog', 'Contato'].map((it) => (
             <a key={it} href={it === 'Home' ? 'index.html' : it === 'Empresa' ? 'Empresa.html' : it === 'Obras' ? 'Obras.html' : it === 'Blog' ? 'Blog.html' : it === 'Contato' ? 'Contato.html' : `#${it.toLowerCase()}`} style={{
               display: 'block', color: 'rgba(255,255,255,0.7)', textDecoration: 'none',
