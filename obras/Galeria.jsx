@@ -166,7 +166,7 @@ function ObrasGaleria() {
           grid-template-columns: repeat(3, 1fr);
           gap: 16px;
         }
-        .obra-cell { min-height: 220px; }
+        .obra-cell { aspect-ratio: 4 / 3; }
         @media (max-width: 1000px) {
           .obra-grid { grid-template-columns: repeat(2, 1fr); }
         }
@@ -212,8 +212,7 @@ function ObraCard({ obra, accent, onClick }) {
     >
       <img src={obra.cover} alt={obra.title} loading="lazy" style={{
         position: 'absolute', inset: 0, width: '100%', height: '100%',
-        objectFit: 'contain', display: 'block',
-        background: '#05080c',
+        objectFit: 'cover', display: 'block',
         transition: 'transform 760ms cubic-bezier(.2,.8,.2,1)',
       }} />
       {/* Gradiente base */}
