@@ -157,7 +157,7 @@ function HomeHero({
                 textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 10,
               }}>WhatsApp Direto</a>
             ) : (
-              <a href="#obras" style={{
+              <a href="Obras.html" style={{
                 background: 'transparent', color: '#fff',
                 padding: '17px 32px',
                 border: '1.5px solid rgba(255,255,255,0.55)',
