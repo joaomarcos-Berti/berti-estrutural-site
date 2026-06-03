@@ -1,159 +1,34 @@
-/* global window */
+/* global React */
 // ============================================================================
-// OBRAS · BASE DE DADOS
-// 12 obras divididas em 3 segmentos: comerciais · mercados · industriais.
-// Dados fictícios realistas — revisar/substituir pelos projetos reais.
-// O campo `size` controla o ritmo do mosaico (std / wide / tall).
+// OBRAS · DATA — 21 obras extraídas do WordPress bertiestrutural.com.br
 // ============================================================================
 
-const P = 'assets/photos/';
+const WP = 'https://www.bertiestrutural.com.br/wp-content/uploads';
 
-const OBRAS_CATS = [
-  { key: 'todas',       label: 'Todas as obras' },
-  { key: 'comerciais',  label: 'Comerciais' },
-  { key: 'mercados',    label: 'Mercados' },
-  { key: 'industriais', label: 'Industriais' },
+const OBRAS = [
+  { id: 1,  titulo: 'Supermercado Hmais',      segmento: 'Supermercado', local: 'Palmeira – PR',           metragem: '3.105 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2026/05/dji_fly_20250703_075132_457_1751540523450_photo-1024x683.jpg` },
+  { id: 2,  titulo: 'Supermercado Camilo',     segmento: 'Supermercado', local: 'Marialva – PR',            metragem: '9.000 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2026/05/DJI_20250814105447_0007_D-1024x767.png` },
+  { id: 3,  titulo: 'Transportadora Falcão',   segmento: 'Industrial',   local: 'Uruguaiana – RS',          metragem: '6.100 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/Capa-min-1024x576.jpeg` },
+  { id: 4,  titulo: 'Comercial Ivaiporã',      segmento: 'Comercial',    local: 'Ivaiporã – PR',            metragem: '17.000 m²', tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/CAPA-min-1-scaled-e1713901384669-1024x546.jpg` },
+  { id: 5,  titulo: 'Viação Garcia',           segmento: 'Industrial',   local: 'Londrina – PR',            metragem: '18.000 m²', tipo: 'Mista',              capa: `${WP}/2024/04/DJI_0879-1-1024x683.jpg` },
+  { id: 6,  titulo: 'Muffato Apucarana',       segmento: 'Supermercado', local: 'Apucarana – PR',           metragem: '7.300 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/FIMI0231-1-1024x576.jpg` },
+  { id: 7,  titulo: 'Fast Gôndolas',           segmento: 'Comercial',    local: 'Londrina – PR',            metragem: '13.000 m²', tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/Photo_6553877_DJI_277_jpg_5300022_0_202262884410_photo_original.jpg-min-1024x576.jpg` },
+  { id: 8,  titulo: 'Balaroti',                segmento: 'Comercial',    local: 'Londrina – PR',            metragem: '2.000 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/capa-1024x684.jpg` },
+  { id: 9,  titulo: 'Carbamall',               segmento: 'Comercial',    local: 'Londrina – PR',            metragem: '2.700 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/PHOTO-2020-01-22-07-56-51-min-1024x574.jpg` },
+  { id: 10, titulo: 'Muffato Beltrão',         segmento: 'Supermercado', local: 'Francisco Beltrão – PR',   metragem: '8.600 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/DJI_0601-1024x576.jpg` },
+  { id: 11, titulo: 'Bavaresco',               segmento: 'Supermercado', local: 'Pontal do Paraná – PR',    metragem: '9.000 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/dji_fly_20250611_073810_245_1749639001524_photo-1024x683.jpg` },
+  { id: 12, titulo: 'Super 88',                segmento: 'Supermercado', local: 'Londrina – PR',            metragem: '6.500 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/DJI_0895-1024x683.jpg` },
+  { id: 13, titulo: 'TIC Curitiba',            segmento: 'Industrial',   local: 'Curitiba – PR',            metragem: '6.780 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/DJI_0517-1024x683.jpg` },
+  { id: 14, titulo: 'Super Golff',             segmento: 'Supermercado', local: 'Cambé – PR',               metragem: '4.600 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/DJI_0488-1024x576.jpg` },
+  { id: 15, titulo: 'Muffato Medianeira',      segmento: 'Supermercado', local: 'Medianeira – PR',          metragem: '11.100 m²', tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/DJI_0601-1024x576.jpg` },
+  { id: 16, titulo: 'Chácara Graciosa',        segmento: 'Comercial',    local: 'Londrina – PR',            metragem: '1.000 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/capa-min-768x512.jpg` },
+  { id: 17, titulo: 'Jeep Maringá',            segmento: 'Comercial',    local: 'Maringá – PR',             metragem: '1.800 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/1-1-1024x576.jpg` },
+  { id: 18, titulo: 'Millenium Mall',          segmento: 'Comercial',    local: 'Londrina – PR',            metragem: '1.750 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/DJI_0393-1024x683.jpg` },
+  { id: 19, titulo: 'Inga Mall',               segmento: 'Comercial',    local: 'Londrina – PR',            metragem: '3.095 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/dji_fly_20250702_075538_421_1751454386144_photo-1024x683.jpg` },
+  { id: 20, titulo: 'Tropical Mall',           segmento: 'Comercial',    local: 'Cambé – PR',               metragem: '2.700 m²',  tipo: 'Estrutura Metálica', capa: `${WP}/2024/04/dji_fly_20250417_103434_190_1744897707068_photo-1024x683.jpg` },
+  { id: 21, titulo: 'Nipponflex Espumação',    segmento: 'Industrial',   local: 'Maringá – PR',             metragem: '15.000 m²', tipo: 'Estrutura Metálica', capa: `${WP}/2021/07/maxresdefault-1024x576.jpg` },
 ];
 
-const OBRAS_LIST = [
-  // ── MERCADOS ──────────────────────────────────────────────────────────
-  {
-    id: 'atacarejo-cascavel',
-    cat: 'mercados', catLabel: 'Mercados',
-    title: 'Atacarejo Cascavel',
-    city: 'Cascavel · PR', year: '2024', status: 'Entregue',
-    area: '6.500 m²', tons: '520 t', vao: '32 m',
-    cover: P + 'supermarket-ceiling.jpg',
-    gallery: [P + 'supermarket-ceiling.jpg', P + 'supermarket-banners.jpg', P + 'bim-detalhe-3.jpg'],
-    desc: 'Cobertura de grande vão livre para piso de vendas sem pilares intermediários, mezanino técnico e estrutura para câmaras frias. Montagem 100% parafusada com a loja entregue no prazo da inauguração.',
-    size: 'wide',
-  },
-  {
-    id: 'supermercado-norte',
-    cat: 'mercados', catLabel: 'Mercados',
-    title: 'Supermercado Norte',
-    city: 'Maringá · PR', year: '2025', status: 'Entregue',
-    area: '4.200 m²', tons: '340 t', vao: '28 m',
-    cover: P + 'supermarket-banners.jpg',
-    gallery: [P + 'supermarket-banners.jpg', P + 'supermercado-interior.jpg'],
-    desc: 'Estrutura para varejo de alto fluxo com pé-direito generoso e iluminação zenital. Gôndolas e racks de estoque integrados ao projeto estrutural desde a fase BIM.',
-    size: 'std',
-  },
-  {
-    id: 'rede-hortifruti',
-    cat: 'mercados', catLabel: 'Mercados',
-    title: 'Rede Hortifruti',
-    city: 'Londrina · PR', year: '2024', status: 'Entregue',
-    area: '3.100 m²', tons: '245 t', vao: '24 m',
-    cover: P + 'supermercado-interior.jpg',
-    gallery: [P + 'supermercado-interior.jpg', P + 'supermarket-ceiling.jpg'],
-    desc: 'Loja de bairro com cobertura metálica leve e área de hortifrúti climatizada. Galvanização de alta resistência dispensa manutenção de pintura.',
-    size: 'std',
-  },
-  {
-    id: 'atacarejo-londrina',
-    cat: 'mercados', catLabel: 'Mercados',
-    title: 'Atacarejo Vila Nova',
-    city: 'Londrina · PR', year: '2025', status: 'Em obra',
-    area: '7.800 m²', tons: '610 t', vao: '36 m',
-    cover: P + 'aerial.jpg',
-    gallery: [P + 'aerial.jpg', P + 'obra-londrina-aerea.jpg', P + 'bim-detalhe-1.jpg'],
-    desc: 'Complexo de atacarejo com estacionamento coberto e doca de descarga. Engenharia para grandes vãos e fluxo intenso de cargas, executada em centro urbano consolidado.',
-    size: 'tall',
-  },
+const SEGMENTOS = ['Todos', 'Supermercado', 'Industrial', 'Comercial'];
 
-  // ── COMERCIAIS ────────────────────────────────────────────────────────
-  {
-    id: 'showroom-automotivo',
-    cat: 'comerciais', catLabel: 'Comercial',
-    title: 'Showroom Automotivo',
-    city: 'Londrina · PR', year: '2025', status: 'Entregue',
-    area: '1.800 m²', tons: '145 t', vao: '22 m',
-    cover: P + 'interior-truss.jpg',
-    gallery: [P + 'interior-truss.jpg', P + 'canopy.jpg', P + 'bim-detalhe-2.jpg'],
-    desc: 'Marquise de aço aparente e fachada de vidro com mínimo de pilares, valorizando a exposição dos veículos. Estrutura pensada para virar assinatura visual da concessionária.',
-    size: 'wide',
-  },
-  {
-    id: 'loja-materiais',
-    cat: 'comerciais', catLabel: 'Comercial',
-    title: 'Loja de Materiais',
-    city: 'Apucarana · PR', year: '2024', status: 'Entregue',
-    area: '2.400 m²', tons: '190 t', vao: '26 m',
-    cover: P + 'canopy.jpg',
-    gallery: [P + 'canopy.jpg', P + 'interior-truss.jpg'],
-    desc: 'Showroom amplo com pé-direito alto e área de retirada coberta. Aço aparente pintado integra estética industrial à experiência de compra.',
-    size: 'std',
-  },
-  {
-    id: 'arena-beach',
-    cat: 'comerciais', catLabel: 'Comercial · Lazer',
-    title: 'Arena Beach Tennis',
-    city: 'Londrina · PR', year: '2024', status: 'Entregue',
-    area: '1.200 m²', tons: '95 t', vao: '30 m',
-    cover: P + 'factory-interior.jpg',
-    gallery: [P + 'factory-interior.jpg', P + 'sport-canopy.jpg'],
-    desc: 'Cobertura esportiva de grande vão sem pilares na área de jogo, com pilares inclinados que viram identidade arquitetônica. Estrutura leve e resistente a cargas de vento.',
-    size: 'std',
-  },
-  {
-    id: 'centro-comercial-bim',
-    cat: 'comerciais', catLabel: 'Comercial',
-    title: 'Centro Comercial',
-    city: 'Maringá · PR', year: '2026', status: 'Em projeto',
-    area: '5.400 m²', tons: '430 t', vao: '34 m',
-    cover: P + 'bim-detalhe-2.jpg',
-    gallery: [P + 'bim-detalhe-2.jpg', P + 'bim-detalhe-1.jpg', P + 'bim-detalhe-3.jpg'],
-    desc: 'Galeria comercial multiuso em fase de modelagem BIM. Cada ligação é detalhada e validada em 3D antes da fabricação, garantindo encaixe milimétrico na montagem.',
-    size: 'std',
-  },
-
-  // ── INDUSTRIAIS ───────────────────────────────────────────────────────
-  {
-    id: 'galpao-logistico',
-    cat: 'industriais', catLabel: 'Industrial',
-    title: 'Galpão Logístico',
-    city: 'Arapongas · PR', year: '2024', status: 'Entregue',
-    area: '12.000 m²', tons: '1.200 t', vao: '40 m',
-    cover: P + 'galpao-industrial-aereo.jpg',
-    gallery: [P + 'galpao-industrial-aereo.jpg', P + 'estrutura-galpao.jpg', P + 'bim-detalhe-1.jpg'],
-    desc: 'Pavilhão logístico de grande porte com vãos de 40 m e marquise de docas. Dimensionado para operação 24/7 e tráfego pesado de empilhadeiras e caminhões.',
-    size: 'wide',
-  },
-  {
-    id: 'industria-colchoes',
-    cat: 'industriais', catLabel: 'Industrial',
-    title: 'Indústria de Colchões',
-    city: 'Rolândia · PR', year: '2023', status: 'Entregue',
-    area: '9.300 m²', tons: '880 t', vao: '38 m',
-    cover: P + 'sport-canopy.jpg',
-    gallery: [P + 'sport-canopy.jpg', P + 'factory-interior.jpg'],
-    desc: 'Planta fabril com mezanino de produção e ponte rolante. Estrutura preparada para cargas suspensas e linhas de produção contínuas.',
-    size: 'std',
-  },
-  {
-    id: 'pavilhao-industrial',
-    cat: 'industriais', catLabel: 'Industrial',
-    title: 'Pavilhão Industrial',
-    city: 'Cambé · PR', year: '2025', status: 'Em obra',
-    area: '8.600 m²', tons: '720 t', vao: '36 m',
-    cover: P + 'estrutura-galpao.jpg',
-    gallery: [P + 'estrutura-galpao.jpg', P + 'galpao-industrial-aereo.jpg'],
-    desc: 'Montagem em andamento de pavilhão fabril com treliças de grande altura. Peças içadas e parafusadas em obra, sem solda no canteiro.',
-    size: 'tall',
-  },
-  {
-    id: 'planta-industrial-bim',
-    cat: 'industriais', catLabel: 'Industrial',
-    title: 'Planta Industrial',
-    city: 'Ibiporã · PR', year: '2026', status: 'Em projeto',
-    area: '15.000 m²', tons: '1.450 t', vao: '42 m',
-    cover: P + 'bim-detalhe-1.jpg',
-    gallery: [P + 'bim-detalhe-1.jpg', P + 'bim-detalhe-3.jpg', P + 'bim-detalhe-2.jpg'],
-    desc: 'Indústria pesada modelada integralmente em BIM. Mais de 1.400 toneladas de aço detalhadas peça a peça, com listas de fabricação CNC e rastreabilidade total.',
-    size: 'std',
-  },
-];
-
-window.OBRAS_CATS = OBRAS_CATS;
-window.OBRAS_LIST = OBRAS_LIST;
+Object.assign(window, { OBRAS, SEGMENTOS });
