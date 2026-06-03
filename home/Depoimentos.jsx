@@ -62,7 +62,7 @@ function HomeDepoimentos() {
               letterSpacing: '-0.02em', textTransform: 'uppercase',
               margin: 0, color: HOME_BRAND.ink,
             }}>
-              Depoimentos<br/>de quem construiu.
+              Depoimentos<br/>
             </h2>
           </div>
           <p style={{
