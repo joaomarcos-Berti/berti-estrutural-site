@@ -1,6 +1,7 @@
 /* global React */
 // ============================================================================
 // OBRAS · DATA — 21 obras reais (WordPress bertiestrutural.com.br)
+// Nipponflex: imagens e dados reais — Jun 2026
 // ============================================================================
 
 const WP = 'https://www.bertiestrutural.com.br/wp-content/uploads';
@@ -13,6 +14,26 @@ const OBRAS_CATS = [
 ];
 
 const OBRAS_LIST = [
+  {
+    id: 21,
+    titulo: 'Nipponflex Espumação',
+    cat: 'industrial',
+    local: 'Maringá – PR',
+    metragem: '15.000 m²',
+    tipo: '100% Metálico',
+    detalhes: 'Cobertura e pilares para fechamento executados em estrutura metálica, em aço galvanizado, com ligações parafusadas, telhas termo-acústicas e ventiladores naturais.',
+    youtube: 'https://youtu.be/02_BGZIFano',
+    capa: 'assets/photos/nippon-capa.jpg',
+    fotos: [
+      'assets/photos/nippon-capa.jpg',
+      'assets/photos/nippon-01.jpg',
+      'assets/photos/nippon-02.jpg',
+      'assets/photos/nippon-03.jpg',
+      'assets/photos/nippon-04.jpg',
+      'assets/photos/nippon-05.jpg',
+      'assets/photos/nippon-06.jpg',
+    ],
+  },
   { id: 1,  titulo: 'Supermercado Hmais',    cat: 'supermercado', local: 'Palmeira – PR',           metragem: '3.105 m²',  capa: `${WP}/2026/05/dji_fly_20250703_075132_457_1751540523450_photo-1024x683.jpg` },
   { id: 2,  titulo: 'Supermercado Camilo',   cat: 'supermercado', local: 'Marialva – PR',            metragem: '9.000 m²',  capa: `${WP}/2026/05/DJI_20250814105447_0007_D-1024x767.png` },
   { id: 3,  titulo: 'Transportadora Falcão', cat: 'industrial',   local: 'Uruguaiana – RS',          metragem: '6.100 m²',  capa: `${WP}/2024/04/Capa-min-1024x576.jpeg` },
@@ -33,7 +54,6 @@ const OBRAS_LIST = [
   { id: 18, titulo: 'Millenium Mall',        cat: 'comercial',    local: 'Londrina – PR',            metragem: '1.750 m²',  capa: `${WP}/2024/04/DJI_0393-1024x683.jpg` },
   { id: 19, titulo: 'Inga Mall',             cat: 'comercial',    local: 'Londrina – PR',            metragem: '3.095 m²',  capa: `${WP}/2024/04/dji_fly_20250702_075538_421_1751454386144_photo-1024x683.jpg` },
   { id: 20, titulo: 'Tropical Mall',         cat: 'comercial',    local: 'Cambé – PR',               metragem: '2.700 m²',  capa: `${WP}/2024/04/dji_fly_20250417_103434_190_1744897707068_photo-1024x683.jpg` },
-  { id: 21, titulo: 'Nipponflex Espumação',  cat: 'industrial',   local: 'Maringá – PR',             metragem: '15.000 m²', capa: `${WP}/2021/07/maxresdefault-1024x576.jpg` },
 ];
 
 Object.assign(window, { OBRAS_CATS, OBRAS_LIST });
