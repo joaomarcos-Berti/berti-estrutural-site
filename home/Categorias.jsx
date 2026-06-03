@@ -6,7 +6,7 @@
 
 const HOME_CATEGORIES = [
   {
-    key: 'supermercados',
+    key: 'supermercado',
     num: '01',
     title: 'Supermercados',
     body: 'Coberturas de grande vão livre, mezaninos e estruturas para varejo de alto fluxo. Obra rápida, com a loja já operando.',
