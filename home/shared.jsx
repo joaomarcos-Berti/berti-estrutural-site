@@ -152,8 +152,8 @@ function HomeFooter() {
             letterSpacing: '0.01em',
           }}>A estrutura por trÃ¡s<br/>de grandes obras.</div>
           <div style={{ marginTop: 26, fontSize: 13.5, lineHeight: 1.65 }}>
-            <div style={{ color: HOME_BRAND.blue, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 6 }}>EndereÃ§o</div>
-            CondomÃ­nio Torre Montello<br/>
+            <div style={{ color: HOME_BRAND.blue, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 6 }}>Endereço</div>
+            Condomínio Torre Montello<br/>
             Av. Ayrton Senna da Silva, 550 â Sala 103<br/>
             Palhano 1 Â· Londrina â PR Â· 86055-630
           </div>
