@@ -81,7 +81,7 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
           <div style={{ position: 'relative', flex: 1, minHeight: 0 }}>
             <img key={obra.gallery[active]} src={obra.gallery[active]} alt={obra.title} style={{
               position: 'absolute', inset: 0, width: '100%', height: '100%',
-              objectFit: 'cover', display: 'block', animation: 'obraFade 280ms ease',
+              objectFit: 'contain', background: '#0a0a0a', display: 'block', animation: 'obraFade 280ms ease',
             }} />
             {/* etiqueta segmento */}
             <div style={{
