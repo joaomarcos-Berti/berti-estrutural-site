@@ -69,8 +69,7 @@ function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
             letterSpacing: '-0.02em', textTransform: 'uppercase',
             margin: 0, color: HOME_BRAND.ink,
           }}>
-            Onde a Berti<br/>
-            constrói.
+            Veja Nossas Obras
           </h2>
         </div>
         <p style={{
