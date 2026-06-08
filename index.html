@@ -37,9 +37,10 @@
 <script type="text/babel" src="home/Youtube.jsx"></script>
 <script type="text/babel" src="home/Depoimentos.jsx"></script>
 <script type="text/babel" src="home/Parceiros.jsx"></script>
+<script type="text/babel" src="home/ComoTrabalhamos.jsx"></script>
 
 <script type="text/babel" data-presets="env,react">
-  const { HomeNavBar, HomeFooter, HomeHero, HomeCategorias, HomeYoutube, HomeDepoimentos, HomeParceiros } = window;
+  const { HomeNavBar, HomeFooter, HomeHero, HomeCategorias, HomeYoutube, HomeDepoimentos, HomeParceiros, HomeComoTrabalhamos } = window;
   const { TweaksPanel, useTweaks, TweakSection, TweakSlider, TweakRadio, TweakColor } = window;
 
   const TWEAK_DEFAULTS = /*EDITMODE-BEGIN*/{
@@ -64,6 +65,7 @@
           ctaSecondary={t.ctaSecondary}
           accent={t.accent}
         />
+        <HomeComoTrabalhamos />
         <HomeParceiros speedSec={t.marqueeSpeed} />
         <HomeCategorias accent={t.accent} bg="#ffffff" />
         <HomeYoutube />

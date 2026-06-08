@@ -1,281 +1,296 @@
 /* global React, HOME_BRAND */
 // ============================================================================
-// EMPRESA · COMO TRABALHAMOS · 5 etapas do processo
-// Layout em colunas com gradiente de azul (escuro → claro) e ícones
-// circulares no topo, inspirado no infográfico fornecido pelo cliente.
+// EMPRESA · COMO TRABALHAMOS — Painéis alternados "engineer notebook"
+// 5 etapas, foto polaroid + texto com ghost number, fonte Caveat manuscrita
 // ============================================================================
+const { useState, useEffect, useRef } = React;
 
-const PROCESSO_STEPS = [
+const PROC_STEPS = [
   {
-    num: 1,
-    title: 'Avaliação de Projeto',
-    body: 'Recebemos o projeto e nossa equipe técnica faz a análise inicial — verificando viabilidade estrutural e enquadramento no nosso padrão de execução, para já indicar o caminho mais eficiente.',
-    bg: '#1F3D6E',   // mais escuro
+    n: '01', tag: 'Análise', kind: 'render',
+    title: 'Recebemos &amp; Analisamos',
+    body: 'Recebemos o projeto e nossa equipe técnica faz a <b>análise inicial</b> — verificando viabilidade estrutural e o enquadramento no nosso padrão de execução, para já indicar o caminho mais eficiente.',
+    note: 'viabilidade + padrão de execução',
+    cap: 'projeto recebido', meta: 'Análise técnica',
+    mode: 'frame',
+    img: 'assets/process/cad-monitor.jpg', alt: 'Projeto estrutural em AutoCAD',
   },
   {
-    num: 2,
-    title: 'Orçamento',
-    body: 'Desenvolvemos um estudo técnico com modelagem BIM 3D da estrutura. Apresentamos ao cliente o projeto visual, os materiais, os valores e as soluções otimizadas para redução de custo.',
-    bg: '#2D5C95',
+    n: '02', tag: 'Orçamento', kind: 'render',
+    title: 'Estudo Técnico &amp; BIM 3D',
+    body: 'Desenvolvemos um estudo técnico com <b>modelagem BIM 3D</b> — render, imagens em 360° e realidade virtual. Apresentamos ao cliente o projeto visual, os materiais, os valores e as soluções otimizadas para <b>redução de custo</b>.',
+    note: 'render · 360° · VR Meta Quest Pro',
+    cap: 'cliente vê antes de existir', meta: 'Render · VR · 360°',
+    mode: 'gallery',
+    imgs: [
+      { src: 'assets/process/render-aerea.jpg',    alt: 'Render aéreo do galpão' },
+      { src: 'assets/process/render-interior.jpg', alt: 'Render interno do galpão' },
+      { src: 'assets/process/render-exterior.jpg', alt: 'Render externo do galpão' },
+    ],
   },
   {
-    num: 3,
-    title: 'Concepção de Projeto',
-    body: 'Nossa equipe de engenheiros realiza os cálculos estruturais e a modelagem final em BIM. Cada peça é detalhada e as listas de fabricação são preparadas com precisão — garantindo encaixe perfeito na montagem.',
-    bg: '#3F7DB0',
+    n: '03', tag: 'Concepção de Projeto', kind: 'bim',
+    title: 'Cálculo &amp; Modelagem Final',
+    body: 'Nossa equipe de engenheiros realiza os <b>cálculos estruturais</b> e a modelagem final em BIM. Cada peça é detalhada e as listas de fabricação são preparadas com precisão — garantindo <b>encaixe perfeito</b> na montagem.',
+    note: 'cálculo estrutural + detalhamento',
+    cap: 'cada peça calculada', meta: 'Modelo BIM / IFC',
+    mode: 'float',
+    img: 'assets/process/bim-float.png', alt: 'Modelo estrutural BIM completo',
   },
   {
-    num: 4,
-    title: 'Fabricação',
-    body: 'As listas são encaminhadas para fabricação com controle total de qualidade — peças estruturais e cobertura produzidas conforme o projeto, com rastreabilidade e certificação de cada material.',
-    bg: '#5DA8D3',
+    n: '04', tag: 'Fabricação', kind: 'render',
+    title: 'Produção Rastreável',
+    body: 'As listas são encaminhadas para fabricação com <b>controle total de qualidade</b> — peças estruturais e cobertura produzidas conforme o projeto, com rastreabilidade e <b>certificação</b> de cada material.',
+    note: 'qualidade + certificação de material',
+    cap: 'peças prontas para a obra', meta: 'Produção e logística',
+    mode: 'contain',
+    img: 'assets/process/obra-aerea.jpg', alt: 'Peças estruturais entregues na obra',
   },
   {
-    num: 5,
-    title: 'Montagem',
-    body: 'As peças chegam numeradas e prontas para encaixar — montagem 100% parafusada em obra, sem solda, com equipe especializada. Rapidez, segurança e zero retrabalho.',
-    bg: '#8AC8E8',   // mais claro
+    n: '05', tag: 'Montagem', kind: 'render',
+    title: 'Montagem 100% Parafusada',
+    body: 'As peças chegam <b>numeradas</b> e prontas para encaixar — montagem 100% parafusada em obra, <b>sem solda</b>, com equipe especializada. Rapidez, segurança e <b>zero retrabalho</b>.',
+    note: 'sem solda · numerado · zero retrabalho',
+    cap: 'estrutura montada em obra', meta: 'Montagem em obra',
+    mode: 'frame',
+    img: 'assets/process/estrutura-telhado.jpg', alt: 'Estrutura metálica montada em obra',
   },
 ];
 
-function EmpresaProcesso() {
-  return (
-    <section id="processo" style={{
-      background: '#fff',
-      padding: '110px 64px 100px',
-      fontFamily: '"Open Sans", system-ui, sans-serif',
-      color: HOME_BRAND.rule,
-    }}>
-      <div style={{ maxWidth: 1440, margin: '0 auto' }}>
-        {/* Cabeçalho */}
-        <div style={{ textAlign: 'center', marginBottom: 72 }}>
-          <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 10,
-            fontFamily: '"Barlow Condensed", sans-serif',
-            color: HOME_BRAND.blueDark, fontSize: 13, fontWeight: 700,
-            letterSpacing: '0.22em', textTransform: 'uppercase',
-            marginBottom: 16,
+function CircleScribble() {
+  return React.createElement('svg', { viewBox:'0 0 54 54', style:{ position:'absolute', inset:-4, width:'calc(100% + 8px)', height:'calc(100% + 8px)', overflow:'visible' } },
+    React.createElement('path', { d:'M40,7 C20,2 6,14 7,28 C8,44 30,52 44,44 C56,37 53,15 36,8', fill:'none', stroke:'#1853b8', strokeWidth:2, opacity:0.55 })
+  );
+}
+
+function Tick({ pos }) {
+  const s = { position:'absolute', width:18, height:18, border:'2px solid #4f7fd6', opacity:0.5 };
+  if (pos==='tl') { s.top=-2; s.left=-2; s.borderRight=0; s.borderBottom=0; }
+  else if (pos==='tr') { s.top=-2; s.right=-2; s.borderLeft=0; s.borderBottom=0; }
+  else if (pos==='bl') { s.bottom=-2; s.left=-2; s.borderRight=0; s.borderTop=0; }
+  else { s.bottom=-2; s.right=-2; s.borderLeft=0; s.borderTop=0; }
+  return React.createElement('span', { style: s });
+}
+
+function PhotoMedia({ s }) {
+  const isBim = s.kind === 'bim';
+  const tapeStyle = {
+    position:'absolute', top:-14, left:'50%', transform:'translateX(-50%) rotate(-2.5deg)',
+    width:118, height:30,
+    background:'rgba(71,182,241,.22)',
+    borderLeft:'1px dashed rgba(7,127,191,.35)',
+    borderRight:'1px dashed rgba(7,127,191,.35)',
+    boxShadow:'0 1px 2px rgba(16,33,44,.06)',
+  };
+  const frameStyle = {
+    position:'relative', background: isBim ? '#0e1b24' : '#fff',
+    padding:'14px 14px 16px', borderRadius:3,
+    boxShadow:'0 18px 44px -18px rgba(16,33,44,.45), 0 2px 0 rgba(16,33,44,.04)',
+  };
+
+  if (s.mode === 'gallery') {
+    return (
+      <div style={{ position:'relative', display:'grid', gridTemplateColumns:'1fr 1fr', gap:16 }}>
+        {s.imgs.map((im, k) => (
+          <div key={k} style={{
+            ...frameStyle, padding:'9px 9px 11px',
+            ...(k===0 ? { gridColumn:'1 / -1' } : {}),
+            ...(k===1 ? { transform:'rotate(-1.4deg)' } : k===2 ? { transform:'rotate(1.6deg)' } : {}),
           }}>
-            <span style={{ width: 28, height: 1, background: HOME_BRAND.blueDark }} />
-            Como trabalhamos
-            <span style={{ width: 28, height: 1, background: HOME_BRAND.blueDark }} />
+            <span style={tapeStyle}/>
+            <Tick pos="tl"/><Tick pos="tr"/><Tick pos="bl"/><Tick pos="br"/>
+            <img src={im.src} alt={im.alt} style={{ display:'block', width:'100%', height: k===0 ? 'min(25vh,240px)' : 'min(21vh,200px)', objectFit:'cover', borderRadius:1 }}/>
           </div>
-          <h2 style={{
-            fontFamily: '"Barlow Condensed", sans-serif',
-            fontWeight: 800, fontSize: 'clamp(36px, 4vw, 56px)', lineHeight: 0.96,
-            letterSpacing: '-0.02em', textTransform: 'uppercase',
-            margin: '0 0 14px', color: HOME_BRAND.ink,
-          }}>
-            Do primeiro contato<br/>à última peça instalada.
-          </h2>
-          <p style={{
-            maxWidth: 640, margin: '0 auto',
-            fontSize: 16, lineHeight: 1.55,
-            color: 'rgba(10,10,10,0.62)',
-          }}>
-            Da primeira conversa à montagem em obra — cada etapa orquestrada por
-            engenheiros, com tecnologia BIM e controle total sobre prazo e qualidade.
-          </p>
+        ))}
+        <div style={{ gridColumn:'1 / -1', fontFamily:'Caveat, cursive', color:'#1853b8', fontWeight:600, fontSize:22, lineHeight:1 }}>
+          {s.cap}{' '}<em style={{ fontFamily:'"Barlow Condensed",sans-serif', fontStyle:'normal', fontSize:12, letterSpacing:'0.14em', textTransform:'uppercase', color:'#9fb0c0', marginLeft:8 }}>{s.meta}</em>
+        </div>
+      </div>
+    );
+  }
+  if (s.mode === 'float') {
+    return (
+      <figure style={{ margin:0 }}>
+        <img src={s.img} alt={s.alt} style={{ width:'100%', height:'auto', display:'block', filter:'drop-shadow(0 24px 30px rgba(16,33,44,.22))' }}/>
+        <figcaption style={{ fontFamily:'Caveat, cursive', color:'#1853b8', fontWeight:600, fontSize:22, lineHeight:1, marginTop:14, textAlign:'center' }}>
+          {s.cap}{' '}<em style={{ fontFamily:'"Barlow Condensed",sans-serif', fontStyle:'normal', fontSize:12, letterSpacing:'0.14em', textTransform:'uppercase', color:'#9fb0c0', marginLeft:8 }}>{s.meta}</em>
+        </figcaption>
+      </figure>
+    );
+  }
+  return (
+    <div style={frameStyle}>
+      <span style={tapeStyle}/>
+      <Tick pos="tl"/><Tick pos="tr"/><Tick pos="bl"/><Tick pos="br"/>
+      <img src={s.img} alt={s.alt} style={{
+        display:'block', width:'100%',
+        height: s.mode==='contain' ? 'auto' : 'min(60vh,520px)',
+        maxHeight: s.mode==='contain' ? 'min(60vh,480px)' : undefined,
+        objectFit: s.mode==='contain' ? 'contain' : 'cover',
+        borderRadius:1,
+      }}/>
+      <div style={{ fontFamily:'Caveat, cursive', color: isBim ? '#47b6f1' : '#1853b8', fontWeight:600, fontSize:22, lineHeight:1, paddingTop:10, display:'flex', justifyContent:'space-between', alignItems:'flex-end', gap:12 }}>
+        {s.cap}
+        <span style={{ fontFamily:'"Barlow Condensed",sans-serif', fontSize:12, letterSpacing:'0.14em', textTransform:'uppercase', color:'#9fb0c0', fontWeight:600 }}>{s.meta}</span>
+      </div>
+    </div>
+  );
+}
+
+function ProcessPanel({ s, index }) {
+  const photoRef = useRef(null);
+  const textRef  = useRef(null);
+  const isLeft   = index % 2 === 1;
+
+  useEffect(() => {
+    function upd() {
+      if (window.innerWidth <= 880) return;
+      const ph = photoRef.current; const tx = textRef.current;
+      if (!ph || !tx) return;
+      const vh = window.innerHeight;
+      const r  = ph.getBoundingClientRect();
+      const n  = Math.min(1.2, Math.max(-1.2, (r.top + r.height/2 - vh/2) / (vh*0.9)));
+      const sd = isLeft ? -1 : 1;
+      ph.style.transform = 'translateX(' + (n*38*sd) + '%)';
+      ph.style.opacity   = String(1 - Math.min(1, Math.abs(n))*0.55);
+      tx.style.transform = 'translateY(' + (n*20) + 'px)';
+      tx.style.opacity   = String(1 - Math.min(1, Math.abs(n))*0.6);
+    }
+    window.addEventListener('scroll', upd, { passive:true });
+    window.addEventListener('resize', upd);
+    upd();
+    return () => { window.removeEventListener('scroll', upd); window.removeEventListener('resize', upd); };
+  }, [isLeft]);
+
+  return (
+    <section id={'proc-' + index} style={{ position:'relative', minHeight:'74vh', display:'flex', alignItems:'center', overflow:'hidden', zIndex:1 }}>
+      <div style={{ width:'100%', maxWidth:1320, margin:'0 auto', padding:'3.5vh clamp(24px,5vw,84px)', display:'grid', gridTemplateColumns:'1fr 1fr', gap:'clamp(36px,5vw,84px)', alignItems:'center' }}>
+
+        {/* TEXT */}
+        <div ref={textRef} style={{ position:'relative', display:'flex', flexDirection:'column', gap:18, willChange:'transform,opacity', order: isLeft ? 2 : 1 }}>
+          <span style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, color:'transparent', WebkitTextStroke:'2px rgba(24,83,184,0.16)', letterSpacing:'-0.02em', lineHeight:0.8, userSelect:'none', fontSize:'clamp(120px,15vw,230px)', position:'absolute', top:'-0.42em', left:'-0.06em', zIndex:-1 }}>{s.n}</span>
+          <div style={{ display:'flex', alignItems:'center', gap:14 }}>
+            <div style={{ width:46, height:46, flexShrink:0, display:'grid', placeItems:'center', fontFamily:'Caveat, cursive', fontWeight:700, fontSize:26, color:'#1853b8', position:'relative' }}>
+              {s.n}<CircleScribble/>
+            </div>
+            <span style={{ fontFamily:'"Barlow Condensed",sans-serif', textTransform:'uppercase', letterSpacing:'0.16em', fontWeight:700, fontSize:'clamp(13px,1.05vw,16px)', color:'#077fbf' }}>{s.tag}</span>
+          </div>
+          <h2 dangerouslySetInnerHTML={{ __html: s.title }} style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, textTransform:'uppercase', letterSpacing:'-0.005em', lineHeight:0.98, color:'#10212c', fontSize:'clamp(34px,4.4vw,64px)', margin:0 }}/>
+          <svg viewBox="0 0 160 16" style={{ height:16, width:160, overflow:'visible', opacity:0.6 }}>
+            <path d="M2,8 H158 M2,3 V13 M158,3 V13" fill="none" stroke="#1853b8" strokeWidth="1.4" opacity="0.55"/>
+          </svg>
+          <p dangerouslySetInnerHTML={{ __html: s.body }} style={{ fontSize:'clamp(16px,1.18vw,19px)', lineHeight:1.62, color:'#4a606e', maxWidth:'46ch', margin:0 }}/>
+          <div style={{ display:'inline-flex', alignItems:'center', gap:10, fontFamily:'Caveat, cursive', color:'#1853b8', fontWeight:600, fontSize:'clamp(20px,2vw,28px)', lineHeight:1 }}>
+            <svg viewBox="0 0 34 18" style={{ width:34, height:18, overflow:'visible', flexShrink:0 }}>
+              <path d="M2,9 H28" fill="none" stroke="#1853b8" strokeWidth="1.4" opacity="0.55"/>
+              <path d="M22,3 L30,9 L22,15" fill="none" stroke="#1853b8" strokeWidth="1.4" opacity="0.55"/>
+            </svg>
+            {s.note}
+          </div>
         </div>
 
-        {/* Grid das 5 etapas */}
-        <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 18,
-        }}>
-          {PROCESSO_STEPS.map((s, i) => (
-            <div key={s.num} style={{
-              position: 'relative',
-              paddingTop: 56,
-              transition: 'transform 320ms cubic-bezier(.2,.8,.2,1)',
-              cursor: 'default',
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.transform = 'translateY(-10px) scale(1.04)';
-              e.currentTarget.style.zIndex = '5';
-              const card = e.currentTarget.querySelector('[data-step-card]');
-              if (card) card.style.boxShadow = '0 24px 48px -18px rgba(7,61,87,0.45)';
-              const ic = e.currentTarget.querySelector('[data-step-icon]');
-              if (ic) ic.style.transform = 'translateX(-50%) scale(1.12)';
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.transform = 'translateY(0) scale(1)';
-              e.currentTarget.style.zIndex = '1';
-              const card = e.currentTarget.querySelector('[data-step-card]');
-              if (card) card.style.boxShadow = '0 8px 24px -16px rgba(10,10,10,0.18)';
-              const ic = e.currentTarget.querySelector('[data-step-icon]');
-              if (ic) ic.style.transform = 'translateX(-50%) scale(1)';
-            }}
-            >
-              {/* Ícone circular suspenso sobre o card */}
-              <div data-step-icon style={{
-                position: 'absolute', top: 0, left: '50%', transform: 'translateX(-50%)',
-                width: 104, height: 104,
-                background: '#f1f2f4', borderRadius: '50%',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                zIndex: 3,
-                boxShadow: '0 2px 6px rgba(10,10,10,0.06)',
-                transition: 'transform 360ms cubic-bezier(.2,.8,.2,1)',
-              }}>
-                <ProcessIcon kind={s.num} />
-              </div>
-
-              {/* Card · cabeçalho colorido + corpo */}
-              <div data-step-card style={{
-                position: 'relative',
-                background: '#fff',
-                paddingTop: 60,
-                boxShadow: '0 8px 24px -16px rgba(10,10,10,0.18)',
-                minHeight: 520,
-                transition: 'box-shadow 320ms ease',
-              }}>
-                {/* Cabeçalho colorido com borda ondulada inferior */}
-                <div style={{
-                  background: s.bg,
-                  color: '#fff',
-                  padding: '32px 18px 40px',
-                  textAlign: 'center',
-                  position: 'relative',
-                  fontFamily: '"Barlow Condensed", sans-serif',
-                  fontWeight: 800, fontSize: 19,
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.06em',
-                  lineHeight: 1.15,
-                  clipPath: 'polygon(0 0, 100% 0, 100% calc(100% - 14px), 92% 100%, 75% calc(100% - 8px), 50% 100%, 25% calc(100% - 8px), 8% 100%, 0 calc(100% - 14px))',
-                }}>
-                  <div style={{
-                    position: 'absolute', top: 10, right: 12,
-                    fontFamily: '"Barlow Condensed", sans-serif',
-                    fontSize: 12, fontWeight: 600, letterSpacing: '0.18em',
-                    color: 'rgba(255,255,255,0.55)',
-                  }}>0{s.num}</div>
-                  {s.title}
-                </div>
-                {/* Corpo */}
-                <div style={{
-                  padding: '28px 24px 34px',
-                  background: '#f6f8fa',
-                  fontSize: 15,
-                  lineHeight: 1.65,
-                  color: 'rgba(10,10,10,0.78)',
-                  textAlign: 'center',
-                  minHeight: 380,
-                }}>
-                  {s.body}
-                </div>
-              </div>
-            </div>
-          ))}
+        {/* PHOTO */}
+        <div ref={photoRef} style={{ willChange:'transform,opacity', order: isLeft ? 1 : 2 }}>
+          <PhotoMedia s={s}/>
         </div>
       </div>
     </section>
   );
 }
 
-// ── Ícones line-style — espelham o set fornecido pelo cliente ──────────────
-function ProcessIcon({ kind }) {
-  const C = '#Ia1a2a';
-  const W = 56;
-  const SW = 1.8;
-  if (kind === 1) return (
-    // Avaliação: prancheta com checklist + engrenagem (canto sup-esq) + lápis
-    <svg width={W} height={W} viewBox="0 0 64 64" fill="none" stroke={C} strokeWidth={SW} strokeLinecap="round" strokeLinejoin="round">
-      {/* Documento/prancheta */}
-      <path d="M20 12h22v40H20z" />
-      {/* Itens do checklist (caixa + check + linha) */}
-      <rect x="24" y="22" width="5" height="5" rx="0.8" />
-      <path d="M25 24.5l1.2 1.2L28 24" />
-      <path d="M32 24.5h7" />
-      <rect x="24" y="31" width="5" height="5" rx="0.8" />
-      <path d="M25 33.5l1.2 1.2L28 33" />
-      <path d="M32 33.5h7" />
-      <rect x="24" y="40" width="5" height="5" rx="0.8" />
-      <path d="M25 42.5l1.2 1.2L28 42" />
-      <path d="M32 42.5h7" />
-      {/* Engrenagem no topo do documento */}
-      <circle cx="29" cy="13" r="4" fill="#f1f2f4" />
-      <circle cx="29" cy="13" r="2" />
-      <path d="M29 7.5v2M29 16.5v2M23.5 13h2M32.5 13h2M25.4 9.4l1.4 1.4M31.2 14.6l1.4 1.4M25.4 16.6l1.4-1.4M31.2 11.4l1.4-1.4" />
-      {/* Lápis escrevendo na lateral */}
-      <path d="M42 30l8 8 4-4-8-8z" />
-      <path d="M42 30l-2.5 6.5 6.5-2.5z" />
-      <path d="M39.5 36.5l-1 2.5 2.5-1z" fill={C} />
-    </svg>
+function EmpresaProcesso() {
+  const [active, setActive] = useState(0);
+
+  useEffect(() => {
+    if (!document.querySelector('link[data-caveat]')) {
+      const l = document.createElement('link');
+      l.rel = 'stylesheet';
+      l.href = 'https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&display=swap';
+      l.setAttribute('data-caveat','1');
+      document.head.appendChild(l);
+    }
+    function upd() {
+      const vc = window.innerHeight / 2;
+      let bi = 0, bd = Infinity;
+      PROC_STEPS.forEach((_,i) => {
+        const el = document.getElementById('proc-'+i);
+        if (!el) return;
+        const r = el.getBoundingClientRect();
+        const d = Math.abs(r.top + r.height/2 - vc);
+        if (d < bd) { bd = d; bi = i; }
+      });
+      setActive(bi);
+    }
+    window.addEventListener('scroll', upd, { passive:true });
+    return () => window.removeEventListener('scroll', upd);
+  }, []);
+
+  const gridBg = {
+    background:'#fbfcfe',
+    backgroundImage:[
+      'linear-gradient(#d5e3f4 1px, transparent 1px)',
+      'linear-gradient(90deg, #d5e3f4 1px, transparent 1px)',
+      'linear-gradient(#eaf0f8 1px, transparent 1px)',
+      'linear-gradient(90deg, #eaf0f8 1px, transparent 1px)',
+    ].join(','),
+    backgroundSize:'120px 120px, 120px 120px, 24px 24px, 24px 24px',
+    fontFamily:'"Open Sans", system-ui, sans-serif',
+    color:'#10212c',
+    position:'relative',
+  };
+
+  return (
+    <div style={gridBg}>
+      {/* Engineering margin line */}
+      <div style={{ position:'fixed', top:0, bottom:0, left:'max(48px,5vw)', width:1, background:'rgba(213,68,68,0.18)', zIndex:0, pointerEvents:'none' }}/>
+
+      {/* Header */}
+      <header style={{ position:'relative', zIndex:2, minHeight:'72vh', display:'flex', flexDirection:'column', justifyContent:'center', padding:'9vh clamp(24px,5vw,84px) 7vh calc(max(48px,5vw) + 40px)' }}>
+        <div style={{ fontFamily:'Caveat, cursive', color:'#1853b8', fontSize:'clamp(26px,3vw,44px)', fontWeight:700, lineHeight:1, marginBottom:12, display:'inline-block', transform:'rotate(-3deg)' }}>
+          do projeto à obra entregue
+        </div>
+        <h1 style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, textTransform:'uppercase', fontSize:'clamp(44px,6.4vw,96px)', lineHeight:0.98, margin:0, color:'#10212c', letterSpacing:'-0.01em', paddingBottom:'0.18em' }}>
+          Como{' '}
+          <span style={{ position:'relative', color:'#077fbf', whiteSpace:'nowrap' }}>
+            trabalhamos
+            <svg viewBox="0 0 300 24" preserveAspectRatio="none" style={{ position:'absolute', left:'-2%', bottom:'0.02em', width:'104%', height:'0.34em', overflow:'visible' }}>
+              <path d="M3,15 C70,4 150,22 220,9 C255,3 285,11 297,8" fill="none" stroke="#47b6f1" strokeWidth="5" strokeLinecap="round"/>
+            </svg>
+          </span>
+        </h1>
+        <p style={{ margin:'30px 0 0', maxWidth:'54ch', fontSize:'clamp(17px,1.4vw,21px)', lineHeight:1.6, color:'#4a606e' }}>
+          Cinco etapas, um único responsável. Acompanhe o caminho da sua estrutura — do recebimento do projeto à montagem parafusada em obra.
+        </p>
+      </header>
+
+      {/* Panels */}
+      <main>
+        {PROC_STEPS.map((s, i) => <ProcessPanel key={s.n} s={s} index={i}/>)}
+      </main>
+
+      {/* Outro */}
+      <footer style={{ position:'relative', zIndex:2, minHeight:'56vh', display:'flex', flexDirection:'column', justifyContent:'center', gap:22, padding:'9vh clamp(24px,5vw,84px) 13vh calc(max(48px,5vw) + 40px)' }}>
+        <div style={{ fontFamily:'Caveat, cursive', color:'#1853b8', fontSize:'clamp(26px,3vw,44px)', fontWeight:700, lineHeight:1, transform:'rotate(-2deg)', display:'inline-block' }}>e o resultado…</div>
+        <h2 style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, textTransform:'uppercase', fontSize:'clamp(30px,4vw,58px)', lineHeight:1, color:'#10212c', margin:0, maxWidth:'18ch' }}>
+          Estrutura <em style={{ fontStyle:'normal', color:'#077fbf' }}>numerada, parafusada</em> e entregue no prazo.
+        </h2>
+        <a href="Home Berti.html#orcamento" style={{ display:'inline-flex', alignItems:'center', gap:12, alignSelf:'flex-start', background:'#077fbf', color:'#fff', textDecoration:'none', fontFamily:'"Barlow Condensed",sans-serif', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.08em', fontSize:17, padding:'16px 28px', borderRadius:3 }}>
+          Solicitar orçamento &nbsp;→
+        </a>
+      </footer>
+
+      {/* Progress dots */}
+      <style>{`@media(max-width:880px){.proc-dots{display:none!important}}@media(max-width:880px){.panel-grid{grid-template-columns:1fr!important}}`}</style>
+      <div className="proc-dots" style={{ position:'fixed', right:'max(20px,2.2vw)', top:'50%', transform:'translateY(-50%)', zIndex:40, display:'flex', flexDirection:'column', gap:16, alignItems:'flex-end' }}>
+        {PROC_STEPS.map((s, i) => (
+          <a key={i} href={'#proc-'+i} style={{ display:'flex', alignItems:'center', gap:10, textDecoration:'none' }}>
+            <span style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.1em', fontSize:12, color: i===active ? '#077fbf' : '#9fb0c0', opacity: i===active ? 1 : 0, transition:'0.22s', whiteSpace:'nowrap' }}>{s.n} {s.tag}</span>
+            <span style={{ width:11, height:11, borderRadius:'50%', border:'2px solid '+(i===active?'#077fbf':'#c6d4e2'), background: i===active?'#077fbf':'#fff', transform: i===active?'scale(1.18)':'scale(1)', transition:'0.22s', display:'block' }}/>
+          </a>
+        ))}
+      </div>
+    </div>
   );
-  if (kind === 2) return (
-    // Orçamento: prancheta com itens + moeda ($) + lápis
-    <svg width={W} height={W} viewBox="0 0 64 64" fill="none" stroke={C} strokeWidth={SW} strokeLinecap="round" strokeLinejoin="round">
-      <path d="M16 10h26v40H16z" />
-      <rect x="21" y="9" width="12" height="5" rx="1.2" fill={C} stroke="none" />
-      <path d="M21 22h16" />
-      <path d="M21 28h16" />
-      <path d="M21 34h10" />
-      {/* Moeda com cifrão */}
-      <circle cx="44" cy="44" r="10" fill="#f1f2f4" />
-      <circle cx="44" cy="44" r="10" />
-      <path d="M47.5 39.5c-1-.9-2.2-1.4-3.5-1.4-2.3 0-3.5 1.2-3.5 2.6 0 1.7 1.8 2.2 3.5 2.6 1.7.4 3.5.9 3.5 2.6 0 1.4-1.2 2.6-3.5 2.6-1.6 0-2.9-.6-3.9-1.6" />
-      <path d="M44 36v2.7M44 49.3V52" />
-      {/* Lápis */}
-      <path d="M30 38l9 9 3.5-3.5-9-9z" />
-      <path d="M30 38l-2.5 6.5 6.5-2.5z" />
-    </svg>
-  );
-  if (kind === 3) return (
-    // Concepção: engrenagem + pessoa + prancheta + relógio (cluster de análise)
-    <svg width={W} height={W} viewBox="0 0 64 64" fill="none" stroke={C} strokeWidth={SW} strokeLinecap="round" strokeLinejoin="round">
-      {/* Engrenagem grande (esquerda) */}
-      <circle cx="20" cy="34" r="6.5" />
-      <circle cx="20" cy="34" r="2.6" />
-      <path d="M20 25.5v3M20 39.5v3M11.5 34h3M25.5 34h3M14.2 28.2l2 2M23.8 37.8l2 2M14.2 39.8l2-2M23.8 30.2l2-2" />
-      {/* Pessoa (centro) */}
-      <circle cx="38" cy="22" r="4" />
-      <path d="M31 38c0-4 3.2-7 7-7s7 3 7 7" />
-      {/* Prancheta (direita) */}
-      <rect x="40" y="34" width="16" height="20" rx="1.2" />
-      <path d="M44 40h8M44 45h8M44 50h5" />
-      {/* Relógio pequeno (topo direito) */}
-      <circle cx="51" cy="22" r="4.5" fill="#f1f2f4" />
-      <circle cx="51" cy="22" r="4.5" />
-      <path d="M51 19v3l2 1.4" />
-    </svg>
-  );
-  if (kind === 4) return (
-    // Fabricação: braço robótico + esteira com caixas
-    <svg width={W} height={W} viewBox="0 0 64 64" fill="none" stroke={C} strokeWidth={SW} strokeLinecap="round" strokeLinejoin="round">
-      {/* Braço robótico */}
-      <rect x="20" y="6" width="14" height="6" rx="0.6" />
-      <path d="M27 12v6" />
-      <path d="M27 18l-9 8" />
-      <rect x="14" y="24" width="10" height="6" rx="0.6" />
-      {/* Esteira */}
-      <rect x="8" y="40" width="48" height="6" rx="1" />
-      <circle cx="13" cy="50" r="2.5" />
-      <circle cx="22" cy="50" r="2.5" />
-      <circle cx="32" cy="50" r="2.5" />
-      <circle cx="42" cy="50" r="2.5" />
-      <circle cx="51" cy="50" r="2.5" />
-      {/* Caixas em cima da esteira */}
-      <rect x="18" y="32" width="8" height="8" rx="0.6" />
-      <rect x="30" y="32" width="8" height="8" rx="0.6" />
-      <rect x="42" y="32" width="8" height="8" rx="0.6" />
-    </svg>
-  );
-  if (kind === 5) return (
-    // Montagem: pessoa montando quebra-cabeça
-    <svg width={W} height={W} viewBox="0 0 64 64" fill="none" stroke={C} strokeWidth={SW} strokeLinecap="round" strokeLinejoin="round">
-      {/* Pessoa silhueta */}
-      <circle cx="20" cy="12" r="4" fill={C} stroke="none" />
-      <path d="M14 36l2-14c.4-2.5 2-4 4-4s3.6 1.5 4 4l2 14" fill={C} stroke="none" />
-      <path d="M16 36v18h3v-9h2v9h3V36" fill={C} stroke="none" />
-      {/* Braço estendido segurando peça */}
-      <path d="M22 24l8-4" stroke={C} strokeWidth="3.5" />
-      {/* Peça de quebra-cabeça sendo encaixada (segurada) */}
-      <path d="M30 16h6v3c0 1 .7 1.8 1.6 1.8s1.6-.8 1.6-1.8V16h0" fill="none" />
-      <path d="M30 16v6c0 .5-.4 1-1 1s-1-.5-1-1v-3l-1-2z" fill={C} stroke="none" />
-      {/* Quebra-cabeça (3 peças encaixadas à direita) */}
-      <path d="M40 28h6v3c0 1 .8 1.7 1.7 1.7s1.7-.7 1.7-1.7v-3h6v6h-3c-1 0-1.7.8-1.7 1.7s.7 1.7 1.7 1.7h3v6h-6v-3c0-1-.8-1.7-1.7-1.7s-1.7.7-1.7 1.7v3h-6v-6h3c1 0 1.7-.8 1.7-1.7s-.7-1.7-1.7-1.7h-3z" />
-    </svg>
-  );
-  return null;
 }
 
 window.EmpresaProcesso = EmpresaProcesso;
