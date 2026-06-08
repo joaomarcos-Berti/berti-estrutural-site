@@ -1,34 +1,81 @@
 {
-  "items": [
+  "cats": [
+    {"key": "todas",      "label": "Todos"},
+    {"key": "engenharia", "label": "Engenharia"},
+    {"key": "tecnologia", "label": "Tecnologia"},
+    {"key": "materiais",  "label": "Materiais"},
+    {"key": "gestao",     "label": "Gestão de Obra"}
+  ],
+  "posts": [
     {
-      "title": "Montagem parafusada vs soldada: o que é mais seguro e por quê",
-      "category": "Técnico",
-      "date": "12 de maio de 2025",
-      "reading_time": "5 min de leitura",
-      "excerpt": "Entenda as diferenças técnicas, vantagens construtivas e por que a Berti Estrutural adota 100% de montagem parafusada em campo.",
-      "image": "https://images.unsplash.com/photo-1587293852726-70cdb56c2866?w=800&q=80&auto=format&fit=crop",
-      "body": "A escolha entre montagem parafusada e soldada é uma das decisões técnicas mais importantes em uma obra de estrutura metálica...",
-      "published": true
+      "id": "ligacoes-parafusadas",
+      "cat": "engenharia", "catLabel": "Engenharia",
+      "title": "Por que estruturas 100% parafusadas mudam o jogo da sua obra",
+      "excerpt": "Sem solda no canteiro, a montagem fica mais rápida, limpa e previsível. Entenda o que isso significa para prazo, segurança e qualidade final.",
+      "cover": "assets/photos/interior-truss.jpg",
+      "date": "12 mai 2026", "read": "4 min", "author": "Equipe Berti",
+      "featured": true,
+      "body": "Quando uma estrutura é concebida para ser 100% parafusada, todo o trabalho pesado acontece na fábrica — com corte, furação e tratamento sob controle rigoroso. No canteiro, a equipe apenas posiciona e aperta. O resultado é uma montagem que se parece mais com encaixar peças de um quebra-cabeça do que com uma obra tradicional.\n\nIsso elimina a solda em campo, que é uma das maiores fontes de atraso, retrabalho e variação de qualidade. Sem maçarico em obra, reduz-se o risco de incêndio, a dependência de soldadores qualificados no local e a necessidade de inspeção destrutiva peça a peça.\n\nNa prática, o cliente ganha um cronograma mais curto e confiável, um canteiro mais seguro e uma estrutura cuja qualidade já foi auditada antes mesmo de chegar à obra. É a diferença entre construir e simplesmente montar."
     },
     {
-      "title": "O que é BIM e como ele reduz custos na sua obra de estrutura metálica",
-      "category": "Projeto",
-      "date": "3 de maio de 2025",
-      "reading_time": "7 min de leitura",
-      "excerpt": "Modelagem BIM não é só visualização 3D. Veja como ela elimina conflitos de projeto antes da obra e pode economizar até 15% do custo total.",
-      "image": "https://images.unsplash.com/photo-1503387762-592deb58ef4e?w=800&q=80&auto=format&fit=crop",
-      "body": "BIM (Building Information Modeling) é uma metodologia de trabalho que centraliza todas as informações de um projeto em um modelo digital tridimensional e inteligente...",
-      "published": true
+      "id": "bim-na-pratica",
+      "cat": "tecnologia", "catLabel": "Tecnologia",
+      "title": "BIM na prática: como o 3D evita surpresas no canteiro",
+      "excerpt": "Modelar a obra inteira antes de fabricar a primeira peça revela interferências que custariam caro em campo. Veja como funciona.",
+      "cover": "assets/photos/bim-detalhe-2.jpg",
+      "date": "28 abr 2026", "read": "5 min", "author": "Equipe Berti",
+      "featured": false,
+      "body": "A metodologia BIM permite construir a obra duas vezes: primeiro no computador, depois no mundo real. No modelo 3D, cada viga, pilar e ligação existe com sua geometria exata — e é aí que as interferências aparecem, muito antes de virarem um problema no canteiro.\n\nUm furo que não bate, uma tubulação que cruza uma treliça, uma folga insuficiente para a montagem: tudo isso é identificado e corrigido na tela. Mudanças que custariam dias de obra e desperdício de material são resolvidas em minutos de projeto.\n\nAlém disso, o modelo gera automaticamente as listas de fabricação que alimentam as máquinas CNC, garantindo que a peça produzida seja exatamente a peça projetada."
     },
     {
-      "title": "Como avaliar um orçamento de estrutura metálica sem ser engenheiro",
-      "category": "Gestão",
-      "date": "22 de abril de 2025",
-      "reading_time": "6 min de leitura",
-      "excerpt": "Dicas práticas para gestores e construtores avaliarem propostas de estrutura metálica e evitarem surpresas desagradáveis no contrato.",
-      "image": "https://images.unsplash.com/photo-1460472178825-e5240623afd5?w=800&q=80&auto=format&fit=crop",
-      "body": "Receber um orçamento de estrutura metálica pode ser confuso para quem não é engenheiro. Neste artigo explicamos os itens essenciais que você deve checar...",
-      "published": true
+      "id": "galvanizacao-vs-pintura",
+      "cat": "materiais", "catLabel": "Materiais",
+      "title": "Galvanização ou pintura: qual proteção escolher para o aço",
+      "excerpt": "Cada ambiente pede uma estratégia de proteção. Comparamos durabilidade, manutenção e custo das duas soluções mais usadas.",
+      "cover": "assets/photos/estrutura-galpao.jpg",
+      "date": "15 abr 2026", "read": "4 min", "author": "Equipe Berti",
+      "featured": false,
+      "body": "A corrosão é o principal inimigo de uma estrutura metálica ao longo do tempo. Por isso, a escolha do sistema de proteção é uma decisão de engenharia — não apenas de estética.\n\nA galvanização a fogo forma uma barreira de zinco que protege o aço por dentro e por fora, com vida útil de décadas e praticamente sem manutenção. É a escolha natural para ambientes agressivos, áreas externas e obras onde o acesso futuro para repintura seria difícil.\n\nJá a pintura industrial oferece liberdade de cor e bom desempenho em ambientes controlados, com custo inicial menor. A decisão certa depende da exposição, da expectativa de vida da obra e do plano de manutenção do cliente."
+    },
+    {
+      "id": "fabricacao-cnc",
+      "cat": "engenharia", "catLabel": "Engenharia",
+      "title": "Como a fabricação CNC garante o encaixe milimétrico",
+      "excerpt": "A precisão da fábrica é o que permite montar sem ajustes em obra. Entenda o caminho do modelo 3D até a peça pronta.",
+      "cover": "assets/photos/sport-canopy.jpg",
+      "date": "02 abr 2026", "read": "3 min", "author": "Equipe Berti",
+      "featured": false,
+      "body": "Depois que o modelo BIM é aprovado, ele se transforma em instruções para máquinas de comando numérico. São elas que cortam, furam e marcam cada peça com tolerâncias que a mão humana dificilmente alcançaria de forma consistente.\n\nEssa precisão é o que torna possível a montagem 100% parafusada: se cada furo está exatamente onde deveria, as peças se conectam sem ajuste, sem corte e sem improviso no canteiro.\n\nO ganho é duplo — rastreabilidade total de cada peça e um tempo de montagem drasticamente menor, porque nada precisa ser refeito."
+    },
+    {
+      "id": "prazo-de-obra",
+      "cat": "gestao", "catLabel": "Gestão de Obra",
+      "title": "Prazo de obra: o que realmente acelera uma estrutura metálica",
+      "excerpt": "Velocidade não é sorte, é método. Os fatores que mais impactam o cronograma de uma obra em aço.",
+      "cover": "assets/photos/aerial.jpg",
+      "date": "20 mar 2026", "read": "5 min", "author": "Equipe Berti",
+      "featured": false,
+      "body": "A estrutura metálica é conhecida pela rapidez, mas o prazo real depende de decisões tomadas muito antes da montagem. A fabricação acontece em paralelo às fundações, o que significa que, enquanto o concreto cura, o aço já está sendo produzido.\n\nProjetos bem detalhados em BIM, logística de transporte planejada e ligações parafusadas são os três fatores que mais comprimem o cronograma. Eles eliminam as três maiores causas de atraso: retrabalho, espera por material e improviso em campo.\n\nNo fim, entregar no prazo é menos sobre correr e mais sobre antecipar — resolver no projeto o que custaria caro na obra."
+    },
+    {
+      "id": "grandes-vaos",
+      "cat": "engenharia", "catLabel": "Engenharia",
+      "title": "Grandes vãos livres: engenharia para varejo e logística",
+      "excerpt": "Pisos de venda e galpões pedem áreas sem pilares. Como o aço viabiliza vãos que o concreto não alcança.",
+      "cover": "assets/photos/galpao-industrial-aereo.jpg",
+      "date": "08 mar 2026", "read": "4 min", "author": "Equipe Berti",
+      "featured": false,
+      "body": "Um supermercado eficiente ou um centro logístico produtivo têm algo em comum: precisam de grandes áreas livres, sem pilares atrapalhando o fluxo de pessoas, produtos e empilhadeiras.\n\nÉ aqui que a estrutura metálica brilha. Treliças e vigas de alma cheia permitem vãos de dezenas de metros com peso próprio reduzido, liberando o espaço interno e dando flexibilidade total para o layout do cliente.\n\nVãos maiores também significam menos fundações, o que reduz custo e tempo de obra — um ganho que se paga ao longo de toda a operação do empreendimento."
+    },
+    {
+      "id": "realidade-virtual",
+      "cat": "tecnologia", "catLabel": "Tecnologia",
+      "title": "Realidade virtual: visite sua obra antes da primeira fundação",
+      "excerpt": "Óculos de VR transformam o modelo 3D em uma experiência imersiva — e em decisões mais seguras de compra.",
+      "cover": "assets/photos/bim-detalhe-1.jpg",
+      "date": "24 fev 2026", "read": "3 min", "author": "Equipe Berti",
+      "featured": false,
+      "body": "Ler uma planta exige treino; caminhar dentro da obra, não. Com o modelo BIM e óculos de realidade virtual, o cliente percorre o espaço em escala real antes de a primeira fundação ser executada.\n\nEssa imersão antecipa percepções que nenhum desenho transmite: a sensação do pé-direito, a relação entre os ambientes, o impacto visual da estrutura aparente.\n\nO resultado é uma decisão de compra mais transparente e segura — e menos pedidos de mudança quando a obra já está em andamento."
     }
   ]
 }

@@ -27,8 +27,21 @@
 <body>
 <div id="root"></div>
 
+<!-- Carrega dados do CMS antes do React montar -->
+<script>
+(function(){
+  var r = new XMLHttpRequest();
+  r.open('GET', 'content/blog.json', false);
+  r.send(null);
+  if (r.status === 200) {
+    var d = JSON.parse(r.responseText);
+    window.BLOG_POSTS = d.posts;
+    window.BLOG_CATS  = d.cats;
+  }
+})();
+</script>
+
 <script type="text/babel" src="home/shared.jsx"></script>
-<script type="text/babel" src="blog/BlogData.jsx"></script>
 <script type="text/babel" src="blog/Artigo.jsx"></script>
 <script type="text/babel" src="blog/Blog.jsx"></script>
 
