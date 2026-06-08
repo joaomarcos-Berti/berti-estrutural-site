@@ -56,7 +56,7 @@ function HomeNavBar({ overlay = true }) {
       transition: 'background 240ms ease, border-color 240ms ease',
       fontFamily: '"Open Sans", system-ui, sans-serif',
     }}>
-      <a href="#top" style={{
+      <a href="index.html" style={{
         display: 'flex', alignItems: 'center', gap: 0,
         textDecoration: 'none', color: 'inherit',
         position: 'relative',

@@ -244,24 +244,24 @@ function EmpresaProcesso() {
       {/* Engineering margin line */}
       <div style={{ position:'fixed', top:0, bottom:0, left:'max(48px,5vw)', width:1, background:'rgba(213,68,68,0.18)', zIndex:0, pointerEvents:'none' }}/>
 
-      {/* Header */}
-      <header style={{ position:'relative', zIndex:2, minHeight:'72vh', display:'flex', flexDirection:'column', justifyContent:'center', padding:'9vh clamp(24px,5vw,84px) 7vh calc(max(48px,5vw) + 40px)' }}>
-        <div style={{ fontFamily:'Caveat, cursive', color:'#1853b8', fontSize:'clamp(26px,3vw,44px)', fontWeight:700, lineHeight:1, marginBottom:12, display:'inline-block', transform:'rotate(-3deg)' }}>
+      {/* Section intro — compact, sits below EmpresaHero */}
+      <div style={{ position:'relative', zIndex:2, padding:'clamp(48px,7vh,80px) clamp(24px,5vw,84px) clamp(32px,4vh,52px)', textAlign:'center' }}>
+        <div style={{ fontFamily:'Caveat, cursive', color:'#1853b8', fontSize:'clamp(22px,2.4vw,34px)', fontWeight:700, lineHeight:1, display:'inline-block', transform:'rotate(-2deg)', marginBottom:14 }}>
           do projeto à obra entregue
         </div>
-        <h1 style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, textTransform:'uppercase', fontSize:'clamp(44px,6.4vw,96px)', lineHeight:0.98, margin:0, color:'#10212c', letterSpacing:'-0.01em', paddingBottom:'0.18em' }}>
+        <h2 id="processo" style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, textTransform:'uppercase', fontSize:'clamp(36px,4.8vw,68px)', lineHeight:0.98, margin:'0 0 16px', color:'#10212c', letterSpacing:'-0.01em' }}>
           Como{' '}
           <span style={{ position:'relative', color:'#077fbf', whiteSpace:'nowrap' }}>
             trabalhamos
-            <svg viewBox="0 0 300 24" preserveAspectRatio="none" style={{ position:'absolute', left:'-2%', bottom:'0.02em', width:'104%', height:'0.34em', overflow:'visible' }}>
+            <svg viewBox="0 0 300 24" preserveAspectRatio="none" style={{ position:'absolute', left:'-2%', bottom:'0.02em', width:'104%', height:'0.32em', overflow:'visible' }}>
               <path d="M3,15 C70,4 150,22 220,9 C255,3 285,11 297,8" fill="none" stroke="#47b6f1" strokeWidth="5" strokeLinecap="round"/>
             </svg>
           </span>
-        </h1>
-        <p style={{ margin:'30px 0 0', maxWidth:'54ch', fontSize:'clamp(17px,1.4vw,21px)', lineHeight:1.6, color:'#4a606e' }}>
-          Cinco etapas, um único responsável. Acompanhe o caminho da sua estrutura — do recebimento do projeto à montagem parafusada em obra.
+        </h2>
+        <p style={{ maxWidth:'52ch', margin:'0 auto', fontSize:'clamp(16px,1.2vw,19px)', lineHeight:1.6, color:'#4a606e' }}>
+          Cinco etapas, um único responsável — do recebimento do projeto à montagem parafusada em obra.
         </p>
-      </header>
+      </div>
 
       {/* Panels */}
       <main>

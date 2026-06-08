@@ -1,38 +1,59 @@
 /* global React, HOME_BRAND */
 // ============================================================================
-// HOME · COMO TRABALHAMOS — Tira horizontal compacta (engineer-notebook)
-// 5 etapas em linha, fundo quadriculado, tipografia Barlow + Caveat
-// Posição: abaixo do Hero da home
+// HOME · COMO TRABALHAMOS — 5 etapas com hover: imagem sobe de baixo + link
 // ============================================================================
 
 const CT_STEPS = [
-  { n:'01', tag:'Análise',            icon:'📋', note:'viabilidade + padrão de execução' },
-  { n:'02', tag:'Orçamento',          icon:'📐', note:'render · 360° · VR Meta Quest Pro' },
-  { n:'03', tag:'Concepção',          icon:'🏗️', note:'cálculo estrutural + detalhamento' },
-  { n:'04', tag:'Fabricação',         icon:'🔩', note:'qualidade + certificação de material' },
-  { n:'05', tag:'Montagem',           icon:'⚡', note:'sem solda · numerado · zero retrabalho' },
+  {
+    n:'01', tag:'Análise',
+    title:'Recebemos & Analisamos',
+    body:'Análise de viabilidade estrutural e enquadramento no nosso padrão de execução.',
+    note:'viabilidade + padrão de execução',
+    img:'assets/process/cad-monitor.jpg',
+    alt:'Projeto estrutural em AutoCAD',
+    href:'Empresa.html#proc-0',
+  },
+  {
+    n:'02', tag:'Orçamento',
+    title:'Estudo Técnico & BIM 3D',
+    body:'Modelagem BIM 3D com render, 360° e realidade virtual para apresentação ao cliente.',
+    note:'render · 360° · VR Meta Quest Pro',
+    img:'assets/process/render-aerea.jpg',
+    alt:'Render aéreo BIM',
+    href:'Empresa.html#proc-1',
+  },
+  {
+    n:'03', tag:'Concepção',
+    title:'Cálculo & Modelagem Final',
+    body:'Cálculos estruturais e modelagem final — cada peça detalhada para encaixe perfeito.',
+    note:'cálculo estrutural + detalhamento',
+    img:'assets/process/bim-float.png',
+    alt:'Modelo BIM estrutural',
+    href:'Empresa.html#proc-2',
+  },
+  {
+    n:'04', tag:'Fabricação',
+    title:'Produção Rastreável',
+    body:'Fabricação com controle total de qualidade, rastreabilidade e certificação de material.',
+    note:'qualidade + certificação',
+    img:'assets/process/obra-aerea.jpg',
+    alt:'Peças estruturais em obra',
+    href:'Empresa.html#proc-3',
+  },
+  {
+    n:'05', tag:'Montagem',
+    title:'Montagem 100% Parafusada',
+    body:'Montagem 100% parafusada, sem solda, com equipe especializada. Zero retrabalho.',
+    note:'sem solda · numerado · zero retrabalho',
+    img:'assets/process/estrutura-telhado.jpg',
+    alt:'Estrutura metálica montada',
+    href:'Empresa.html#proc-4',
+  },
 ];
 
-const CT_TITLES = [
-  'Recebemos & Analisamos',
-  'Estudo Técnico & BIM 3D',
-  'Cálculo & Modelagem Final',
-  'Produção Rastreável',
-  'Montagem 100% Parafusada',
-];
-
-const CT_BODIES = [
-  'Análise de viabilidade estrutural e enquadramento no nosso padrão de execução.',
-  'Modelagem BIM 3D com render, 360° e realidade virtual para apresentação ao cliente.',
-  'Cálculos estruturais e modelagem final — cada peça detalhada para encaixe perfeito.',
-  'Fabricação com controle total de qualidade, rastreabilidade e certificação de material.',
-  'Montagem 100% parafusada, sem solda, com equipe especializada. Zero retrabalho.',
-];
-
-function HomeComoTrabalhamos() {
-  const { useState, useEffect, useRef } = React;
-  const [active, setActive] = useState(null);
-  const sectionRef = useRef(null);
+function StepCard({ s, i }) {
+  const { useState, useEffect } = React;
+  const [hov, setHov] = useState(false);
 
   useEffect(() => {
     if (!document.querySelector('link[data-caveat]')) {
@@ -44,6 +65,151 @@ function HomeComoTrabalhamos() {
     }
   }, []);
 
+  return (
+    <a
+      href={s.href}
+      onMouseEnter={() => setHov(true)}
+      onMouseLeave={() => setHov(false)}
+      style={{
+        position:'relative',
+        display:'flex', flexDirection:'column', alignItems:'center',
+        textDecoration:'none', color:'inherit',
+        cursor:'pointer',
+        transform: hov ? 'translateY(-8px)' : 'translateY(0)',
+        transition:'transform 300ms cubic-bezier(.2,.8,.2,1)',
+        zIndex: hov ? 10 : 1,
+      }}
+    >
+      {/* Slide-up image — reveals from bottom */}
+      <div style={{
+        position:'absolute',
+        bottom:'calc(100% + 12px)',
+        left:'50%',
+        transform: hov ? 'translateX(-50%) translateY(0)' : 'translateX(-50%) translateY(24px)',
+        opacity: hov ? 1 : 0,
+        transition:'opacity 260ms ease, transform 300ms cubic-bezier(.2,.8,.2,1)',
+        pointerEvents:'none',
+        width:220,
+        zIndex:20,
+      }}>
+        {/* Polaroid frame */}
+        <div style={{
+          background: s.n==='03' ? '#0e1b24' : '#fff',
+          padding:'10px 10px 12px',
+          borderRadius:3,
+          boxShadow:'0 20px 48px -14px rgba(16,33,44,.55), 0 2px 0 rgba(16,33,44,.04)',
+          position:'relative',
+        }}>
+          {/* Tape */}
+          <span style={{
+            position:'absolute', top:-12, left:'50%',
+            transform:'translateX(-50%) rotate(-2deg)',
+            width:90, height:24,
+            background:'rgba(71,182,241,.22)',
+            borderLeft:'1px dashed rgba(7,127,191,.35)',
+            borderRight:'1px dashed rgba(7,127,191,.35)',
+            display:'block',
+          }}/>
+          <img
+            src={s.img} alt={s.alt}
+            style={{
+              display:'block', width:'100%', height:130,
+              objectFit: s.n==='03' ? 'contain' : 'cover',
+              borderRadius:1,
+            }}
+          />
+          <div style={{
+            fontFamily:'Caveat, cursive',
+            color: s.n==='03' ? '#47b6f1' : '#1853b8',
+            fontWeight:600, fontSize:14, lineHeight:1.2,
+            paddingTop:8, textAlign:'center',
+          }}>
+            {s.note}
+          </div>
+        </div>
+        {/* Arrow pointing down */}
+        <div style={{ textAlign:'center', marginTop:6 }}>
+          <svg viewBox="0 0 16 10" style={{ width:16, height:10 }}>
+            <path d="M1,1 L8,9 L15,1" fill="none" stroke="#1853b8" strokeWidth="1.8" strokeLinecap="round" opacity="0.6"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* Circle number */}
+      <div style={{
+        width:76, height:76, borderRadius:'50%', flexShrink:0,
+        border: `2px solid ${hov ? '#077fbf' : '#c6d4e2'}`,
+        background: hov ? '#077fbf' : '#fff',
+        display:'flex', alignItems:'center', justifyContent:'center',
+        fontFamily:'Caveat, cursive', fontWeight:700,
+        fontSize: hov ? 30 : 26,
+        color: hov ? '#fff' : '#1853b8',
+        transition:'all 280ms ease',
+        boxShadow: hov ? '0 12px 28px -10px rgba(7,127,191,0.5)' : '0 4px 12px -6px rgba(16,33,44,0.12)',
+        marginBottom:16, position:'relative',
+      }}>
+        {s.n}
+        {/* Blueprint corner ticks */}
+        {['tl','tr','bl','br'].map(p => {
+          const ts = { position:'absolute', width:10, height:10, border:'1.5px solid #4f7fd6', opacity: hov ? 0 : 0.4, transition:'opacity 0.2s' };
+          if (p==='tl') { ts.top=-2; ts.left=-2; ts.borderRight=0; ts.borderBottom=0; }
+          else if (p==='tr') { ts.top=-2; ts.right=-2; ts.borderLeft=0; ts.borderBottom=0; }
+          else if (p==='bl') { ts.bottom=-2; ts.left=-2; ts.borderRight=0; ts.borderTop=0; }
+          else { ts.bottom=-2; ts.right=-2; ts.borderLeft=0; ts.borderTop=0; }
+          return React.createElement('span', { key:p, style:ts });
+        })}
+      </div>
+
+      {/* Tag */}
+      <div style={{
+        fontFamily:'"Barlow Condensed",sans-serif', fontWeight:700,
+        textTransform:'uppercase', letterSpacing:'0.14em',
+        fontSize:'clamp(11px,0.9vw,13px)',
+        color: hov ? '#077fbf' : '#9fb0c0',
+        transition:'color 0.2s', marginBottom:8,
+      }}>
+        {s.tag}
+      </div>
+
+      {/* Title */}
+      <div style={{
+        fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800,
+        textTransform:'uppercase', fontSize:'clamp(15px,1.3vw,19px)',
+        lineHeight:1.05, color:'#10212c', textAlign:'center', marginBottom:10,
+      }}>
+        {s.title}
+      </div>
+
+      {/* Body — expands on hover */}
+      <div style={{
+        fontSize:'clamp(13px,0.95vw,15px)', lineHeight:1.55, color:'#4a606e',
+        textAlign:'center', maxWidth:180,
+        opacity: hov ? 1 : 0,
+        maxHeight: hov ? 80 : 0,
+        overflow:'hidden',
+        transition:'opacity 0.25s ease, max-height 0.3s ease',
+      }}>
+        {s.body}
+      </div>
+
+      {/* "ver mais →" hint on hover */}
+      <div style={{
+        marginTop: hov ? 10 : 0,
+        opacity: hov ? 1 : 0,
+        maxHeight: hov ? 24 : 0,
+        overflow:'hidden',
+        transition:'opacity 0.25s ease, max-height 0.3s ease',
+        fontFamily:'"Barlow Condensed",sans-serif', fontWeight:700,
+        fontSize:12, letterSpacing:'0.12em', textTransform:'uppercase',
+        color:'#077fbf',
+      }}>
+        ver etapa →
+      </div>
+    </a>
+  );
+}
+
+function HomeComoTrabalhamos() {
   const gridBg = {
     backgroundImage:[
       'linear-gradient(#d5e3f4 1px, transparent 1px)',
@@ -55,16 +221,15 @@ function HomeComoTrabalhamos() {
   };
 
   return (
-    <section ref={sectionRef} style={{
-      background:'#fbfcfe', ...gridBg,
-      padding:'clamp(60px,8vh,100px) clamp(20px,5vw,84px)',
-      fontFamily:'"Open Sans", system-ui, sans-serif',
-      color:'#10212c',
-      position:'relative', overflow:'hidden',
+    <section style={{
+      background:'transparent', ...gridBg,
+      padding:'clamp(60px,8vh,100px) clamp(20px,5vw,84px) clamp(64px,9vh,110px)',
+      fontFamily:'"Open Sans", system-ui, sans-serif', color:'#10212c',
+      position:'relative', overflow:'visible',
     }}>
       {/* Header */}
-      <div style={{ textAlign:'center', marginBottom:'clamp(40px,6vh,72px)', position:'relative', zIndex:1 }}>
-        <div style={{ fontFamily:'Caveat, cursive', color:'#1853b8', fontSize:'clamp(22px,2.4vw,34px)', fontWeight:700, lineHeight:1, display:'inline-block', transform:'rotate(-2deg)', marginBottom:12 }}>
+      <div style={{ textAlign:'center', marginBottom:'clamp(56px,8vh,96px)', position:'relative', zIndex:1 }}>
+        <div style={{ fontFamily:'Caveat, cursive', color:'#1853b8', fontSize:'clamp(22px,2.4vw,34px)', fontWeight:700, lineHeight:1, display:'inline-block', transform:'rotate(-2deg)', marginBottom:14 }}>
           do projeto à obra entregue
         </div>
         <h2 style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, textTransform:'uppercase', fontSize:'clamp(36px,4.5vw,60px)', lineHeight:0.98, margin:'0 0 16px', color:'#10212c', letterSpacing:'-0.01em' }}>
@@ -76,84 +241,17 @@ function HomeComoTrabalhamos() {
             </svg>
           </span>
         </h2>
-        <p style={{ maxWidth:560, margin:'0 auto', fontSize:'clamp(15px,1.1vw,17px)', lineHeight:1.58, color:'#4a606e' }}>
+        <p style={{ maxWidth:540, margin:'0 auto', fontSize:'clamp(15px,1.1vw,17px)', lineHeight:1.58, color:'#4a606e' }}>
           Cinco etapas, um único responsável — do recebimento do projeto à montagem parafusada em obra.
         </p>
       </div>
 
-      {/* Steps grid */}
+      {/* Steps */}
       <div style={{ display:'grid', gridTemplateColumns:'repeat(5,1fr)', gap:'clamp(12px,2vw,28px)', maxWidth:1280, margin:'0 auto', position:'relative', zIndex:1 }}>
         {/* Connector line */}
         <div style={{ position:'absolute', top:38, left:'10%', right:'10%', height:1, background:'linear-gradient(90deg, transparent, #c6d4e2 20%, #c6d4e2 80%, transparent)', zIndex:0, pointerEvents:'none' }}/>
 
-        {CT_STEPS.map((s, i) => (
-          <div key={i}
-            onMouseEnter={() => setActive(i)}
-            onMouseLeave={() => setActive(null)}
-            style={{
-              position:'relative', zIndex:1,
-              display:'flex', flexDirection:'column', alignItems:'center',
-              cursor:'default',
-              transition:'transform 280ms cubic-bezier(.2,.8,.2,1)',
-              transform: active === i ? 'translateY(-8px)' : 'translateY(0)',
-            }}
-          >
-            {/* Circle number */}
-            <div style={{
-              width:76, height:76, borderRadius:'50%', flexShrink:0,
-              border: active===i ? '2px solid #077fbf' : '2px solid #c6d4e2',
-              background: active===i ? '#077fbf' : '#fff',
-              display:'flex', alignItems:'center', justifyContent:'center',
-              fontFamily:'Caveat, cursive', fontWeight:700,
-              fontSize: active===i ? 32 : 28,
-              color: active===i ? '#fff' : '#1853b8',
-              transition:'all 280ms ease',
-              boxShadow: active===i ? '0 12px 28px -10px rgba(7,127,191,0.45)' : '0 4px 12px -6px rgba(16,33,44,0.12)',
-              marginBottom:16,
-              position:'relative',
-            }}>
-              {s.n}
-              {/* Blueprint ticks */}
-              {['tl','tr','bl','br'].map(p => {
-                const ts = { position:'absolute', width:10, height:10, border:'1.5px solid #4f7fd6', opacity: active===i ? 0 : 0.4, transition:'opacity 0.2s' };
-                if (p==='tl') { ts.top=-2; ts.left=-2; ts.borderRight=0; ts.borderBottom=0; }
-                else if (p==='tr') { ts.top=-2; ts.right=-2; ts.borderLeft=0; ts.borderBottom=0; }
-                else if (p==='bl') { ts.bottom=-2; ts.left=-2; ts.borderRight=0; ts.borderTop=0; }
-                else { ts.bottom=-2; ts.right=-2; ts.borderLeft=0; ts.borderTop=0; }
-                return React.createElement('span', { key:p, style:ts });
-              })}
-            </div>
-
-            {/* Tag */}
-            <div style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:700, textTransform:'uppercase', letterSpacing:'0.14em', fontSize:'clamp(11px,0.9vw,13px)', color: active===i ? '#077fbf' : '#9fb0c0', transition:'color 0.2s', marginBottom:8 }}>
-              {s.tag}
-            </div>
-
-            {/* Title */}
-            <div style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, textTransform:'uppercase', fontSize:'clamp(15px,1.3vw,19px)', lineHeight:1.05, color:'#10212c', textAlign:'center', marginBottom:10 }}>
-              {CT_TITLES[i]}
-            </div>
-
-            {/* Body — visible on hover */}
-            <div style={{
-              fontSize:'clamp(13px,0.95vw,15px)', lineHeight:1.55, color:'#4a606e',
-              textAlign:'center', maxWidth:180,
-              opacity: active===i ? 1 : 0,
-              maxHeight: active===i ? 80 : 0,
-              overflow:'hidden',
-              transition:'opacity 0.25s ease, max-height 0.3s ease',
-            }}>
-              {CT_BODIES[i]}
-            </div>
-
-            {/* Handwritten note */}
-            {active === i && (
-              <div style={{ fontFamily:'Caveat, cursive', color:'#1853b8', fontWeight:600, fontSize:'clamp(13px,1vw,16px)', marginTop:8, textAlign:'center', lineHeight:1.2 }}>
-                {s.note}
-              </div>
-            )}
-          </div>
-        ))}
+        {CT_STEPS.map((s, i) => <StepCard key={s.n} s={s} i={i}/>)}
       </div>
 
       {/* CTA */}
@@ -165,10 +263,10 @@ function HomeComoTrabalhamos() {
 
       <style>{`
         @media(max-width:760px){
-          .ct-grid { grid-template-columns: repeat(3,1fr) !important; }
+          .ct-grid{ grid-template-columns: repeat(3,1fr) !important; }
         }
         @media(max-width:480px){
-          .ct-grid { grid-template-columns: 1fr 1fr !important; }
+          .ct-grid{ grid-template-columns: 1fr 1fr !important; }
         }
       `}</style>
     </section>

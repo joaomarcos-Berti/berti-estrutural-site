@@ -57,6 +57,11 @@
 
     return (
       <>
+      <div style={{
+        backgroundImage: ['linear-gradient(#d5e3f4 1px, transparent 1px)','linear-gradient(90deg, #d5e3f4 1px, transparent 1px)','linear-gradient(#eaf0f8 1px, transparent 1px)','linear-gradient(90deg, #eaf0f8 1px, transparent 1px)'].join(','),
+        backgroundSize: '120px 120px, 120px 120px, 24px 24px, 24px 24px',
+        backgroundColor: '#fbfcfe',
+      }}>
         <HomeNavBar overlay />
         <HomeHero
           align={t.heroAlign}
@@ -66,13 +71,13 @@
           accent={t.accent}
         />
         <HomeComoTrabalhamos />
-        <HomeParceiros speedSec={t.marqueeSpeed} />
         <HomeCategorias accent={t.accent} bg="#ffffff" />
         <HomeYoutube />
         <HomeDepoimentos />
+        <HomeParceiros speedSec={t.marqueeSpeed} />
         <HomeFooter />
-
-        <TweaksPanel title="Tweaks · Home">
+      </div>
+      <TweaksPanel title="Tweaks · Home">
           <TweakSection label="Hero">
             <TweakRadio
               label="Alinhamento do bloco"
