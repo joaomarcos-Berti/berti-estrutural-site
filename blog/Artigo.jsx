@@ -102,7 +102,7 @@ function BlogArtigo({ post, onClose }) {
               fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700,
               fontSize: 22, color: HOME_BRAND.ink, textTransform: 'uppercase', lineHeight: 1.1,
             }}>Tem um projeto em mente?</div>
-            <a href="Home%20Berti.html#orcamento" style={{
+            <a href="Contato.html" style={{
               display: 'inline-flex', alignItems: 'center', gap: 10,
               background: accent, color: '#000', padding: '14px 26px',
               fontSize: 12.5, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase',
