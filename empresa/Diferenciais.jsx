@@ -1,4 +1,4 @@
-/* global React, HOME_BRAND */
+/* global React, HOME_BRAND, useMobile */
 // ============================================================================
 // EMPRESA · DIFERENCIAIS — 3 colunas limpas, sem imagens, visual moderno
 // ============================================================================
@@ -25,6 +25,7 @@ const DIFERENCIAIS_ITEMS = [
 ];
 
 function EmpresaDiferenciais() {
+  const isMobile = useMobile();
   const accent = HOME_BRAND.blue;
   const ink    = HOME_BRAND.ink;
 
@@ -35,7 +36,7 @@ function EmpresaDiferenciais() {
       fontFamily: '"Open Sans", system-ui, sans-serif',
       position: 'relative',
       overflow: 'hidden',
-      padding: 'clamp(80px, 10vh, 120px) clamp(24px, 6vw, 100px)',
+      padding: isMobile ? '64px 20px 56px' : 'clamp(80px, 10vh, 120px) clamp(24px, 6vw, 100px)',
     }}>
 
       {/* Textura diagonal sutil */}
@@ -82,7 +83,7 @@ function EmpresaDiferenciais() {
         {/* Grid 3 colunas */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
           gap: 1,
           background: 'rgba(255,255,255,0.08)',
         }}>
@@ -95,7 +96,7 @@ function EmpresaDiferenciais() {
         <div style={{
           marginTop: 'clamp(48px,6vh,72px)',
           display: 'grid',
-          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)',
           borderTop: '1px solid rgba(255,255,255,0.12)',
           borderBottom: '1px solid rgba(255,255,255,0.12)',
         }}>
@@ -106,7 +107,8 @@ function EmpresaDiferenciais() {
           ].map((s, i) => (
             <div key={s.k} style={{
               padding: 'clamp(24px,4vh,40px) clamp(20px,3vw,36px)',
-              borderLeft: i === 0 ? 'none' : '1px solid rgba(255,255,255,0.12)',
+              borderLeft: (isMobile || i === 0) ? 'none' : '1px solid rgba(255,255,255,0.12)',
+              borderTop: isMobile && i > 0 ? '1px solid rgba(255,255,255,0.12)' : 'none',
             }}>
               <div style={{
                 fontFamily: '"Barlow Condensed", sans-serif',

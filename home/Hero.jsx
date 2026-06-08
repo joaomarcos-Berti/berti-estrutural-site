@@ -1,4 +1,4 @@
-/* global React, HOME_BRAND, HOME_PHOTO */
+/* global React, HOME_BRAND, HOME_PHOTO, useMobile */
 // ============================================================================
 // HOME · HERO
 // Vídeo-slideshow ao fundo passando as obras + bloco escuro à direita com
@@ -23,6 +23,7 @@ function HomeHero({
   ctaSecondary = 'outline', // 'outline' | 'whatsapp'
 }) {
   const [idx, setIdx] = useStateHero(0);
+  const isMobile = useMobile();
 
   useEffectHero(() => {
     const id = setInterval(() => {
@@ -85,8 +86,8 @@ function HomeHero({
         maxWidth: 1440,
         margin: '0 auto',
         // Folga lateral pra o título não colar na borda — empurra pro miolo da página
-        paddingLeft:  blockAlignRight ? 64 : 'clamp(80px, 10vw, 180px)',
-        paddingRight: blockAlignRight ? 'clamp(80px, 10vw, 180px)' : 64,
+        paddingLeft:  blockAlignRight ? 64 : (isMobile ? '20px' : 'clamp(80px, 10vw, 180px)'),
+        paddingRight: blockAlignRight ? (isMobile ? '20px' : 'clamp(80px, 10vw, 180px)') : (isMobile ? '20px' : 64),
       }}>
         <div style={{
           maxWidth: 620, width: '100%',
@@ -174,7 +175,7 @@ function HomeHero({
 
           {/* Stats compactos */}
           <div style={{
-            display: 'flex', gap: 48, marginTop: 64,
+            display: 'flex', gap: isMobile ? 28 : 48, marginTop: isMobile ? 40 : 64,
             paddingTop: 28, borderTop: '1px solid rgba(255,255,255,0.18)',
             maxWidth: 540,
           }}>
@@ -206,7 +207,7 @@ function HomeHero({
 
       {/* =================== Indicadores de slide + legenda =================== */}
       <div style={{
-        position: 'absolute', left: 64, bottom: 32, zIndex: 6,
+        position: 'absolute', left: isMobile ? '20px' : 64, bottom: 32, zIndex: 6,
         display: 'flex', alignItems: 'center', gap: 18,
         color: 'rgba(255,255,255,0.75)',
       }}>
@@ -231,7 +232,7 @@ function HomeHero({
         position: 'absolute', right: 32, bottom: 32, zIndex: 6,
         color: 'rgba(255,255,255,0.6)', fontSize: 10.5,
         letterSpacing: '0.28em', textTransform: 'uppercase',
-        display: 'flex', alignItems: 'center', gap: 10,
+        display: isMobile ? 'none' : 'flex', alignItems: 'center', gap: 10,
         writingMode: 'vertical-rl', transform: 'rotate(180deg)',
         fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 600,
       }}>

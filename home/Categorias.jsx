@@ -1,4 +1,4 @@
-/* global React, HOME_BRAND, HOME_PHOTO */
+/* global React, HOME_BRAND, HOME_PHOTO, useMobile */
 // ============================================================================
 // HOME · CATEGORIAS DE OBRAS
 // Três blocos lado a lado: Supermercados · Comercial · Industrial
@@ -32,10 +32,11 @@ const HOME_CATEGORIES = [
 ];
 
 function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
+  const isMobile = useMobile();
   return (
     <section id="obras" style={{
       background: bg,
-      padding: '120px 64px 100px',
+      padding: isMobile ? '64px 20px 56px' : '120px clamp(64px, 8vw, 140px) 100px',
       fontFamily: '"Open Sans", system-ui, sans-serif',
       color: HOME_BRAND.rule,
       position: 'relative',
@@ -48,9 +49,9 @@ function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
 
       {/* Cabeçalho */}
       <div style={{
-        display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: 64,
-        alignItems: 'end', marginBottom: 64,
-        maxWidth: 1440, margin: '0 auto 64px',
+        display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1.4fr', gap: isMobile ? 24 : 64,
+        alignItems: 'end', marginBottom: isMobile ? 40 : 64,
+        maxWidth: 1440, margin: isMobile ? '0 auto 40px' : '0 auto 64px',
       }}>
         <div>
           <div style={{
@@ -75,7 +76,7 @@ function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
         <p style={{
           fontSize: 17, lineHeight: 1.6,
           color: 'rgba(10,10,10,0.68)',
-          maxWidth: 520, justifySelf: 'end', margin: 0,
+          maxWidth: 520, justifySelf: isMobile ? undefined : 'end', margin: 0,
         }}>
           Soluções personalizadas, com segurança, certificação e excelente custo-benefício.
           Supermercados, comercial e industrial — três frentes atendidas com o mesmo padrão
@@ -85,7 +86,7 @@ function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
 
       {/* Grid de categorias */}
       <div style={{
-        display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 28,
+        display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: isMobile ? 16 : 28,
         maxWidth: 1440, margin: '0 auto',
       }}>
         {HOME_CATEGORIES.map((cat) => (

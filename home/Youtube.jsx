@@ -1,4 +1,4 @@
-/* global React, HOME_BRAND */
+/* global React, HOME_BRAND, useMobile */
 // ============================================================================
 // HOME · YOUTUBE
 // 1 vídeo principal + 3 vídeos do canal ao lado. Clicar nos secundários
@@ -28,6 +28,7 @@ const thumbUrl = (id) => `https://i.ytimg.com/vi/${id}/hqdefault.jpg`;
 function HomeYoutube() {
   const [current, setCurrent] = useStateYT(VIDEO_DESTAQUE);
   const [playing, setPlaying] = useStateYT(false);
+  const isMobile = useMobile();
 
   const swap = (v) => {
     setCurrent(v);
@@ -37,7 +38,7 @@ function HomeYoutube() {
   return (
     <section id="canal" style={{
       background: '#fff',
-      padding: '100px 64px 90px',
+      padding: isMobile ? '56px 20px 48px' : '100px 64px 90px',
       fontFamily: '"Open Sans", system-ui, sans-serif',
       color: HOME_BRAND.rule,
       borderTop: '1px solid rgba(10,10,10,0.06)',
@@ -86,7 +87,7 @@ function HomeYoutube() {
 
         {/* Grid: principal + 3 secundários */}
         <div style={{
-          display: 'grid', gridTemplateColumns: '2fr 1fr', gap: 28,
+          display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '2fr 1fr', gap: isMobile ? 20 : 28,
         }}>
           {/* Vídeo principal */}
           <div>
@@ -145,7 +146,7 @@ function HomeYoutube() {
 
           {/* Vídeos secundários (4) — coluna que enche a altura do principal */}
           <div style={{
-            display: 'flex', flexDirection: 'column',
+            display: isMobile ? 'none' : 'flex', flexDirection: 'column',
             justifyContent: 'space-between',
             gap: 12,
             height: '100%',

@@ -1,4 +1,4 @@
-/* global React, HOME_BRAND, HOME_PHOTO */
+/* global React, HOME_BRAND, HOME_PHOTO, useMobile */
 // ============================================================================
 // EMPRESA · HERO
 // Mesmo design do hero da home (slideshow Ken Burns + véu escuro),
@@ -15,6 +15,7 @@ const EMPRESA_FRAMES = [
 
 function EmpresaHero({ accent = HOME_BRAND.blue, overlay = 0.62, cycleMs = 6000 }) {
   const [idx, setIdx] = useStateEH(0);
+  const isMobile = useMobile();
 
   useEffectEH(() => {
     const id = setInterval(() => setIdx((i) => (i + 1) % EMPRESA_FRAMES.length), cycleMs);
@@ -70,8 +71,8 @@ function EmpresaHero({ accent = HOME_BRAND.blue, overlay = 0.62, cycleMs = 6000 
         maxWidth: 1440, width: '100%',
         margin: '0 auto',
         padding: '120px 0 60px',
-        paddingLeft:  'clamp(80px, 10vw, 180px)',
-        paddingRight: 64,
+        paddingLeft:  isMobile ? '20px' : 'clamp(80px, 10vw, 180px)',
+        paddingRight: isMobile ? '20px' : 64,
       }}>
         <div style={{ maxWidth: 700 }}>
           {/* Breadcrumb */}
@@ -133,7 +134,7 @@ function EmpresaHero({ accent = HOME_BRAND.blue, overlay = 0.62, cycleMs = 6000 
 
       {/* =================== Indicadores de slide =================== */}
       <div style={{
-        position: 'absolute', left: 'clamp(80px, 10vw, 180px)', bottom: 24, zIndex: 6,
+        position: 'absolute', left: isMobile ? '20px' : 'clamp(80px, 10vw, 180px)', bottom: 24, zIndex: 6,
         display: 'flex', alignItems: 'center', gap: 8,
         color: 'rgba(255,255,255,0.75)',
       }}>

@@ -4,6 +4,17 @@
 // ============================================================================
 const { useState, useEffect, useRef } = React;
 
+function useMobile(bp = 768) {
+  const [mob, setMob] = React.useState(typeof window !== 'undefined' && window.innerWidth < bp);
+  React.useEffect(() => {
+    const fn = () => setMob(window.innerWidth < bp);
+    window.addEventListener('resize', fn);
+    return () => window.removeEventListener('resize', fn);
+  }, [bp]);
+  return mob;
+}
+window.useMobile = useMobile;
+
 const HOME_BRAND = {
   blue:     '#47b6f1',
   blueDark: '#077fbf',
@@ -34,90 +45,176 @@ const HOME_LOGO_BERTI = 'assets/logo-berti.png';
 // ============================================================================
 function HomeNavBar({ overlay = true }) {
   const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const isMobile = useMobile();
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 60);
     window.addEventListener('scroll', onScroll);
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const solid = !overlay || scrolled;
+  // Close menu on resize to desktop
+  useEffect(() => {
+    if (!isMobile) setMenuOpen(false);
+  }, [isMobile]);
+
+  const solid = !overlay || scrolled || menuOpen;
+
+  const NAV_LINKS = [
+    { label: 'Home', href: 'index.html' },
+    { label: 'Empresa', href: 'Empresa.html' },
+    { label: 'Obras', href: 'Obras.html' },
+    { label: 'Blog', href: 'Blog.html' },
+    { label: 'Contato', href: 'Contato.html' },
+  ];
 
   return (
     <header style={{
       position: overlay ? 'fixed' : 'relative',
       top: 0, left: 0, right: 0, zIndex: 100,
-      background: solid ? 'rgba(8,10,12,0.92)' : 'transparent',
+      background: solid ? 'rgba(8,10,12,0.96)' : 'transparent',
       backdropFilter: solid ? 'blur(8px)' : 'none',
       WebkitBackdropFilter: solid ? 'blur(8px)' : 'none',
       borderBottom: solid ? '1px solid rgba(255,255,255,0.06)' : '1px solid transparent',
-      padding: '18px 64px',
+      padding: isMobile ? '14px 20px' : '18px 64px',
       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
       color: '#fff',
       transition: 'background 240ms ease, border-color 240ms ease',
       fontFamily: '"Open Sans", system-ui, sans-serif',
     }}>
+      {/* Logo */}
       <a href="index.html" style={{
         display: 'flex', alignItems: 'center', gap: 0,
         textDecoration: 'none', color: 'inherit',
         position: 'relative',
       }}
         onMouseEnter={(e) => {
+          if (isMobile) return;
           const txt = e.currentTarget.querySelector('[data-berti-wordmark]');
           if (txt) { txt.style.width = '210px'; txt.style.opacity = '1'; txt.style.marginLeft = '14px'; }
         }}
         onMouseLeave={(e) => {
+          if (isMobile) return;
           const txt = e.currentTarget.querySelector('[data-berti-wordmark]');
           if (txt) { txt.style.width = '0px'; txt.style.opacity = '0'; txt.style.marginLeft = '0px'; }
         }}
       >
-        {/* Quadrado azul "BE" â sempre visÃ­vel */}
         <img src={HOME_LOGO_BE} alt="Berti Estrutural" style={{
-          height: 44, display: 'block', flexShrink: 0,
+          height: isMobile ? 36 : 44, display: 'block', flexShrink: 0,
         }} />
-        {/* Wordmark â aparece no hover */}
-        <span data-berti-wordmark style={{
-          display: 'inline-block',
-          width: 0, opacity: 0, marginLeft: 0,
-          overflow: 'hidden', whiteSpace: 'nowrap',
-          fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 800,
-          fontSize: 22, letterSpacing: '0.05em', textTransform: 'uppercase',
-          color: '#fff',
-          transition: 'width 280ms ease, opacity 220ms ease 60ms, margin-left 280ms ease',
-          lineHeight: 1,
-        }}>
-          BERTI <span style={{ color: HOME_BRAND.blue }}>ESTRUTURAL</span>
-        </span>
+        {isMobile ? (
+          <span style={{
+            display: 'inline-block',
+            marginLeft: 12,
+            fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 800,
+            fontSize: 20, letterSpacing: '0.05em', textTransform: 'uppercase',
+            color: '#fff', lineHeight: 1,
+          }}>
+            BERTI <span style={{ color: HOME_BRAND.blue }}>ESTRUTURAL</span>
+          </span>
+        ) : (
+          <span data-berti-wordmark style={{
+            display: 'inline-block',
+            width: 0, opacity: 0, marginLeft: 0,
+            overflow: 'hidden', whiteSpace: 'nowrap',
+            fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 800,
+            fontSize: 22, letterSpacing: '0.05em', textTransform: 'uppercase',
+            color: '#fff',
+            transition: 'width 280ms ease, opacity 220ms ease 60ms, margin-left 280ms ease',
+            lineHeight: 1,
+          }}>
+            BERTI <span style={{ color: HOME_BRAND.blue }}>ESTRUTURAL</span>
+          </span>
+        )}
       </a>
 
-      <nav style={{ display: 'flex', gap: 36, fontSize: 12.5, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
-        {[
-          { label: 'Home', href: 'index.html' },
-          { label: 'Empresa',  href: 'Empresa.html' },
-          { label: 'Obras',    href: 'Obras.html' },
-          { label: 'Blog',     href: 'Blog.html' },
-          { label: 'Contato',  href: 'Contato.html' },
-        ].map((x) => (
-          <a key={x.label} href={x.href} style={{
-            color: 'rgba(255,255,255,0.85)', textDecoration: 'none',
-            paddingBottom: 4, borderBottom: '1px solid transparent',
-            transition: 'border-color 180ms ease, color 180ms ease',
+      {/* Desktop nav */}
+      {!isMobile && (
+        <nav style={{ display: 'flex', gap: 36, fontSize: 12.5, letterSpacing: '0.12em', textTransform: 'uppercase' }}>
+          {NAV_LINKS.map((x) => (
+            <a key={x.label} href={x.href} style={{
+              color: 'rgba(255,255,255,0.82)', textDecoration: 'none',
+              transition: 'color 180ms ease',
+            }}
+            onMouseEnter={(e) => e.currentTarget.style.color = '#fff'}
+            onMouseLeave={(e) => e.currentTarget.style.color = 'rgba(255,255,255,0.82)'}
+            >{x.label}</a>
+          ))}
+          <a href="Contato.html" style={{
+            background: HOME_BRAND.blue, color: '#000',
+            padding: '10px 20px', fontSize: 12, fontWeight: 800,
+            textTransform: 'uppercase', letterSpacing: '0.14em',
+            textDecoration: 'none',
+            transition: 'background 180ms ease',
           }}
-          onMouseEnter={(e) => { e.currentTarget.style.borderColor = HOME_BRAND.blue; e.currentTarget.style.color = '#fff'; }}
-          onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'transparent'; e.currentTarget.style.color = 'rgba(255,255,255,0.85)'; }}
-          >{x.label}</a>
-        ))}
-      </nav>
+          onMouseEnter={(e) => e.currentTarget.style.background = '#fff'}
+          onMouseLeave={(e) => e.currentTarget.style.background = HOME_BRAND.blue}
+          >Solicitar Orçamento</a>
+        </nav>
+      )}
 
-      <a href="Contato.html" style={{
-        background: HOME_BRAND.blue, color: '#000',
-        padding: '11px 20px', fontSize: 12.5, fontWeight: 800,
-        textTransform: 'uppercase', letterSpacing: '0.12em',
-        textDecoration: 'none', display: solid ? 'inline-block' : 'none',
-        transition: 'background 180ms ease',
-      }}
-      onMouseEnter={(e) => e.currentTarget.style.background = '#fff'}
-      onMouseLeave={(e) => e.currentTarget.style.background = HOME_BRAND.blue}
-      >Solicitar Orçamento</a>
+      {/* Hamburger button (mobile only) */}
+      {isMobile && (
+        <button
+          onClick={() => setMenuOpen((o) => !o)}
+          aria-label={menuOpen ? 'Fechar menu' : 'Abrir menu'}
+          style={{
+            background: 'none', border: 'none', cursor: 'pointer',
+            padding: 8, display: 'flex', flexDirection: 'column',
+            justifyContent: 'center', alignItems: 'center', gap: 5,
+            width: 40, height: 40,
+          }}
+        >
+          <span style={{
+            display: 'block', width: 24, height: 2, background: '#fff',
+            transition: 'transform 260ms ease, opacity 200ms ease',
+            transform: menuOpen ? 'translateY(7px) rotate(45deg)' : 'none',
+          }} />
+          <span style={{
+            display: 'block', width: 24, height: 2, background: '#fff',
+            transition: 'opacity 200ms ease',
+            opacity: menuOpen ? 0 : 1,
+          }} />
+          <span style={{
+            display: 'block', width: 24, height: 2, background: '#fff',
+            transition: 'transform 260ms ease, opacity 200ms ease',
+            transform: menuOpen ? 'translateY(-7px) rotate(-45deg)' : 'none',
+          }} />
+        </button>
+      )}
+
+      {/* Mobile dropdown menu */}
+      {isMobile && menuOpen && (
+        <div style={{
+          position: 'absolute', top: '100%', left: 0, right: 0,
+          background: 'rgba(8,10,12,0.98)',
+          backdropFilter: 'blur(12px)',
+          WebkitBackdropFilter: 'blur(12px)',
+          borderBottom: '1px solid rgba(255,255,255,0.08)',
+          padding: '20px 20px 28px',
+          display: 'flex', flexDirection: 'column', gap: 4,
+          zIndex: 200,
+        }}>
+          {NAV_LINKS.map((x) => (
+            <a key={x.label} href={x.href} style={{
+              color: 'rgba(255,255,255,0.85)', textDecoration: 'none',
+              fontSize: 16, fontWeight: 600,
+              letterSpacing: '0.1em', textTransform: 'uppercase',
+              padding: '14px 0',
+              borderBottom: '1px solid rgba(255,255,255,0.06)',
+              display: 'block',
+            }}>{x.label}</a>
+          ))}
+          <a href="Contato.html" style={{
+            background: HOME_BRAND.blue, color: '#000',
+            padding: '16px 24px', fontSize: 13, fontWeight: 800,
+            textTransform: 'uppercase', letterSpacing: '0.14em',
+            textDecoration: 'none', display: 'block', textAlign: 'center',
+            marginTop: 16,
+          }}>Solicitar Orçamento</a>
+        </div>
+      )}
     </header>
   );
 }
@@ -126,6 +223,7 @@ function HomeNavBar({ overlay = true }) {
 // FOOTER
 // ============================================================================
 function HomeFooter() {
+  const isMobile = useMobile();
   const social = [
     { name: 'Instagram', url: 'https://www.instagram.com/bertiestrutural/', icon: 'instagram' },
     { name: 'Facebook',  url: 'https://www.facebook.com/bertiengenharia/',  icon: 'facebook'  },
@@ -136,11 +234,11 @@ function HomeFooter() {
   return (
     <footer style={{
       background: '#050607', color: 'rgba(255,255,255,0.62)',
-      padding: '72px clamp(64px, 8vw, 140px) 28px',
+      padding: isMobile ? '48px 20px 20px' : '72px clamp(64px, 8vw, 140px) 28px',
       borderTop: '1px solid rgba(255,255,255,0.06)',
       fontFamily: '"Open Sans", system-ui, sans-serif',
     }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '2.2fr 1fr 1fr 1.4fr', gap: 48, marginBottom: 48 }}>
+      <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '2.2fr 1fr 1fr 1.4fr', gap: isMobile ? 32 : 48, marginBottom: isMobile ? 32 : 48 }}>
         {/* Marca + endereÃ§o */}
         <div>
           <img src={HOME_LOGO_BE} alt="Berti Estrutural" style={{
@@ -230,7 +328,7 @@ function HomeFooter() {
       </div>
 
       <div style={{
-        display: 'flex', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
+        display: 'flex', flexDirection: isMobile ? 'column' : 'row', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
         fontSize: 11.5, opacity: 0.6,
         borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24, letterSpacing: '0.04em',
       }}>
@@ -262,5 +360,5 @@ function SocialIcon({ kind }) {
 // Tornar acessÃ­vel aos outros scripts babel
 Object.assign(window, {
   HOME_BRAND, HOME_PHOTO, HOME_LOGO_BE, HOME_LOGO_BERTI,
-  HomeNavBar, HomeFooter,
+  HomeNavBar, HomeFooter, useMobile,
 });

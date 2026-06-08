@@ -1,4 +1,4 @@
-/* global React, HOME_BRAND */
+/* global React, HOME_BRAND, useMobile */
 // ============================================================================
 // HOME · COMO TRABALHAMOS — 5 etapas com hover: imagem sobe de baixo + link
 // ============================================================================
@@ -54,6 +54,7 @@ const CT_STEPS = [
 function StepCard({ s, i }) {
   const { useState, useEffect } = React;
   const [hov, setHov] = useState(false);
+  const isMobile = useMobile();
 
   useEffect(() => {
     if (!document.querySelector('link[data-caveat]')) {
@@ -80,8 +81,8 @@ function StepCard({ s, i }) {
         zIndex: hov ? 10 : 1,
       }}
     >
-      {/* Slide-up image — reveals from bottom */}
-      <div style={{
+      {/* Slide-up image — reveals from bottom (desktop only) */}
+      {!isMobile && <div style={{
         position:'absolute',
         bottom:'calc(100% + 12px)',
         left:'50%',
@@ -133,7 +134,7 @@ function StepCard({ s, i }) {
             <path d="M1,1 L8,9 L15,1" fill="none" stroke="#1853b8" strokeWidth="1.8" strokeLinecap="round" opacity="0.6"/>
           </svg>
         </div>
-      </div>
+      </div>}
 
       {/* Circle number */}
       <div style={{
@@ -210,6 +211,7 @@ function StepCard({ s, i }) {
 }
 
 function HomeComoTrabalhamos() {
+  const isMobile = useMobile();
   const gridBg = {
     backgroundImage:[
       'linear-gradient(#d5e3f4 1px, transparent 1px)',
@@ -247,7 +249,7 @@ function HomeComoTrabalhamos() {
       </div>
 
       {/* Steps */}
-      <div style={{ display:'grid', gridTemplateColumns:'repeat(5,1fr)', gap:'clamp(12px,2vw,28px)', maxWidth:1280, margin:'0 auto', position:'relative', zIndex:1 }}>
+      <div style={{ display:'grid', gridTemplateColumns: isMobile ? 'repeat(2,1fr)' : 'repeat(5,1fr)', gap: isMobile ? '20px' : 'clamp(12px,2vw,28px)', maxWidth:1280, margin:'0 auto', position:'relative', zIndex:1 }}>
         {/* Connector line */}
         <div style={{ position:'absolute', top:38, left:'10%', right:'10%', height:1, background:'linear-gradient(90deg, transparent, #c6d4e2 20%, #c6d4e2 80%, transparent)', zIndex:0, pointerEvents:'none' }}/>
 

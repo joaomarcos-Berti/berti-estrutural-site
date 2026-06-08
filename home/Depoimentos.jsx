@@ -1,4 +1,4 @@
-/* global React, HOME_BRAND */
+/* global React, HOME_BRAND, useMobile */
 // ============================================================================
 // HOME · DEPOIMENTOS · dados reais
 // ============================================================================
@@ -31,10 +31,11 @@ const DEPOIMENTOS = [
 ];
 
 function HomeDepoimentos() {
+  const isMobile = useMobile();
   return (
     <section id="depoimentos" style={{
       background: '#f6f7f8',
-      padding: '110px 64px 100px',
+      padding: isMobile ? '56px 20px 48px' : '110px 64px 100px',
       fontFamily: '"Open Sans", system-ui, sans-serif',
       color: HOME_BRAND.rule,
     }}>
@@ -42,8 +43,8 @@ function HomeDepoimentos() {
 
         {/* Cabeçalho */}
         <div style={{
-          display: 'grid', gridTemplateColumns: '1fr 1.5fr', gap: 64,
-          alignItems: 'end', marginBottom: 56,
+          display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1.5fr', gap: isMobile ? 20 : 64,
+          alignItems: 'end', marginBottom: isMobile ? 40 : 56,
         }}>
           <div>
             <div style={{
@@ -68,7 +69,7 @@ function HomeDepoimentos() {
           <p style={{
             fontSize: 17, lineHeight: 1.6,
             color: 'rgba(10,10,10,0.65)',
-            maxWidth: 540, justifySelf: 'end', margin: 0,
+            maxWidth: 540, justifySelf: isMobile ? undefined : 'end', margin: 0,
           }}>
             A confiança dos nossos clientes é a métrica mais importante. Cada projeto
             entregue é uma parceria que continua — ouça quem já construiu com a Berti.
@@ -77,12 +78,12 @@ function HomeDepoimentos() {
 
         {/* Grid 2×2 */}
         <div style={{
-          display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: 28,
+          display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(2, 1fr)', gap: isMobile ? 16 : 28,
         }}>
           {DEPOIMENTOS.map((t, i) => (
             <article key={i} style={{
               background: '#fff',
-              padding: '40px 44px',
+              padding: isMobile ? '28px 20px' : '40px 44px',
               position: 'relative',
               borderLeft: `3px solid ${HOME_BRAND.blue}`,
             }}>
