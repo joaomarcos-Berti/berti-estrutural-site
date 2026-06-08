@@ -259,7 +259,7 @@ function EmpresaProcesso() {
           </span>
         </h2>
         <p style={{ maxWidth:'52ch', margin:'0 auto', fontSize:'clamp(16px,1.2vw,19px)', lineHeight:1.6, color:'#4a606e' }}>
-          Cinco etapas, um único responsável — do recebimento do projeto à montagem parafusada em obra.
+          Orientamos cada cliente do projeto à obra — com realidade virtual para transparência na decisão, BIM para precisão de fabricação e montagem 100% parafusada. Um único responsável em cinco etapas.
         </p>
       </div>
 

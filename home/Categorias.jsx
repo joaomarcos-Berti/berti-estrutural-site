@@ -77,8 +77,9 @@ function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
           color: 'rgba(10,10,10,0.68)',
           maxWidth: 520, justifySelf: 'end', margin: 0,
         }}>
-          Três frentes principais, todas atendidas com o mesmo padrão de engenharia,
-          fabricação e montagem. Clique em um segmento para ver as obras executadas.
+          Soluções personalizadas, com segurança, certificação e excelente custo-benefício.
+          Supermercados, comercial e industrial — três frentes atendidas com o mesmo padrão
+          de engenharia BIM, fabricação certificada e montagem 100% parafusada.
         </p>
       </div>
 

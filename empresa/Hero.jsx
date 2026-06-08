@@ -124,8 +124,9 @@ function EmpresaHero({ accent = HOME_BRAND.blue, overlay = 0.62, cycleMs = 6000 
             maxWidth: 540,
             textShadow: '0 2px 14px rgba(0,0,0,0.5)',
           }}>
-            17 anos transformando projetos em estrutura — engenharia, fabricação
-            e montagem coordenadas como uma máquina única.
+            Com corpo técnico de engenheiros experientes e parceria com os maiores
+            fornecedores de aço do país — engenharia, fabricação e montagem
+            coordenadas como uma máquina única há 17 anos.
           </p>
         </div>
       </div>
