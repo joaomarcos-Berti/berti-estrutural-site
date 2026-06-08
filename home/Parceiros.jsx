@@ -21,7 +21,8 @@ function HomeParceiros({ speedSec = 38 }) {
 
   return (
     <section id="parceiros" style={{
-      background: '#fff',
+      background: '#f4f7fb',
+      borderTop: '1px solid rgba(10,10,10,0.06)',
       borderBottom: '1px solid rgba(10,10,10,0.06)',
       padding: '22px 0 24px',
       fontFamily: '"Open Sans", system-ui, sans-serif',
@@ -34,7 +35,7 @@ function HomeParceiros({ speedSec = 38 }) {
             fontFamily: '"Barlow Condensed", sans-serif',
             fontWeight: 600, fontSize: 'clamp(11px, 1vw, 13px)', lineHeight: 1.2,
             letterSpacing: '0.20em', textTransform: 'uppercase',
-            margin: 0, color: 'rgba(10,10,10,0.45)',
+            margin: 0, color: 'rgba(10,10,10,0.35)',
           }}>
             Quem já construiu com a Berti
           </h2>
@@ -62,7 +63,7 @@ function HomeParceiros({ speedSec = 38 }) {
               width: 180, height: 90,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
               padding: '0 20px',
-              borderRight: '1px solid rgba(10,10,10,0.06)',
+              borderRight: '1px solid rgba(10,10,10,0.05)',
             }}>
               <img src={p.logo} alt={p.name} title={p.name} style={{
                 maxWidth: '100%', maxHeight: '100%',
