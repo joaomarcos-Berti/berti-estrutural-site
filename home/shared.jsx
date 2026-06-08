@@ -1,6 +1,6 @@
 /* global React */
 // ============================================================================
-// HOME Â· TOKENS + CHROME COMPARTILHADO
+// HOME · TOKENS + CHROME COMPARTILHADO
 // ============================================================================
 const { useState, useEffect, useRef } = React;
 
@@ -41,7 +41,7 @@ const HOME_LOGO_BE    = 'assets/logo-be-mark.png';
 const HOME_LOGO_BERTI = 'assets/logo-berti.png';
 
 // ============================================================================
-// NAVBAR Â· transparente sobre o hero, sÃ³lida ao rolar
+// NAVBAR · transparente sobre o hero, sólida ao rolar
 // ============================================================================
 function HomeNavBar({ overlay = true }) {
   const [scrolled, setScrolled] = useState(false);
@@ -239,7 +239,7 @@ function HomeFooter() {
       fontFamily: '"Open Sans", system-ui, sans-serif',
     }}>
       <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '2.2fr 1fr 1fr 1.4fr', gap: isMobile ? 32 : 48, marginBottom: isMobile ? 32 : 48 }}>
-        {/* Marca + endereÃ§o */}
+        {/* Marca + endereço */}
         <div>
           <img src={HOME_LOGO_BE} alt="Berti Estrutural" style={{
             height: 72, display: 'block',
@@ -248,12 +248,12 @@ function HomeFooter() {
             fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 22,
             color: '#fff', marginTop: 22, lineHeight: 1.2, textTransform: 'uppercase',
             letterSpacing: '0.01em',
-          }}>A estrutura por trÃ¡s<br/>de grandes obras.</div>
+          }}>A estrutura por trás<br/>de grandes obras.</div>
           <div style={{ marginTop: 26, fontSize: 13.5, lineHeight: 1.65 }}>
             <div style={{ color: HOME_BRAND.blue, fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase', fontWeight: 700, marginBottom: 6 }}>Endereço</div>
             Condomínio Torre Montello<br/>
-            Av. Ayrton Senna da Silva, 550 â Sala 103<br/>
-            Palhano 1 Â· Londrina â PR Â· 86055-630
+            Av. Ayrton Senna da Silva, 550 — Sala 103<br/>
+            Palhano · Londrina — PR · 86055-630
           </div>
         </div>
 
@@ -332,14 +332,14 @@ function HomeFooter() {
         fontSize: 11.5, opacity: 0.6,
         borderTop: '1px solid rgba(255,255,255,0.08)', paddingTop: 24, letterSpacing: '0.04em',
       }}>
-        <span>Â© 2026 Berti Estrutural Engenharia Ltda Â· CNPJ 10.835.867/0001-10</span>
-        <span>Londrina Â· PR Â· Brasil</span>
+        <span>© 2026 Berti Estrutural Engenharia Ltda · CNPJ 10.835.867/0001-10</span>
+        <span>Londrina · PR · Brasil</span>
       </div>
     </footer>
   );
 }
 
-// ââ Ãcones SVG inline para redes sociais âââââââââââââââââââââââââââââââââ
+// —— Ícones SVG inline para redes sociais —————————————————————————————————
 function SocialIcon({ kind }) {
   const s = { width: 18, height: 18, fill: 'currentColor' };
   if (kind === 'instagram') return (
@@ -357,7 +357,7 @@ function SocialIcon({ kind }) {
   return null;
 }
 
-// Tornar acessÃ­vel aos outros scripts babel
+// Tornar acessível aos outros scripts babel
 Object.assign(window, {
   HOME_BRAND, HOME_PHOTO, HOME_LOGO_BE, HOME_LOGO_BERTI,
   HomeNavBar, HomeFooter, useMobile,
