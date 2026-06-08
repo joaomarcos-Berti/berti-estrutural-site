@@ -34,9 +34,6 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
   const specs = [
     { k: 'Cidade',  v: obra.city },
     { k: 'Área',    v: obra.area },
-    { k: 'Aço',     v: obra.tons },
-    { k: 'Vão livre', v: obra.vao },
-    { k: 'Ano',     v: obra.year },
     { k: 'Status',  v: obra.status },
   ];
 
