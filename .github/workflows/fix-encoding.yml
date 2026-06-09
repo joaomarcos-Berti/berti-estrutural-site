@@ -1,0 +1,68 @@
+name: Corrige encoding automático
+
+on:
+  push:
+    paths:
+      - 'content/obras.json'
+      - 'content/blog.json'
+
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Corrige encoding dos JSONs
+        run: |
+          python3 << 'PYEOF'
+          import json, sys
+
+          def fix(s):
+              if not isinstance(s, str):
+                  return s
+              for _ in range(8):
+                  try:
+                      f = s.encode('latin-1').decode('utf-8')
+                      if f == s:
+                          break
+                      s = f
+                  except (UnicodeDecodeError, UnicodeEncodeError):
+                      break
+              return s
+
+          def fix_obj(o):
+              if isinstance(o, dict):  return {k: fix_obj(v) for k,v in o.items()}
+              if isinstance(o, list):  return [fix_obj(i) for i in o]
+              if isinstance(o, str):   return fix(o)
+              return o
+
+          changed = False
+          for fname in ['content/obras.json', 'content/blog.json']:
+              with open(fname, encoding='utf-8') as f:
+                  original = f.read()
+              data = json.loads(original)
+              fixed = fix_obj(data)
+              new_content = json.dumps(fixed, ensure_ascii=True, indent=2) + '\n'
+              if original.strip() != new_content.strip():
+                  with open(fname, 'w', encoding='utf-8') as f:
+                      f.write(new_content)
+                  print(f'Corrigido: {fname}')
+                  changed = True
+              else:
+                  print(f'OK (sem mudança): {fname}')
+          sys.exit(0)
+          PYEOF
+
+      - name: Commit correção (se necessário)
+        run: |
+          git config user.name "Berti Bot"
+          git config user.email "bot@bertiestrutural.com.br"
+          if git diff --quiet; then
+            echo "Nada a corrigir."
+          else
+            git add content/obras.json content/blog.json
+            git commit -m "Auto: corrige encoding [skip ci]"
+            git push
+          fi
