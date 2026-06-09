@@ -63,20 +63,19 @@
       "id": 3,
       "cat": "industrial",
       "catLabel": "Industrial",
-      "cover": "assets/photos/transportadora-falcao-capa.jpg",
+      "cover": "assets/photos/transportadora-falcao-capa.jpeg",
       "title": "Transportadora Falcão",
       "city": "Uruguaiana - RS",
       "area": "6.100m²",
       "status": "Entregue",
       "desc": "  Ampliação do galpão metálico para a Transportadora Falcão em Uruguaiana - RS, mantendo a estética existente. Realização de cobertura de 6.100m² e fechamento lateral com estruturas 100% parafusadas. Tempo de execução de 120 dias.",
-      "youtube": "",
+      "youtube": "https://www.youtube.com/watch?v=1h9CaxnyjhI",
       "gallery": [
-        "assets/photos/transportadora-falcao-capa.jpg",
-        "assets/photos/transportadora-falcao-01.jpg",
-        "assets/photos/transportadora-falcao-02.jpg",
-        "assets/photos/transportadora-falcao-03.jpg",
-        "assets/photos/transportadora-falcao-04.jpg",
-        "assets/photos/transportadora-falcao-05.jpg"
+        "assets/photos/transportadora-falcao-01.jpeg",
+        "assets/photos/transportadora-falcao-03.jpeg",
+        "assets/photos/transportadora-falcao-05.jpg",
+        "assets/photos/transportadora-falcao-07.jpg",
+        "assets/photos/transportadora-falcao-09.jpeg"
       ]
     },
     {
