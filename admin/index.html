@@ -1085,17 +1085,48 @@ async function saveObra() {
 
   showProgress('Sincronizando…');
   try {
-    // Always fetch fresh SHA + data before saving — eliminates conflicts
+    // Fetch fresh data from GitHub
     const fresh = await ghGet('content/obras.json');
     const freshData = JSON.parse(b64ToStr(fresh.content));
-    obrasFileSHA = fresh.sha;
-    window._obrasCats = freshData.cats;
-    obras = freshData.obras;
+
+    // GitHub API may return a stale/cached SHA. If localStorage has a newer SHA, use it.
+    // (localStorage SHA = what we got back from GitHub after our LAST successful save)
+    const cached = lcLoad('obras');
+    if (cached && cached.sha !== fresh.sha) {
+      // GitHub is behind — use the real current SHA from our last save
+      obrasFileSHA = cached.sha;
+      window._obrasCats = cached.cats;
+      obras = JSON.parse(JSON.stringify(cached.data)); // base: our last saved state
+    } else {
+      obrasFileSHA = fresh.sha;
+      window._obrasCats = freshData.cats;
+      obras = freshData.obras;
+    }
+
     if (isNew) obras.push(obraToSave);
     else obras[idx] = obraToSave;
 
     showProgress('Salvando obra no GitHub…');
-    const res = await ghPut('content/obras.json', jsonStringifyAscii({cats: window._obrasCats, obras}), obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${obraToSave.title}"`);
+    let res;
+    try {
+      res = await ghPut('content/obras.json', jsonStringifyAscii({cats: window._obrasCats, obras}), obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${obraToSave.title}"`);
+    } catch(conflictErr) {
+      // If SHA still wrong, do one final retry with a direct re-fetch
+      if (conflictErr.message.includes('does not match') || conflictErr.message.includes('409') || conflictErr.message.includes('422')) {
+        showProgress('Resolvendo conflito, aguarde…');
+        await new Promise(r => setTimeout(r, 2000)); // wait 2s for GitHub cache
+        const fresh2 = await ghGet('content/obras.json');
+        obrasFileSHA = fresh2.sha;
+        const freshData2 = JSON.parse(b64ToStr(fresh2.content));
+        window._obrasCats = freshData2.cats;
+        obras = freshData2.obras;
+        if (isNew) obras.push(obraToSave);
+        else obras[idx] = obraToSave;
+        res = await ghPut('content/obras.json', jsonStringifyAscii({cats: window._obrasCats, obras}), obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${obraToSave.title}"`);
+      } else {
+        throw conflictErr;
+      }
+    }
     obrasFileSHA = res.content.sha;
     lcSave('obras', obras, window._obrasCats, obrasFileSHA); // persist locally
     closeModal();
@@ -1129,17 +1160,43 @@ async function savePost() {
 
   showProgress('Sincronizando…');
   try {
-    // Always fetch fresh SHA + data before saving
     const fresh = await ghGet('content/blog.json');
     const freshData = JSON.parse(b64ToStr(fresh.content));
-    blogFileSHA = fresh.sha;
-    window._blogCats = freshData.cats;
-    posts = freshData.posts;
+
+    const cached = lcLoad('blog');
+    if (cached && cached.sha !== fresh.sha) {
+      blogFileSHA = cached.sha;
+      window._blogCats = cached.cats;
+      posts = JSON.parse(JSON.stringify(cached.data));
+    } else {
+      blogFileSHA = fresh.sha;
+      window._blogCats = freshData.cats;
+      posts = freshData.posts;
+    }
+
     if (isNew) posts.push(postToSave);
     else posts[idx] = postToSave;
 
     showProgress('Salvando artigo no GitHub…');
-    const res = await ghPut('content/blog.json', jsonStringifyAscii({cats: window._blogCats, posts}), blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${postToSave.title}"`);
+    let res;
+    try {
+      res = await ghPut('content/blog.json', jsonStringifyAscii({cats: window._blogCats, posts}), blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${postToSave.title}"`);
+    } catch(conflictErr) {
+      if (conflictErr.message.includes('does not match') || conflictErr.message.includes('409') || conflictErr.message.includes('422')) {
+        showProgress('Resolvendo conflito, aguarde…');
+        await new Promise(r => setTimeout(r, 2000));
+        const fresh2 = await ghGet('content/blog.json');
+        blogFileSHA = fresh2.sha;
+        const freshData2 = JSON.parse(b64ToStr(fresh2.content));
+        window._blogCats = freshData2.cats;
+        posts = freshData2.posts;
+        if (isNew) posts.push(postToSave);
+        else posts[idx] = postToSave;
+        res = await ghPut('content/blog.json', jsonStringifyAscii({cats: window._blogCats, posts}), blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${postToSave.title}"`);
+      } else {
+        throw conflictErr;
+      }
+    }
     blogFileSHA = res.content.sha;
     lcSave('blog', posts, window._blogCats, blogFileSHA); // persist locally
     closeModal();
