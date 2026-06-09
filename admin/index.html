@@ -1061,7 +1061,7 @@ async function saveObra() {
       // SHA desatualizado: recarrega do GitHub e tenta novamente
       showProgress('SHA desatualizado — sincronizando…');
       const fresh = await ghGet('content/obras.json');
-      const freshData = JSON.parse(atob(fresh.content.replace(/\n/g,'')));
+      const freshData = JSON.parse(b64ToStr(fresh.content));
       obrasFileSHA = fresh.sha;
       window._obrasCats = freshData.cats;
       const obraToSave = JSON.parse(JSON.stringify(editingObra));
@@ -1113,7 +1113,7 @@ async function savePost() {
     } catch(conflictErr) {
       showProgress('SHA desatualizado — sincronizando…');
       const fresh = await ghGet('content/blog.json');
-      const freshData = JSON.parse(atob(fresh.content.replace(/\n/g,'')));
+      const freshData = JSON.parse(b64ToStr(fresh.content));
       blogFileSHA = fresh.sha;
       window._blogCats = freshData.cats;
       const postToSave = JSON.parse(JSON.stringify(editingPost));
@@ -1214,12 +1214,18 @@ function fileToBase64(file) {
 }
 
 // Store cats for saving (loaded with the JSON)
+// Decode base64 from GitHub API correctly (handles UTF-8 multi-byte chars)
+function b64ToStr(b64) {
+  const bytes = Uint8Array.from(atob(b64.replace(/\n/g,'')), c => c.charCodeAt(0));
+  return new TextDecoder('utf-8').decode(bytes);
+}
+
 async function loadAll() {
   try {
     const [obrasFile, blogFile] = await Promise.all([ghGet('content/obras.json'), ghGet('content/blog.json')]);
-    const od = JSON.parse(atob(obrasFile.content.replace(/\n/g,'')));
+    const od = JSON.parse(b64ToStr(obrasFile.content));
     obras = od.obras; window._obrasCats = od.cats; obrasFileSHA = obrasFile.sha;
-    const bd = JSON.parse(atob(blogFile.content.replace(/\n/g,'')));
+    const bd = JSON.parse(b64ToStr(blogFile.content));
     posts = bd.posts; window._blogCats = bd.cats; blogFileSHA = blogFile.sha;
     return true;
   } catch(e) {
