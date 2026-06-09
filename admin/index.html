@@ -708,10 +708,11 @@ function showApp() {
 
 // ── GitHub API ──
 async function ghGet(path) {
-  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}`, {
-    headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json' }
+  const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}?ref=${BRANCH}&t=${Date.now()}`, {
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json' },
+    cache: 'no-store'
   });
-  if (!r.ok) throw new Error(`${r.status}`);
+  if (!r.ok) throw new Error(`${r.status} ${path}`);
   return r.json();
 }
 
@@ -741,20 +742,6 @@ async function ghUploadImage(path, base64data) {
   });
   if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
   return path;
-}
-
-async function loadAll() {
-  try {
-    const [obrasFile, blogFile] = await Promise.all([ghGet('content/obras.json'), ghGet('content/blog.json')]);
-    const od = JSON.parse(atob(obrasFile.content.replace(/\n/g,'')));
-    obras = od.obras; obrasFileSHA = obrasFile.sha;
-    const bd = JSON.parse(atob(blogFile.content.replace(/\n/g,'')));
-    posts = bd.posts; blogFileSHA = blogFile.sha;
-    return true;
-  } catch(e) {
-    console.error('loadAll error', e);
-    return false;
-  }
 }
 
 // ── Tab switching ──
@@ -1060,13 +1047,29 @@ async function saveObra() {
 
   const idx = editingObra._index;
   delete editingObra._index;
+  const originalObra = (!isNew && idx >= 0) ? JSON.parse(JSON.stringify(obras[idx])) : null;
   if (isNew) obras.push(editingObra);
   else obras[idx] = editingObra;
 
   showProgress('Salvando obra no GitHub…');
   try {
     const content = JSON.stringify({cats: window._obrasCats, obras}, null, 2);
-    const res = await ghPut('content/obras.json', content, obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${editingObra.title}"`);
+    let res;
+    try {
+      res = await ghPut('content/obras.json', content, obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${editingObra.title}"`);
+    } catch(conflictErr) {
+      // SHA desatualizado: recarrega do GitHub e tenta novamente
+      showProgress('SHA desatualizado — sincronizando…');
+      const fresh = await ghGet('content/obras.json');
+      const freshData = JSON.parse(atob(fresh.content.replace(/\n/g,'')));
+      obrasFileSHA = fresh.sha;
+      window._obrasCats = freshData.cats;
+      const obraToSave = JSON.parse(JSON.stringify(editingObra));
+      obras = freshData.obras;
+      if (isNew) obras.push(obraToSave);
+      else obras[idx] = obraToSave;
+      res = await ghPut('content/obras.json', JSON.stringify({cats: window._obrasCats, obras}, null, 2), obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${editingObra.title}" (retry)`);
+    }
     obrasFileSHA = res.content.sha;
     closeModal();
     renderList();
@@ -1075,7 +1078,7 @@ async function saveObra() {
     hideProgress();
     toast('Erro ao salvar: ' + e.message, 'error');
     if (isNew) obras.pop();
-    else obras[idx] = editingObra;
+    else if (originalObra) obras[idx] = originalObra;
   }
   hideProgress();
 }
@@ -1097,13 +1100,28 @@ async function savePost() {
 
   const idx = editingPost._index;
   delete editingPost._index;
+  const originalPost = (!isNew && idx >= 0) ? JSON.parse(JSON.stringify(posts[idx])) : null;
   if (isNew) posts.push(editingPost);
   else posts[idx] = editingPost;
 
   showProgress('Salvando artigo no GitHub…');
   try {
     const content = JSON.stringify({cats: window._blogCats, posts}, null, 2);
-    const res = await ghPut('content/blog.json', content, blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${editingPost.title}"`);
+    let res;
+    try {
+      res = await ghPut('content/blog.json', content, blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${editingPost.title}"`);
+    } catch(conflictErr) {
+      showProgress('SHA desatualizado — sincronizando…');
+      const fresh = await ghGet('content/blog.json');
+      const freshData = JSON.parse(atob(fresh.content.replace(/\n/g,'')));
+      blogFileSHA = fresh.sha;
+      window._blogCats = freshData.cats;
+      const postToSave = JSON.parse(JSON.stringify(editingPost));
+      posts = freshData.posts;
+      if (isNew) posts.push(postToSave);
+      else posts[idx] = postToSave;
+      res = await ghPut('content/blog.json', JSON.stringify({cats: window._blogCats, posts}, null, 2), blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${editingPost.title}" (retry)`);
+    }
     blogFileSHA = res.content.sha;
     closeModal();
     renderList();
@@ -1112,7 +1130,7 @@ async function savePost() {
     hideProgress();
     toast('Erro ao salvar: ' + e.message, 'error');
     if (isNew) posts.pop();
-    else posts[idx] = editingPost;
+    else if (originalPost) posts[idx] = originalPost;
   }
   hideProgress();
 }
