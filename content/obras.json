@@ -43,21 +43,20 @@
       "id": 2,
       "cat": "supermercado",
       "catLabel": "Supermercado",
-      "cover": "assets/photos/supermercado-camilo-capa.jpg",
+      "cover": "assets/photos/supermercado-camilo-capa.png",
       "title": "Supermercado Camilo",
       "city": "Marialva PR",
       "area": "9.000 m²",
       "status": "Entregue",
       "desc": "  O novo Supermercado Camilo reforça a parceria entre a Rede Camilo e a Berti Estrutural, unindo tecnologia, eficiência e alto desempenho construtivo. A obra contou com solução completa de fechamento metálico, incluindo cobertura zipada e sistema termoacústico para maior conforto e eficiência energética. Desenvolvido 100% em BIM, o projeto garantiu precisão na fabricação, agilidade na montagem e uma execução funcional e econômica.",
-      "youtube": "",
+      "youtube": "https://www.youtube.com/watch?v=CribQWoMuGE",
       "gallery": [
-        "assets/photos/supermercado-camilo-capa.jpg",
         "assets/photos/supermercado-camilo-01.jpg",
-        "assets/photos/supermercado-camilo-02.jpg",
         "assets/photos/supermercado-camilo-03.jpg",
-        "assets/photos/supermercado-camilo-04.jpg",
         "assets/photos/supermercado-camilo-05.jpg",
-        "assets/photos/supermercado-camilo-06.jpg"
+        "assets/photos/supermercado-camilo-07.jpg",
+        "assets/photos/supermercado-camilo-09.jpg",
+        "assets/photos/supermercado-camilo-11.jpg"
       ]
     },
     {
