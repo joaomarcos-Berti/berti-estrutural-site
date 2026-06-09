@@ -1347,6 +1347,14 @@ async function loadAll() {
 
 // Enter to submit login
 document.getElementById('token-input').addEventListener('keydown', e => { if (e.key === 'Enter') doLogin(); });
+
+// Registra Service Worker para garantir código sempre atualizado (sobrepõe cache do browser)
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/admin/sw.js').then(reg => {
+    reg.update();
+  }).catch(e => console.log('SW erro:', e));
+}
+
 </script>
 </body>
 </html>
