@@ -1066,38 +1066,28 @@ async function saveObra() {
 
   const idx = editingObra._index;
   delete editingObra._index;
-  const originalObra = (!isNew && idx >= 0) ? JSON.parse(JSON.stringify(obras[idx])) : null;
-  if (isNew) obras.push(editingObra);
-  else obras[idx] = editingObra;
+  const obraToSave = JSON.parse(JSON.stringify(editingObra));
 
-  showProgress('Salvando obra no GitHub…');
+  showProgress('Sincronizando…');
   try {
-    const content = jsonStringifyAscii({cats: window._obrasCats, obras});
-    let res;
-    try {
-      res = await ghPut('content/obras.json', content, obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${editingObra.title}"`);
-    } catch(conflictErr) {
-      // SHA desatualizado: recarrega do GitHub e tenta novamente
-      showProgress('SHA desatualizado — sincronizando…');
-      const fresh = await ghGet('content/obras.json');
-      const freshData = JSON.parse(b64ToStr(fresh.content));
-      obrasFileSHA = fresh.sha;
-      window._obrasCats = freshData.cats;
-      const obraToSave = JSON.parse(JSON.stringify(editingObra));
-      obras = freshData.obras;
-      if (isNew) obras.push(obraToSave);
-      else obras[idx] = obraToSave;
-      res = await ghPut('content/obras.json', jsonStringifyAscii({cats: window._obrasCats, obras}), obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${editingObra.title}" (retry)`);
-    }
+    // Always fetch fresh SHA + data before saving — eliminates conflicts
+    const fresh = await ghGet('content/obras.json');
+    const freshData = JSON.parse(b64ToStr(fresh.content));
+    obrasFileSHA = fresh.sha;
+    window._obrasCats = freshData.cats;
+    obras = freshData.obras;
+    if (isNew) obras.push(obraToSave);
+    else obras[idx] = obraToSave;
+
+    showProgress('Salvando obra no GitHub…');
+    const res = await ghPut('content/obras.json', jsonStringifyAscii({cats: window._obrasCats, obras}), obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${obraToSave.title}"`);
     obrasFileSHA = res.content.sha;
     closeModal();
     renderList();
-    toast(isNew ? 'Obra adicionada! Site será atualizado em ~1 min.' : 'Obra salva! Site será atualizado em ~1 min.', 'success');
+    toast(isNew ? 'Obra adicionada! Site atualizado em ~1 min.' : 'Obra salva! Site atualizado em ~1 min.', 'success');
   } catch(e) {
     hideProgress();
     toast('Erro ao salvar: ' + e.message, 'error');
-    if (isNew) obras.pop();
-    else if (originalObra) obras[idx] = originalObra;
   }
   hideProgress();
 }
@@ -1119,37 +1109,28 @@ async function savePost() {
 
   const idx = editingPost._index;
   delete editingPost._index;
-  const originalPost = (!isNew && idx >= 0) ? JSON.parse(JSON.stringify(posts[idx])) : null;
-  if (isNew) posts.push(editingPost);
-  else posts[idx] = editingPost;
+  const postToSave = JSON.parse(JSON.stringify(editingPost));
 
-  showProgress('Salvando artigo no GitHub…');
+  showProgress('Sincronizando…');
   try {
-    const content = jsonStringifyAscii({cats: window._blogCats, posts});
-    let res;
-    try {
-      res = await ghPut('content/blog.json', content, blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${editingPost.title}"`);
-    } catch(conflictErr) {
-      showProgress('SHA desatualizado — sincronizando…');
-      const fresh = await ghGet('content/blog.json');
-      const freshData = JSON.parse(b64ToStr(fresh.content));
-      blogFileSHA = fresh.sha;
-      window._blogCats = freshData.cats;
-      const postToSave = JSON.parse(JSON.stringify(editingPost));
-      posts = freshData.posts;
-      if (isNew) posts.push(postToSave);
-      else posts[idx] = postToSave;
-      res = await ghPut('content/blog.json', jsonStringifyAscii({cats: window._blogCats, posts}), blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${editingPost.title}" (retry)`);
-    }
+    // Always fetch fresh SHA + data before saving
+    const fresh = await ghGet('content/blog.json');
+    const freshData = JSON.parse(b64ToStr(fresh.content));
+    blogFileSHA = fresh.sha;
+    window._blogCats = freshData.cats;
+    posts = freshData.posts;
+    if (isNew) posts.push(postToSave);
+    else posts[idx] = postToSave;
+
+    showProgress('Salvando artigo no GitHub…');
+    const res = await ghPut('content/blog.json', jsonStringifyAscii({cats: window._blogCats, posts}), blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${postToSave.title}"`);
     blogFileSHA = res.content.sha;
     closeModal();
     renderList();
-    toast(isNew ? 'Artigo publicado! Site será atualizado em ~1 min.' : 'Artigo salvo! Site será atualizado em ~1 min.', 'success');
+    toast(isNew ? 'Artigo publicado! Site atualizado em ~1 min.' : 'Artigo salvo! Site atualizado em ~1 min.', 'success');
   } catch(e) {
     hideProgress();
     toast('Erro ao salvar: ' + e.message, 'error');
-    if (isNew) posts.pop();
-    else if (originalPost) posts[idx] = originalPost;
   }
   hideProgress();
 }
