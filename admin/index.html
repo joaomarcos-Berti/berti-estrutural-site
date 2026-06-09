@@ -736,6 +736,27 @@ async function ghGet(path) {
   return r.json();
 }
 
+// ghGetFresh: bypasses the ~60s Contents API cache by using git refs endpoint
+// Use this before every save to get the TRUE current SHA
+async function ghGetFresh(path) {
+  // Step 1: get the latest commit SHA via git/ref (not cached like Contents API)
+  const refResp = await fetch(
+    `https://api.github.com/repos/${REPO}/git/ref/heads/${BRANCH}?t=${Date.now()}`,
+    { headers: { Authorization: `Bearer ${token}` }, cache: 'no-store' }
+  );
+  if (!refResp.ok) throw new Error('ref: ' + refResp.status);
+  const ref = await refResp.json();
+  const commitSha = ref.object.sha;
+
+  // Step 2: fetch file at that specific commit SHA (unique URL = never cached)
+  const fileResp = await fetch(
+    `https://api.github.com/repos/${REPO}/contents/${path}?ref=${commitSha}`,
+    { headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json' }, cache: 'no-store' }
+  );
+  if (!fileResp.ok) throw new Error(fileResp.status + ' ' + path);
+  return fileResp.json();
+}
+
 function strToB64(str) {
   const bytes = new TextEncoder().encode(str);
   let bin = '';
@@ -1085,23 +1106,12 @@ async function saveObra() {
 
   showProgress('Sincronizando…');
   try {
-    // Fetch fresh data from GitHub
-    const fresh = await ghGet('content/obras.json');
+    // ghGetFresh uses git refs API to bypass the ~60s Contents API cache
+    const fresh = await ghGetFresh('content/obras.json');
     const freshData = JSON.parse(b64ToStr(fresh.content));
-
-    // GitHub API may return a stale/cached SHA. If localStorage has a newer SHA, use it.
-    // (localStorage SHA = what we got back from GitHub after our LAST successful save)
-    const cached = lcLoad('obras');
-    if (cached && cached.sha !== fresh.sha) {
-      // GitHub is behind — use the real current SHA from our last save
-      obrasFileSHA = cached.sha;
-      window._obrasCats = cached.cats;
-      obras = JSON.parse(JSON.stringify(cached.data)); // base: our last saved state
-    } else {
-      obrasFileSHA = fresh.sha;
-      window._obrasCats = freshData.cats;
-      obras = freshData.obras;
-    }
+    obrasFileSHA = fresh.sha;
+    window._obrasCats = freshData.cats;
+    obras = freshData.obras;
 
     if (isNew) obras.push(obraToSave);
     else obras[idx] = obraToSave;
@@ -1115,7 +1125,7 @@ async function saveObra() {
       if (conflictErr.message.includes('does not match') || conflictErr.message.includes('409') || conflictErr.message.includes('422')) {
         showProgress('Resolvendo conflito, aguarde…');
         await new Promise(r => setTimeout(r, 2000)); // wait 2s for GitHub cache
-        const fresh2 = await ghGet('content/obras.json');
+        const fresh2 = await ghGetFresh('content/obras.json');
         obrasFileSHA = fresh2.sha;
         const freshData2 = JSON.parse(b64ToStr(fresh2.content));
         window._obrasCats = freshData2.cats;
@@ -1160,19 +1170,11 @@ async function savePost() {
 
   showProgress('Sincronizando…');
   try {
-    const fresh = await ghGet('content/blog.json');
+    const fresh = await ghGetFresh('content/blog.json');
     const freshData = JSON.parse(b64ToStr(fresh.content));
-
-    const cached = lcLoad('blog');
-    if (cached && cached.sha !== fresh.sha) {
-      blogFileSHA = cached.sha;
-      window._blogCats = cached.cats;
-      posts = JSON.parse(JSON.stringify(cached.data));
-    } else {
-      blogFileSHA = fresh.sha;
-      window._blogCats = freshData.cats;
-      posts = freshData.posts;
-    }
+    blogFileSHA = fresh.sha;
+    window._blogCats = freshData.cats;
+    posts = freshData.posts;
 
     if (isNew) posts.push(postToSave);
     else posts[idx] = postToSave;
@@ -1185,7 +1187,7 @@ async function savePost() {
       if (conflictErr.message.includes('does not match') || conflictErr.message.includes('409') || conflictErr.message.includes('422')) {
         showProgress('Resolvendo conflito, aguarde…');
         await new Promise(r => setTimeout(r, 2000));
-        const fresh2 = await ghGet('content/blog.json');
+        const fresh2 = await ghGetFresh('content/blog.json');
         blogFileSHA = fresh2.sha;
         const freshData2 = JSON.parse(b64ToStr(fresh2.content));
         window._blogCats = freshData2.cats;
