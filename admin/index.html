@@ -728,6 +728,13 @@ function strToB64(str) {
   return btoa(bin);
 }
 
+// Always save JSON with \uXXXX escapes for non-ASCII
+// This makes the file pure ASCII so even old browsers/code read it correctly
+function jsonStringifyAscii(obj) {
+  return JSON.stringify(obj, null, 2)
+    .replace(/[^\x00-\x7F]/g, c => '\\u' + c.charCodeAt(0).toString(16).padStart(4,'0'));
+}
+
 async function ghPut(path, content, sha, message) {
   const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
     method: 'PUT',
@@ -1065,7 +1072,7 @@ async function saveObra() {
 
   showProgress('Salvando obra no GitHub…');
   try {
-    const content = JSON.stringify({cats: window._obrasCats, obras}, null, 2);
+    const content = jsonStringifyAscii({cats: window._obrasCats, obras});
     let res;
     try {
       res = await ghPut('content/obras.json', content, obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${editingObra.title}"`);
@@ -1080,7 +1087,7 @@ async function saveObra() {
       obras = freshData.obras;
       if (isNew) obras.push(obraToSave);
       else obras[idx] = obraToSave;
-      res = await ghPut('content/obras.json', JSON.stringify({cats: window._obrasCats, obras}, null, 2), obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${editingObra.title}" (retry)`);
+      res = await ghPut('content/obras.json', jsonStringifyAscii({cats: window._obrasCats, obras}), obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${editingObra.title}" (retry)`);
     }
     obrasFileSHA = res.content.sha;
     closeModal();
@@ -1118,7 +1125,7 @@ async function savePost() {
 
   showProgress('Salvando artigo no GitHub…');
   try {
-    const content = JSON.stringify({cats: window._blogCats, posts}, null, 2);
+    const content = jsonStringifyAscii({cats: window._blogCats, posts});
     let res;
     try {
       res = await ghPut('content/blog.json', content, blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${editingPost.title}"`);
@@ -1132,7 +1139,7 @@ async function savePost() {
       posts = freshData.posts;
       if (isNew) posts.push(postToSave);
       else posts[idx] = postToSave;
-      res = await ghPut('content/blog.json', JSON.stringify({cats: window._blogCats, posts}, null, 2), blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${editingPost.title}" (retry)`);
+      res = await ghPut('content/blog.json', jsonStringifyAscii({cats: window._blogCats, posts}), blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${editingPost.title}" (retry)`);
     }
     blogFileSHA = res.content.sha;
     closeModal();
@@ -1153,7 +1160,7 @@ async function deleteObra(i) {
   const removed = obras.splice(i, 1)[0];
   showProgress('Removendo…');
   try {
-    const content = JSON.stringify({cats: window._obrasCats, obras}, null, 2);
+    const content = jsonStringifyAscii({cats: window._obrasCats, obras});
     const res = await ghPut('content/obras.json', content, obrasFileSHA, `Admin: remove obra "${removed.title}"`);
     obrasFileSHA = res.content.sha;
     renderList();
@@ -1170,7 +1177,7 @@ async function deletePost(i) {
   const removed = posts.splice(i, 1)[0];
   showProgress('Removendo…');
   try {
-    const content = JSON.stringify({cats: window._blogCats, posts}, null, 2);
+    const content = jsonStringifyAscii({cats: window._blogCats, posts});
     const res = await ghPut('content/blog.json', content, blogFileSHA, `Admin: remove post "${removed.title}"`);
     blogFileSHA = res.content.sha;
     renderList();
