@@ -24,3 +24,9 @@
   [headers.values]
     X-Frame-Options = "SAMEORIGIN"
     X-Content-Type-Options = "nosniff"
+
+# URL alternativa sem cache para o admin (permite carregar código novo sem hard refresh)
+[[redirects]]
+  from = "/cms"
+  to   = "/admin/index.html"
+  status = 200
