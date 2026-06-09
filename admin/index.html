@@ -4,7 +4,7 @@
 <meta charset="UTF-8" />
 <script>
 // Cache buster: force fresh load on version change
-(function(){var v='3';if(location.search.indexOf('_v='+v)<0){location.replace(location.pathname+'?_v='+v);}})();
+(function(){var v='4';if(location.search.indexOf('_v='+v)<0){location.replace(location.pathname+'?_v='+v);}})();
 </script>
 
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -675,6 +675,21 @@ let editingObra = null;   // obra object being edited
 let editingPost = null;   // post object being edited
 let isNew = false;
 
+
+// ── localStorage cache (persists saves across refreshes even when GitHub API is stale) ──
+function lcSave(key, data, cats, sha) {
+  try {
+    localStorage.setItem('berti_cache_' + key, JSON.stringify({data, cats, sha, ts: Date.now()}));
+  } catch(e) {}
+}
+function lcLoad(key) {
+  try {
+    const d = JSON.parse(localStorage.getItem('berti_cache_' + key));
+    if (d && (Date.now() - d.ts) < 20 * 60 * 1000) return d; // valid for 20 min
+  } catch(e) {}
+  return null;
+}
+
 // ── Bootstrap ──
 (async function init() {
   if (token) {
@@ -738,7 +753,7 @@ function jsonStringifyAscii(obj) {
 async function ghPut(path, content, sha, message) {
   const r = await fetch(`https://api.github.com/repos/${REPO}/contents/${path}`, {
     method: 'PUT',
-    headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json`, 'Content-Type': 'application/json' },
+    headers: { Authorization: `Bearer ${token}`, Accept: 'application/vnd.github.v3+json', 'Content-Type': 'application/json' },
     body: JSON.stringify({ message, content: strToB64(content), sha, branch: BRANCH })
   });
   if (!r.ok) { const e = await r.json(); throw new Error(e.message || r.status); }
@@ -1082,6 +1097,7 @@ async function saveObra() {
     showProgress('Salvando obra no GitHub…');
     const res = await ghPut('content/obras.json', jsonStringifyAscii({cats: window._obrasCats, obras}), obrasFileSHA, `Admin: ${isNew?'adiciona':'edita'} obra "${obraToSave.title}"`);
     obrasFileSHA = res.content.sha;
+    lcSave('obras', obras, window._obrasCats, obrasFileSHA); // persist locally
     closeModal();
     renderList();
     toast(isNew ? 'Obra adicionada! Site atualizado em ~1 min.' : 'Obra salva! Site atualizado em ~1 min.', 'success');
@@ -1125,6 +1141,7 @@ async function savePost() {
     showProgress('Salvando artigo no GitHub…');
     const res = await ghPut('content/blog.json', jsonStringifyAscii({cats: window._blogCats, posts}), blogFileSHA, `Admin: ${isNew?'adiciona':'edita'} post "${postToSave.title}"`);
     blogFileSHA = res.content.sha;
+    lcSave('blog', posts, window._blogCats, blogFileSHA); // persist locally
     closeModal();
     renderList();
     toast(isNew ? 'Artigo publicado! Site atualizado em ~1 min.' : 'Artigo salvo! Site atualizado em ~1 min.', 'success');
@@ -1144,6 +1161,7 @@ async function deleteObra(i) {
     const content = jsonStringifyAscii({cats: window._obrasCats, obras});
     const res = await ghPut('content/obras.json', content, obrasFileSHA, `Admin: remove obra "${removed.title}"`);
     obrasFileSHA = res.content.sha;
+    lcSave('obras', obras, window._obrasCats, obrasFileSHA);
     renderList();
     toast('Obra removida.', 'success');
   } catch(e) {
@@ -1161,6 +1179,7 @@ async function deletePost(i) {
     const content = jsonStringifyAscii({cats: window._blogCats, posts});
     const res = await ghPut('content/blog.json', content, blogFileSHA, `Admin: remove post "${removed.title}"`);
     blogFileSHA = res.content.sha;
+    lcSave('blog', posts, window._blogCats, blogFileSHA);
     renderList();
     toast('Artigo removido.', 'success');
   } catch(e) {
@@ -1223,12 +1242,45 @@ function b64ToStr(b64) {
 async function loadAll() {
   try {
     const [obrasFile, blogFile] = await Promise.all([ghGet('content/obras.json'), ghGet('content/blog.json')]);
+
+    // Obras: prefer localStorage if it has a newer SHA (GitHub API may serve stale cache)
+    const obrasCache = lcLoad('obras');
     const od = JSON.parse(b64ToStr(obrasFile.content));
-    obras = od.obras; window._obrasCats = od.cats; obrasFileSHA = obrasFile.sha;
+    window._obrasCats = od.cats;
+    if (obrasCache && obrasCache.sha !== obrasFile.sha) {
+      // Our last save (localStorage) differs from GitHub response — GitHub may be stale.
+      // Use localStorage data + localStorage SHA (it's the real current SHA on GitHub).
+      obras = obrasCache.data;
+      window._obrasCats = obrasCache.cats;
+      obrasFileSHA = obrasCache.sha;
+      console.log('[Admin] obras: usando cache local (SHA diverge do GitHub)');
+    } else {
+      obras = od.obras;
+      obrasFileSHA = obrasFile.sha;
+    }
+
+    // Blog: same logic
+    const blogCache = lcLoad('blog');
     const bd = JSON.parse(b64ToStr(blogFile.content));
-    posts = bd.posts; window._blogCats = bd.cats; blogFileSHA = blogFile.sha;
+    window._blogCats = bd.cats;
+    if (blogCache && blogCache.sha !== blogFile.sha) {
+      posts = blogCache.data;
+      window._blogCats = blogCache.cats;
+      blogFileSHA = blogCache.sha;
+      console.log('[Admin] blog: usando cache local (SHA diverge do GitHub)');
+    } else {
+      posts = bd.posts;
+      blogFileSHA = blogFile.sha;
+    }
+
     return true;
   } catch(e) {
+    // Network error — fall back to localStorage if available
+    const obrasCache = lcLoad('obras');
+    const blogCache = lcLoad('blog');
+    if (obrasCache) { obras = obrasCache.data; window._obrasCats = obrasCache.cats; obrasFileSHA = obrasCache.sha; }
+    if (blogCache)  { posts = blogCache.data;  window._blogCats = blogCache.cats;   blogFileSHA = blogCache.sha; }
+    if (obrasCache || blogCache) { console.log('[Admin] offline: usando cache local'); return true; }
     console.error('loadAll error', e);
     return false;
   }
