@@ -3,29 +3,24 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Berti Estrutural — Admin</title>
-  <style>
-    #btn-site {
-      position: fixed;
-      top: 12px;
-      right: 16px;
-      z-index: 99999;
-      background: #e85d04;
-      color: #fff;
-      padding: 8px 18px;
-      border-radius: 5px;
-      text-decoration: none;
-      font-family: sans-serif;
-      font-size: 13px;
-      font-weight: 700;
-      box-shadow: 0 2px 6px rgba(0,0,0,.3);
-    }
-    #btn-site:hover { background: #c94f03; }
-  </style>
+  <title>Berti Estrutural &mdash; Admin</title>
 </head>
 <body>
-  <a id="btn-site" href="https://berti-estrutural-site.pages.dev" target="_blank">← Ver Site</a>
-  <!-- Decap CMS — https://decapcms.org -->
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <script>
+    function addVerSiteBtn() {
+      if (document.getElementById("btn-site")) return;
+      var a = document.createElement("a");
+      a.id = "btn-site";
+      a.href = "https://berti-estrutural-site.pages.dev";
+      a.target = "_blank";
+      a.textContent = "\u2190 Ver Site";
+      a.style.cssText = "position:fixed;top:12px;right:16px;z-index:99999;background:#e85d04;color:#fff;padding:8px 18px;border-radius:5px;text-decoration:none;font-family:sans-serif;font-size:13px;font-weight:700;box-shadow:0 2px 6px rgba(0,0,0,.3);";
+      document.body.appendChild(a);
+    }
+    window.addEventListener("load", function() {
+      [500, 1500, 3000, 5000].forEach(function(t) { setTimeout(addVerSiteBtn, t); });
+    });
+  </script>
 </body>
 </html>
