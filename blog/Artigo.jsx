@@ -1,7 +1,6 @@
 /* global React, HOME_BRAND */
 // ============================================================================
 // BLOG · LEITOR DE ARTIGO (overlay)
-// Painel de leitura limpo com capa, meta e corpo do texto.
 // ============================================================================
 const { useEffect } = React;
 
@@ -20,6 +19,30 @@ function BlogArtigo({ post, onClose }) {
   }, [post, onClose]);
 
   if (!post) return null;
+
+  // body pode ser string ou array — normaliza para array de parágrafos
+  const paragrafos = Array.isArray(post.body)
+    ? post.body
+    : String(post.body || '').split(/\n\n+/).filter(Boolean);
+
+  // Renderiza parágrafo: suporta [img:caminho]
+  function renderParagrafo(texto, i) {
+    const imgMatch = texto.match(/^\[img:(.+?)\]$/);
+    if (imgMatch) {
+      return (
+        <img key={i} src={imgMatch[1]} alt="" style={{
+          width: '100%', maxHeight: 480, objectFit: 'cover',
+          display: 'block', margin: '8px 0 22px',
+        }} />
+      );
+    }
+    return (
+      <p key={i} style={{
+        fontSize: 17.5, lineHeight: 1.72, color: 'rgba(10,10,10,0.82)',
+        margin: '0 0 22px', textWrap: 'pretty',
+      }}>{texto}</p>
+    );
+  }
 
   return (
     <div onClick={onClose} style={{
@@ -64,17 +87,19 @@ function BlogArtigo({ post, onClose }) {
 
         {/* Conteúdo */}
         <div style={{ padding: 'clamp(28px, 5vw, 60px)' }}>
+
+          {/* Meta: data · leitura · autor */}
           <div style={{
-            display: 'flex', gap: 16, alignItems: 'center', flexWrap: 'wrap',
-            fontSize: 12.5, letterSpacing: '0.06em', textTransform: 'uppercase',
-            color: HOME_BRAND.blueDark, fontWeight: 700, marginBottom: 18,
-            fontFamily: '"Barlow Condensed", sans-serif',
+            display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap',
+            fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700,
+            fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase',
+            color: HOME_BRAND.blueDark, marginBottom: 18,
           }}>
             <span>{post.date}</span>
             <span style={{ color: 'rgba(10,10,10,0.25)' }}>•</span>
             <span>{post.read} de leitura</span>
             <span style={{ color: 'rgba(10,10,10,0.25)' }}>•</span>
-            <span>{post.author}</span>
+            <span>{post.author || 'Berti Estrutural'}</span>
           </div>
 
           <h1 style={{
@@ -84,14 +109,9 @@ function BlogArtigo({ post, onClose }) {
             margin: '0 0 28px', textWrap: 'balance',
           }}>{post.title}</h1>
 
-          <div style={{ width: 56, height: 3, background: accent, marginBottom: 28 }} />
+          <div style={{ width: 56, height: 3, background: accent, marginBottom: 32 }} />
 
-          {post.body.map((para, i) => (
-            <p key={i} style={{
-              fontSize: 17.5, lineHeight: 1.72, color: 'rgba(10,10,10,0.82)',
-              margin: '0 0 22px', textWrap: 'pretty',
-            }}>{para}</p>
-          ))}
+          {paragrafos.map(renderParagrafo)}
 
           {/* CTA final */}
           <div style={{
