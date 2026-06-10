@@ -30,20 +30,34 @@
     /* ---- Container geral ---- */
     .container{max-width:880px;margin:0 auto;padding:28px 20px}
 
+    /* ---- Tabs ---- */
+    .tabs{display:flex;gap:0;margin-bottom:24px;border-bottom:2px solid #dde1e7}
+    .tab-btn{background:none;border:none;padding:10px 24px;font-size:15px;font-weight:600;color:#888;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s}
+    .tab-btn.ativo{color:#e85d04;border-bottom-color:#e85d04}
+    .tab-btn:hover:not(.ativo){color:#444}
+
     /* ---- Tela lista ---- */
     #tela-lista{display:none}
-    .tela-titulo{font-size:22px;font-weight:700;color:#1a1a2e;margin-bottom:20px}
+    .tela-cabecalho{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;flex-wrap:wrap;gap:12px}
+    .tela-titulo{font-size:22px;font-weight:700;color:#1a1a2e}
+    .btn-novo{background:#e85d04;color:#fff;border:none;padding:9px 20px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
+    .btn-novo:hover{background:#c94f03}
 
     .obra-card{background:#fff;border-radius:10px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:10px;transition:box-shadow .15s}
     .obra-card:hover{box-shadow:0 3px 12px rgba(0,0,0,.12)}
     .obra-info h3{font-size:16px;font-weight:600;margin-bottom:5px;color:#1a1a2e}
     .obra-info .meta{font-size:13px;color:#777;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
     .badge{padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;background:#e8f0fe;color:#1a56db}
+    .badge-blog{background:#fef3c7;color:#92400e}
     .status-entregue{color:#16a34a;font-weight:600}
     .status-andamento{color:#d97706;font-weight:600}
+    .featured-badge{background:#fde8ff;color:#7e22ce;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700}
 
+    .card-acoes{display:flex;gap:8px;flex-shrink:0}
     .btn-editar{background:#e85d04;color:#fff;border:none;padding:8px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s}
     .btn-editar:hover{background:#c94f03}
+    .btn-excluir{background:#fff;color:#dc2626;border:1.5px solid #dc2626;padding:8px 14px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:all .2s}
+    .btn-excluir:hover{background:#dc2626;color:#fff}
 
     /* ---- Tela editar ---- */
     #tela-editar{display:none}
@@ -60,10 +74,29 @@
     .form-group{margin-bottom:18px}
     .form-group:last-child{margin-bottom:0}
     label{display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px}
-    input[type=text],textarea,select{width:100%;padding:9px 12px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;font-family:inherit;color:#222;transition:border-color .15s;background:#fafafa}
-    input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:#e85d04;background:#fff}
+    input[type=text],input[type=date],textarea,select{width:100%;padding:9px 12px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;font-family:inherit;color:#222;transition:border-color .15s;background:#fafafa}
+    input[type=text]:focus,input[type=date]:focus,textarea:focus,select:focus{outline:none;border-color:#e85d04;background:#fff}
     textarea{min-height:110px;resize:vertical;line-height:1.55}
     .hint{font-size:12px;color:#999;margin-top:4px}
+
+    /* ---- Upload de imagem ---- */
+    .input-com-upload{display:flex;gap:8px;align-items:flex-start}
+    .input-com-upload input{flex:1}
+    .btn-upload{background:#1a1a2e;color:#fff;border:none;padding:9px 14px;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:background .2s;display:flex;align-items:center;gap:5px}
+    .btn-upload:hover{background:#2d2d4e}
+    .btn-upload:disabled{background:#9ca3af;cursor:not-allowed}
+    .preview-capa{margin-top:8px;max-height:120px;border-radius:7px;object-fit:cover;display:none;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+
+    /* ---- Galeria upload ---- */
+    .galeria-preview{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+    .galeria-thumb{position:relative;width:80px;height:60px;border-radius:6px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,.12)}
+    .galeria-thumb img{width:100%;height:100%;object-fit:cover}
+    .galeria-thumb .remover-thumb{position:absolute;top:2px;right:2px;background:rgba(0,0,0,.6);color:#fff;border:none;border-radius:50%;width:18px;height:18px;font-size:11px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1}
+
+    /* ---- Checkbox ---- */
+    .check-group{display:flex;align-items:center;gap:10px}
+    .check-group input[type=checkbox]{width:18px;height:18px;cursor:pointer;accent-color:#e85d04}
+    .check-group label{margin-bottom:0;font-size:14px;font-weight:500;color:#333;cursor:pointer}
 
     /* ---- Status salvar ---- */
     #msg-status{padding:12px 16px;border-radius:7px;font-size:14px;margin-top:8px;display:none}
@@ -73,6 +106,16 @@
 
     /* ---- Loading ---- */
     .loading-msg{text-align:center;padding:48px;color:#888;font-size:15px}
+
+    /* ---- Modal confirmação ---- */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center}
+    .modal-overlay.aberto{display:flex}
+    .modal-box{background:#fff;border-radius:12px;padding:32px;max-width:380px;width:90%;text-align:center;box-shadow:0 8px 32px rgba(0,0,0,.2)}
+    .modal-box h3{font-size:18px;color:#1a1a2e;margin-bottom:10px}
+    .modal-box p{color:#666;font-size:14px;margin-bottom:24px}
+    .modal-acoes{display:flex;gap:10px;justify-content:center}
+    .btn-cancelar{background:#f3f4f6;color:#444;border:none;padding:9px 22px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer}
+    .btn-confirmar-excluir{background:#dc2626;color:#fff;border:none;padding:9px 22px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer}
   </style>
 </head>
 <body>
@@ -100,7 +143,7 @@
   </div>
 </div>
 
-<!-- ===== TELA LISTA DE OBRAS ===== -->
+<!-- ===== TELA LISTA (OBRAS + BLOG) ===== -->
 <div id="tela-lista">
   <header>
     <span class="logo">&#127959; Berti Estrutural &mdash; Admin</span>
@@ -110,13 +153,32 @@
     </div>
   </header>
   <div class="container">
-    <p class="tela-titulo">Obras <span id="total-obras" style="font-size:15px;color:#888;font-weight:400"></span></p>
-    <div id="lista-obras"><p class="loading-msg">Carregando obras...</p></div>
+    <div class="tabs">
+      <button class="tab-btn ativo" id="tab-obras" onclick="mudarAba('obras')">&#127959; Obras</button>
+      <button class="tab-btn" id="tab-blog" onclick="mudarAba('blog')">&#128221; Blog</button>
+    </div>
+
+    <!-- Obras -->
+    <div id="aba-obras">
+      <div class="tela-cabecalho">
+        <p class="tela-titulo">Obras <span id="total-obras" style="font-size:15px;color:#888;font-weight:400"></span></p>
+      </div>
+      <div id="lista-obras"><p class="loading-msg">Carregando obras...</p></div>
+    </div>
+
+    <!-- Blog -->
+    <div id="aba-blog" style="display:none">
+      <div class="tela-cabecalho">
+        <p class="tela-titulo">Blog <span id="total-posts" style="font-size:15px;color:#888;font-weight:400"></span></p>
+        <button class="btn-novo" onclick="novoPost()">+ Nova postagem</button>
+      </div>
+      <div id="lista-blog"><p class="loading-msg">Carregando posts...</p></div>
+    </div>
   </div>
 </div>
 
 <!-- ===== TELA EDITAR OBRA ===== -->
-<div id="tela-editar">
+<div id="tela-editar-obra">
   <header>
     <span class="logo">&#127959; Editando Obra</span>
     <div class="actions">
@@ -127,7 +189,7 @@
   <div class="container">
     <div class="barra-acao">
       <button class="btn-voltar" onclick="voltarLista()">&#8592; Voltar &agrave; lista</button>
-      <button class="btn-salvar" id="btn-salvar" onclick="salvarObra()">&#128190; Salvar altera&ccedil;&otilde;es</button>
+      <button class="btn-salvar" id="btn-salvar-obra" onclick="salvarObra()">&#128190; Salvar altera&ccedil;&otilde;es</button>
     </div>
 
     <div class="form-box">
@@ -177,17 +239,132 @@
       </div>
       <div class="form-group">
         <label>Imagem de capa</label>
-        <input type="text" id="f-capa" placeholder="assets/photos/nome-da-imagem.jpg"/>
+        <div class="input-com-upload">
+          <input type="text" id="f-capa" placeholder="assets/photos/nome-da-imagem.jpg" oninput="atualizarPreviewCapa('f-capa','prev-capa-obra')"/>
+          <button class="btn-upload" id="btn-upload-capa-obra" onclick="uploadImagem('assets/photos/', function(path){ document.getElementById('f-capa').value=path; atualizarPreviewCapa('f-capa','prev-capa-obra'); }, 'btn-upload-capa-obra')">
+            &#128247; Enviar
+          </button>
+        </div>
+        <img id="prev-capa-obra" class="preview-capa" src="" alt="preview"/>
         <p class="hint">Caminho relativo da imagem no reposit&oacute;rio</p>
       </div>
       <div class="form-group">
         <label>Galeria de fotos</label>
-        <textarea id="f-galeria" placeholder="assets/photos/foto-01.jpg&#10;assets/photos/foto-02.jpg" style="min-height:80px"></textarea>
-        <p class="hint">Um caminho por linha</p>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <button class="btn-upload" id="btn-upload-galeria" onclick="uploadMultiplaImagem('assets/photos/', 'btn-upload-galeria')">
+            &#128247; Adicionar fotos
+          </button>
+        </div>
+        <div class="galeria-preview" id="galeria-preview"></div>
+        <textarea id="f-galeria" placeholder="assets/photos/foto-01.jpg&#10;assets/photos/foto-02.jpg" style="min-height:80px;margin-top:8px" oninput="sincronizarGaleria()"></textarea>
+        <p class="hint">Um caminho por linha &mdash; ou use o bot&atilde;o para enviar fotos</p>
       </div>
     </div>
 
-    <div id="msg-status"></div>
+    <div id="msg-status-obra" style="padding:12px 16px;border-radius:7px;font-size:14px;margin-top:8px;display:none"></div>
+  </div>
+</div>
+
+<!-- ===== TELA EDITAR POST ===== -->
+<div id="tela-editar-post">
+  <header>
+    <span class="logo">&#128221; Editando Post</span>
+    <div class="actions">
+      <a class="link-site" href="https://berti-estrutural-site.pages.dev/Blog.html" target="_blank">&#8592; Ver Blog</a>
+      <button class="btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </header>
+  <div class="container">
+    <div class="barra-acao">
+      <button class="btn-voltar" onclick="voltarLista()">&#8592; Voltar &agrave; lista</button>
+      <button class="btn-salvar" id="btn-salvar-post" onclick="salvarPost()">&#128190; Salvar post</button>
+    </div>
+
+    <div class="form-box">
+      <input type="hidden" id="idx-post"/>
+      <div class="form-group">
+        <label>T&iacute;tulo</label>
+        <input type="text" id="p-titulo" placeholder="T&iacute;tulo do artigo" oninput="gerarSlug()"/>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Slug (URL)</label>
+          <input type="text" id="p-slug" placeholder="titulo-do-artigo"/>
+          <p class="hint">Gerado automaticamente; edite se quiser</p>
+        </div>
+        <div class="form-group">
+          <label>Categoria</label>
+          <select id="p-cat">
+            <option value="engenharia">Engenharia</option>
+            <option value="tecnologia">Tecnologia</option>
+            <option value="materiais">Materiais</option>
+            <option value="gestao">Gest&atilde;o de Obra</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Data de publica&ccedil;&atilde;o</label>
+          <input type="date" id="p-data"/>
+        </div>
+        <div class="form-group">
+          <label>Tempo de leitura</label>
+          <input type="text" id="p-read" placeholder="Ex: 4 min"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Autor</label>
+          <input type="text" id="p-autor" placeholder="Ex: Equipe Berti"/>
+        </div>
+        <div class="form-group" style="display:flex;align-items:flex-end;padding-bottom:4px">
+          <div class="check-group">
+            <input type="checkbox" id="p-featured"/>
+            <label for="p-featured">Destaque (featured)</label>
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Resumo (excerpt)</label>
+        <textarea id="p-excerpt" style="min-height:70px" placeholder="Resumo curto exibido na listagem do blog..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Imagem de capa</label>
+        <div class="input-com-upload">
+          <input type="text" id="p-cover" placeholder="assets/photos/nome-da-imagem.jpg" oninput="atualizarPreviewCapa('p-cover','prev-capa-post')"/>
+          <button class="btn-upload" id="btn-upload-capa-post" onclick="uploadImagem('assets/photos/', function(path){ document.getElementById('p-cover').value=path; atualizarPreviewCapa('p-cover','prev-capa-post'); }, 'btn-upload-capa-post')">
+            &#128247; Enviar
+          </button>
+        </div>
+        <img id="prev-capa-post" class="preview-capa" src="" alt="preview"/>
+      </div>
+      <div class="form-group">
+        <label>Imagens do conte&uacute;do (opcional)</label>
+        <div style="display:flex;gap:8px;margin-bottom:8px">
+          <button class="btn-upload" id="btn-upload-content-img" onclick="uploadImagem('assets/photos/', function(path){ inserirImagemNoTexto(path); }, 'btn-upload-content-img')">
+            &#128247; Enviar e inserir
+          </button>
+        </div>
+        <p class="hint" style="margin-bottom:8px">Use o bot&atilde;o para enviar uma imagem &mdash; o caminho ser&aacute; inserido no conte&uacute;do</p>
+        <label>Conte&uacute;do do artigo</label>
+        <textarea id="p-body" style="min-height:260px;font-family:monospace;font-size:13px" placeholder="Escreva o artigo aqui...&#10;&#10;Parágrafos separados por linha em branco.&#10;&#10;Para inserir imagem: [img:assets/photos/nome.jpg]"></textarea>
+        <p class="hint">Para exibir imagem no meio do texto, use: <code style="background:#f3f4f6;padding:1px 5px;border-radius:3px">[img:assets/photos/nome.jpg]</code></p>
+      </div>
+    </div>
+
+    <div id="msg-status-post" style="padding:12px 16px;border-radius:7px;font-size:14px;margin-top:8px;display:none"></div>
+  </div>
+</div>
+
+<!-- ===== MODAL EXCLUIR ===== -->
+<div class="modal-overlay" id="modal-excluir">
+  <div class="modal-box">
+    <h3>Confirmar exclus&atilde;o</h3>
+    <p id="modal-msg">Tem certeza? Esta a&ccedil;&atilde;o n&atilde;o pode ser desfeita.</p>
+    <div class="modal-acoes">
+      <button class="btn-cancelar" onclick="fecharModal()">Cancelar</button>
+      <button class="btn-confirmar-excluir" onclick="confirmarExclusao()">Excluir</button>
+    </div>
   </div>
 </div>
 
@@ -195,25 +372,38 @@
 var REPO = 'joaomarcos-Berti/berti-estrutural-site';
 var WORKER = 'https://berti-cms-auth.joaomarcos-695.workers.dev';
 var CAT_LABELS = {supermercado:'Supermercado',industrial:'Industrial',comercial:'Comercial',logistica:'Logística',outros:'Outros'};
+var CAT_BLOG = {engenharia:'Engenharia',tecnologia:'Tecnologia',materiais:'Materiais',gestao:'Gestão de Obra'};
 
 var token = localStorage.getItem('berti_token');
-var dados = null;
-var sha = null;
+var dadosObras = null, shaObras = null;
+var dadosBlog = null, shaBlog = null;
+var abaAtiva = 'obras';
+var pendingExcluir = null; // {tipo:'obra'|'post', idx:Number}
 
 // --- Inicializa ---
 if (token) {
   mostrar('tela-lista');
   carregarObras();
+  carregarBlog();
 } else {
   mostrar('tela-login');
 }
 
 function mostrar(id) {
-  ['tela-login','tela-lista','tela-editar'].forEach(function(t){
-    document.getElementById(t).style.display = t === id ? 'block' : 'none';
+  ['tela-login','tela-lista','tela-editar-obra','tela-editar-post'].forEach(function(t){
+    document.getElementById(t).style.display = 'none';
   });
-  if (id === 'tela-login') document.getElementById('tela-login').style.display = 'flex';
+  document.getElementById(id).style.display = id === 'tela-login' ? 'flex' : 'block';
   window.scrollTo(0,0);
+}
+
+// --- Abas ---
+function mudarAba(aba) {
+  abaAtiva = aba;
+  document.getElementById('aba-obras').style.display = aba === 'obras' ? 'block' : 'none';
+  document.getElementById('aba-blog').style.display = aba === 'blog' ? 'block' : 'none';
+  document.getElementById('tab-obras').classList.toggle('ativo', aba === 'obras');
+  document.getElementById('tab-blog').classList.toggle('ativo', aba === 'blog');
 }
 
 // --- Login ---
@@ -229,6 +419,7 @@ function fazerLogin() {
       if (popup && !popup.closed) popup.close();
       mostrar('tela-lista');
       carregarObras();
+      carregarBlog();
     }
   };
   window.addEventListener('message', handler);
@@ -236,33 +427,33 @@ function fazerLogin() {
 
 function sair() {
   localStorage.removeItem('berti_token');
-  token = null; dados = null; sha = null;
+  token = null; dadosObras = null; shaObras = null; dadosBlog = null; shaBlog = null;
   mostrar('tela-login');
 }
 
-// --- Carregar obras ---
+// ============================================================
+// OBRAS
+// ============================================================
 async function carregarObras() {
   document.getElementById('lista-obras').innerHTML = '<p class="loading-msg">Carregando obras...</p>';
   try {
     var r = await fetch('https://raw.githubusercontent.com/' + REPO + '/main/content/obras.json?t=' + Date.now());
-    dados = await r.json();
-
+    dadosObras = await r.json();
     var r2 = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/obras.json', {
       headers: {'Authorization': 'token ' + token}
     });
     var meta = await r2.json();
-    sha = meta.sha;
-
-    renderizarLista();
+    shaObras = meta.sha;
+    renderizarListaObras();
   } catch(e) {
-    document.getElementById('lista-obras').innerHTML = '<p class="loading-msg" style="color:#c00">Erro ao carregar: ' + e.message + '</p>';
+    document.getElementById('lista-obras').innerHTML = '<p class="loading-msg" style="color:#c00">Erro: ' + e.message + '</p>';
   }
 }
 
-function renderizarLista() {
-  var total = dados.obras.length;
+function renderizarListaObras() {
+  var total = dadosObras.obras.length;
   document.getElementById('total-obras').textContent = '(' + total + ')';
-  var html = dados.obras.map(function(o, i) {
+  var html = dadosObras.obras.map(function(o, i) {
     var statusCls = o.status === 'Entregue' ? 'status-entregue' : 'status-andamento';
     return '<div class="obra-card">' +
       '<div class="obra-info">' +
@@ -274,19 +465,17 @@ function renderizarLista() {
           '<span class="' + statusCls + '">&middot; ' + esc(o.status) + '</span>' +
         '</div>' +
       '</div>' +
-      '<button class="btn-editar" onclick="abrirEdicao(' + i + ')">Editar</button>' +
+      '<div class="card-acoes">' +
+        '<button class="btn-editar" onclick="abrirEdicaoObra(' + i + ')">Editar</button>' +
+        '<button class="btn-excluir" onclick="pedirExclusao(\'obra\',' + i + ',\'' + esc(o.title) + '\')">&#128465;</button>' +
+      '</div>' +
     '</div>';
   }).join('');
-  document.getElementById('lista-obras').innerHTML = html;
+  document.getElementById('lista-obras').innerHTML = html || '<p class="loading-msg">Nenhuma obra cadastrada.</p>';
 }
 
-function esc(s) {
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-// --- Editar ---
-function abrirEdicao(i) {
-  var o = dados.obras[i];
+function abrirEdicaoObra(i) {
+  var o = dadosObras.obras[i];
   document.getElementById('idx-obra').value = i;
   document.getElementById('f-titulo').value = o.title || '';
   document.getElementById('f-cidade').value = o.city || '';
@@ -297,29 +486,27 @@ function abrirEdicao(i) {
   document.getElementById('f-desc').value = o.desc || '';
   document.getElementById('f-capa').value = o.cover || '';
   document.getElementById('f-galeria').value = (o.gallery || []).join('\n');
-  document.getElementById('msg-status').className = '';
-  document.getElementById('msg-status').textContent = '';
-  document.getElementById('btn-salvar').disabled = false;
-  mostrar('tela-editar');
+  atualizarPreviewCapa('f-capa','prev-capa-obra');
+  sincronizarGaleria();
+  setStatusObra('','');
+  document.getElementById('btn-salvar-obra').disabled = false;
+  mostrar('tela-editar-obra');
 }
 
 function voltarLista() {
   mostrar('tela-lista');
 }
 
-// --- Salvar ---
 async function salvarObra() {
   var i = parseInt(document.getElementById('idx-obra').value);
   var cat = document.getElementById('f-cat').value;
   var titulo = document.getElementById('f-titulo').value.trim();
-
   if (!titulo) { alert('O título é obrigatório.'); return; }
-
-  var btn = document.getElementById('btn-salvar');
+  var btn = document.getElementById('btn-salvar-obra');
   btn.disabled = true;
-  setStatus('carregando', 'Salvando...');
+  setStatusObra('carregando', 'Salvando...');
 
-  dados.obras[i] = Object.assign({}, dados.obras[i], {
+  dadosObras.obras[i] = Object.assign({}, dadosObras.obras[i], {
     title: titulo,
     city: document.getElementById('f-cidade').value.trim(),
     cat: cat,
@@ -333,36 +520,396 @@ async function salvarObra() {
   });
 
   try {
-    var json = JSON.stringify(dados, null, 2)
-      .replace(/[^\x00-\x7F]/g, function(c){ return '\\u' + ('0000'+c.charCodeAt(0).toString(16)).slice(-4); });
-    var b64 = btoa(json);
-
-    var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/obras.json', {
-      method: 'PUT',
-      headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json'},
-      body: JSON.stringify({message: 'Admin: edita obra "' + titulo + '"', content: b64, sha: sha})
-    });
-
-    if (!resp.ok) {
-      var err = await resp.json();
-      throw new Error(err.message || 'Erro ' + resp.status);
-    }
-
-    var result = await resp.json();
-    sha = result.content.sha;
-
-    setStatus('ok', '✅ Salvo com sucesso! O site atualiza em 1–2 minutos.');
-    btn.disabled = false;
+    var ok = await salvarJSON('content/obras.json', dadosObras, shaObras, 'Admin: edita obra "' + titulo + '"');
+    shaObras = ok.sha;
+    setStatusObra('ok', '✅ Salvo! O site atualiza em 1–2 minutos.');
   } catch(e) {
-    setStatus('erro', '❌ Erro ao salvar: ' + e.message);
-    btn.disabled = false;
+    setStatusObra('erro', '❌ Erro: ' + e.message);
+  }
+  btn.disabled = false;
+}
+
+function setStatusObra(tipo, msg) {
+  var el = document.getElementById('msg-status-obra');
+  el.style.display = tipo ? 'block' : 'none';
+  el.style.background = tipo === 'ok' ? '#dcfce7' : tipo === 'erro' ? '#fee2e2' : '#e0f2fe';
+  el.style.color = tipo === 'ok' ? '#166534' : tipo === 'erro' ? '#991b1b' : '#075985';
+  el.textContent = msg;
+}
+
+// ============================================================
+// BLOG
+// ============================================================
+async function carregarBlog() {
+  document.getElementById('lista-blog').innerHTML = '<p class="loading-msg">Carregando posts...</p>';
+  try {
+    var r = await fetch('https://raw.githubusercontent.com/' + REPO + '/main/content/blog.json?t=' + Date.now());
+    dadosBlog = await r.json();
+    var r2 = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/blog.json', {
+      headers: {'Authorization': 'token ' + token}
+    });
+    var meta = await r2.json();
+    shaBlog = meta.sha;
+    renderizarListaBlog();
+  } catch(e) {
+    document.getElementById('lista-blog').innerHTML = '<p class="loading-msg" style="color:#c00">Erro: ' + e.message + '</p>';
   }
 }
 
-function setStatus(tipo, msg) {
-  var el = document.getElementById('msg-status');
-  el.className = tipo;
+function renderizarListaBlog() {
+  var total = dadosBlog.posts.length;
+  document.getElementById('total-posts').textContent = '(' + total + ')';
+  var html = dadosBlog.posts.map(function(p, i) {
+    return '<div class="obra-card">' +
+      '<div class="obra-info">' +
+        '<h3>' + esc(p.title) + '</h3>' +
+        '<div class="meta">' +
+          '<span class="badge badge-blog">' + esc(p.catLabel || p.cat) + '</span>' +
+          '<span>' + esc(p.date) + '</span>' +
+          '<span>&middot; ' + esc(p.read) + '</span>' +
+          (p.featured ? '<span class="featured-badge">&#11088; Destaque</span>' : '') +
+        '</div>' +
+      '</div>' +
+      '<div class="card-acoes">' +
+        '<button class="btn-editar" onclick="abrirEdicaoPost(' + i + ')">Editar</button>' +
+        '<button class="btn-excluir" onclick="pedirExclusao(\'post\',' + i + ',\'' + esc(p.title) + '\')">&#128465;</button>' +
+      '</div>' +
+    '</div>';
+  }).join('');
+  document.getElementById('lista-blog').innerHTML = html || '<p class="loading-msg">Nenhum post publicado.</p>';
+}
+
+function novoPost() {
+  document.getElementById('idx-post').value = -1;
+  document.getElementById('p-titulo').value = '';
+  document.getElementById('p-slug').value = '';
+  document.getElementById('p-cat').value = 'engenharia';
+  document.getElementById('p-data').value = new Date().toISOString().slice(0,10);
+  document.getElementById('p-read').value = '4 min';
+  document.getElementById('p-autor').value = 'Equipe Berti';
+  document.getElementById('p-featured').checked = false;
+  document.getElementById('p-excerpt').value = '';
+  document.getElementById('p-cover').value = '';
+  document.getElementById('p-body').value = '';
+  atualizarPreviewCapa('p-cover','prev-capa-post');
+  setStatusPost('','');
+  document.getElementById('btn-salvar-post').disabled = false;
+  mostrar('tela-editar-post');
+}
+
+function abrirEdicaoPost(i) {
+  var p = dadosBlog.posts[i];
+  document.getElementById('idx-post').value = i;
+  document.getElementById('p-titulo').value = p.title || '';
+  document.getElementById('p-slug').value = p.id || '';
+  document.getElementById('p-cat').value = p.cat || 'engenharia';
+  // Converter data display para input date
+  document.getElementById('p-data').value = converterDataParaInput(p.date || '');
+  document.getElementById('p-read').value = p.read || '4 min';
+  document.getElementById('p-autor').value = p.author || 'Equipe Berti';
+  document.getElementById('p-featured').checked = !!p.featured;
+  document.getElementById('p-excerpt').value = p.excerpt || '';
+  document.getElementById('p-cover').value = p.cover || '';
+  document.getElementById('p-body').value = p.body || '';
+  atualizarPreviewCapa('p-cover','prev-capa-post');
+  setStatusPost('','');
+  document.getElementById('btn-salvar-post').disabled = false;
+  mostrar('tela-editar-post');
+}
+
+function gerarSlug() {
+  var titulo = document.getElementById('p-titulo').value;
+  var slug = titulo.toLowerCase()
+    .replace(/[àáâãä]/g,'a').replace(/[èéêë]/g,'e').replace(/[ìíîï]/g,'i')
+    .replace(/[òóôõö]/g,'o').replace(/[ùúûü]/g,'u').replace(/[ç]/g,'c')
+    .replace(/[ñ]/g,'n').replace(/[^a-z0-9\s-]/g,'').trim()
+    .replace(/\s+/g,'-').replace(/-+/g,'-');
+  document.getElementById('p-slug').value = slug;
+}
+
+async function salvarPost() {
+  var i = parseInt(document.getElementById('idx-post').value);
+  var titulo = document.getElementById('p-titulo').value.trim();
+  var slug = document.getElementById('p-slug').value.trim();
+  if (!titulo) { alert('O título é obrigatório.'); return; }
+  if (!slug) { alert('O slug é obrigatório.'); return; }
+
+  // Verificar slug duplicado
+  if (i === -1) {
+    var slugExiste = dadosBlog.posts.some(function(p){ return p.id === slug; });
+    if (slugExiste) { alert('Já existe um post com esse slug. Altere o slug.'); return; }
+  }
+
+  var btn = document.getElementById('btn-salvar-post');
+  btn.disabled = true;
+  setStatusPost('carregando', 'Salvando...');
+
+  var cat = document.getElementById('p-cat').value;
+  var dataInput = document.getElementById('p-data').value;
+  var novoPost = {
+    id: slug,
+    cat: cat,
+    catLabel: CAT_BLOG[cat] || cat,
+    title: titulo,
+    excerpt: document.getElementById('p-excerpt').value.trim(),
+    cover: document.getElementById('p-cover').value.trim(),
+    date: formatarDataExibicao(dataInput),
+    read: document.getElementById('p-read').value.trim(),
+    author: document.getElementById('p-autor').value.trim(),
+    featured: document.getElementById('p-featured').checked,
+    body: document.getElementById('p-body').value.trim()
+  };
+
+  if (i === -1) {
+    dadosBlog.posts.unshift(novoPost); // novo post no topo
+  } else {
+    dadosBlog.posts[i] = Object.assign({}, dadosBlog.posts[i], novoPost);
+  }
+
+  try {
+    var ok = await salvarJSON('content/blog.json', dadosBlog, shaBlog, 'Admin: ' + (i === -1 ? 'novo' : 'edita') + ' post "' + titulo + '"');
+    shaBlog = ok.sha;
+    setStatusPost('ok', '✅ Salvo! O site atualiza em 1–2 minutos.');
+    if (i === -1) {
+      // Atualizar índice para edição futura
+      document.getElementById('idx-post').value = 0;
+    }
+    renderizarListaBlog();
+  } catch(e) {
+    setStatusPost('erro', '❌ Erro: ' + e.message);
+    // Reverter em caso de erro
+    if (i === -1) dadosBlog.posts.shift();
+  }
+  btn.disabled = false;
+}
+
+function setStatusPost(tipo, msg) {
+  var el = document.getElementById('msg-status-post');
+  el.style.display = tipo ? 'block' : 'none';
+  el.style.background = tipo === 'ok' ? '#dcfce7' : tipo === 'erro' ? '#fee2e2' : '#e0f2fe';
+  el.style.color = tipo === 'ok' ? '#166534' : tipo === 'erro' ? '#991b1b' : '#075985';
   el.textContent = msg;
+}
+
+// ============================================================
+// EXCLUSÃO
+// ============================================================
+function pedirExclusao(tipo, idx, nome) {
+  pendingExcluir = {tipo: tipo, idx: idx};
+  document.getElementById('modal-msg').textContent = 'Excluir "' + nome + '"? Esta ação não pode ser desfeita.';
+  document.getElementById('modal-excluir').classList.add('aberto');
+}
+
+function fecharModal() {
+  document.getElementById('modal-excluir').classList.remove('aberto');
+  pendingExcluir = null;
+}
+
+async function confirmarExclusao() {
+  fecharModal();
+  if (!pendingExcluir) return;
+  var tipo = pendingExcluir.tipo;
+  var idx = pendingExcluir.idx;
+
+  if (tipo === 'obra') {
+    var nome = dadosObras.obras[idx].title;
+    dadosObras.obras.splice(idx, 1);
+    try {
+      var ok = await salvarJSON('content/obras.json', dadosObras, shaObras, 'Admin: exclui obra "' + nome + '"');
+      shaObras = ok.sha;
+      renderizarListaObras();
+    } catch(e) { alert('Erro ao excluir: ' + e.message); dadosObras.obras.splice(idx, 0, {}); }
+  } else {
+    var nome = dadosBlog.posts[idx].title;
+    dadosBlog.posts.splice(idx, 1);
+    try {
+      var ok = await salvarJSON('content/blog.json', dadosBlog, shaBlog, 'Admin: exclui post "' + nome + '"');
+      shaBlog = ok.sha;
+      renderizarListaBlog();
+    } catch(e) { alert('Erro ao excluir: ' + e.message); }
+  }
+}
+
+// ============================================================
+// UPLOAD DE IMAGEM
+// ============================================================
+function uploadImagem(pasta, callback, btnId) {
+  var input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.onchange = async function(e) {
+    var file = e.target.files[0];
+    if (!file) return;
+    var btn = btnId ? document.getElementById(btnId) : null;
+    if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
+    try {
+      var base64 = await lerArquivoBase64(file);
+      var filename = file.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9._-]/g,'');
+      var filePath = pasta + filename;
+      var shaImg = await buscarShaArquivo(filePath);
+      var body = { message: 'Admin: upload ' + filename, content: base64 };
+      if (shaImg) body.sha = shaImg;
+      var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + filePath, {
+        method: 'PUT',
+        headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json'},
+        body: JSON.stringify(body)
+      });
+      if (!resp.ok) { var err = await resp.json(); throw new Error(err.message || 'Erro ' + resp.status); }
+      callback(filePath);
+    } catch(e) {
+      alert('Erro no upload: ' + e.message);
+    }
+    if (btn) { btn.disabled = false; btn.innerHTML = '&#128247; Enviar'; }
+  };
+  input.click();
+}
+
+function uploadMultiplaImagem(pasta, btnId) {
+  var input = document.createElement('input');
+  input.type = 'file';
+  input.accept = 'image/*';
+  input.multiple = true;
+  input.onchange = async function(e) {
+    var files = Array.from(e.target.files);
+    if (!files.length) return;
+    var btn = btnId ? document.getElementById(btnId) : null;
+    if (btn) { btn.disabled = true; btn.textContent = 'Enviando ' + files.length + ' foto(s)...'; }
+    var paths = [];
+    for (var i = 0; i < files.length; i++) {
+      try {
+        var file = files[i];
+        var base64 = await lerArquivoBase64(file);
+        var filename = file.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9._-]/g,'');
+        var filePath = pasta + filename;
+        var shaImg = await buscarShaArquivo(filePath);
+        var body = { message: 'Admin: upload ' + filename, content: base64 };
+        if (shaImg) body.sha = shaImg;
+        var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + filePath, {
+          method: 'PUT',
+          headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json'},
+          body: JSON.stringify(body)
+        });
+        if (resp.ok) paths.push(filePath);
+      } catch(e) { console.error('Erro no upload de ' + files[i].name, e); }
+    }
+    // Adicionar ao textarea da galeria
+    var atual = document.getElementById('f-galeria').value.trim();
+    var novo = paths.join('\n');
+    document.getElementById('f-galeria').value = atual ? atual + '\n' + novo : novo;
+    sincronizarGaleria();
+    if (btn) { btn.disabled = false; btn.innerHTML = '&#128247; Adicionar fotos'; }
+  };
+  input.click();
+}
+
+function lerArquivoBase64(file) {
+  return new Promise(function(resolve, reject) {
+    var reader = new FileReader();
+    reader.onload = function(ev) { resolve(ev.target.result.split(',')[1]); };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function buscarShaArquivo(path) {
+  try {
+    var r = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, {
+      headers: {'Authorization': 'token ' + token}
+    });
+    if (r.ok) { var meta = await r.json(); return meta.sha; }
+  } catch(e) {}
+  return null;
+}
+
+function inserirImagemNoTexto(path) {
+  var ta = document.getElementById('p-body');
+  var tag = '\n[img:' + path + ']\n';
+  var start = ta.selectionStart;
+  ta.value = ta.value.slice(0, start) + tag + ta.value.slice(ta.selectionEnd);
+  ta.selectionStart = ta.selectionEnd = start + tag.length;
+  ta.focus();
+}
+
+// ============================================================
+// PREVIEW DE CAPA
+// ============================================================
+function atualizarPreviewCapa(inputId, imgId) {
+  var val = document.getElementById(inputId).value.trim();
+  var img = document.getElementById(imgId);
+  if (val) {
+    var src = 'https://raw.githubusercontent.com/' + REPO + '/main/' + val;
+    img.src = src;
+    img.style.display = 'block';
+  } else {
+    img.style.display = 'none';
+  }
+}
+
+// ============================================================
+// PREVIEW DE GALERIA
+// ============================================================
+function sincronizarGaleria() {
+  var linhas = document.getElementById('f-galeria').value.split('\n').map(function(s){return s.trim();}).filter(Boolean);
+  var container = document.getElementById('galeria-preview');
+  container.innerHTML = linhas.map(function(p, i) {
+    var src = 'https://raw.githubusercontent.com/' + REPO + '/main/' + p;
+    return '<div class="galeria-thumb">' +
+      '<img src="' + src + '" loading="lazy" onerror="this.parentNode.style.background=\'#ddd\'">' +
+      '<button class="remover-thumb" onclick="removerFotoGaleria(' + i + ')" title="Remover">&times;</button>' +
+    '</div>';
+  }).join('');
+}
+
+function removerFotoGaleria(i) {
+  var linhas = document.getElementById('f-galeria').value.split('\n').map(function(s){return s.trim();}).filter(Boolean);
+  linhas.splice(i, 1);
+  document.getElementById('f-galeria').value = linhas.join('\n');
+  sincronizarGaleria();
+}
+
+// ============================================================
+// HELPERS
+// ============================================================
+async function salvarJSON(caminho, dados, sha, msg) {
+  var json = JSON.stringify(dados, null, 2)
+    .replace(/[^\x00-\x7F]/g, function(c){ return '\\u' + ('0000'+c.charCodeAt(0).toString(16)).slice(-4); });
+  var b64 = btoa(json);
+  var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + caminho, {
+    method: 'PUT',
+    headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json'},
+    body: JSON.stringify({message: msg, content: b64, sha: sha})
+  });
+  if (!resp.ok) { var err = await resp.json(); throw new Error(err.message || 'Erro ' + resp.status); }
+  var result = await resp.json();
+  return {sha: result.content.sha};
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+var MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+
+function formatarDataExibicao(isoDate) {
+  if (!isoDate) return '';
+  var partes = isoDate.split('-');
+  if (partes.length !== 3) return isoDate;
+  var dia = parseInt(partes[2]);
+  var mes = MESES[parseInt(partes[1]) - 1];
+  var ano = partes[0];
+  return dia + ' ' + mes + ' ' + ano;
+}
+
+function converterDataParaInput(dataExib) {
+  // "12 mai 2026" → "2026-05-12"
+  if (!dataExib) return new Date().toISOString().slice(0,10);
+  var partes = dataExib.trim().split(' ');
+  if (partes.length !== 3) return new Date().toISOString().slice(0,10);
+  var dia = String(parseInt(partes[0])).padStart(2,'0');
+  var mes = String(MESES.indexOf(partes[1]) + 1).padStart(2,'0');
+  var ano = partes[2];
+  if (mes === '00') return new Date().toISOString().slice(0,10);
+  return ano + '-' + mes + '-' + dia;
 }
 </script>
 </body>
