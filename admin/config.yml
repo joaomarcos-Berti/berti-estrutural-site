@@ -4,81 +4,45 @@ backend:
   branch: main
   base_url: https://berti-cms-auth.joaomarcos-695.workers.dev
 
-media_folder: "images/uploads"
-public_folder: "/images/uploads"
+media_folder: "assets/photos"
+public_folder: "/assets/photos"
 
 locale: pt
 
 collections:
 
-  # PORTFOLIO
   - name: "portfolio"
-    label: "PortfÃ³lio de Obras"
+    label: "Portfólio de Obras"
     files:
-      - label: "Lista de obras"
-        name: "portfolio_items"
-        file: "content/portfolio.json"
+      - label: "Obras e Categorias"
+        name: "obras_data"
+        file: "content/obras.json"
         format: json
         fields:
           - label: "Obras"
-            name: "items"
+            name: "obras"
             widget: "list"
             label_singular: "Obra"
             summary: "{{fields.title}}"
             fields:
-              - { label: "TÃ­tulo da obra",          name: "title",      widget: "string" }
-              - label: "Categoria"
-                name: "category"
-                widget: "select"
-                options:
-                  - { label: "Industrial",    value: "industrial" }
-                  - { label: "LogÃ­stica",     value: "logistica" }
-                  - { label: "Comercial",     value: "comercial" }
-                  - { label: "Agroindustrial",value: "agroindustrial" }
-              - { label: "ID YouTube",              name: "youtube_id", widget: "string",  required: false }
-              - { label: "Foto da obra",            name: "thumbnail",  widget: "image",   required: false }
-              - { label: "LocalizaÃ§Ã£o",             name: "location",   widget: "string" }
-              - { label: "Ãrea",                    name: "area",       widget: "string",  required: false }
-              - { label: "Detalhes tÃ©cnicos",       name: "details",    widget: "string",  required: false }
-              - { label: "Destaque",                name: "featured",   widget: "boolean", default: false }
-
-  # BLOG
-  - name: "blog"
-    label: "Blog TÃ©cnico"
-    files:
-      - label: "Artigos do blog"
-        name: "blog_posts"
-        file: "content/blog.json"
-        format: json
-        fields:
-          - label: "Artigos"
-            name: "posts"
-            widget: "list"
-            label_singular: "Artigo"
-            summary: "{{fields.title}}"
-            fields:
-              - { label: "ID (slug)",           name: "id",       widget: "string" }
-              - label: "Categoria"
-                name: "cat"
-                widget: "select"
-                options:
-                  - { label: "Engenharia",    value: "engenharia" }
-                  - { label: "Tecnologia",    value: "tecnologia" }
-                  - { label: "Materiais",     value: "materiais" }
-                  - { label: "GestÃ£o de Obra",value: "gestao" }
-              - { label: "Label da categoria",  name: "catLabel", widget: "string" }
-              - { label: "TÃ­tulo",              name: "title",    widget: "string" }
-              - { label: "Resumo",              name: "excerpt",  widget: "text" }
-              - { label: "imagem de capa",      name: "cover",    widget: "image",   required: false }
-              - { label: "Data",                name: "date",     widget: "string" }
-              - { label: "Tempo de leitura",    name: "read",     widget: "string",  default: "5 min" }
-              - { label: "Autor",               name: "author",   widget: "string",  default: "Equipe Berti" }
-              - { label: "Destaque",            name: "featured", widget: "boolean", default: false }
-              - { label: "ConteÃºdo completo",   name: "body",     widget: "markdown" }
-          - label: "Categorias do blog"
+              - { label: "ID",                name: "id",       widget: "number" }
+              - { label: "Título",            name: "title",    widget: "string" }
+              - { label: "Categoria (key)",   name: "cat",      widget: "string" }
+              - { label: "Categoria (label)", name: "catLabel", widget: "string" }
+              - { label: "Cidade",            name: "city",     widget: "string" }
+              - { label: "Área",              name: "area",     widget: "string" }
+              - { label: "Status",            name: "status",   widget: "string" }
+              - { label: "Descrição",         name: "desc",     widget: "text" }
+              - { label: "Imagem de capa",    name: "cover",    widget: "string" }
+              - { label: "YouTube",           name: "youtube",  widget: "string", required: false }
+              - label: "Galeria de fotos"
+                name: "gallery"
+                widget: "list"
+                field: { label: "Foto", name: "photo", widget: "string" }
+          - label: "Categorias"
             name: "cats"
             widget: "list"
-            collapsed: true
+            label_singular: "Categoria"
             fields:
-              - { label: "Chave", name: "key",   widget: "string" }
+              - { label: "Key",   name: "key",   widget: "string" }
               - { label: "Label", name: "label", widget: "string" }
