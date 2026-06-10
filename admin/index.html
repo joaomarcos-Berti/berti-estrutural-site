@@ -1,17 +1,369 @@
 <!doctype html>
-<html><head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Berti Admin</title>
-</head><body>
-<script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Berti Estrutural &mdash; Admin</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#f0f2f5;color:#222;min-height:100vh}
+
+    /* ---- Header ---- */
+    header{background:#1a1a2e;color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
+    header .logo{font-size:17px;font-weight:700;letter-spacing:.3px}
+    header .actions{display:flex;gap:12px;align-items:center}
+    .link-site{color:#e85d04;text-decoration:none;font-size:13px;font-weight:600}
+    .link-site:hover{text-decoration:underline}
+    .btn-sair{background:transparent;border:1px solid rgba(255,255,255,.25);color:#ccc;padding:5px 14px;border-radius:5px;cursor:pointer;font-size:13px}
+    .btn-sair:hover{background:rgba(255,255,255,.1)}
+
+    /* ---- Login ---- */
+    #tela-login{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:100vh;gap:8px;padding:32px}
+    .login-box{background:#fff;border-radius:16px;padding:48px 40px;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.1);max-width:380px;width:100%}
+    .login-box .icone{font-size:52px;margin-bottom:16px}
+    .login-box h1{font-size:22px;color:#1a1a2e;margin-bottom:6px}
+    .login-box p{color:#888;font-size:14px;margin-bottom:32px}
+    .btn-github{background:#24292e;color:#fff;border:none;padding:13px 28px;border-radius:8px;font-size:15px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:10px;transition:background .2s}
+    .btn-github:hover{background:#3a3f45}
+    .btn-github svg{flex-shrink:0}
+
+    /* ---- Container geral ---- */
+    .container{max-width:880px;margin:0 auto;padding:28px 20px}
+
+    /* ---- Tela lista ---- */
+    #tela-lista{display:none}
+    .tela-titulo{font-size:22px;font-weight:700;color:#1a1a2e;margin-bottom:20px}
+
+    .obra-card{background:#fff;border-radius:10px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:10px;transition:box-shadow .15s}
+    .obra-card:hover{box-shadow:0 3px 12px rgba(0,0,0,.12)}
+    .obra-info h3{font-size:16px;font-weight:600;margin-bottom:5px;color:#1a1a2e}
+    .obra-info .meta{font-size:13px;color:#777;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+    .badge{padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;background:#e8f0fe;color:#1a56db}
+    .status-entregue{color:#16a34a;font-weight:600}
+    .status-andamento{color:#d97706;font-weight:600}
+
+    .btn-editar{background:#e85d04;color:#fff;border:none;padding:8px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s}
+    .btn-editar:hover{background:#c94f03}
+
+    /* ---- Tela editar ---- */
+    #tela-editar{display:none}
+    .form-box{background:#fff;border-radius:10px;padding:28px;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:16px}
+    .barra-acao{display:flex;justify-content:space-between;align-items:center;margin-bottom:24px;flex-wrap:wrap;gap:12px}
+    .btn-voltar{background:#6c757d;color:#fff;border:none;padding:9px 20px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
+    .btn-voltar:hover{background:#545b62}
+    .btn-salvar{background:#16a34a;color:#fff;border:none;padding:9px 24px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s;display:flex;align-items:center;gap:6px}
+    .btn-salvar:hover{background:#15803d}
+    .btn-salvar:disabled{background:#9ca3af;cursor:not-allowed}
+
+    .form-row{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    @media(max-width:600px){.form-row{grid-template-columns:1fr}}
+    .form-group{margin-bottom:18px}
+    .form-group:last-child{margin-bottom:0}
+    label{display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:6px}
+    input[type=text],textarea,select{width:100%;padding:9px 12px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;font-family:inherit;color:#222;transition:border-color .15s;background:#fafafa}
+    input[type=text]:focus,textarea:focus,select:focus{outline:none;border-color:#e85d04;background:#fff}
+    textarea{min-height:110px;resize:vertical;line-height:1.55}
+    .hint{font-size:12px;color:#999;margin-top:4px}
+
+    /* ---- Status salvar ---- */
+    #msg-status{padding:12px 16px;border-radius:7px;font-size:14px;margin-top:8px;display:none}
+    #msg-status.ok{background:#dcfce7;color:#166534;display:block}
+    #msg-status.erro{background:#fee2e2;color:#991b1b;display:block}
+    #msg-status.carregando{background:#e0f2fe;color:#075985;display:block}
+
+    /* ---- Loading ---- */
+    .loading-msg{text-align:center;padding:48px;color:#888;font-size:15px}
+  </style>
+</head>
+<body>
+
+<!-- ===== TELA DE LOGIN ===== -->
+<div id="tela-login">
+  <div class="login-box">
+    <div class="icone">&#127959;</div>
+    <h1>Berti Estrutural</h1>
+    <p>Painel de administra&ccedil;&atilde;o do site</p>
+    <button class="btn-github" onclick="fazerLogin()">
+      <svg width="20" height="20" viewBox="0 0 16 16" fill="white">
+        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
+          0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
+          -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
+          .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
+          -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27
+          .68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
+          .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
+          0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8
+          c0-4.42-3.58-8-8-8z"/>
+      </svg>
+      Entrar com o GitHub
+    </button>
+  </div>
+</div>
+
+<!-- ===== TELA LISTA DE OBRAS ===== -->
+<div id="tela-lista">
+  <header>
+    <span class="logo">&#127959; Berti Estrutural &mdash; Admin</span>
+    <div class="actions">
+      <a class="link-site" href="https://berti-estrutural-site.pages.dev" target="_blank">&#8592; Ver Site</a>
+      <button class="btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </header>
+  <div class="container">
+    <p class="tela-titulo">Obras <span id="total-obras" style="font-size:15px;color:#888;font-weight:400"></span></p>
+    <div id="lista-obras"><p class="loading-msg">Carregando obras...</p></div>
+  </div>
+</div>
+
+<!-- ===== TELA EDITAR OBRA ===== -->
+<div id="tela-editar">
+  <header>
+    <span class="logo">&#127959; Editando Obra</span>
+    <div class="actions">
+      <a class="link-site" href="https://berti-estrutural-site.pages.dev" target="_blank">&#8592; Ver Site</a>
+      <button class="btn-sair" onclick="sair()">Sair</button>
+    </div>
+  </header>
+  <div class="container">
+    <div class="barra-acao">
+      <button class="btn-voltar" onclick="voltarLista()">&#8592; Voltar &agrave; lista</button>
+      <button class="btn-salvar" id="btn-salvar" onclick="salvarObra()">&#128190; Salvar altera&ccedil;&otilde;es</button>
+    </div>
+
+    <div class="form-box">
+      <input type="hidden" id="idx-obra"/>
+      <div class="form-row">
+        <div class="form-group">
+          <label>T&iacute;tulo da Obra</label>
+          <input type="text" id="f-titulo" placeholder="Ex: Supermercado Hmais"/>
+        </div>
+        <div class="form-group">
+          <label>Cidade</label>
+          <input type="text" id="f-cidade" placeholder="Ex: Londrina &ndash; PR"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Categoria</label>
+          <select id="f-cat">
+            <option value="supermercado">Supermercado</option>
+            <option value="industrial">Industrial</option>
+            <option value="comercial">Comercial</option>
+            <option value="logistica">Log&iacute;stica</option>
+            <option value="outros">Outros</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>&Aacute;rea</label>
+          <input type="text" id="f-area" placeholder="Ex: 5.000 m&sup2;"/>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Status</label>
+          <select id="f-status">
+            <option value="Entregue">Entregue</option>
+            <option value="Em andamento">Em andamento</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>YouTube (opcional)</label>
+          <input type="text" id="f-youtube" placeholder="https://youtube.com/watch?v=..."/>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Descri&ccedil;&atilde;o</label>
+        <textarea id="f-desc" placeholder="Descreva a obra..."></textarea>
+      </div>
+      <div class="form-group">
+        <label>Imagem de capa</label>
+        <input type="text" id="f-capa" placeholder="assets/photos/nome-da-imagem.jpg"/>
+        <p class="hint">Caminho relativo da imagem no reposit&oacute;rio</p>
+      </div>
+      <div class="form-group">
+        <label>Galeria de fotos</label>
+        <textarea id="f-galeria" placeholder="assets/photos/foto-01.jpg&#10;assets/photos/foto-02.jpg" style="min-height:80px"></textarea>
+        <p class="hint">Um caminho por linha</p>
+      </div>
+    </div>
+
+    <div id="msg-status"></div>
+  </div>
+</div>
+
 <script>
-function b(){if(document.getElementById("bs"))return;
-var a=document.createElement("a");
-a.id="bs";a.href="https://berti-estrutural-site.pages.dev";a.target="_blank";
-a.textContent="\u2190 Ver Site";
-a.style.cssText="position:fixed;top:12px;right:16px;z-index:99999;background:#e85d04;color:#fff;padding:8px 18px;border-radius:5px;text-decoration:none;font-family:sans-serif;font-size:13px;font-weight:700;";
-document.body.appendChild(a);}
-window.addEventListener("load",function(){[500,1500,3000,5000].forEach(function(t){setTimeout(b,t);});});
+var REPO = 'joaomarcos-Berti/berti-estrutural-site';
+var WORKER = 'https://berti-cms-auth.joaomarcos-695.workers.dev';
+var CAT_LABELS = {supermercado:'Supermercado',industrial:'Industrial',comercial:'Comercial',logistica:'Logística',outros:'Outros'};
+
+var token = localStorage.getItem('berti_token');
+var dados = null;
+var sha = null;
+
+// --- Inicializa ---
+if (token) {
+  mostrar('tela-lista');
+  carregarObras();
+} else {
+  mostrar('tela-login');
+}
+
+function mostrar(id) {
+  ['tela-login','tela-lista','tela-editar'].forEach(function(t){
+    document.getElementById(t).style.display = t === id ? 'block' : 'none';
+  });
+  if (id === 'tela-login') document.getElementById('tela-login').style.display = 'flex';
+  window.scrollTo(0,0);
+}
+
+// --- Login ---
+function fazerLogin() {
+  var popup = window.open(WORKER + '/auth?provider=github', 'github-oauth', 'width=620,height=700,top=100,left=200');
+  var handler = function(e) {
+    if (typeof e.data === 'string' && e.data.indexOf('authorization:github:success:') === 0) {
+      var json = e.data.replace('authorization:github:success:', '');
+      var obj = JSON.parse(json);
+      token = obj.token;
+      localStorage.setItem('berti_token', token);
+      window.removeEventListener('message', handler);
+      if (popup && !popup.closed) popup.close();
+      mostrar('tela-lista');
+      carregarObras();
+    }
+  };
+  window.addEventListener('message', handler);
+}
+
+function sair() {
+  localStorage.removeItem('berti_token');
+  token = null; dados = null; sha = null;
+  mostrar('tela-login');
+}
+
+// --- Carregar obras ---
+async function carregarObras() {
+  document.getElementById('lista-obras').innerHTML = '<p class="loading-msg">Carregando obras...</p>';
+  try {
+    var r = await fetch('https://raw.githubusercontent.com/' + REPO + '/main/content/obras.json?t=' + Date.now());
+    dados = await r.json();
+
+    var r2 = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/obras.json', {
+      headers: {'Authorization': 'token ' + token}
+    });
+    var meta = await r2.json();
+    sha = meta.sha;
+
+    renderizarLista();
+  } catch(e) {
+    document.getElementById('lista-obras').innerHTML = '<p class="loading-msg" style="color:#c00">Erro ao carregar: ' + e.message + '</p>';
+  }
+}
+
+function renderizarLista() {
+  var total = dados.obras.length;
+  document.getElementById('total-obras').textContent = '(' + total + ')';
+  var html = dados.obras.map(function(o, i) {
+    var statusCls = o.status === 'Entregue' ? 'status-entregue' : 'status-andamento';
+    return '<div class="obra-card">' +
+      '<div class="obra-info">' +
+        '<h3>' + esc(o.title) + '</h3>' +
+        '<div class="meta">' +
+          '<span class="badge">' + esc(o.catLabel || o.cat) + '</span>' +
+          '<span>' + esc(o.city) + '</span>' +
+          (o.area ? '<span>&middot; ' + esc(o.area) + '</span>' : '') +
+          '<span class="' + statusCls + '">&middot; ' + esc(o.status) + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<button class="btn-editar" onclick="abrirEdicao(' + i + ')">Editar</button>' +
+    '</div>';
+  }).join('');
+  document.getElementById('lista-obras').innerHTML = html;
+}
+
+function esc(s) {
+  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// --- Editar ---
+function abrirEdicao(i) {
+  var o = dados.obras[i];
+  document.getElementById('idx-obra').value = i;
+  document.getElementById('f-titulo').value = o.title || '';
+  document.getElementById('f-cidade').value = o.city || '';
+  document.getElementById('f-cat').value = o.cat || 'supermercado';
+  document.getElementById('f-area').value = o.area || '';
+  document.getElementById('f-status').value = o.status || 'Entregue';
+  document.getElementById('f-youtube').value = o.youtube || '';
+  document.getElementById('f-desc').value = o.desc || '';
+  document.getElementById('f-capa').value = o.cover || '';
+  document.getElementById('f-galeria').value = (o.gallery || []).join('\n');
+  document.getElementById('msg-status').className = '';
+  document.getElementById('msg-status').textContent = '';
+  document.getElementById('btn-salvar').disabled = false;
+  mostrar('tela-editar');
+}
+
+function voltarLista() {
+  mostrar('tela-lista');
+}
+
+// --- Salvar ---
+async function salvarObra() {
+  var i = parseInt(document.getElementById('idx-obra').value);
+  var cat = document.getElementById('f-cat').value;
+  var titulo = document.getElementById('f-titulo').value.trim();
+
+  if (!titulo) { alert('O título é obrigatório.'); return; }
+
+  var btn = document.getElementById('btn-salvar');
+  btn.disabled = true;
+  setStatus('carregando', 'Salvando...');
+
+  dados.obras[i] = Object.assign({}, dados.obras[i], {
+    title: titulo,
+    city: document.getElementById('f-cidade').value.trim(),
+    cat: cat,
+    catLabel: CAT_LABELS[cat] || cat,
+    area: document.getElementById('f-area').value.trim(),
+    status: document.getElementById('f-status').value,
+    youtube: document.getElementById('f-youtube').value.trim(),
+    desc: document.getElementById('f-desc').value.trim(),
+    cover: document.getElementById('f-capa').value.trim(),
+    gallery: document.getElementById('f-galeria').value.split('\n').map(function(s){return s.trim();}).filter(Boolean)
+  });
+
+  try {
+    var json = JSON.stringify(dados, null, 2)
+      .replace(/[^\x00-\x7F]/g, function(c){ return '\\u' + ('0000'+c.charCodeAt(0).toString(16)).slice(-4); });
+    var b64 = btoa(json);
+
+    var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/obras.json', {
+      method: 'PUT',
+      headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json'},
+      body: JSON.stringify({message: 'Admin: edita obra "' + titulo + '"', content: b64, sha: sha})
+    });
+
+    if (!resp.ok) {
+      var err = await resp.json();
+      throw new Error(err.message || 'Erro ' + resp.status);
+    }
+
+    var result = await resp.json();
+    sha = result.content.sha;
+
+    setStatus('ok', '✅ Salvo com sucesso! O site atualiza em 1–2 minutos.');
+    btn.disabled = false;
+  } catch(e) {
+    setStatus('erro', '❌ Erro ao salvar: ' + e.message);
+    btn.disabled = false;
+  }
+}
+
+function setStatus(tipo, msg) {
+  var el = document.getElementById('msg-status');
+  el.className = tipo;
+  el.textContent = msg;
+}
 </script>
-</body></html>
+</body>
+</html>
