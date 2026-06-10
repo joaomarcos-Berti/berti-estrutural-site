@@ -744,11 +744,13 @@ function uploadImagem(pasta, callback, btnId) {
     if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
     try {
       var base64 = await lerArquivoBase64(file);
-      var filename = file.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9._-]/g,'');
+      var ext = file.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'') || 'jpg';
+      var base = file.name.toLowerCase().replace(/\.[^.]+$/,'').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').slice(0,40);
+      var ts = Date.now();
+      var filename = ts + '-' + base + '.' + ext;
       var filePath = pasta + filename;
-      var shaImg = await buscarShaArquivo(filePath);
+      // Nome único por timestamp — nunca sobrescreve arquivo existente
       var body = { message: 'Admin: upload ' + filename, content: base64 };
-      if (shaImg) body.sha = shaImg;
       var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + filePath, {
         method: 'PUT',
         headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json'},
@@ -779,11 +781,11 @@ function uploadMultiplaImagem(pasta, btnId) {
       try {
         var file = files[i];
         var base64 = await lerArquivoBase64(file);
-        var filename = file.name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9._-]/g,'');
+        var ext = file.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'') || 'jpg';
+        var base = file.name.toLowerCase().replace(/\.[^.]+$/,'').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').slice(0,40);
+        var filename = (Date.now() + i) + '-' + base + '.' + ext;
         var filePath = pasta + filename;
-        var shaImg = await buscarShaArquivo(filePath);
         var body = { message: 'Admin: upload ' + filename, content: base64 };
-        if (shaImg) body.sha = shaImg;
         var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + filePath, {
           method: 'PUT',
           headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json'},
