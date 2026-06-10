@@ -1,0 +1,7 @@
+name            = "berti-cms-auth"
+main            = "index.js"
+compatibility_date = "2024-01-01"
+
+# Segredos: configure via dashboard ou CLI
+# wrangler secret put GITHUB_CLIENT_ID
+# wrangler secret put GITHUB_CLIENT_SECRET
