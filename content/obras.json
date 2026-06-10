@@ -173,6 +173,44 @@
       ]
     },
     {
+      "id": 19,
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "cover": "assets/photos/inga-mall-capa.jpg",
+      "title": "Inga Mall",
+      "city": "Londrina \u2013 PR",
+      "area": "3.095 m\u00b2",
+      "status": "Entregue",
+      "desc": "Edifica\u00e7\u00e3o com estruturas met\u00e1licas em a\u00e7o galvanizado. Solu\u00e7\u00f5es diferenciadas para marquises e pergolados. Prazo de execu\u00e7\u00e3o: 100 dias.",
+      "youtube": "https://youtu.be/4ufbxSeGn6E",
+      "gallery": [
+        "assets/photos/inga-mall-capa.jpg",
+        "assets/photos/inga-mall-01.jpg",
+        "assets/photos/inga-mall-02.jpg",
+        "assets/photos/inga-mall-03.jpg",
+        "assets/photos/inga-mall-05.jpg"
+      ]
+    },
+    {
+      "id": 20,
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "cover": "assets/photos/tropical-mall-capa.jpg",
+      "title": "Tropical Mall",
+      "city": "Camb\u00e9 \u2013 PR",
+      "area": "2.700 m\u00b2",
+      "status": "Entregue",
+      "desc": "Open mall 100% em estruturas met\u00e1licas. Solu\u00e7\u00f5es diferenciadas para fixa\u00e7\u00e3o de pele de vidro e pergolados. Prazo de execu\u00e7\u00e3o: 90 dias.",
+      "youtube": "https://www.youtube.com/watch?v=6Z1YzmRp0Qo",
+      "gallery": [
+        "assets/photos/tropical-mall-capa.jpg",
+        "assets/photos/tropical-mall-01.jpg",
+        "assets/photos/tropical-mall-02.jpg",
+        "assets/photos/tropical-mall-05.jpg",
+        "assets/photos/tropical-mall-06.jpg"
+      ]
+    },
+    {
       "id": 9,
       "cat": "comercial",
       "catLabel": "Comercial",
@@ -227,21 +265,24 @@
       ]
     },
     {
-      "id": 12,
-      "cat": "supermercado",
-      "catLabel": "Supermercado",
-      "cover": "assets/photos/super-88-capa.jpg",
-      "title": "Super 88",
-      "city": "Londrina \u2013 PR",
-      "area": "6.500 m\u00b2",
+      "id": 21,
+      "cat": "industrial",
+      "catLabel": "Industrial",
+      "cover": "assets/photos/nippon-capa.jpg",
+      "title": "Nipponflex Espuma\u00e7\u00e3o",
+      "city": "Maring\u00e1 \u2013 PR",
+      "area": "15.000 m\u00b2",
       "status": "Entregue",
-      "desc": "Para atender o curto prazo estipulado pelo cliente, foi projetada uma solu\u00e7\u00e3o com pilares met\u00e1licos e despendendo da edifica\u00e7\u00e3o existente. Estrutura 100% parafusada em a\u00e7o galvanizado de alta resist\u00eancia. Tempo de execu\u00e7\u00e3o 140 dias.",
-      "youtube": "",
+      "desc": "Cobertura e pilares para fechamento em estrutura met\u00e1lica, a\u00e7o galvanizado, liga\u00e7\u00f5es parafusadas, telhas termo-ac\u00fasticas e ventiladores naturais.",
+      "youtube": "https://youtu.be/02_BGZIFano",
       "gallery": [
-        "assets/photos/super-88-capa.jpg",
-        "assets/photos/super-88-01.jpg",
-        "assets/photos/super-88-02.jpg",
-        "assets/photos/super-88-04.jpg"
+        "assets/photos/nippon-capa.jpg",
+        "assets/photos/nippon-01.jpg",
+        "assets/photos/nippon-02.jpg",
+        "assets/photos/nippon-03.jpg",
+        "assets/photos/nippon-04.jpg",
+        "assets/photos/nippon-05.jpg",
+        "assets/photos/nippon-06.jpg"
       ]
     },
     {
@@ -261,23 +302,6 @@
         "assets/photos/tic-curitiba-02.jpg",
         "assets/photos/tic-curitiba-03.jpg",
         "assets/photos/tic-curitiba-06.jpg"
-      ]
-    },
-    {
-      "id": 14,
-      "cat": "supermercado",
-      "catLabel": "Supermercado",
-      "cover": "assets/photos/super-golff-01.jpg",
-      "title": "Super Golff",
-      "city": "Camb\u00e9 \u2013 PR",
-      "area": "4.600 m\u00b2",
-      "status": "Entregue",
-      "desc": "Cobertura em estrutura met\u00e1lica 100% em a\u00e7o de alta resist\u00eancia, apoiadas sobre pilares e vigas de concreto armado, telhas termo-ac\u00fasticas. Tempo de execu\u00e7\u00e3o 120 dias.",
-      "youtube": "https://youtu.be/xZDdovfEZ7w",
-      "gallery": [
-        "assets/photos/super-golff-01.jpg",
-        "assets/photos/super-golff-02.jpg",
-        "assets/photos/super-golff-03.jpg"
       ]
     },
     {
@@ -318,23 +342,6 @@
       ]
     },
     {
-      "id": 17,
-      "cat": "comercial",
-      "catLabel": "Comercial",
-      "cover": "assets/photos/jeep-maringa-capa.jpg",
-      "title": "Jeep Maring\u00e1",
-      "city": "Maring\u00e1 \u2013 PR",
-      "area": "1.800 m\u00b2",
-      "status": "Entregue",
-      "desc": "Edifica\u00e7\u00e3o comercial com p\u00f3rticos de alma cheia e estrutura secund\u00e1ria em Light Steel Frame. Obra turn key. Tempo de execu\u00e7\u00e3o 120 dias.",
-      "youtube": "",
-      "gallery": [
-        "assets/photos/jeep-maringa-capa.jpg",
-        "assets/photos/jeep-maringa-01.jpg",
-        "assets/photos/jeep-maringa-02.jpg"
-      ]
-    },
-    {
       "id": 18,
       "cat": "comercial",
       "catLabel": "Comercial",
@@ -355,62 +362,55 @@
       ]
     },
     {
-      "id": 19,
-      "cat": "comercial",
-      "catLabel": "Comercial",
-      "cover": "assets/photos/inga-mall-capa.jpg",
-      "title": "Inga Mall",
-      "city": "Londrina \u2013 PR",
-      "area": "3.095 m\u00b2",
-      "status": "Entregue",
-      "desc": "Edifica\u00e7\u00e3o com estruturas met\u00e1licas em a\u00e7o galvanizado. Solu\u00e7\u00f5es diferenciadas para marquises e pergolados. Prazo de execu\u00e7\u00e3o: 100 dias.",
-      "youtube": "https://youtu.be/4ufbxSeGn6E",
-      "gallery": [
-        "assets/photos/inga-mall-capa.jpg",
-        "assets/photos/inga-mall-01.jpg",
-        "assets/photos/inga-mall-02.jpg",
-        "assets/photos/inga-mall-03.jpg",
-        "assets/photos/inga-mall-05.jpg"
-      ]
-    },
-    {
-      "id": 20,
-      "cat": "comercial",
-      "catLabel": "Comercial",
-      "cover": "assets/photos/tropical-mall-capa.jpg",
-      "title": "Tropical Mall",
+      "id": 14,
+      "cat": "supermercado",
+      "catLabel": "Supermercado",
+      "cover": "assets/photos/super-golff-01.jpg",
+      "title": "Super Golff",
       "city": "Camb\u00e9 \u2013 PR",
-      "area": "2.700 m\u00b2",
+      "area": "4.600 m\u00b2",
       "status": "Entregue",
-      "desc": "Open mall 100% em estruturas met\u00e1licas. Solu\u00e7\u00f5es diferenciadas para fixa\u00e7\u00e3o de pele de vidro e pergolados. Prazo de execu\u00e7\u00e3o: 90 dias.",
-      "youtube": "https://www.youtube.com/watch?v=6Z1YzmRp0Qo",
+      "desc": "Cobertura em estrutura met\u00e1lica 100% em a\u00e7o de alta resist\u00eancia, apoiadas sobre pilares e vigas de concreto armado, telhas termo-ac\u00fasticas. Tempo de execu\u00e7\u00e3o 120 dias.",
+      "youtube": "https://youtu.be/xZDdovfEZ7w",
       "gallery": [
-        "assets/photos/tropical-mall-capa.jpg",
-        "assets/photos/tropical-mall-01.jpg",
-        "assets/photos/tropical-mall-02.jpg",
-        "assets/photos/tropical-mall-05.jpg",
-        "assets/photos/tropical-mall-06.jpg"
+        "assets/photos/super-golff-01.jpg",
+        "assets/photos/super-golff-02.jpg",
+        "assets/photos/super-golff-03.jpg"
       ]
     },
     {
-      "id": 21,
-      "cat": "industrial",
-      "catLabel": "Industrial",
-      "cover": "assets/photos/nippon-capa.jpg",
-      "title": "Nipponflex Espuma\u00e7\u00e3o",
-      "city": "Maring\u00e1 \u2013 PR",
-      "area": "15.000 m\u00b2",
+      "id": 12,
+      "cat": "supermercado",
+      "catLabel": "Supermercado",
+      "cover": "assets/photos/super-88-capa.jpg",
+      "title": "Super 88",
+      "city": "Londrina \u2013 PR",
+      "area": "6.500 m\u00b2",
       "status": "Entregue",
-      "desc": "Cobertura e pilares para fechamento em estrutura met\u00e1lica, a\u00e7o galvanizado, liga\u00e7\u00f5es parafusadas, telhas termo-ac\u00fasticas e ventiladores naturais.",
-      "youtube": "https://youtu.be/02_BGZIFano",
+      "desc": "Para atender o curto prazo estipulado pelo cliente, foi projetada uma solu\u00e7\u00e3o com pilares met\u00e1licos e despendendo da edifica\u00e7\u00e3o existente. Estrutura 100% parafusada em a\u00e7o galvanizado de alta resist\u00eancia. Tempo de execu\u00e7\u00e3o 140 dias.",
+      "youtube": "",
       "gallery": [
-        "assets/photos/nippon-capa.jpg",
-        "assets/photos/nippon-01.jpg",
-        "assets/photos/nippon-02.jpg",
-        "assets/photos/nippon-03.jpg",
-        "assets/photos/nippon-04.jpg",
-        "assets/photos/nippon-05.jpg",
-        "assets/photos/nippon-06.jpg"
+        "assets/photos/super-88-capa.jpg",
+        "assets/photos/super-88-01.jpg",
+        "assets/photos/super-88-02.jpg",
+        "assets/photos/super-88-04.jpg"
+      ]
+    },
+    {
+      "id": 17,
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "cover": "assets/photos/jeep-maringa-capa.jpg",
+      "title": "Jeep Maring\u00e1",
+      "city": "Maring\u00e1 \u2013 PR",
+      "area": "1.800 m\u00b2",
+      "status": "Entregue",
+      "desc": "Edifica\u00e7\u00e3o comercial com p\u00f3rticos de alma cheia e estrutura secund\u00e1ria em Light Steel Frame. Obra turn key. Tempo de execu\u00e7\u00e3o 120 dias.",
+      "youtube": "",
+      "gallery": [
+        "assets/photos/jeep-maringa-capa.jpg",
+        "assets/photos/jeep-maringa-01.jpg",
+        "assets/photos/jeep-maringa-02.jpg"
       ]
     }
   ]
