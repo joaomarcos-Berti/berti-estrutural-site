@@ -2,7 +2,7 @@ backend:
   name: github
   repo: joaomarcos-Berti/berti-estrutural-site
   branch: main
-  base_url: https://berti-cms-auth.workers.dev
+  base_url: https://berti-cms-auth.joaomarcos-695.workers.dev
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
@@ -13,7 +13,7 @@ collections:
 
   # PORTFOLIO
   - name: "portfolio"
-    label: "Portfólio de Obras"
+    label: "PortfÃ³lio de Obras"
     files:
       - label: "Lista de obras"
         name: "portfolio_items"
@@ -26,25 +26,25 @@ collections:
             label_singular: "Obra"
             summary: "{{fields.title}}"
             fields:
-              - { label: "Título da obra",          name: "title",      widget: "string" }
+              - { label: "TÃ­tulo da obra",          name: "title",      widget: "string" }
               - label: "Categoria"
                 name: "category"
                 widget: "select"
                 options:
                   - { label: "Industrial",    value: "industrial" }
-                  - { label: "Logística",     value: "logistica" }
+                  - { label: "LogÃ­stica",     value: "logistica" }
                   - { label: "Comercial",     value: "comercial" }
                   - { label: "Agroindustrial",value: "agroindustrial" }
               - { label: "ID YouTube",              name: "youtube_id", widget: "string",  required: false }
               - { label: "Foto da obra",            name: "thumbnail",  widget: "image",   required: false }
-              - { label: "Localização",             name: "location",   widget: "string" }
-              - { label: "Área",                    name: "area",       widget: "string",  required: false }
-              - { label: "Detalhes técnicos",       name: "details",    widget: "string",  required: false }
+              - { label: "LocalizaÃ§Ã£o",             name: "location",   widget: "string" }
+              - { label: "Ãrea",                    name: "area",       widget: "string",  required: false }
+              - { label: "Detalhes tÃ©cnicos",       name: "details",    widget: "string",  required: false }
               - { label: "Destaque",                name: "featured",   widget: "boolean", default: false }
 
   # BLOG
   - name: "blog"
-    label: "Blog Técnico"
+    label: "Blog TÃ©cnico"
     files:
       - label: "Artigos do blog"
         name: "blog_posts"
@@ -65,16 +65,16 @@ collections:
                   - { label: "Engenharia",    value: "engenharia" }
                   - { label: "Tecnologia",    value: "tecnologia" }
                   - { label: "Materiais",     value: "materiais" }
-                  - { label: "Gestão de Obra",value: "gestao" }
+                  - { label: "GestÃ£o de Obra",value: "gestao" }
               - { label: "Label da categoria",  name: "catLabel", widget: "string" }
-              - { label: "Título",              name: "title",    widget: "string" }
+              - { label: "TÃ­tulo",              name: "title",    widget: "string" }
               - { label: "Resumo",              name: "excerpt",  widget: "text" }
               - { label: "imagem de capa",      name: "cover",    widget: "image",   required: false }
               - { label: "Data",                name: "date",     widget: "string" }
               - { label: "Tempo de leitura",    name: "read",     widget: "string",  default: "5 min" }
               - { label: "Autor",               name: "author",   widget: "string",  default: "Equipe Berti" }
               - { label: "Destaque",            name: "featured", widget: "boolean", default: false }
-              - { label: "Conteúdo completo",   name: "body",     widget: "markdown" }
+              - { label: "ConteÃºdo completo",   name: "body",     widget: "markdown" }
           - label: "Categorias do blog"
             name: "cats"
             widget: "list"
