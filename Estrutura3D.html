@@ -12,6 +12,28 @@
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:#111418;font-family:'Open Sans',system-ui,sans-serif;color:#fff;min-height:100vh}
   ::selection{background:#47b6f1;color:#000}
+  model-viewer {
+    width: 100%;
+    height: clamp(420px, 65vh, 700px);
+    display: block;
+    --progress-bar-color: #47b6f1;
+    background-color: #e8e4dc;
+  }
+  .ctrl-btn {
+    background: transparent;
+    color: #111418;
+    border: 1.5px solid #111418;
+    padding: 8px 18px;
+    cursor: pointer;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    transition: all 180ms;
+  }
+  .ctrl-btn.active { background: #111418; color: #fff; }
+  .ctrl-btn:hover { background: #111418; color: #fff; }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
@@ -21,22 +43,31 @@
 <div id="root"></div>
 <script type="text/babel" src="home/shared.jsx"></script>
 <script type="text/babel" data-presets="env,react">
-const { useState } = React;
+const { useState, useEffect, useRef } = React;
 const blue = '#47b6f1';
 const ink  = '#111418';
 
 function Viewer3D() {
-  const [loading, setLoading] = useState(true);
   const [autoRotate, setAutoRotate] = useState(true);
+  const mvRef = useRef(null);
+
+  // Ligar/desligar rotação automática diretamente no elemento
+  useEffect(() => {
+    const mv = mvRef.current;
+    if (!mv) return;
+    if (autoRotate) {
+      mv.setAttribute('auto-rotate', '');
+    } else {
+      mv.removeAttribute('auto-rotate');
+    }
+  }, [autoRotate]);
 
   return (
     <>
       <HomeNavBar overlay />
 
       {/* Hero */}
-      <section style={{
-        background: ink, padding: '140px clamp(32px,8vw,140px) 56px',
-      }}>
+      <section style={{ background: ink, padding: '140px clamp(32px,8vw,140px) 56px' }}>
         <div style={{ maxWidth: 1240, margin: '0 auto' }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 10,
@@ -54,10 +85,7 @@ function Viewer3D() {
           }}>
             Explore a<br/><span style={{ color: blue }}>estrutura.</span>
           </h1>
-          <p style={{
-            fontSize: 17, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)',
-            maxWidth: 520,
-          }}>
+          <p style={{ fontSize: 17, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)', maxWidth: 520 }}>
             Gire, aproxime e inspecione o modelo 3D completo com o mouse — ou toque na tela.
             O mesmo modelo que sai do nosso software BIM, direto para você.
           </p>
@@ -68,81 +96,44 @@ function Viewer3D() {
       <section style={{ background: '#f4f1ea', padding: 'clamp(40px,6vw,80px) clamp(32px,8vw,140px)' }}>
         <div style={{ maxWidth: 1240, margin: '0 auto' }}>
 
-          {/* Controles */}
           <div style={{
             display: 'flex', alignItems: 'center', justifyContent: 'space-between',
             flexWrap: 'wrap', gap: 12, marginBottom: 20,
           }}>
             <div style={{
               fontFamily: '"Barlow Condensed",sans-serif', fontWeight: 700,
-              fontSize: 'clamp(20px,2.5vw,28px)', color: ink, textTransform: 'uppercase',
-              letterSpacing: '-0.01em',
+              fontSize: 'clamp(20px,2.5vw,28px)', color: ink,
+              textTransform: 'uppercase', letterSpacing: '-0.01em',
             }}>
               Palladium · Estrutura Metálica
             </div>
-            <div style={{ display: 'flex', gap: 10, alignItems: 'center' }}>
-              <button onClick={() => setAutoRotate(v => !v)} style={{
-                background: autoRotate ? ink : 'transparent',
-                color: autoRotate ? '#fff' : ink,
-                border: `1.5px solid ${ink}`,
-                padding: '8px 18px', cursor: 'pointer',
-                fontFamily: '"Barlow Condensed",sans-serif',
-                fontSize: 13, fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
-                transition: 'all 180ms',
-              }}>
-                {autoRotate ? '⏸ Pausar rotação' : '▶ Girar'}
-              </button>
-            </div>
+            <button
+              className={`ctrl-btn${autoRotate ? ' active' : ''}`}
+              onClick={() => setAutoRotate(v => !v)}
+            >
+              {autoRotate ? '⏸ Pausar rotação' : '▶ Girar'}
+            </button>
           </div>
 
-          {/* model-viewer */}
-          <div style={{ position: 'relative', borderRadius: 4, overflow: 'hidden', background: '#e8e4dc' }}>
-            {loading && (
-              <div style={{
-                position: 'absolute', inset: 0, display: 'flex', flexDirection: 'column',
-                alignItems: 'center', justifyContent: 'center', gap: 14, zIndex: 2,
-                background: '#e8e4dc',
-              }}>
-                <div style={{
-                  width: 40, height: 40, border: '3px solid rgba(10,10,10,0.15)',
-                  borderTopColor: blue, borderRadius: '50%',
-                  animation: 'spin 0.8s linear infinite',
-                }}/>
-                <span style={{
-                  fontFamily: '"Barlow Condensed",sans-serif', fontWeight: 700,
-                  fontSize: 14, letterSpacing: '0.14em', textTransform: 'uppercase',
-                  color: 'rgba(10,10,10,0.45)',
-                }}>Carregando modelo…</span>
-              </div>
-            )}
-            <model-viewer
-              src="assets/3d/palladium.glb"
-              alt="Estrutura metálica Palladium — Berti Estrutural"
-              auto-rotate={autoRotate ? '' : undefined}
-              auto-rotate-delay="0"
-              rotation-per-second="20deg"
-              camera-controls
-              shadow-intensity="1.2"
-              shadow-softness="0.8"
-              environment-image="neutral"
-              exposure="1.1"
-              style={{
-                width: '100%',
-                height: 'clamp(420px, 65vh, 700px)',
-                display: 'block',
-                '--progress-bar-color': blue,
-                '--progress-mask': 'transparent',
-              }}
-              onLoad={() => setLoading(false)}
-            />
-          </div>
+          <model-viewer
+            ref={mvRef}
+            src="assets/3d/palladium.glb"
+            alt="Estrutura metálica Palladium — Berti Estrutural"
+            auto-rotate
+            auto-rotate-delay="0"
+            rotation-per-second="20deg"
+            camera-controls
+            shadow-intensity="1.2"
+            shadow-softness="0.8"
+            environment-image="neutral"
+            exposure="1.1"
+          />
 
-          {/* Legenda */}
           <div style={{
-            display: 'flex', flexWrap: 'wrap', gap: 24, marginTop: 20,
+            display: 'flex', flexWrap: 'wrap', gap: 24, marginTop: 16,
             fontFamily: '"Barlow Condensed",sans-serif', fontSize: 13,
             fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
-            color: 'rgba(10,10,10,0.45)',
+            color: 'rgba(10,10,10,0.4)',
           }}>
             <span>🖱 Arraste para girar</span>
             <span>⚲ Scroll para zoom</span>
@@ -157,15 +148,12 @@ function Viewer3D() {
         display: 'flex', flexWrap: 'wrap', gap: 24,
         alignItems: 'center', justifyContent: 'space-between',
       }}>
-        <div>
-          <div style={{
-            fontFamily: '"Barlow Condensed",sans-serif', fontWeight: 700,
-            fontSize: 'clamp(26px,3vw,38px)', textTransform: 'uppercase',
-            lineHeight: 1.05,
-          }}>
-            Quer ver sua estrutura<br/>
-            <span style={{ color: blue }}>modelada assim?</span>
-          </div>
+        <div style={{
+          fontFamily: '"Barlow Condensed",sans-serif', fontWeight: 700,
+          fontSize: 'clamp(26px,3vw,38px)', textTransform: 'uppercase', lineHeight: 1.05,
+        }}>
+          Quer ver sua estrutura<br/>
+          <span style={{ color: blue }}>modelada assim?</span>
         </div>
         <a href="Contato.html" style={{
           display: 'inline-flex', alignItems: 'center', gap: 10,
@@ -176,10 +164,6 @@ function Viewer3D() {
       </section>
 
       <HomeFooter />
-
-      <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-      `}</style>
     </>
   );
 }
