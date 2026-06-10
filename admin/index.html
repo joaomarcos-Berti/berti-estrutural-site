@@ -130,20 +130,17 @@
     <div class="icone">&#127959;</div>
     <h1>Berti Estrutural</h1>
     <p>Painel de administra&ccedil;&atilde;o do site</p>
-    <button class="btn-github" onclick="fazerLogin()">
-      <svg width="20" height="20" viewBox="0 0 16 16" fill="white">
-        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38
-          0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13
-          -.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66
-          .07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15
-          -.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27
-          .68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12
-          .51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48
-          0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8
-          c0-4.42-3.58-8-8-8z"/>
-      </svg>
-      Entrar com o GitHub
+    <div style="text-align:left;width:100%">
+      <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:8px">GitHub Personal Access Token</label>
+      <input type="password" id="input-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+        style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;font-family:monospace;margin-bottom:6px;box-sizing:border-box"
+        onkeydown="if(event.key==='Enter') fazerLogin()"/>
+      <p style="font-size:12px;color:#aaa;margin:0 0 20px">Token com permiss&atilde;o <code>repo</code> &mdash; salvo localmente no seu navegador</p>
+    </div>
+    <button class="btn-github" onclick="fazerLogin()" style="width:100%;justify-content:center">
+      Entrar
     </button>
+    <div id="login-erro" style="display:none;margin-top:14px;padding:10px;background:#fee2e2;color:#991b1b;border-radius:6px;font-size:13px"></div>
   </div>
 </div>
 
@@ -376,7 +373,6 @@
 
 <script>
 var REPO = 'joaomarcos-Berti/berti-estrutural-site';
-var WORKER = 'https://berti-cms-auth.joaomarcos-695.workers.dev';
 var CAT_LABELS = {supermercado:'Supermercado',industrial:'Industrial',comercial:'Comercial',logistica:'Logística',outros:'Outros'};
 var CAT_BLOG = {engenharia:'Engenharia',tecnologia:'Tecnologia',materiais:'Materiais',gestao:'Gestão de Obra'};
 
@@ -413,27 +409,39 @@ function mudarAba(aba) {
 }
 
 // --- Login ---
-function fazerLogin() {
-  var popup = window.open(WORKER + '/auth?provider=github', 'github-oauth', 'width=620,height=700,top=100,left=200');
-  var handler = function(e) {
-    if (typeof e.data === 'string' && e.data.indexOf('authorization:github:success:') === 0) {
-      var json = e.data.replace('authorization:github:success:', '');
-      var obj = JSON.parse(json);
-      token = obj.token;
-      localStorage.setItem('berti_token', token);
-      window.removeEventListener('message', handler);
-      if (popup && !popup.closed) popup.close();
-      mostrar('tela-lista');
-      carregarObras();
-      carregarBlog();
-    }
-  };
-  window.addEventListener('message', handler);
+async function fazerLogin() {
+  var t = document.getElementById('input-token').value.trim();
+  if (!t) { mostrarErroLogin('Cole o token antes de entrar.'); return; }
+  var btn = document.querySelector('.btn-github');
+  btn.disabled = true; btn.textContent = 'Verificando...';
+  try {
+    var r = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/obras.json', {
+      headers: {'Authorization': 'token ' + t}
+    });
+    if (r.status === 401 || r.status === 403) throw new Error('Token inválido ou sem permissão no repositório.');
+    if (!r.ok) throw new Error('Erro ' + r.status);
+    token = t;
+    localStorage.setItem('berti_token', token);
+    mostrar('tela-lista');
+    carregarObras();
+    carregarBlog();
+  } catch(e) {
+    mostrarErroLogin(e.message);
+  }
+  btn.disabled = false; btn.textContent = 'Entrar';
+}
+
+function mostrarErroLogin(msg) {
+  var el = document.getElementById('login-erro');
+  el.textContent = '❌ ' + msg;
+  el.style.display = 'block';
 }
 
 function sair() {
   localStorage.removeItem('berti_token');
   token = null; dadosObras = null; shaObras = null; dadosBlog = null; shaBlog = null;
+  document.getElementById('input-token').value = '';
+  document.getElementById('login-erro').style.display = 'none';
   mostrar('tela-login');
 }
 
@@ -898,16 +906,4 @@ function inserirImagemNoTexto(path) {
   var ta = document.getElementById('p-body');
   var tag = '\n[img:' + path + ']\n';
   var start = ta.selectionStart;
-  ta.value = ta.value.slice(0, start) + tag + ta.value.slice(ta.selectionEnd);
-  ta.selectionStart = ta.selectionEnd = start + tag.length;
-  ta.focus();
-}
-
-// ============================================================
-// PREVIEW DE CAPA
-// ============================================================
-function atualizarPreviewCapa(inputId, imgId) {
-  var val = document.getElementById(inputId).value.trim();
-  var img = document.getElementById(imgId);
-  if (val) {
-    var src = 'https:
+  ta.value = ta.value.slice(0, start) + tag + ta.value.slice
