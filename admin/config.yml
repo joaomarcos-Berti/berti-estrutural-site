@@ -1,6 +1,8 @@
 backend:
-  name: git-gateway
+  name: github
+  repo: joaomarcos-Berti/berti-estrutural-site
   branch: main
+  base_url: https://berti-cms-auth.workers.dev
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
@@ -9,9 +11,7 @@ locale: pt
 
 collections:
 
-  # ─────────────────────────────────────────
-  # PORTFÓLIO — lista de obras
-  # ─────────────────────────────────────────
+  # PORTFOLIO
   - name: "portfolio"
     label: "Portfólio de Obras"
     files:
@@ -26,57 +26,23 @@ collections:
             label_singular: "Obra"
             summary: "{{fields.title}}"
             fields:
-              - label: "Título da obra"
-                name: "title"
-                widget: "string"
-                hint: "Ex: Galpão Industrial — Curitiba, PR"
-
+              - { label: "Título da obra",          name: "title",      widget: "string" }
               - label: "Categoria"
                 name: "category"
                 widget: "select"
                 options:
-                  - { label: "Industrial",     value: "industrial" }
-                  - { label: "Logística",       value: "logistica" }
-                  - { label: "Comercial",       value: "comercial" }
-                  - { label: "Agroindustrial",  value: "agroindustrial" }
+                  - { label: "Industrial",    value: "industrial" }
+                  - { label: "Logística",     value: "logistica" }
+                  - { label: "Comercial",     value: "comercial" }
+                  - { label: "Agroindustrial",value: "agroindustrial" }
+              - { label: "ID YouTube",              name: "youtube_id", widget: "string",  required: false }
+              - { label: "Foto da obra",            name: "thumbnail",  widget: "image",   required: false }
+              - { label: "Localização",             name: "location",   widget: "string" }
+              - { label: "Área",                    name: "area",       widget: "string",  required: false }
+              - { label: "Detalhes técnicos",       name: "details",    widget: "string",  required: false }
+              - { label: "Destaque",                name: "featured",   widget: "boolean", default: false }
 
-              - label: "ID do vídeo no YouTube"
-                name: "youtube_id"
-                widget: "string"
-                required: false
-                hint: "Só o código do vídeo. Ex: no link youtube.com/watch?v=dQw4w9WgXcQ, cole apenas: dQw4w9WgXcQ"
-
-              - label: "Foto da obra"
-                name: "thumbnail"
-                widget: "image"
-                required: false
-                hint: "Foto que aparece no card. Tamanho ideal: 800×450px."
-
-              - label: "Localização"
-                name: "location"
-                widget: "string"
-                hint: "Ex: Curitiba — PR"
-
-              - label: "Área"
-                name: "area"
-                widget: "string"
-                required: false
-                hint: "Ex: 3.200 m²"
-
-              - label: "Detalhes técnicos"
-                name: "details"
-                widget: "string"
-                required: false
-                hint: "Ex: Vão livre 30m · Cobertura termoacústica"
-
-              - label: "Destaque (aparece primeiro)"
-                name: "featured"
-                widget: "boolean"
-                default: false
-
-  # ─────────────────────────────────────────
-  # BLOG — lista de artigos
-  # ─────────────────────────────────────────
+  # BLOG
   - name: "blog"
     label: "Blog Técnico"
     files:
@@ -86,50 +52,33 @@ collections:
         format: json
         fields:
           - label: "Artigos"
-            name: "items"
+            name: "posts"
             widget: "list"
             label_singular: "Artigo"
             summary: "{{fields.title}}"
             fields:
-              - label: "Título do artigo"
-                name: "title"
-                widget: "string"
-
+              - { label: "ID (slug)",           name: "id",       widget: "string" }
               - label: "Categoria"
-                name: "category"
+                name: "cat"
                 widget: "select"
                 options:
-                  - { label: "Técnico",   value: "Técnico" }
-                  - { label: "Projeto",   value: "Projeto" }
-                  - { label: "Gestão",    value: "Gestão" }
-                  - { label: "Mercado",   value: "Mercado" }
-                  - { label: "Normas",    value: "Normas" }
-
-              - label: "Data"
-                name: "date"
-                widget: "string"
-                hint: "Ex: 12 de maio de 2025"
-
-              - label: "Tempo de leitura"
-                name: "reading_time"
-                widget: "string"
-                default: "5 min de leitura"
-
-              - label: "Resumo (aparece no card)"
-                name: "excerpt"
-                widget: "text"
-                hint: "2-3 frases. Máximo 200 caracteres."
-
-              - label: "Imagem de capa"
-                name: "image"
-                widget: "image"
-                required: false
-
-              - label: "Conteúdo completo"
-                name: "body"
-                widget: "markdown"
-
-              - label: "Publicado"
-                name: "published"
-                widget: "boolean"
-                default: true
+                  - { label: "Engenharia",    value: "engenharia" }
+                  - { label: "Tecnologia",    value: "tecnologia" }
+                  - { label: "Materiais",     value: "materiais" }
+                  - { label: "Gestão de Obra",value: "gestao" }
+              - { label: "Label da categoria",  name: "catLabel", widget: "string" }
+              - { label: "Título",              name: "title",    widget: "string" }
+              - { label: "Resumo",              name: "excerpt",  widget: "text" }
+              - { label: "imagem de capa",      name: "cover",    widget: "image",   required: false }
+              - { label: "Data",                name: "date",     widget: "string" }
+              - { label: "Tempo de leitura",    name: "read",     widget: "string",  default: "5 min" }
+              - { label: "Autor",               name: "author",   widget: "string",  default: "Equipe Berti" }
+              - { label: "Destaque",            name: "featured", widget: "boolean", default: false }
+              - { label: "Conteúdo completo",   name: "body",     widget: "markdown" }
+          - label: "Categorias do blog"
+            name: "cats"
+            widget: "list"
+            collapsed: true
+            fields:
+              - { label: "Chave", name: "key",   widget: "string" }
+              - { label: "Label", name: "label", widget: "string" }
