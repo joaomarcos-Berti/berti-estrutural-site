@@ -43,8 +43,12 @@
     .btn-novo{background:#e85d04;color:#fff;border:none;padding:9px 20px;border-radius:6px;font-size:14px;font-weight:600;cursor:pointer;transition:background .2s}
     .btn-novo:hover{background:#c94f03}
 
-    .obra-card{background:#fff;border-radius:10px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:10px;transition:box-shadow .15s}
+    .obra-card{background:#fff;border-radius:10px;padding:18px 20px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.08);margin-bottom:10px;transition:box-shadow .15s,border .15s;border:2px solid transparent;cursor:default}
     .obra-card:hover{box-shadow:0 3px 12px rgba(0,0,0,.12)}
+    .obra-card.drag-over{border-color:#e85d04;box-shadow:0 0 0 3px rgba(232,93,4,.15)}
+    .drag-handle{font-size:18px;color:#ccc;cursor:grab;padding:0 14px 0 0;flex-shrink:0;user-select:none;transition:color .15s}
+    .drag-handle:hover{color:#888}
+    .drag-handle:active{cursor:grabbing}
     .obra-info h3{font-size:16px;font-weight:600;margin-bottom:5px;color:#1a1a2e}
     .obra-info .meta{font-size:13px;color:#777;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
     .badge{padding:2px 9px;border-radius:20px;font-size:11px;font-weight:700;text-transform:uppercase;background:#e8f0fe;color:#1a56db}
@@ -162,7 +166,9 @@
     <div id="aba-obras">
       <div class="tela-cabecalho">
         <p class="tela-titulo">Obras <span id="total-obras" style="font-size:15px;color:#888;font-weight:400"></span></p>
+        <button class="btn-salvar" id="btn-salvar-ordem" onclick="salvarOrdem()" style="display:none">&#128190; Salvar ordem</button>
       </div>
+      <p style="font-size:12px;color:#aaa;margin-bottom:14px;margin-top:-10px">&#9776; Arraste os cards para reordenar as obras no portfólio</p>
       <div id="lista-obras"><p class="loading-msg">Carregando obras...</p></div>
     </div>
 
@@ -450,12 +456,25 @@ async function carregarObras() {
   }
 }
 
+var dragSrcIdx = null;
+var ordemAlterada = false;
+
 function renderizarListaObras() {
   var total = dadosObras.obras.length;
   document.getElementById('total-obras').textContent = '(' + total + ')';
-  var html = dadosObras.obras.map(function(o, i) {
+
+  var container = document.getElementById('lista-obras');
+  if (!total) { container.innerHTML = '<p class="loading-msg">Nenhuma obra cadastrada.</p>'; return; }
+
+  container.innerHTML = '';
+  dadosObras.obras.forEach(function(o, i) {
     var statusCls = o.status === 'Entregue' ? 'status-entregue' : 'status-andamento';
-    return '<div class="obra-card">' +
+    var card = document.createElement('div');
+    card.className = 'obra-card';
+    card.draggable = true;
+    card.dataset.idx = i;
+    card.innerHTML =
+      '<div class="drag-handle" title="Arrastar para reordenar">&#9776;</div>' +
       '<div class="obra-info">' +
         '<h3>' + esc(o.title) + '</h3>' +
         '<div class="meta">' +
@@ -468,10 +487,62 @@ function renderizarListaObras() {
       '<div class="card-acoes">' +
         '<button class="btn-editar" onclick="abrirEdicaoObra(' + i + ')">Editar</button>' +
         '<button class="btn-excluir" onclick="pedirExclusao(\'obra\',' + i + ',\'' + esc(o.title) + '\')">&#128465;</button>' +
-      '</div>' +
-    '</div>';
-  }).join('');
-  document.getElementById('lista-obras').innerHTML = html || '<p class="loading-msg">Nenhuma obra cadastrada.</p>';
+      '</div>';
+
+    card.addEventListener('dragstart', function(e) {
+      dragSrcIdx = parseInt(this.dataset.idx);
+      this.style.opacity = '0.4';
+      e.dataTransfer.effectAllowed = 'move';
+    });
+    card.addEventListener('dragend', function() {
+      this.style.opacity = '1';
+      document.querySelectorAll('.obra-card').forEach(function(c){ c.classList.remove('drag-over'); });
+    });
+    card.addEventListener('dragover', function(e) {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = 'move';
+      document.querySelectorAll('.obra-card').forEach(function(c){ c.classList.remove('drag-over'); });
+      this.classList.add('drag-over');
+    });
+    card.addEventListener('drop', function(e) {
+      e.stopPropagation();
+      var destIdx = parseInt(this.dataset.idx);
+      if (dragSrcIdx === destIdx) return;
+      // Reordenar o array
+      var mov = dadosObras.obras.splice(dragSrcIdx, 1)[0];
+      dadosObras.obras.splice(destIdx, 0, mov);
+      ordemAlterada = true;
+      document.getElementById('btn-salvar-ordem').style.display = 'flex';
+      renderizarListaObras();
+    });
+
+    container.appendChild(card);
+  });
+}
+
+async function salvarOrdem() {
+  var btn = document.getElementById('btn-salvar-ordem');
+  btn.disabled = true;
+  btn.textContent = 'Salvando...';
+  try {
+    var ok = await salvarJSON('content/obras.json', dadosObras, shaObras, 'Admin: reordena obras');
+    shaObras = ok.sha;
+    ordemAlterada = false;
+    btn.style.display = 'none';
+    btn.disabled = false;
+    btn.innerHTML = '&#128190; Salvar ordem';
+    // Feedback rápido
+    var msg = document.createElement('div');
+    msg.textContent = '✅ Ordem salva! O site atualiza em 1–2 minutos.';
+    msg.style.cssText = 'background:#dcfce7;color:#166534;padding:10px 16px;border-radius:7px;font-size:14px;margin-bottom:10px';
+    var container = document.getElementById('lista-obras');
+    container.parentNode.insertBefore(msg, container);
+    setTimeout(function(){ if (msg.parentNode) msg.parentNode.removeChild(msg); }, 4000);
+  } catch(e) {
+    alert('Erro ao salvar: ' + e.message);
+    btn.disabled = false;
+    btn.innerHTML = '&#128190; Salvar ordem';
+  }
 }
 
 function abrirEdicaoObra(i) {
@@ -839,80 +910,4 @@ function atualizarPreviewCapa(inputId, imgId) {
   var val = document.getElementById(inputId).value.trim();
   var img = document.getElementById(imgId);
   if (val) {
-    var src = 'https://raw.githubusercontent.com/' + REPO + '/main/' + val;
-    img.src = src;
-    img.style.display = 'block';
-  } else {
-    img.style.display = 'none';
-  }
-}
-
-// ============================================================
-// PREVIEW DE GALERIA
-// ============================================================
-function sincronizarGaleria() {
-  var linhas = document.getElementById('f-galeria').value.split('\n').map(function(s){return s.trim();}).filter(Boolean);
-  var container = document.getElementById('galeria-preview');
-  container.innerHTML = linhas.map(function(p, i) {
-    var src = 'https://raw.githubusercontent.com/' + REPO + '/main/' + p;
-    return '<div class="galeria-thumb">' +
-      '<img src="' + src + '" loading="lazy" onerror="this.parentNode.style.background=\'#ddd\'">' +
-      '<button class="remover-thumb" onclick="removerFotoGaleria(' + i + ')" title="Remover">&times;</button>' +
-    '</div>';
-  }).join('');
-}
-
-function removerFotoGaleria(i) {
-  var linhas = document.getElementById('f-galeria').value.split('\n').map(function(s){return s.trim();}).filter(Boolean);
-  linhas.splice(i, 1);
-  document.getElementById('f-galeria').value = linhas.join('\n');
-  sincronizarGaleria();
-}
-
-// ============================================================
-// HELPERS
-// ============================================================
-async function salvarJSON(caminho, dados, sha, msg) {
-  var json = JSON.stringify(dados, null, 2)
-    .replace(/[^\x00-\x7F]/g, function(c){ return '\\u' + ('0000'+c.charCodeAt(0).toString(16)).slice(-4); });
-  var b64 = btoa(json);
-  var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + caminho, {
-    method: 'PUT',
-    headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json'},
-    body: JSON.stringify({message: msg, content: b64, sha: sha})
-  });
-  if (!resp.ok) { var err = await resp.json(); throw new Error(err.message || 'Erro ' + resp.status); }
-  var result = await resp.json();
-  return {sha: result.content.sha};
-}
-
-function esc(s) {
-  return String(s || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
-
-var MESES = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
-
-function formatarDataExibicao(isoDate) {
-  if (!isoDate) return '';
-  var partes = isoDate.split('-');
-  if (partes.length !== 3) return isoDate;
-  var dia = parseInt(partes[2]);
-  var mes = MESES[parseInt(partes[1]) - 1];
-  var ano = partes[0];
-  return dia + ' ' + mes + ' ' + ano;
-}
-
-function converterDataParaInput(dataExib) {
-  // "12 mai 2026" → "2026-05-12"
-  if (!dataExib) return new Date().toISOString().slice(0,10);
-  var partes = dataExib.trim().split(' ');
-  if (partes.length !== 3) return new Date().toISOString().slice(0,10);
-  var dia = String(parseInt(partes[0])).padStart(2,'0');
-  var mes = String(MESES.indexOf(partes[1]) + 1).padStart(2,'0');
-  var ano = partes[2];
-  if (mes === '00') return new Date().toISOString().slice(0,10);
-  return ano + '-' + mes + '-' + dia;
-}
-</script>
-</body>
-</html>
+    var src = 'https:

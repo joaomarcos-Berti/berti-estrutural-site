@@ -16,64 +16,62 @@ const PARCEIROS = [
   { name: 'Plaenge',            logo: 'assets/parceiros/plaenge.png' },
 ];
 
-function HomeParceiros({ speedSec = 38 }) {
+function HomeParceiros({ speedSec = 44 }) {
   const looped = [...PARCEIROS, ...PARCEIROS];
 
   return (
     <section id="parceiros" style={{
-      background: '#f4f7fb',
-      borderTop: '1px solid rgba(10,10,10,0.06)',
-      borderBottom: '1px solid rgba(10,10,10,0.06)',
-      padding: '22px 0 24px',
+      background: '#fff',
+      borderTop: '1px solid rgba(10,10,10,0.07)',
+      borderBottom: '1px solid rgba(10,10,10,0.07)',
+      padding: '14px 0 16px',
       fontFamily: '"Open Sans", system-ui, sans-serif',
       overflow: 'hidden',
     }}>
-      {/* Cabeçalho compacto */}
-      <div style={{ maxWidth: 1160, margin: '0 auto' }}>
-        <div style={{ textAlign: 'center', marginBottom: 16, padding: '0 32px' }}>
-          <h2 style={{
-            fontFamily: '"Barlow Condensed", sans-serif',
-            fontWeight: 600, fontSize: 'clamp(11px, 1vw, 13px)', lineHeight: 1.2,
-            letterSpacing: '0.20em', textTransform: 'uppercase',
-            margin: 0, color: 'rgba(10,10,10,0.35)',
-          }}>
-            Quem já construiu com a Berti
-          </h2>
-        </div>
+      {/* Label discreta */}
+      <div style={{ textAlign: 'center', marginBottom: 10 }}>
+        <span style={{
+          fontFamily: '"Barlow Condensed", sans-serif',
+          fontWeight: 600, fontSize: 11, lineHeight: 1,
+          letterSpacing: '0.22em', textTransform: 'uppercase',
+          color: 'rgba(10,10,10,0.28)',
+        }}>
+          Quem já construiu com a Berti
+        </span>
       </div>
 
-      {/* Faixa do carrossel — FULL-WIDTH */}
+      {/* Faixa do carrossel */}
       <div style={{
         position: 'relative',
         width: '100%',
-        maskImage: 'linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%)',
-        WebkitMaskImage: 'linear-gradient(90deg, transparent 0, #000 4%, #000 96%, transparent 100%)',
+        maskImage: 'linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(90deg, transparent 0, #000 6%, #000 94%, transparent 100%)',
       }}>
-        <div className="berti-marquee" style={{
+        <div style={{
           display: 'flex', gap: 0,
           width: 'fit-content',
           animation: `berti-marquee ${speedSec}s linear infinite`,
         }}
-        onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
-        onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
+          onMouseEnter={(e) => e.currentTarget.style.animationPlayState = 'paused'}
+          onMouseLeave={(e) => e.currentTarget.style.animationPlayState = 'running'}
         >
           {looped.map((p, i) => (
             <div key={`${p.name}-${i}`} style={{
               flex: '0 0 auto',
-              width: 180, height: 90,
+              width: 130, height: 56,
               display: 'flex', alignItems: 'center', justifyContent: 'center',
-              padding: '0 20px',
+              padding: '0 18px',
               borderRight: '1px solid rgba(10,10,10,0.05)',
             }}>
               <img src={p.logo} alt={p.name} title={p.name} style={{
                 maxWidth: '100%', maxHeight: '100%',
                 objectFit: 'contain',
-                filter: 'none',
-                opacity: 0.85,
-                transition: 'opacity 280ms ease',
+                opacity: 0.5,
+                filter: 'grayscale(100%)',
+                transition: 'opacity 280ms ease, filter 280ms ease',
               }}
-              onMouseEnter={(e) => { e.currentTarget.style.opacity = '1'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.85'; }}
+                onMouseEnter={(e) => { e.currentTarget.style.opacity = '0.85'; e.currentTarget.style.filter = 'grayscale(0%)'; }}
+                onMouseLeave={(e) => { e.currentTarget.style.opacity = '0.5'; e.currentTarget.style.filter = 'grayscale(100%)'; }}
               />
             </div>
           ))}
