@@ -26,7 +26,7 @@ function HeroVideo({ accent }) {
     : `${base}&mute=1&controls=0&loop=1&playlist=${HERO_VIDEO_ID}`;
 
   return (
-    <div style={{ width: '100%', maxWidth: 760, flexShrink: 0 }}>
+    <div style={{ width: '100%', maxWidth: 680, flexShrink: 0 }}>
       <div style={{
         position: 'relative', width: '100%', aspectRatio: '16 / 9',
         borderRadius: 8, overflow: 'hidden',
@@ -36,12 +36,7 @@ function HeroVideo({ accent }) {
         <iframe
           title="Vídeo institucional Berti Estrutural"
           src={src}
-          style={{
-            position: 'absolute', top: '50%', left: '50%', border: 0,
-            // Cobre o quadro e corta as faixas pretas das laterais
-            width: '102%', height: '102%',
-            transform: 'translate(-50%, -50%) scale(1.18)', transformOrigin: 'center',
-          }}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
           allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
           allowFullScreen
         />
@@ -146,7 +141,7 @@ function HomeHero({
         paddingRight: isMobile ? '20px' : 'clamp(36px, 4vw, 80px)',
       }}>
         <div style={{
-          maxWidth: 470, width: '100%',
+          maxWidth: 510, width: '100%',
           textAlign: 'left',
         }}>
           {/* Eyebrow */}
