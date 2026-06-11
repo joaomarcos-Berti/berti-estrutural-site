@@ -26,7 +26,7 @@ function HeroVideo({ accent }) {
     : `${base}&mute=1&controls=0&loop=1&playlist=${HERO_VIDEO_ID}`;
 
   return (
-    <div style={{ width: '100%', maxWidth: 520, flexShrink: 0 }}>
+    <div style={{ width: '100%', maxWidth: 660, flexShrink: 0 }}>
       <div style={{
         position: 'relative', width: '100%', aspectRatio: '16 / 9',
         borderRadius: 8, overflow: 'hidden',
@@ -132,16 +132,16 @@ function HomeHero({
         display: 'flex',
         alignItems: 'center',
         justifyContent: isMobile ? 'flex-start' : 'space-between',
-        gap: isMobile ? 0 : 'clamp(32px, 4vw, 72px)',
+        gap: isMobile ? 0 : 'clamp(28px, 3.5vw, 64px)',
         padding: '120px 0 80px',
-        maxWidth: 1440,
+        maxWidth: 1500,
         margin: '0 auto',
         // Folga lateral pra o título não colar na borda
-        paddingLeft:  isMobile ? '20px' : 'clamp(48px, 7vw, 130px)',
-        paddingRight: isMobile ? '20px' : 'clamp(48px, 7vw, 130px)',
+        paddingLeft:  isMobile ? '20px' : 'clamp(40px, 5vw, 96px)',
+        paddingRight: isMobile ? '20px' : 'clamp(40px, 5vw, 96px)',
       }}>
         <div style={{
-          maxWidth: 600, width: '100%',
+          maxWidth: 520, width: '100%',
           textAlign: 'left',
         }}>
           {/* Eyebrow */}
