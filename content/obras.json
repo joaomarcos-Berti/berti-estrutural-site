@@ -412,6 +412,23 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
+    },
+    {
+      "title": "SixMall",
+      "city": "Londrina \u2013 PR",
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "area": "7.541",
+      "status": "Em andamento",
+      "youtube": "",
+      "desc": "",
+      "cover": "assets/photos/1781204261182-whatsapp-image-2026-06-02-at-135133.jpeg",
+      "gallery": [
+        "assets/photos/1781204272910-whatsapp-image-2026-06-02-at-135134.jpeg",
+        "assets/photos/1781204274453-whatsapp-image-2026-06-11-at-082533.jpeg",
+        "assets/photos/1781204276067-whatsapp-image-2026-06-11-at-082459-1.jpeg",
+        "assets/photos/1781204277625-whatsapp-image-2026-06-11-at-082459.jpeg"
+      ]
     }
   ]
 }
