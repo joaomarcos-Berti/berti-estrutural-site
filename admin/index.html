@@ -163,7 +163,10 @@
     <div id="aba-obras">
       <div class="tela-cabecalho">
         <p class="tela-titulo">Obras <span id="total-obras" style="font-size:15px;color:#888;font-weight:400"></span></p>
-        <button class="btn-salvar" id="btn-salvar-ordem" onclick="salvarOrdem()" style="display:none">&#128190; Salvar ordem</button>
+        <div style="display:flex;gap:8px">
+          <button class="btn-salvar" id="btn-salvar-ordem" onclick="salvarOrdem()" style="display:none">&#128190; Salvar ordem</button>
+          <button class="btn-novo" onclick="novaObra()">+ Nova obra</button>
+        </div>
       </div>
       <p style="font-size:12px;color:#aaa;margin-bottom:14px;margin-top:-10px">&#9776; Arraste os cards para reordenar as obras no portfólio</p>
       <div id="lista-obras"><p class="loading-msg">Carregando obras...</p></div>
@@ -553,6 +556,24 @@ async function salvarOrdem() {
   }
 }
 
+function novaObra() {
+  document.getElementById('idx-obra').value = -1;
+  document.getElementById('f-titulo').value = '';
+  document.getElementById('f-cidade').value = '';
+  document.getElementById('f-cat').value = 'supermercado';
+  document.getElementById('f-area').value = '';
+  document.getElementById('f-status').value = 'Entregue';
+  document.getElementById('f-youtube').value = '';
+  document.getElementById('f-desc').value = '';
+  document.getElementById('f-capa').value = '';
+  document.getElementById('f-galeria').value = '';
+  atualizarPreviewCapa('f-capa','prev-capa-obra');
+  sincronizarGaleria();
+  setStatusObra('','');
+  document.getElementById('btn-salvar-obra').disabled = false;
+  mostrar('tela-editar-obra');
+}
+
 function abrirEdicaoObra(i) {
   var o = dadosObras.obras[i];
   document.getElementById('idx-obra').value = i;
@@ -585,7 +606,7 @@ async function salvarObra() {
   btn.disabled = true;
   setStatusObra('carregando', 'Salvando...');
 
-  dadosObras.obras[i] = Object.assign({}, dadosObras.obras[i], {
+  var obraData = {
     title: titulo,
     city: document.getElementById('f-cidade').value.trim(),
     cat: cat,
@@ -596,14 +617,23 @@ async function salvarObra() {
     desc: document.getElementById('f-desc').value.trim(),
     cover: document.getElementById('f-capa').value.trim(),
     gallery: document.getElementById('f-galeria').value.split('\n').map(function(s){return s.trim();}).filter(Boolean)
-  });
+  };
+
+  if (i === -1) {
+    dadosObras.obras.push(obraData); // nova obra no fim do portfólio
+  } else {
+    dadosObras.obras[i] = Object.assign({}, dadosObras.obras[i], obraData);
+  }
 
   try {
-    var ok = await salvarJSON('content/obras.json', dadosObras, shaObras, 'Admin: edita obra "' + titulo + '"');
+    var ok = await salvarJSON('content/obras.json', dadosObras, shaObras, 'Admin: ' + (i === -1 ? 'nova' : 'edita') + ' obra "' + titulo + '"');
     shaObras = ok.sha;
+    if (i === -1) document.getElementById('idx-obra').value = dadosObras.obras.length - 1;
     setStatusObra('ok', '✅ Salvo! O site atualiza em 1–2 minutos.');
+    renderizarListaObras();
   } catch(e) {
     setStatusObra('erro', '❌ Erro: ' + e.message);
+    if (i === -1) dadosObras.obras.pop();
   }
   btn.disabled = false;
 }
@@ -785,10 +815,10 @@ function fecharModal() {
 }
 
 async function confirmarExclusao() {
-  fecharModal();
-  if (!pendingExcluir) return;
+  if (!pendingExcluir) { fecharModal(); return; }
   var tipo = pendingExcluir.tipo;
   var idx = pendingExcluir.idx;
+  fecharModal();
 
   if (tipo === 'obra') {
     var nome = dadosObras.obras[idx].title;
