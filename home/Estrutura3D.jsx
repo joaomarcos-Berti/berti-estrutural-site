@@ -79,7 +79,7 @@ function HomeEstrutura3D() {
               <div style={{ position: 'absolute', left: 14, top: -13, width: 78, height: 26, background: 'rgba(71,182,241,0.32)', transform: 'rotate(-25deg)', boxShadow: '0 1px 3px rgba(6,25,34,0.14)' }} />
               <div style={{ position: 'absolute', right: 12, top: -13, width: 78, height: 26, background: 'rgba(71,182,241,0.32)', transform: 'rotate(23deg)', boxShadow: '0 1px 3px rgba(6,25,34,0.14)' }} />
               <div style={{ background: '#fff', padding: '11px 11px 9px', borderRadius: 2, boxShadow: '0 16px 32px rgba(6,25,34,0.22)' }}>
-                <img src="assets/photos/galpao-industrial-aereo.jpg" alt="A mesma estrutura, já construída"
+                <img src="assets/photos/palladium-aerea.jpg" alt="A mesma estrutura, já construída"
                   style={{ width: 256, height: 156, objectFit: 'cover', display: 'block' }} />
                 <div style={{ fontFamily: '"Caveat", cursive', fontWeight: 700, fontSize: 27, color: ink, textAlign: 'center', marginTop: 7, lineHeight: 1 }}>
                   a mesma obra, <span style={{ color: blueDark }}>pronta</span>
