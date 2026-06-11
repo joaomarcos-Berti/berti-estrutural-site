@@ -8,6 +8,8 @@
 
 function HomeEstrutura3D() {
   const isMobile = useMobile();
+  // Só captura mouse/scroll depois de clicado; antes só rotaciona e a página rola normal.
+  const [ativo, setAtivo] = React.useState(false);
   const blue = HOME_BRAND.blue;        // #47b6f1
   const blueDark = HOME_BRAND.blueDark; // #077fbf
   const ink = '#061922';
@@ -51,11 +53,11 @@ function HomeEstrutura3D() {
             filter: 'blur(6px)', zIndex: 0,
           }} />
 
-          {/* Modelo 3D real */}
+          {/* Modelo 3D real — só interage (arraste/zoom) após clique; antes só gira */}
           <model-viewer
             src="assets/3d/palladium.glb"
             alt="Estrutura metálica Palladium — Berti Estrutural"
-            camera-controls
+            camera-controls={ativo ? '' : undefined}
             auto-rotate
             auto-rotate-delay="0"
             rotation-per-second="18deg"
@@ -67,11 +69,21 @@ function HomeEstrutura3D() {
             exposure="1.15"
             tone-mapping="neutral"
             environment-image="legacy"
+            onMouseLeave={() => setAtivo(false)}
             style={{
               position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 1,
+              touchAction: 'pan-y',
               background: 'transparent', '--progress-bar-color': blue, '--progress-bar-height': '3px',
             }}
           />
+
+          {/* Camada de ativação — antes do clique a página rola normal; ao clicar libera arraste/zoom */}
+          {!ativo && (
+            <div
+              onClick={() => setAtivo(true)}
+              style={{ position: 'absolute', inset: 0, zIndex: 1, cursor: 'pointer', background: 'transparent' }}
+            />
+          )}
 
           {/* Foto colada · obra pronta (desktop) */}
           {!isMobile && (
@@ -132,7 +144,7 @@ function HomeEstrutura3D() {
               <path d="M20 12a8 8 0 1 1-2.3-5.6" stroke={blueDark} strokeWidth="2.4" strokeLinecap="round" />
               <path d="M20 4v4h-4" stroke={blueDark} strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
-            <span style={{ fontFamily: '"Caveat", cursive', fontWeight: 700, fontSize: 24, color: blueDark, lineHeight: 1 }}>arraste pra girar</span>
+            <span style={{ fontFamily: '"Caveat", cursive', fontWeight: 700, fontSize: 24, color: blueDark, lineHeight: 1 }}>{ativo ? 'arraste pra girar' : 'clique para interagir'}</span>
           </div>
 
         </div>

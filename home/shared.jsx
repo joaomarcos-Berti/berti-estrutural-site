@@ -63,7 +63,6 @@ function HomeNavBar({ overlay = true }) {
     { label: 'Home', href: 'index.html' },
     { label: 'Empresa', href: 'Empresa.html' },
     { label: 'Obras', href: 'Obras.html' },
-    { label: '3D', href: 'Estrutura3D.html' },
     { label: 'Blog', href: 'Blog.html' },
     { label: 'Contato', href: 'Contato.html' },
   ];
