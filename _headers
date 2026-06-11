@@ -12,6 +12,10 @@
   # e 'unsafe-inline' por causa dos scripts/estilos embutidos nas páginas.
   Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://ajax.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://*.githubusercontent.com https://unpkg.com https://ajax.googleapis.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'
 
+# ---- Assets públicos: liberar uso cross-origin (ex.: modelo 3D no protótipo/Designer) ----
+/assets/*
+  Access-Control-Allow-Origin: *
+
 # ---- Admin: nunca cachear (sempre código novo) ----
 /admin/*
   Cache-Control: no-cache, no-store, must-revalidate
