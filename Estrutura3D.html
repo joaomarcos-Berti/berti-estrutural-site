@@ -6,24 +6,31 @@
 <title>Berti Estrutural — Estrutura 3D</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet"/>
+<!-- Preload do modelo 3D para começar download imediato -->
+<link rel="preload" href="assets/3d/palladium.glb" as="fetch" crossorigin/>
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 <style>
   *{box-sizing:border-box;margin:0;padding:0}
   html,body{background:#111418;font-family:'Open Sans',system-ui,sans-serif;color:#fff;min-height:100vh}
   ::selection{background:#47b6f1;color:#000}
+
   model-viewer {
-    width: 100%;
-    height: clamp(420px, 65vh, 700px);
-    display: block;
+    width:100%;
+    height:clamp(460px,68vh,720px);
+    display:block;
+    /* fundo idêntico à seção — modelo parece flutuar */
+    background-color: #f4f1ea;
     --progress-bar-color: #47b6f1;
-    background-color: #e8e4dc;
+    --progress-bar-height: 3px;
   }
+
+  /* Botão de rotação */
   .ctrl-btn {
     background: transparent;
     color: #111418;
     border: 1.5px solid #111418;
-    padding: 8px 18px;
+    padding: 8px 20px;
     cursor: pointer;
     font-family: 'Barlow Condensed', sans-serif;
     font-size: 13px;
@@ -32,8 +39,22 @@
     text-transform: uppercase;
     transition: all 180ms;
   }
-  .ctrl-btn.active { background: #111418; color: #fff; }
-  .ctrl-btn:hover { background: #111418; color: #fff; }
+  .ctrl-btn.active, .ctrl-btn:hover { background:#111418; color:#fff; }
+
+  /* Legenda estilo caneta */
+  .pen-label {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: clamp(16px, 1.6vw, 20px);
+    color: #1a6bbf;
+    line-height: 1.4;
+  }
+  .pen-hint {
+    font-family: 'Caveat', cursive;
+    font-weight: 600;
+    font-size: clamp(14px, 1.4vw, 17px);
+    color: #2478c8;
+  }
 </style>
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
 <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
@@ -44,122 +65,161 @@
 <script type="text/babel" src="home/shared.jsx"></script>
 <script type="text/babel" data-presets="env,react">
 const { useState, useEffect, useRef } = React;
-const blue = '#47b6f1';
-const ink  = '#111418';
+const blue    = '#47b6f1';
+const ink     = '#111418';
+const section = '#f4f1ea';
 
+/* ── Seta desenhada à mão (SVG) ─────────────────────────────────────── */
+function PenArrow({ style }) {
+  return (
+    <svg viewBox="0 0 120 90" xmlns="http://www.w3.org/2000/svg"
+      style={{ overflow:'visible', ...style }}>
+      {/* traço curvo da seta */}
+      <path d="M8 12 C 20 8, 60 5, 100 48"
+        fill="none" stroke="#1a6bbf" strokeWidth="2.8"
+        strokeLinecap="round" strokeLinejoin="round"
+        style={{ filter:'url(#pen)' }}/>
+      {/* ponta da seta */}
+      <path d="M100 48 L 82 38 M 100 48 L 90 64"
+        fill="none" stroke="#1a6bbf" strokeWidth="2.8"
+        strokeLinecap="round"/>
+      {/* filtro leve para textura de caneta */}
+      <defs>
+        <filter id="pen" x="-5%" y="-5%" width="110%" height="110%">
+          <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+          <feDisplacementMap in="SourceGraphic" scale="1.2"/>
+        </filter>
+      </defs>
+    </svg>
+  );
+}
+
+/* ── Viewer principal ────────────────────────────────────────────────── */
 function Viewer3D() {
   const [autoRotate, setAutoRotate] = useState(true);
   const mvRef = useRef(null);
 
-  // Ligar/desligar rotação automática diretamente no elemento
   useEffect(() => {
     const mv = mvRef.current;
     if (!mv) return;
-    if (autoRotate) {
-      mv.setAttribute('auto-rotate', '');
-    } else {
-      mv.removeAttribute('auto-rotate');
-    }
+    autoRotate ? mv.setAttribute('auto-rotate','') : mv.removeAttribute('auto-rotate');
   }, [autoRotate]);
 
   return (
     <>
       <HomeNavBar overlay />
 
-      {/* Hero */}
+      {/* ── HERO ── */}
       <section style={{ background: ink, padding: '140px clamp(32px,8vw,140px) 56px' }}>
         <div style={{ maxWidth: 1240, margin: '0 auto' }}>
           <div style={{
-            display: 'inline-flex', alignItems: 'center', gap: 10,
-            fontFamily: '"Barlow Condensed",sans-serif', color: blue,
-            fontSize: 13, fontWeight: 700, letterSpacing: '0.24em', textTransform: 'uppercase',
-            marginBottom: 18,
+            display:'inline-flex', alignItems:'center', gap:10,
+            fontFamily:'"Barlow Condensed",sans-serif', color:blue,
+            fontSize:13, fontWeight:700, letterSpacing:'0.24em', textTransform:'uppercase',
+            marginBottom:18,
           }}>
-            <span style={{ width: 30, height: 1, background: blue }}/>
+            <span style={{ width:30, height:1, background:blue }}/>
             Tecnologia · Modelagem 3D
           </div>
           <h1 style={{
-            fontFamily: '"Barlow Condensed",sans-serif', fontWeight: 800,
-            fontSize: 'clamp(44px,7vw,100px)', lineHeight: 0.92,
-            letterSpacing: '-0.02em', textTransform: 'uppercase', margin: '0 0 20px',
+            fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800,
+            fontSize:'clamp(44px,7vw,100px)', lineHeight:0.92,
+            letterSpacing:'-0.02em', textTransform:'uppercase', margin:'0 0 20px',
           }}>
-            Explore a<br/><span style={{ color: blue }}>estrutura.</span>
+            Explore a<br/><span style={{ color:blue }}>estrutura.</span>
           </h1>
-          <p style={{ fontSize: 17, lineHeight: 1.6, color: 'rgba(255,255,255,0.65)', maxWidth: 520 }}>
+          <p style={{ fontSize:17, lineHeight:1.6, color:'rgba(255,255,255,0.65)', maxWidth:520 }}>
             Gire, aproxime e inspecione o modelo 3D completo com o mouse — ou toque na tela.
             O mesmo modelo que sai do nosso software BIM, direto para você.
           </p>
         </div>
       </section>
 
-      {/* Viewer */}
-      <section style={{ background: '#f4f1ea', padding: 'clamp(40px,6vw,80px) clamp(32px,8vw,140px)' }}>
-        <div style={{ maxWidth: 1240, margin: '0 auto' }}>
+      {/* ── VIEWER ── */}
+      <section style={{ background: section, padding:'clamp(40px,6vw,80px) clamp(32px,8vw,140px)' }}>
+        <div style={{ maxWidth:1240, margin:'0 auto' }}>
 
+          {/* Linha título + botão */}
           <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-            flexWrap: 'wrap', gap: 12, marginBottom: 20,
+            display:'flex', alignItems:'center', justifyContent:'space-between',
+            flexWrap:'wrap', gap:12, marginBottom:20,
           }}>
             <div style={{
-              fontFamily: '"Barlow Condensed",sans-serif', fontWeight: 700,
-              fontSize: 'clamp(20px,2.5vw,28px)', color: ink,
-              textTransform: 'uppercase', letterSpacing: '-0.01em',
+              fontFamily:'"Barlow Condensed",sans-serif', fontWeight:700,
+              fontSize:'clamp(20px,2.5vw,28px)', color:ink,
+              textTransform:'uppercase', letterSpacing:'-0.01em',
             }}>
               Palladium · Estrutura Metálica
             </div>
-            <button
-              className={`ctrl-btn${autoRotate ? ' active' : ''}`}
-              onClick={() => setAutoRotate(v => !v)}
-            >
+            <button className={`ctrl-btn${autoRotate?' active':''}`}
+              onClick={() => setAutoRotate(v=>!v)}>
               {autoRotate ? '⏸ Pausar rotação' : '▶ Girar'}
             </button>
           </div>
 
+          {/* model-viewer — fundo igual ao section, modelo flutua */}
           <model-viewer
             ref={mvRef}
             src="assets/3d/palladium.glb"
             alt="Estrutura metálica Palladium — Berti Estrutural"
             auto-rotate
             auto-rotate-delay="0"
-            rotation-per-second="20deg"
+            rotation-per-second="18deg"
             camera-controls
-            shadow-intensity="1.2"
-            shadow-softness="0.8"
-            environment-image="neutral"
-            exposure="1.1"
+            shadow-intensity="0.6"
+            shadow-softness="1"
+            environment-image="legacy"
+            exposure="2.2"
+            tone-mapping="commerce"
           />
 
+          {/* Dicas estilo caneta + seta desenhada */}
           <div style={{
-            display: 'flex', flexWrap: 'wrap', gap: 24, marginTop: 16,
-            fontFamily: '"Barlow Condensed",sans-serif', fontSize: 13,
-            fontWeight: 700, letterSpacing: '0.1em', textTransform: 'uppercase',
-            color: 'rgba(10,10,10,0.4)',
+            marginTop:24,
+            display:'flex', alignItems:'flex-start', gap:8,
+            flexWrap:'wrap',
           }}>
-            <span>🖱 Arraste para girar</span>
-            <span>⚲ Scroll para zoom</span>
-            <span>⇧ Clique direito para mover</span>
+            {/* Seta apontando de volta ao viewer */}
+            <div style={{ position:'relative', width:100, flexShrink:0 }}>
+              <PenArrow style={{
+                width:100, height:70,
+                transform:'rotate(180deg) scaleX(-1)',
+                marginTop:4,
+              }}/>
+            </div>
+
+            {/* Textos de caneta */}
+            <div style={{ display:'flex', flexDirection:'column', gap:6 }}>
+              <span className="pen-label">arraste para girar</span>
+              <span className="pen-label">scroll para aproximar</span>
+              <span className="pen-label">clique direito para mover</span>
+              <span className="pen-hint" style={{ marginTop:4, color:'rgba(26,107,191,0.6)' }}>
+                — toque no celular também funciona ✓
+              </span>
+            </div>
           </div>
+
         </div>
       </section>
 
-      {/* CTA */}
+      {/* ── CTA ── */}
       <section style={{
-        background: ink, padding: 'clamp(56px,6vw,88px) clamp(32px,8vw,140px)',
-        display: 'flex', flexWrap: 'wrap', gap: 24,
-        alignItems: 'center', justifyContent: 'space-between',
+        background:ink, padding:'clamp(56px,6vw,88px) clamp(32px,8vw,140px)',
+        display:'flex', flexWrap:'wrap', gap:24,
+        alignItems:'center', justifyContent:'space-between',
       }}>
         <div style={{
-          fontFamily: '"Barlow Condensed",sans-serif', fontWeight: 700,
-          fontSize: 'clamp(26px,3vw,38px)', textTransform: 'uppercase', lineHeight: 1.05,
+          fontFamily:'"Barlow Condensed",sans-serif', fontWeight:700,
+          fontSize:'clamp(26px,3vw,38px)', textTransform:'uppercase', lineHeight:1.05,
         }}>
           Quer ver sua estrutura<br/>
-          <span style={{ color: blue }}>modelada assim?</span>
+          <span style={{ color:blue }}>modelada assim?</span>
         </div>
         <a href="Contato.html" style={{
-          display: 'inline-flex', alignItems: 'center', gap: 10,
-          background: blue, color: '#000', padding: '16px 32px',
-          fontSize: 13, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase',
-          textDecoration: 'none', flexShrink: 0,
+          display:'inline-flex', alignItems:'center', gap:10,
+          background:blue, color:'#000', padding:'16px 32px',
+          fontSize:13, fontWeight:800, letterSpacing:'0.14em', textTransform:'uppercase',
+          textDecoration:'none', flexShrink:0,
         }}>Falar com a Berti →</a>
       </section>
 
