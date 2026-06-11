@@ -33,12 +33,10 @@ const HOME_PHOTO = {
   canopy:              'assets/photos/canopy.jpg',
   supermarketCeiling:  'assets/photos/supermarket-ceiling.jpg',
   supermarketBanners:  'assets/photos/supermarket-banners.jpg',
-  sportCanopy:         'assets/photos/sport-canopy.jpg',
   factoryInterior:     'assets/photos/factory-interior.jpg',
 };
 
 const HOME_LOGO_BE    = 'assets/logo-be-mark.png';
-const HOME_LOGO_BERTI = 'assets/logo-berti.png';
 
 // ============================================================================
 // NAVBAR · transparente sobre o hero, sólida ao rolar
@@ -360,6 +358,6 @@ function SocialIcon({ kind }) {
 
 // Tornar acessível aos outros scripts babel
 Object.assign(window, {
-  HOME_BRAND, HOME_PHOTO, HOME_LOGO_BE, HOME_LOGO_BERTI,
+  HOME_BRAND, HOME_PHOTO, HOME_LOGO_BE,
   HomeNavBar, HomeFooter, useMobile,
 });
