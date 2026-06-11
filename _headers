@@ -1,7 +1,23 @@
+# Headers do Cloudflare Pages — Berti Estrutural
+# Doc: https://developers.cloudflare.com/pages/configuration/headers/
+
+# ---- Segurança aplicada a todo o site ----
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: geolocation=(), microphone=(), camera=()
+  Strict-Transport-Security: max-age=31536000; includeSubDomains
+  # CSP precisa de 'unsafe-eval' porque o Babel transpila JSX no navegador,
+  # e 'unsafe-inline' por causa dos scripts/estilos embutidos nas páginas.
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://ajax.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://*.githubusercontent.com https://unpkg.com https://ajax.googleapis.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'
+
+# ---- Admin: nunca cachear (sempre código novo) ----
 /admin/*
   Cache-Control: no-cache, no-store, must-revalidate
   Pragma: no-cache
   Expires: 0
 
+# ---- Conteúdo (JSON de obras/blog): nunca cachear ----
 /content/*
   Cache-Control: no-cache, no-store, must-revalidate
