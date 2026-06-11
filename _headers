@@ -10,7 +10,7 @@
   Strict-Transport-Security: max-age=31536000; includeSubDomains
   # CSP precisa de 'unsafe-eval' porque o Babel transpila JSX no navegador,
   # e 'unsafe-inline' por causa dos scripts/estilos embutidos nas páginas.
-  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://unpkg.com https://ajax.googleapis.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; media-src 'self' https:; connect-src 'self' https://api.github.com https://raw.githubusercontent.com https://*.githubusercontent.com https://unpkg.com https://ajax.googleapis.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' blob: https://unpkg.com https://ajax.googleapis.com https://www.gstatic.com; worker-src 'self' blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' https:; connect-src 'self' blob: data: https://api.github.com https://raw.githubusercontent.com https://*.githubusercontent.com https://unpkg.com https://ajax.googleapis.com https://www.gstatic.com; frame-src https://www.youtube.com https://www.youtube-nocookie.com; object-src 'none'; base-uri 'self'; frame-ancestors 'self'
 
 # ---- Assets públicos: liberar uso cross-origin (ex.: modelo 3D no protótipo/Designer) ----
 /assets/*

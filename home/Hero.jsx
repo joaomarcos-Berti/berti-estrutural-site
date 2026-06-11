@@ -15,6 +15,56 @@ const HERO_FRAMES = [
 { src: 'assets/photos/hero-05.jpg', label: 'Supermercado Bavaresco · Pontal do Paraná · PR' },
 ];
 
+// Vídeo institucional do canal (autoplay mudo; clique para ativar som)
+const HERO_VIDEO_ID = 'ROzn_Gl4R2Q';
+
+function HeroVideo({ accent }) {
+  const [comSom, setComSom] = useStateHero(false);
+  const base = `https://www.youtube.com/embed/${HERO_VIDEO_ID}?rel=0&modestbranding=1&playsinline=1&autoplay=1`;
+  const src = comSom
+    ? `${base}&mute=0&controls=1`
+    : `${base}&mute=1&controls=0&loop=1&playlist=${HERO_VIDEO_ID}`;
+
+  return (
+    <div style={{ width: '100%', maxWidth: 520, flexShrink: 0 }}>
+      <div style={{
+        position: 'relative', width: '100%', aspectRatio: '16 / 9',
+        borderRadius: 8, overflow: 'hidden',
+        boxShadow: '0 28px 64px rgba(0,0,0,0.55)',
+        border: '1px solid rgba(255,255,255,0.14)', background: '#000',
+      }}>
+        <iframe
+          title="Vídeo institucional Berti Estrutural"
+          src={src}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
+          allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+          allowFullScreen
+        />
+        {!comSom && (
+          <button onClick={() => setComSom(true)} aria-label="Ativar som do vídeo" style={{
+            position: 'absolute', right: 12, bottom: 12,
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            background: 'rgba(0,0,0,0.6)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)',
+            padding: '9px 16px', borderRadius: 999, cursor: 'pointer',
+            fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 13,
+            letterSpacing: '0.1em', textTransform: 'uppercase', backdropFilter: 'blur(4px)',
+          }}>
+            <span aria-hidden="true">🔊</span> Ativar som
+          </button>
+        )}
+      </div>
+      <div style={{
+        marginTop: 14, display: 'flex', alignItems: 'center', gap: 10,
+        fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 600, fontSize: 13,
+        letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)',
+      }}>
+        <span style={{ width: 22, height: 1, background: accent, display: 'inline-block' }} />
+        Vídeo institucional
+      </div>
+    </div>
+  );
+}
+
 function HomeHero({
   align = 'left',        // 'right' | 'left'
   overlay = 0.62,         // 0..1 — opacidade do véu escuro
@@ -81,16 +131,17 @@ function HomeHero({
         height: '100%',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: blockAlignRight ? 'flex-end' : 'flex-start',
+        justifyContent: isMobile ? 'flex-start' : 'space-between',
+        gap: isMobile ? 0 : 'clamp(32px, 4vw, 72px)',
         padding: '120px 0 80px',
         maxWidth: 1440,
         margin: '0 auto',
-        // Folga lateral pra o título não colar na borda — empurra pro miolo da página
-        paddingLeft:  blockAlignRight ? 64 : (isMobile ? '20px' : 'clamp(80px, 10vw, 180px)'),
-        paddingRight: blockAlignRight ? (isMobile ? '20px' : 'clamp(80px, 10vw, 180px)') : (isMobile ? '20px' : 64),
+        // Folga lateral pra o título não colar na borda
+        paddingLeft:  isMobile ? '20px' : 'clamp(48px, 7vw, 130px)',
+        paddingRight: isMobile ? '20px' : 'clamp(48px, 7vw, 130px)',
       }}>
         <div style={{
-          maxWidth: 620, width: '100%',
+          maxWidth: 600, width: '100%',
           textAlign: 'left',
         }}>
           {/* Eyebrow */}
@@ -203,6 +254,9 @@ function HomeHero({
             ))}
           </div>
         </div>
+
+        {/* Painel de vídeo institucional (desktop) */}
+        {!isMobile && <HeroVideo accent={accent} />}
       </div>
 
       {/* =================== Indicadores de slide + legenda =================== */}

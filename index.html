@@ -7,7 +7,8 @@
 <title>Berti Estrutural — Home</title>
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
 <style>
   html, body {
     margin: 0;
@@ -30,14 +31,17 @@
 
 <script type="text/babel" src="home/shared.jsx"></script>
 <script type="text/babel" src="home/Hero.jsx"></script>
-<script type="text/babel" src="home/Categorias.jsx"></script>
-<script type="text/babel" src="home/Youtube.jsx"></script>
-<script type="text/babel" src="home/Depoimentos.jsx"></script>
-<script type="text/babel" src="home/Parceiros.jsx"></script>
+<script type="text/babel" src="home/Estrutura3D.jsx"></script>
 <script type="text/babel" src="home/ComoTrabalhamos.jsx"></script>
+<script type="text/babel" src="home/Categorias.jsx"></script>
+<script type="text/babel" src="home/Depoimentos.jsx"></script>
+<script type="text/babel" src="home/Youtube.jsx"></script>
+<script type="text/babel" src="home/Blog.jsx"></script>
+<script type="text/babel" src="home/CTA.jsx"></script>
+<script type="text/babel" src="home/Parceiros.jsx"></script>
 
 <script type="text/babel" data-presets="env,react">
-  const { HomeNavBar, HomeFooter, HomeHero, HomeCategorias, HomeYoutube, HomeDepoimentos, HomeParceiros, HomeComoTrabalhamos } = window;
+  const { HomeNavBar, HomeFooter, HomeHero, HomeEstrutura3D, HomeCategorias, HomeYoutube, HomeDepoimentos, HomeParceiros, HomeComoTrabalhamos, HomeBlog, HomeCTA } = window;
 
   // Configurações fixas da home (antes ajustáveis pelo painel de edição do preview)
   const t = {
@@ -57,6 +61,7 @@
         backgroundColor: '#fbfcfe',
       }}>
         <HomeNavBar overlay />
+        {/* 01 · Hero + vídeo institucional */}
         <HomeHero
           align={t.heroAlign}
           overlay={t.heroOverlay}
@@ -64,10 +69,21 @@
           ctaSecondary={t.ctaSecondary}
           accent={t.accent}
         />
+        {/* 02 · Estrutura 3D interativa */}
+        <HomeEstrutura3D />
+        {/* 03 · Como trabalhamos */}
         <HomeComoTrabalhamos />
+        {/* 04 · Portfólio por categoria */}
         <HomeCategorias accent={t.accent} bg="#ffffff" />
-        <HomeYoutube />
+        {/* 05 · Depoimentos */}
         <HomeDepoimentos />
+        {/* 06 · Vídeos de obras (YouTube) */}
+        <HomeYoutube />
+        {/* 07 · Blog / Notícias */}
+        <HomeBlog />
+        {/* 08 · CTA — Solicitar Orçamento */}
+        <HomeCTA />
+        {/* Parceiros (faixa de logos) + Rodapé */}
         <HomeParceiros speedSec={t.marqueeSpeed} />
         <HomeFooter />
       </div>
