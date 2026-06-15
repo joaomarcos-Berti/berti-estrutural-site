@@ -24,9 +24,9 @@ function HomeMapa() {
     fetch('content/obras.json?t=' + Date.now())
       .then((r) => r.json())
       .then((d) => {
-        const lista = (d.obras || []).filter(function (o) {
-          return o.status === 'Em andamento' && typeof o.lat === 'number' && typeof o.lng === 'number';
-        });
+        const lista = (d.obras || [])
+          .map(function (o) { return Object.assign({}, o, { lat: parseFloat(o.lat), lng: parseFloat(o.lng) }); })
+          .filter(function (o) { return o.status === 'Em andamento' && isFinite(o.lat) && isFinite(o.lng); });
         setObras(lista);
       })
       .catch(function () {});
