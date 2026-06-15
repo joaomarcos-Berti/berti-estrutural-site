@@ -476,16 +476,23 @@ function sair() {
 // ============================================================
 // OBRAS
 // ============================================================
+// Decodifica conteúdo base64 (UTF-8) vindo da API do GitHub
+function b64ToUtf8(b64) {
+  var bin = atob(String(b64 || '').replace(/\s/g, ''));
+  try { return decodeURIComponent(escape(bin)); } catch(e) { return bin; }
+}
+
 async function carregarObras() {
   document.getElementById('lista-obras').innerHTML = '<p class="loading-msg">Carregando obras...</p>';
   try {
-    var r = await fetch('https://raw.githubusercontent.com/' + REPO + '/main/content/obras.json?t=' + Date.now());
-    dadosObras = await r.json();
-    var r2 = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/obras.json', {
-      headers: {'Authorization': 'token ' + token}
+    // Lê pela API (sempre atualizado) — raw.githubusercontent tem cache e atrasava a lista
+    var r = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/obras.json?ref=main&t=' + Date.now(), {
+      headers: {'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json'}, cache: 'no-store'
     });
-    var meta = await r2.json();
+    if (!r.ok) throw new Error('Erro ' + r.status);
+    var meta = await r.json();
     shaObras = meta.sha;
+    dadosObras = JSON.parse(b64ToUtf8(meta.content));
     renderizarListaObras();
   } catch(e) {
     document.getElementById('lista-obras').innerHTML = '<p class="loading-msg" style="color:#c00">Erro: ' + e.message + '</p>';
@@ -686,6 +693,7 @@ async function salvarObra() {
   };
 
   if (i === -1) {
+    obraData.id = dadosObras.obras.reduce(function(m,o){ return Math.max(m, o.id || 0); }, 0) + 1;
     dadosObras.obras.push(obraData); // nova obra no fim do portfólio
   } else {
     dadosObras.obras[i] = Object.assign({}, dadosObras.obras[i], obraData);
@@ -718,13 +726,13 @@ function setStatusObra(tipo, msg) {
 async function carregarBlog() {
   document.getElementById('lista-blog').innerHTML = '<p class="loading-msg">Carregando posts...</p>';
   try {
-    var r = await fetch('https://raw.githubusercontent.com/' + REPO + '/main/content/blog.json?t=' + Date.now());
-    dadosBlog = await r.json();
-    var r2 = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/blog.json', {
-      headers: {'Authorization': 'token ' + token}
+    var r = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/blog.json?ref=main&t=' + Date.now(), {
+      headers: {'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json'}, cache: 'no-store'
     });
-    var meta = await r2.json();
+    if (!r.ok) throw new Error('Erro ' + r.status);
+    var meta = await r.json();
     shaBlog = meta.sha;
+    dadosBlog = JSON.parse(b64ToUtf8(meta.content));
     renderizarListaBlog();
   } catch(e) {
     document.getElementById('lista-blog').innerHTML = '<p class="loading-msg" style="color:#c00">Erro: ' + e.message + '</p>';

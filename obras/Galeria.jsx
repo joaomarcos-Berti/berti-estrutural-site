@@ -182,8 +182,8 @@ function ObrasGaleria() {
       }}>
         <div ref={gridRef} className="obra-grid" style={{ maxWidth: 1340, margin: '0 auto' }}>
           {visible.map((o, i) => (
-            <ObraCard key={o.id} obra={o} accent={accent}
-              onClick={() => setOpenIdx(visible.findIndex((x) => x.id === o.id))} />
+            <ObraCard key={(o.id != null ? o.id : 'idx') + '-' + i} obra={o} idx={i} accent={accent}
+              onClick={() => setOpenIdx(i)} />
           ))}
         </div>
       </section>
@@ -216,12 +216,12 @@ function ObrasGaleria() {
 }
 
 // ── Card de obra ───────────────────────────────────────────────────────────
-function ObraCard({ obra, accent, onClick }) {
+function ObraCard({ obra, accent, onClick, idx }) {
   const statusColor = (obra.status === 'Em obra' || obra.status === 'Em andamento') ? accent
     : obra.status === 'Em projeto' ? '#c9a227' : 'rgba(255,255,255,0.9)';
   return (
     <button
-      data-obra-card={obra.id}
+      data-obra-card={obra.id != null ? obra.id : 'idx-' + idx}
       onClick={onClick}
       className="obra-cell"
       style={{
