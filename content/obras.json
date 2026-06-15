@@ -48,7 +48,9 @@
       "youtube": "",
       "desc": "",
       "cover": "assets/photos/1781524251524-foto-10-06-2025-11-57-25.jpg",
-      "gallery": [],
+      "gallery": [
+        "assets/photos/1781527234965-demobilebrt01.png"
+      ],
       "address": "",
       "lat": -23.413093,
       "lng": -51.470722
