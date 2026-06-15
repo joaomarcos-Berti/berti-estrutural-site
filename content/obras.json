@@ -485,6 +485,24 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
+    },
+    {
+      "title": "Alameda Bela Su\u00ed\u00e7a",
+      "city": "Londrina \u2013 PR",
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "area": "360 m\u00b2",
+      "status": "Em andamento",
+      "youtube": "",
+      "desc": "",
+      "cover": "",
+      "gallery": [
+        "assets/photos/1781528086074-dji0228.jpg"
+      ],
+      "address": "",
+      "lat": -23.335161,
+      "lng": -51.166461,
+      "id": 24
     }
   ]
 }
