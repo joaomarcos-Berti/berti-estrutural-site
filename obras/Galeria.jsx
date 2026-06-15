@@ -8,15 +8,27 @@ const { useState, useRef, useLayoutEffect } = React;
 
 function ObrasGaleria() {
   const accent = HOME_BRAND.blue;
-  const validKeys = OBRAS_CATS.map((c) => c.key);
+  const validKeys = OBRAS_CATS.map((c) => c.key).concat('andamento');
   const initial = validKeys.includes((window.location.hash || '').replace('#', ''))
     ? window.location.hash.replace('#', '') : 'todas';
   const [filter, setFilter] = useState(initial);
   const [openIdx, setOpenIdx] = useState(-1);
+  const [lista, setLista] = useState(OBRAS_LIST); // fallback; substituído pelo content/obras.json
   const gridRef = useRef(null);
   const prevRects = useRef({});
 
-  const visible = OBRAS_LIST.filter((o) => filter === 'todas' || o.cat === filter);
+  // Fonte única de dados: content/obras.json (a mesma que o admin edita)
+  React.useEffect(() => {
+    fetch('content/obras.json?t=' + Date.now())
+      .then((r) => r.json())
+      .then((d) => { if (d && Array.isArray(d.obras) && d.obras.length) setLista(d.obras); })
+      .catch(() => {});
+  }, []);
+
+  const emAndamento = (o) => o.status === 'Em andamento';
+  const visible = filter === 'andamento'
+    ? lista.filter(emAndamento)
+    : lista.filter((o) => !emAndamento(o) && (filter === 'todas' || o.cat === filter));
 
   // ── FLIP: anima reposicionamento ao filtrar ──────────────────────────
   useLayoutEffect(() => {
@@ -54,10 +66,12 @@ function ObrasGaleria() {
     prevRects.current = next;
   }, [filter]);
 
+  const finalizadas = lista.filter((o) => !emAndamento(o));
   const counts = OBRAS_CATS.reduce((acc, c) => {
-    acc[c.key] = c.key === 'todas' ? OBRAS_LIST.length : OBRAS_LIST.filter((o) => o.cat === c.key).length;
+    acc[c.key] = c.key === 'todas' ? finalizadas.length : finalizadas.filter((o) => o.cat === c.key).length;
     return acc;
   }, {});
+  counts['andamento'] = lista.filter(emAndamento).length;
 
   return (
     <>
@@ -137,6 +151,28 @@ function ObrasGaleria() {
               </button>
             );
           })}
+
+          {counts['andamento'] > 0 && (
+            <button onClick={() => setFilter('andamento')} style={{
+              display: 'inline-flex', alignItems: 'center', gap: 9,
+              padding: '11px 20px', cursor: 'pointer', marginLeft: 'auto',
+              border: `1px solid ${filter === 'andamento' ? accent : 'rgba(71,182,241,0.5)'}`,
+              background: filter === 'andamento' ? accent : 'transparent',
+              color: filter === 'andamento' ? '#05080c' : accent,
+              fontFamily: '"Barlow Condensed", sans-serif',
+              fontSize: 16, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase',
+              transition: 'background 200ms ease, border-color 200ms ease, color 200ms ease',
+            }}>
+              <span style={{ width: 8, height: 8, borderRadius: '50%', background: filter === 'andamento' ? '#05080c' : accent, display: 'inline-block' }} />
+              Em andamento
+              <span style={{
+                fontSize: 11, fontFamily: '"Open Sans", sans-serif', fontWeight: 700,
+                padding: '2px 7px', borderRadius: 20,
+                background: filter === 'andamento' ? 'rgba(5,8,12,0.18)' : 'rgba(71,182,241,0.18)',
+                color: filter === 'andamento' ? '#05080c' : accent,
+              }}>{counts['andamento']}</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -181,8 +217,8 @@ function ObrasGaleria() {
 
 // ── Card de obra ───────────────────────────────────────────────────────────
 function ObraCard({ obra, accent, onClick }) {
-  const statusColor = obra.status === 'Em projeto' ? '#c9a227'
-    : obra.status === 'Em obra' ? accent : 'rgba(255,255,255,0.9)';
+  const statusColor = (obra.status === 'Em obra' || obra.status === 'Em andamento') ? accent
+    : obra.status === 'Em projeto' ? '#c9a227' : 'rgba(255,255,255,0.9)';
   return (
     <button
       data-obra-card={obra.id}
