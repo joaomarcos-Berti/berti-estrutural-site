@@ -1045,18 +1045,42 @@ function removerFotoGaleria(i) {
   sincronizarGaleria();
 }
 
+async function obterShaAtual(caminho) {
+  try {
+    var r = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + caminho + '?ref=main&t=' + Date.now(), {
+      headers: {'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json'}, cache: 'no-store'
+    });
+    if (r.ok) { var m = await r.json(); return m.sha; }
+  } catch(e) {}
+  return null;
+}
+
 async function salvarJSON(caminho, dados, sha, msg) {
   var json = JSON.stringify(dados, null, 2)
     .replace(/[^\x00-\x7F]/g, function(c){ return '\\u' + ('0000'+c.charCodeAt(0).toString(16)).slice(-4); });
   var b64 = btoa(json);
-  var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + caminho, {
-    method: 'PUT',
-    headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json'},
-    body: JSON.stringify({message: msg, content: b64, sha: sha})
-  });
-  if (!resp.ok) { var err = await resp.json(); throw new Error(err.message || 'Erro ' + resp.status); }
-  var result = await resp.json();
-  return {sha: result.content.sha};
+
+  async function put(shaUse) {
+    var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + caminho, {
+      method: 'PUT',
+      headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json'},
+      body: JSON.stringify({message: msg, content: b64, sha: shaUse})
+    });
+    var txt = await resp.text();
+    var data = null; try { data = txt ? JSON.parse(txt) : null; } catch(e) {}
+    return {resp: resp, data: data};
+  }
+
+  var out = await put(sha);
+  // sha desatualizado (conflito) → pega o atual e tenta novamente
+  if (out.resp.status === 409 || out.resp.status === 422) {
+    var fresh = await obterShaAtual(caminho);
+    if (fresh) out = await put(fresh);
+  }
+  if (!out.resp.ok) {
+    throw new Error((out.data && out.data.message) || ('Erro ' + out.resp.status));
+  }
+  return {sha: (out.data && out.data.content) ? out.data.content.sha : null};
 }
 
 function esc(s) {

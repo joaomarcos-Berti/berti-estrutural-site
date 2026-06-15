@@ -100,38 +100,41 @@ function HomeMapa() {
       background: HOME_BRAND.paper, fontFamily: '"Open Sans", sans-serif', color: ink,
       padding: isMobile ? '56px 20px 64px' : '88px 40px 96px',
     }}>
-      <div style={{ maxWidth: 1200, margin: '0 auto' }}>
+      <div style={{ maxWidth: 1320, margin: '0 auto' }}>
+
+        <style>{'@keyframes beSpin{to{transform:rotate(360deg)}} .be-spin{width:15px;height:15px;border:2.5px solid rgba(7,127,191,.25);border-top-color:#077fbf;border-radius:50%;display:inline-block;animation:beSpin .8s linear infinite;flex-shrink:0}'}</style>
 
         {/* Cabeçalho */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 12 }}>
-          <span style={{ width: 30, height: 1, background: blueDark, display: 'inline-block' }} />
-          <span style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 600, fontSize: 14, letterSpacing: '0.28em', textTransform: 'uppercase', color: blueDark }}>
-            Obras em andamento · {obras.length} ativas
+        <div style={{ display: 'flex', alignItems: 'center', gap: 11, marginBottom: 8 }}>
+          <span style={{ width: 26, height: 1, background: blueDark, display: 'inline-block' }} />
+          <span style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 13, letterSpacing: '0.22em', textTransform: 'uppercase', color: blueDark }}>
+            Obras em andamento · {obras.length} {obras.length === 1 ? 'ativa' : 'ativas'}
           </span>
+          <span className="be-spin" title="Em andamento" />
         </div>
-        <h2 style={{ margin: '0 0 28px', fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 900, fontSize: isMobile ? 36 : 50, lineHeight: 0.92, letterSpacing: '-0.01em', textTransform: 'uppercase', color: ink }}>
-          Onde estamos<br/>construindo agora
+        <h2 style={{ margin: '0 0 22px', fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 800, fontSize: isMobile ? 24 : 32, lineHeight: 1, letterSpacing: '-0.01em', textTransform: 'uppercase', color: ink }}>
+          Onde estamos construindo agora
         </h2>
 
         {/* Grade: lista + mapa */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '360px 1fr',
-          gap: 18, background: '#fff', border: '1px solid rgba(6,25,34,.1)', borderRadius: 20,
+          gridTemplateColumns: isMobile ? '1fr' : '440px 1fr',
+          gap: 0, background: '#fff', border: '1px solid rgba(6,25,34,.1)', borderRadius: 20,
           overflow: 'hidden', boxShadow: '0 24px 60px rgba(6,25,34,.12)',
         }}>
           {/* Lista */}
           <div style={{
-            padding: 16, display: 'flex', flexDirection: isMobile ? 'row' : 'column', gap: 12,
+            padding: 18, display: 'flex', flexDirection: isMobile ? 'row' : 'column', gap: 14,
             overflowX: isMobile ? 'auto' : 'visible', overflowY: isMobile ? 'visible' : 'auto',
-            maxHeight: isMobile ? 'none' : 560,
+            maxHeight: isMobile ? 'none' : 680,
           }}>
             {obras.map(function (o, i) {
               const on = sel === i;
               return (
                 <div key={o.id || i} onClick={function () { focar(i); }} style={{
-                  position: 'relative', flex: isMobile ? '0 0 230px' : 'initial',
-                  height: isMobile ? 150 : 134, cursor: 'pointer', borderRadius: 16, overflow: 'hidden',
+                  position: 'relative', flex: isMobile ? '0 0 250px' : 'initial',
+                  height: isMobile ? 165 : 172, cursor: 'pointer', borderRadius: 16, overflow: 'hidden',
                   background: '#0b1b24',
                   border: '2px solid ' + (on ? blue : 'transparent'),
                   boxShadow: on ? '0 10px 26px rgba(7,127,191,.30)' : '0 4px 14px rgba(6,25,34,.10)',
@@ -161,7 +164,7 @@ function HomeMapa() {
           </div>
 
           {/* Mapa */}
-          <div ref={mapEl} style={{ minHeight: isMobile ? 360 : 560, background: '#e7ebef' }} />
+          <div ref={mapEl} style={{ minHeight: isMobile ? 380 : 680, background: '#e7ebef' }} />
         </div>
       </div>
     </section>
