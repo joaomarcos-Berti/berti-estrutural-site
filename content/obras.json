@@ -56,6 +56,24 @@
       "lng": -51.470722
     },
     {
+      "title": "Novo Mall Raul Fulgencio",
+      "city": "Londrina \u2013 PR",
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "area": "1.407 m\u00b2",
+      "status": "Em andamento",
+      "youtube": "",
+      "desc": "",
+      "cover": "assets/photos/1781527070813-whatsapp-image-2026-05-14-at-160656.jpeg",
+      "gallery": [
+        "assets/photos/1781527060757-whatsapp-image-2026-05-14-at-160656.jpeg"
+      ],
+      "address": "",
+      "lat": -23.351339,
+      "lng": -51.18333,
+      "id": 22
+    },
+    {
       "id": 20,
       "cat": "comercial",
       "catLabel": "Comercial",
@@ -449,24 +467,6 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
-    },
-    {
-      "title": "Novo Mall Raul Fulgencio",
-      "city": "Londrina \u2013 PR",
-      "cat": "comercial",
-      "catLabel": "Comercial",
-      "area": "1.407 m\u00b2",
-      "status": "Em andamento",
-      "youtube": "",
-      "desc": "",
-      "cover": "assets/photos/1781527070813-whatsapp-image-2026-05-14-at-160656.jpeg",
-      "gallery": [
-        "assets/photos/1781527060757-whatsapp-image-2026-05-14-at-160656.jpeg"
-      ],
-      "address": "",
-      "lat": -23.351339,
-      "lng": -51.18333,
-      "id": 22
     }
   ]
 }
