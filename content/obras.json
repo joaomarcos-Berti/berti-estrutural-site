@@ -616,6 +616,28 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
+    },
+    {
+      "title": "Biggs",
+      "city": "Londrina \u2013 PR",
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "area": "412 m\u00b2",
+      "status": "Entregue",
+      "youtube": "",
+      "desc": "Mais uma obra executada pela Berti Estrutural, desenvolvida com projeto assinado por Bruno Montosa. O empreendimento se destaca pelo design industrial moderno, concebido para integrar-se perfeitamente \u00e0 estrutura met\u00e1lica, valorizando a est\u00e9tica, a funcionalidade e a efici\u00eancia construtiva do projeto.",
+      "cover": "assets/photos/1781550294446-dji0365.jpg",
+      "gallery": [
+        "assets/photos/1781550307819-dji0353.jpg",
+        "assets/photos/1781550312339-dji0356.jpg",
+        "assets/photos/1781550317434-dji0357.jpg",
+        "assets/photos/1781550357527-dji0968.jpg",
+        "assets/photos/1781550385690-dsc09767.jpg",
+        "assets/photos/1781550388892-dsc09768.jpg",
+        "assets/photos/1781550391324-dsc09775.jpg",
+        "assets/photos/1781550393308-dsc09780.jpg"
+      ],
+      "id": 32
     }
   ]
 }
