@@ -596,6 +596,26 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
+    },
+    {
+      "title": "GIRABENS MALL",
+      "city": "",
+      "cat": "supermercado",
+      "catLabel": "Supermercado",
+      "area": "3.280 m\u00b2",
+      "status": "Em andamento",
+      "youtube": "",
+      "desc": "",
+      "cover": "assets/photos/1781549740758-dji0974.jpg",
+      "gallery": [
+        "assets/photos/1781549758268-dji0972.jpg",
+        "assets/photos/1781549768845-dji0980.jpg",
+        "assets/photos/1781549775047-dji0986.jpg"
+      ],
+      "address": "",
+      "lat": -23.298557,
+      "lng": -51.190978,
+      "id": 31
     }
   ]
 }
