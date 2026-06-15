@@ -150,12 +150,7 @@ function HomeMapa() {
                       <span style={{ width: 6, height: 6, borderRadius: '50%', background: blue, display: 'inline-block' }} />
                       <span style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 9.5, letterSpacing: '.12em', textTransform: 'uppercase', color: blueDark }}>Em andamento</span>
                     </div>
-                    <div style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 16.5, textTransform: 'uppercase', color: ink, lineHeight: 1.08 }}>{o.title}</div>
-                    {(o.city || o.address) && (
-                      <div style={{ marginTop: 4, fontSize: 11.5, color: '#5b6b75', display: 'flex', alignItems: 'center', gap: 5 }}>
-                        <span style={{ color: blue }}>◢</span><span>{o.city || o.address}</span>
-                      </div>
-                    )}
+                    <div style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 17, textTransform: 'uppercase', color: ink, lineHeight: 1.08 }}>{o.title}</div>
                   </div>
                 </div>
               );
