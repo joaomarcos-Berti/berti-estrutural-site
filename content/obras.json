@@ -136,6 +136,22 @@
       "id": 26
     },
     {
+      "title": "Mall Santos",
+      "city": "Londrina \u2013 PR",
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "area": "492 m\u00b2",
+      "status": "Em andamento",
+      "youtube": "",
+      "desc": "",
+      "cover": "assets/photos/1781530293472-captura-de-tela-2026-06-15-103118.png",
+      "gallery": [],
+      "address": "RUA SANTOS, 516, CENTRO londrina",
+      "lat": -23.311699,
+      "lng": -51.167975,
+      "id": 27
+    },
+    {
       "id": 20,
       "cat": "comercial",
       "catLabel": "Comercial",
@@ -529,22 +545,6 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
-    },
-    {
-      "title": "Mall Santos",
-      "city": "Londrina \u2013 PR",
-      "cat": "comercial",
-      "catLabel": "Comercial",
-      "area": "492 m\u00b2",
-      "status": "Em andamento",
-      "youtube": "",
-      "desc": "",
-      "cover": "assets/photos/1781530293472-captura-de-tela-2026-06-15-103118.png",
-      "gallery": [],
-      "address": "RUA SANTOS, 516, CENTRO londrina",
-      "lat": -23.311699,
-      "lng": -51.167975,
-      "id": 27
     }
   ]
 }
