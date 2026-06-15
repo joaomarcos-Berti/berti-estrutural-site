@@ -561,6 +561,22 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
+    },
+    {
+      "title": "Passarela Catuai",
+      "city": "Londrina \u2013 PR",
+      "cat": "outros",
+      "catLabel": "Outros",
+      "area": "150 m\u00b2",
+      "status": "Em andamento",
+      "youtube": "",
+      "desc": "",
+      "cover": "assets/photos/1781532565347-design-sem-nome.jpg",
+      "gallery": [],
+      "address": "",
+      "lat": -23.343381,
+      "lng": -51.187859,
+      "id": 29
     }
   ]
 }
