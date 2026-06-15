@@ -577,6 +577,25 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
+    },
+    {
+      "title": "SKYMALL",
+      "city": "Londrina \u2013 PR",
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "area": "3.500 m\u00b2",
+      "status": "Entregue",
+      "youtube": "https://youtu.be/EI8o54Ko2Is",
+      "desc": "O Sky Mall Av. Maring\u00e1 \u00e9 um empreendimento comercial com 16 lojas e 75 vagas de estacionamento, projetado para oferecer funcionalidade e efici\u00eancia. A Berti Estrutural foi respons\u00e1vel pelo projeto, fabrica\u00e7\u00e3o e execu\u00e7\u00e3o da estrutura met\u00e1lica, desenvolvidos integralmente em BIM, garantindo maior precis\u00e3o, agilidade na montagem e otimiza\u00e7\u00e3o dos processos construtivos. O resultado \u00e9 uma obra moderna que alia tecnologia, engenharia e qualidade em cada detalhe.",
+      "cover": "assets/photos/1781548985206-dji202507300928340008d.png",
+      "gallery": [
+        "assets/photos/1781548845661-cpia-de-dsc1445.jpg",
+        "assets/photos/1781548865776-cpia-de-dsc1773.jpg",
+        "assets/photos/1781548977886-dji202507300928340008d.png",
+        "assets/photos/1781549071965-djifly202507020754444171751454396211phot.jpg",
+        "assets/photos/1781549078963-djifly202507181137446761752849998329phot.jpg"
+      ],
+      "id": 30
     }
   ]
 }
