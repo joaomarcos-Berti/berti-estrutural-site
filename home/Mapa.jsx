@@ -116,25 +116,27 @@ function HomeMapa() {
           Onde estamos construindo agora
         </h2>
 
-        {/* Grade: lista + mapa */}
+        {/* Mapa (largura total) */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '440px 1fr',
-          gap: 0, background: '#fff', border: '1px solid rgba(6,25,34,.1)', borderRadius: 20,
+          background: '#fff', border: '1px solid rgba(6,25,34,.1)', borderRadius: 20,
           overflow: 'hidden', boxShadow: '0 24px 60px rgba(6,25,34,.12)',
         }}>
-          {/* Lista */}
-          <div style={{
-            padding: 18, display: 'flex', flexDirection: isMobile ? 'row' : 'column', gap: 14,
-            overflowX: isMobile ? 'auto' : 'visible', overflowY: isMobile ? 'visible' : 'auto',
-            maxHeight: isMobile ? 'none' : 680,
-          }}>
+          <div ref={mapEl} style={{ position: 'relative', zIndex: 0, minHeight: isMobile ? 360 : 520, background: '#e7ebef' }} />
+        </div>
+
+        {/* Lista de obras (separada, abaixo do mapa) */}
+        <div style={{
+          marginTop: isMobile ? 20 : 28,
+          display: 'grid',
+          gridTemplateColumns: isMobile ? 'repeat(auto-fill, minmax(150px, 1fr))' : 'repeat(auto-fill, minmax(240px, 1fr))',
+          gap: isMobile ? 12 : 16,
+        }}>
             {obras.map(function (o, i) {
               const on = sel === i;
               return (
                 <div key={o.id || i} onClick={function () { focar(i); }} style={{
-                  position: 'relative', flex: isMobile ? '0 0 250px' : 'initial',
-                  height: isMobile ? 165 : 172, cursor: 'pointer', borderRadius: 16, overflow: 'hidden',
+                  position: 'relative', height: 'auto', aspectRatio: '1 / 1',
+                  cursor: 'pointer', borderRadius: 16, overflow: 'hidden',
                   background: '#0b1b24',
                   border: '2px solid ' + (on ? blue : 'transparent'),
                   boxShadow: on ? '0 10px 26px rgba(7,127,191,.30)' : '0 4px 14px rgba(6,25,34,.10)',
@@ -161,10 +163,6 @@ function HomeMapa() {
                 </div>
               );
             })}
-          </div>
-
-          {/* Mapa */}
-          <div ref={mapEl} style={{ minHeight: isMobile ? 380 : 680, background: '#e7ebef' }} />
         </div>
       </div>
     </section>
