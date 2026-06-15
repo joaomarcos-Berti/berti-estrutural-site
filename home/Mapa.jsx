@@ -142,18 +142,20 @@ function HomeMapa() {
                 }}
                 onMouseEnter={function (e) { if (!on) e.currentTarget.style.boxShadow = '0 6px 16px rgba(6,25,34,.14)'; }}
                 onMouseLeave={function (e) { if (!on) e.currentTarget.style.boxShadow = '0 1px 3px rgba(6,25,34,.06)'; }}>
-                  <div style={{ flex: '0 0 108px', height: 82, background: '#dfe6ec' }}>
+                  <div style={{ flex: '0 0 108px', alignSelf: 'stretch', minHeight: 86, background: '#dfe6ec' }}>
                     {o.cover && <img src={o.cover} alt={o.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
                   </div>
-                  <div style={{ flex: 1, minWidth: 0, padding: '10px 12px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                  <div style={{ flex: 1, minWidth: 0, padding: '11px 13px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, marginBottom: 5 }}>
                       <span style={{ width: 6, height: 6, borderRadius: '50%', background: blue, display: 'inline-block' }} />
                       <span style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 9.5, letterSpacing: '.12em', textTransform: 'uppercase', color: blueDark }}>Em andamento</span>
                     </div>
-                    <div style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 17, textTransform: 'uppercase', color: ink, lineHeight: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{o.title}</div>
-                    <div style={{ marginTop: 4, fontSize: 11.5, color: '#5b6b75', display: 'flex', alignItems: 'center', gap: 5, whiteSpace: 'nowrap', overflow: 'hidden' }}>
-                      <span style={{ color: blue }}>◢</span><span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{o.city || o.address}</span>
-                    </div>
+                    <div style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 16.5, textTransform: 'uppercase', color: ink, lineHeight: 1.08 }}>{o.title}</div>
+                    {(o.city || o.address) && (
+                      <div style={{ marginTop: 4, fontSize: 11.5, color: '#5b6b75', display: 'flex', alignItems: 'center', gap: 5 }}>
+                        <span style={{ color: blue }}>◢</span><span>{o.city || o.address}</span>
+                      </div>
+                    )}
                   </div>
                 </div>
               );
