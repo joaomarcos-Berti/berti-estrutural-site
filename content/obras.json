@@ -184,6 +184,46 @@
       "id": 29
     },
     {
+      "title": "SKYMALL",
+      "city": "Londrina \u2013 PR",
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "area": "3.500 m\u00b2",
+      "status": "Entregue",
+      "youtube": "https://youtu.be/EI8o54Ko2Is",
+      "desc": "O Sky Mall Av. Maring\u00e1 \u00e9 um empreendimento comercial com 16 lojas e 75 vagas de estacionamento, projetado para oferecer funcionalidade e efici\u00eancia. A Berti Estrutural foi respons\u00e1vel pelo projeto, fabrica\u00e7\u00e3o e execu\u00e7\u00e3o da estrutura met\u00e1lica, desenvolvidos integralmente em BIM, garantindo maior precis\u00e3o, agilidade na montagem e otimiza\u00e7\u00e3o dos processos construtivos. O resultado \u00e9 uma obra moderna que alia tecnologia, engenharia e qualidade em cada detalhe.",
+      "cover": "assets/photos/1781548985206-dji202507300928340008d.png",
+      "gallery": [
+        "assets/photos/1781548845661-cpia-de-dsc1445.jpg",
+        "assets/photos/1781548865776-cpia-de-dsc1773.jpg",
+        "assets/photos/1781548977886-dji202507300928340008d.png",
+        "assets/photos/1781549071965-djifly202507020754444171751454396211phot.jpg",
+        "assets/photos/1781549078963-djifly202507181137446761752849998329phot.jpg"
+      ],
+      "id": 30
+    },
+    {
+      "id": 4,
+      "cat": "industrial",
+      "catLabel": "Industrial",
+      "cover": "assets/photos/comercial-ivaipora-capa.jpg",
+      "title": "Comercial Ivaipor\u00e3",
+      "city": "Ivaipor\u00e3 - PR",
+      "area": "17.000m\u00b2",
+      "status": "Entregue",
+      "desc": "  Galp\u00e3o para dep\u00f3sito situado na cidade de Ivaipor\u00e3/PR. Para permitir futura amplia\u00e7\u00e3o, em uma das laterais do galp\u00e3o despendeu-se de uma viga de transi\u00e7\u00e3o, permitindo assim a retirada dos fechamentos e pilares met\u00e1licos. Estrutura em a\u00e7o ZAR-400 galvanizado com liga\u00e7\u00f5es parafusadas. Tempo de execu\u00e7\u00e3o 150 dias.",
+      "youtube": "https://youtu.be/gfJHfAWnPJc?si=SxMA21r-pf_5dnbD",
+      "gallery": [
+        "assets/photos/comercial-ivaipora-11.jpg",
+        "assets/photos/comercial-ivaipora-02.jpg",
+        "assets/photos/comercial-ivaipora-04.jpg",
+        "assets/photos/comercial-ivaipora-06.jpg",
+        "assets/photos/comercial-ivaipora-08.jpg",
+        "assets/photos/comercial-ivaipora-10.jpg",
+        "assets/photos/comercial-ivaipora-12.jpg"
+      ]
+    },
+    {
       "id": 20,
       "cat": "comercial",
       "catLabel": "Comercial",
@@ -282,24 +322,21 @@
       ]
     },
     {
-      "id": 4,
-      "cat": "industrial",
-      "catLabel": "Industrial",
-      "cover": "assets/photos/comercial-ivaipora-capa.jpg",
-      "title": "Comercial Ivaipor\u00e3",
-      "city": "Ivaipor\u00e3 - PR",
-      "area": "17.000m\u00b2",
+      "id": 6,
+      "cat": "supermercado",
+      "catLabel": "Supermercado",
+      "cover": "assets/photos/muffato-apucarana-capa.jpg",
+      "title": "Muffato Apucarana",
+      "city": "Apucarana \u2013 PR",
+      "area": "7.300 m\u00b2",
       "status": "Entregue",
-      "desc": "  Galp\u00e3o para dep\u00f3sito situado na cidade de Ivaipor\u00e3/PR. Para permitir futura amplia\u00e7\u00e3o, em uma das laterais do galp\u00e3o despendeu-se de uma viga de transi\u00e7\u00e3o, permitindo assim a retirada dos fechamentos e pilares met\u00e1licos. Estrutura em a\u00e7o ZAR-400 galvanizado com liga\u00e7\u00f5es parafusadas. Tempo de execu\u00e7\u00e3o 150 dias.",
-      "youtube": "https://youtu.be/gfJHfAWnPJc?si=SxMA21r-pf_5dnbD",
+      "desc": "Projeto das estruturas met\u00e1licas de cobertura e montagem de pain\u00e9is de fechamento, telhas zipadas para cobertura, isolamento com face felt (l\u00e3 de vidro), calhas, rufos de cobertura. Tempo de execu\u00e7\u00e3o 120 dias.",
+      "youtube": "https://www.youtube.com/watch?v=cnQudE01wMM",
       "gallery": [
-        "assets/photos/comercial-ivaipora-11.jpg",
-        "assets/photos/comercial-ivaipora-02.jpg",
-        "assets/photos/comercial-ivaipora-04.jpg",
-        "assets/photos/comercial-ivaipora-06.jpg",
-        "assets/photos/comercial-ivaipora-08.jpg",
-        "assets/photos/comercial-ivaipora-10.jpg",
-        "assets/photos/comercial-ivaipora-12.jpg"
+        "assets/photos/muffato-apucarana-capa.jpg",
+        "assets/photos/muffato-apucarana-01.jpg",
+        "assets/photos/muffato-apucarana-02.jpg",
+        "assets/photos/muffato-apucarana-03.jpg"
       ]
     },
     {
@@ -319,24 +356,6 @@
         "assets/photos/viacao-garcia-05.jpg",
         "assets/photos/viacao-garcia-07.jpg",
         "assets/photos/viacao-garcia-09.jpg"
-      ]
-    },
-    {
-      "id": 6,
-      "cat": "supermercado",
-      "catLabel": "Supermercado",
-      "cover": "assets/photos/muffato-apucarana-capa.jpg",
-      "title": "Muffato Apucarana",
-      "city": "Apucarana \u2013 PR",
-      "area": "7.300 m\u00b2",
-      "status": "Entregue",
-      "desc": "Projeto das estruturas met\u00e1licas de cobertura e montagem de pain\u00e9is de fechamento, telhas zipadas para cobertura, isolamento com face felt (l\u00e3 de vidro), calhas, rufos de cobertura. Tempo de execu\u00e7\u00e3o 120 dias.",
-      "youtube": "https://www.youtube.com/watch?v=cnQudE01wMM",
-      "gallery": [
-        "assets/photos/muffato-apucarana-capa.jpg",
-        "assets/photos/muffato-apucarana-01.jpg",
-        "assets/photos/muffato-apucarana-02.jpg",
-        "assets/photos/muffato-apucarana-03.jpg"
       ]
     },
     {
@@ -577,25 +596,6 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
-    },
-    {
-      "title": "SKYMALL",
-      "city": "Londrina \u2013 PR",
-      "cat": "comercial",
-      "catLabel": "Comercial",
-      "area": "3.500 m\u00b2",
-      "status": "Entregue",
-      "youtube": "https://youtu.be/EI8o54Ko2Is",
-      "desc": "O Sky Mall Av. Maring\u00e1 \u00e9 um empreendimento comercial com 16 lojas e 75 vagas de estacionamento, projetado para oferecer funcionalidade e efici\u00eancia. A Berti Estrutural foi respons\u00e1vel pelo projeto, fabrica\u00e7\u00e3o e execu\u00e7\u00e3o da estrutura met\u00e1lica, desenvolvidos integralmente em BIM, garantindo maior precis\u00e3o, agilidade na montagem e otimiza\u00e7\u00e3o dos processos construtivos. O resultado \u00e9 uma obra moderna que alia tecnologia, engenharia e qualidade em cada detalhe.",
-      "cover": "assets/photos/1781548985206-dji202507300928340008d.png",
-      "gallery": [
-        "assets/photos/1781548845661-cpia-de-dsc1445.jpg",
-        "assets/photos/1781548865776-cpia-de-dsc1773.jpg",
-        "assets/photos/1781548977886-dji202507300928340008d.png",
-        "assets/photos/1781549071965-djifly202507020754444171751454396211phot.jpg",
-        "assets/photos/1781549078963-djifly202507181137446761752849998329phot.jpg"
-      ],
-      "id": 30
     }
   ]
 }
