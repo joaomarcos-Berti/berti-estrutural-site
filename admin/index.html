@@ -229,7 +229,7 @@
       <div class="form-row">
         <div class="form-group">
           <label>Status</label>
-          <select id="f-status">
+          <select id="f-status" onchange="toggleAndamento()">
             <option value="Entregue">Entregue</option>
             <option value="Em andamento">Em andamento</option>
           </select>
@@ -239,6 +239,31 @@
           <input type="text" id="f-youtube" placeholder="https://youtube.com/watch?v=..."/>
         </div>
       </div>
+
+      <!-- Endere&ccedil;o + mapa (apenas obras em andamento) -->
+      <div id="grupo-andamento" style="display:none;background:#f0f7ff;border:1px solid #cfe4f7;border-radius:8px;padding:14px 16px;margin-bottom:4px">
+        <p style="font-size:12px;color:#0b6aa2;font-weight:600;margin:0 0 10px">&#128205; Localiza&ccedil;&atilde;o no mapa (obras em andamento)</p>
+        <div class="form-group">
+          <label>Endere&ccedil;o da obra</label>
+          <div class="input-com-upload">
+            <input type="text" id="f-address" placeholder="Ex: Av. Higien&oacute;polis, 1100 &ndash; Londrina &ndash; PR"/>
+            <button class="btn-upload" id="btn-geocode" type="button" onclick="geocodificar()">&#128269; Localizar</button>
+          </div>
+          <p class="hint">Digite o endere&ccedil;o e clique em <b>Localizar</b> &mdash; as coordenadas s&atilde;o preenchidas automaticamente.</p>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Latitude</label>
+            <input type="text" id="f-lat" placeholder="-23.3299"/>
+          </div>
+          <div class="form-group">
+            <label>Longitude</label>
+            <input type="text" id="f-lng" placeholder="-51.1816"/>
+          </div>
+        </div>
+        <p class="hint" id="geocode-status" style="display:none"></p>
+      </div>
+
       <div class="form-group">
         <label>Descri&ccedil;&atilde;o</label>
         <textarea id="f-desc" placeholder="Descreva a obra..."></textarea>
@@ -556,6 +581,30 @@ async function salvarOrdem() {
   }
 }
 
+function toggleAndamento() {
+  var em = document.getElementById('f-status').value === 'Em andamento';
+  document.getElementById('grupo-andamento').style.display = em ? 'block' : 'none';
+}
+
+async function geocodificar() {
+  var addr = document.getElementById('f-address').value.trim();
+  if (!addr) { alert('Digite o endereço primeiro.'); return; }
+  var btn = document.getElementById('btn-geocode');
+  var st = document.getElementById('geocode-status');
+  btn.disabled = true; var old = btn.innerHTML; btn.innerHTML = 'Buscando...';
+  try {
+    var r = await fetch('https://nominatim.openstreetmap.org/search?format=json&limit=1&countrycodes=br&q=' + encodeURIComponent(addr), { headers: { 'Accept': 'application/json' } });
+    var arr = await r.json();
+    if (!arr.length) throw new Error('Endereço não encontrado. Seja mais específico ou preencha lat/lng manualmente.');
+    document.getElementById('f-lat').value = parseFloat(arr[0].lat).toFixed(6);
+    document.getElementById('f-lng').value = parseFloat(arr[0].lon).toFixed(6);
+    st.style.display = 'block'; st.style.color = '#166534'; st.textContent = '✅ Localizado: ' + String(arr[0].display_name || '').slice(0,90);
+  } catch(e) {
+    st.style.display = 'block'; st.style.color = '#991b1b'; st.textContent = '❌ ' + e.message;
+  }
+  btn.disabled = false; btn.innerHTML = old;
+}
+
 function novaObra() {
   document.getElementById('idx-obra').value = -1;
   document.getElementById('f-titulo').value = '';
@@ -567,6 +616,11 @@ function novaObra() {
   document.getElementById('f-desc').value = '';
   document.getElementById('f-capa').value = '';
   document.getElementById('f-galeria').value = '';
+  document.getElementById('f-address').value = '';
+  document.getElementById('f-lat').value = '';
+  document.getElementById('f-lng').value = '';
+  document.getElementById('geocode-status').style.display = 'none';
+  toggleAndamento();
   atualizarPreviewCapa('f-capa','prev-capa-obra');
   sincronizarGaleria();
   setStatusObra('','');
@@ -586,6 +640,11 @@ function abrirEdicaoObra(i) {
   document.getElementById('f-desc').value = o.desc || '';
   document.getElementById('f-capa').value = o.cover || '';
   document.getElementById('f-galeria').value = (o.gallery || []).join('\n');
+  document.getElementById('f-address').value = o.address || '';
+  document.getElementById('f-lat').value = (typeof o.lat === 'number') ? o.lat : '';
+  document.getElementById('f-lng').value = (typeof o.lng === 'number') ? o.lng : '';
+  document.getElementById('geocode-status').style.display = 'none';
+  toggleAndamento();
   atualizarPreviewCapa('f-capa','prev-capa-obra');
   sincronizarGaleria();
   setStatusObra('','');
@@ -606,6 +665,9 @@ async function salvarObra() {
   btn.disabled = true;
   setStatusObra('carregando', 'Salvando...');
 
+  var emAndamento = document.getElementById('f-status').value === 'Em andamento';
+  var lat = parseFloat(document.getElementById('f-lat').value);
+  var lng = parseFloat(document.getElementById('f-lng').value);
   var obraData = {
     title: titulo,
     city: document.getElementById('f-cidade').value.trim(),
@@ -616,7 +678,11 @@ async function salvarObra() {
     youtube: document.getElementById('f-youtube').value.trim(),
     desc: document.getElementById('f-desc').value.trim(),
     cover: document.getElementById('f-capa').value.trim(),
-    gallery: document.getElementById('f-galeria').value.split('\n').map(function(s){return s.trim();}).filter(Boolean)
+    gallery: document.getElementById('f-galeria').value.split('\n').map(function(s){return s.trim();}).filter(Boolean),
+    // Coordenadas só ficam em obras em andamento — ao finalizar, saem do mapa
+    address: emAndamento ? document.getElementById('f-address').value.trim() : undefined,
+    lat: (emAndamento && !isNaN(lat)) ? lat : undefined,
+    lng: (emAndamento && !isNaN(lng)) ? lng : undefined
   };
 
   if (i === -1) {

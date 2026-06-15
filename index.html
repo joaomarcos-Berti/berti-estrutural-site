@@ -9,6 +9,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800;900&family=Open+Sans:wght@400;500;600;700&family=Caveat:wght@600;700&display=swap" rel="stylesheet" />
 <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
 <style>
   html, body {
     margin: 0;
@@ -32,6 +34,7 @@
 <script type="text/babel" src="home/shared.jsx"></script>
 <script type="text/babel" src="home/Hero.jsx"></script>
 <script type="text/babel" src="home/Estrutura3D.jsx"></script>
+<script type="text/babel" src="home/Mapa.jsx"></script>
 <script type="text/babel" src="home/ComoTrabalhamos.jsx"></script>
 <script type="text/babel" src="home/Categorias.jsx"></script>
 <script type="text/babel" src="home/Depoimentos.jsx"></script>
@@ -41,7 +44,7 @@
 <script type="text/babel" src="home/Parceiros.jsx"></script>
 
 <script type="text/babel" data-presets="env,react">
-  const { HomeNavBar, HomeFooter, HomeHero, HomeEstrutura3D, HomeCategorias, HomeYoutube, HomeDepoimentos, HomeParceiros, HomeComoTrabalhamos, HomeBlog, HomeCTA } = window;
+  const { HomeNavBar, HomeFooter, HomeHero, HomeEstrutura3D, HomeMapa, HomeCategorias, HomeYoutube, HomeDepoimentos, HomeParceiros, HomeComoTrabalhamos, HomeBlog, HomeCTA } = window;
 
   // Configurações fixas da home (antes ajustáveis pelo painel de edição do preview)
   const t = {
@@ -71,6 +74,8 @@
         />
         {/* 02 · Estrutura 3D interativa */}
         <HomeEstrutura3D />
+        {/* Obras em andamento no mapa */}
+        <HomeMapa />
         {/* 03 · Como trabalhamos */}
         <HomeComoTrabalhamos />
         {/* 04 · Portfólio por categoria */}
