@@ -116,53 +116,52 @@ function HomeMapa() {
           Onde estamos construindo agora
         </h2>
 
-        {/* Mapa (largura total) */}
+        {/* Lista lateral + mapa lado a lado */}
         <div style={{
+          display: 'grid',
+          gridTemplateColumns: isMobile ? '1fr' : '400px 1fr',
           background: '#fff', border: '1px solid rgba(6,25,34,.1)', borderRadius: 20,
           overflow: 'hidden', boxShadow: '0 24px 60px rgba(6,25,34,.12)',
         }}>
-          <div ref={mapEl} style={{ position: 'relative', zIndex: 0, minHeight: isMobile ? 360 : 520, background: '#e7ebef' }} />
-        </div>
-
-        {/* Lista de obras (separada, abaixo do mapa) */}
-        <div style={{
-          marginTop: isMobile ? 20 : 28,
-          display: 'grid',
-          gridTemplateColumns: isMobile ? 'repeat(auto-fill, minmax(150px, 1fr))' : 'repeat(auto-fill, minmax(240px, 1fr))',
-          gap: isMobile ? 12 : 16,
-        }}>
+          {/* Lista lateral — cards retangulares horizontais */}
+          <div style={{
+            order: isMobile ? 2 : 1,
+            padding: 14, display: 'flex', flexDirection: 'column', gap: 10,
+            overflowY: isMobile ? 'visible' : 'auto', maxHeight: isMobile ? 'none' : 600,
+            borderRight: isMobile ? 'none' : '1px solid rgba(6,25,34,.08)',
+          }}>
             {obras.map(function (o, i) {
               const on = sel === i;
               return (
                 <div key={o.id || i} onClick={function () { focar(i); }} style={{
-                  position: 'relative', height: 'auto', aspectRatio: '1 / 1',
-                  cursor: 'pointer', borderRadius: 16, overflow: 'hidden',
-                  background: '#0b1b24',
-                  border: '2px solid ' + (on ? blue : 'transparent'),
-                  boxShadow: on ? '0 10px 26px rgba(7,127,191,.30)' : '0 4px 14px rgba(6,25,34,.10)',
-                  transform: on ? 'translateY(-2px)' : 'none',
-                  transition: 'border-color .2s, box-shadow .2s, transform .2s',
+                  display: 'flex', alignItems: 'stretch', cursor: 'pointer',
+                  borderRadius: 12, overflow: 'hidden', background: '#fff',
+                  border: '1.5px solid ' + (on ? blue : 'rgba(6,25,34,.12)'),
+                  boxShadow: on ? '0 8px 20px rgba(7,127,191,.18)' : '0 1px 3px rgba(6,25,34,.06)',
+                  transition: 'border-color .18s, box-shadow .18s',
                 }}
-                onMouseEnter={function (e) { if (!on) e.currentTarget.style.boxShadow = '0 12px 26px rgba(6,25,34,.22)'; }}
-                onMouseLeave={function (e) { if (!on) e.currentTarget.style.boxShadow = '0 4px 14px rgba(6,25,34,.10)'; }}>
-                  {o.cover && <img src={o.cover} alt={o.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
-                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(6,25,34,0) 28%, rgba(6,25,34,.85) 100%)' }} />
-                  <div style={{
-                    position: 'absolute', top: 10, right: 10, display: 'inline-flex', alignItems: 'center', gap: 6,
-                    background: 'rgba(71,182,241,.95)', color: '#05222e', padding: '4px 9px', borderRadius: 999,
-                    fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 10.5, letterSpacing: '.1em', textTransform: 'uppercase',
-                  }}>
-                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#05222e', display: 'inline-block' }} /> Em andamento
+                onMouseEnter={function (e) { if (!on) e.currentTarget.style.boxShadow = '0 6px 16px rgba(6,25,34,.14)'; }}
+                onMouseLeave={function (e) { if (!on) e.currentTarget.style.boxShadow = '0 1px 3px rgba(6,25,34,.06)'; }}>
+                  <div style={{ flex: '0 0 108px', height: 82, background: '#dfe6ec' }}>
+                    {o.cover && <img src={o.cover} alt={o.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
                   </div>
-                  <div style={{ position: 'absolute', left: 14, right: 14, bottom: 11, color: '#fff' }}>
-                    <div style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 800, fontSize: 20, textTransform: 'uppercase', lineHeight: 1, textShadow: '0 2px 8px rgba(0,0,0,.55)' }}>{o.title}</div>
-                    <div style={{ marginTop: 5, fontSize: 12, color: 'rgba(255,255,255,.88)', display: 'flex', alignItems: 'center', gap: 5 }}>
-                      <span style={{ color: blue }}>◢</span><span>{o.city || o.address}</span>
+                  <div style={{ flex: 1, minWidth: 0, padding: '10px 12px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                    <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, marginBottom: 5 }}>
+                      <span style={{ width: 6, height: 6, borderRadius: '50%', background: blue, display: 'inline-block' }} />
+                      <span style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 9.5, letterSpacing: '.12em', textTransform: 'uppercase', color: blueDark }}>Em andamento</span>
+                    </div>
+                    <div style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 17, textTransform: 'uppercase', color: ink, lineHeight: 1, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{o.title}</div>
+                    <div style={{ marginTop: 4, fontSize: 11.5, color: '#5b6b75', display: 'flex', alignItems: 'center', gap: 5, whiteSpace: 'nowrap', overflow: 'hidden' }}>
+                      <span style={{ color: blue }}>◢</span><span style={{ overflow: 'hidden', textOverflow: 'ellipsis' }}>{o.city || o.address}</span>
                     </div>
                   </div>
                 </div>
               );
             })}
+          </div>
+
+          {/* Mapa */}
+          <div ref={mapEl} style={{ order: isMobile ? 1 : 2, position: 'relative', zIndex: 0, minHeight: isMobile ? 340 : 600, background: '#e7ebef' }} />
         </div>
       </div>
     </section>
