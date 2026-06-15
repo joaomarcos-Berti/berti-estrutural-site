@@ -519,6 +519,22 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
+    },
+    {
+      "title": "Mall Itamar",
+      "city": "Londrina \u2013 PR",
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "area": "980 m\u00b2",
+      "status": "Em andamento",
+      "youtube": "",
+      "desc": "",
+      "cover": "assets/photos/1781529381760-dji0208.jpg",
+      "gallery": [],
+      "address": "",
+      "lat": -23.317595,
+      "lng": -51.164795,
+      "id": 26
     }
   ]
 }
