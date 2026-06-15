@@ -110,6 +110,22 @@
       "id": 24
     },
     {
+      "title": "Comercial Auguri",
+      "city": "Londrina \u2013 PR",
+      "cat": "comercial",
+      "catLabel": "Comercial",
+      "area": "855 m\u00b2",
+      "status": "Em andamento",
+      "youtube": "",
+      "desc": "",
+      "cover": "assets/photos/1781529138647-dji0409.jpg",
+      "gallery": [],
+      "address": "",
+      "lat": -23.33468,
+      "lng": -51.162924,
+      "id": 25
+    },
+    {
       "id": 20,
       "cat": "comercial",
       "catLabel": "Comercial",
@@ -503,22 +519,6 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
-    },
-    {
-      "title": "Comercial Auguri",
-      "city": "Londrina \u2013 PR",
-      "cat": "comercial",
-      "catLabel": "Comercial",
-      "area": "855 m\u00b2",
-      "status": "Em andamento",
-      "youtube": "",
-      "desc": "",
-      "cover": "assets/photos/1781529138647-dji0409.jpg",
-      "gallery": [],
-      "address": "",
-      "lat": -23.33468,
-      "lng": -51.162924,
-      "id": 25
     }
   ]
 }
