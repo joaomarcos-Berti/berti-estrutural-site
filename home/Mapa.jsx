@@ -146,7 +146,7 @@ function HomeMapa() {
                   {o.cover && <img src={o.cover} alt={o.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(6,25,34,0) 28%, rgba(6,25,34,.85) 100%)' }} />
                   <div style={{
-                    position: 'absolute', top: 10, left: 10, display: 'inline-flex', alignItems: 'center', gap: 6,
+                    position: 'absolute', top: 10, right: 10, display: 'inline-flex', alignItems: 'center', gap: 6,
                     background: 'rgba(71,182,241,.95)', color: '#05222e', padding: '4px 9px', borderRadius: 999,
                     fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 10.5, letterSpacing: '.1em', textTransform: 'uppercase',
                   }}>
