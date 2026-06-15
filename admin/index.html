@@ -926,8 +926,9 @@ function uploadImagem(pasta, callback, btnId) {
     var btn = btnId ? document.getElementById(btnId) : null;
     if (btn) { btn.disabled = true; btn.textContent = 'Enviando...'; }
     try {
-      var base64 = await lerArquivoBase64(file);
-      var ext = file.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'') || 'jpg';
+      var proc = await processarImagemBase64(file, 2400, 0.85);
+      var base64 = proc.b64;
+      var ext = proc.ext;
       var base = file.name.toLowerCase().replace(/\.[^.]+$/,'').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').slice(0,40);
       var ts = Date.now();
       var filename = ts + '-' + base + '.' + ext;
@@ -963,8 +964,9 @@ function uploadMultiplaImagem(pasta, btnId) {
     for (var i = 0; i < files.length; i++) {
       try {
         var file = files[i];
-        var base64 = await lerArquivoBase64(file);
-        var ext = file.name.split('.').pop().toLowerCase().replace(/[^a-z0-9]/g,'') || 'jpg';
+        var proc = await processarImagemBase64(file, 2400, 0.85);
+        var base64 = proc.b64;
+        var ext = proc.ext;
         var base = file.name.toLowerCase().replace(/\.[^.]+$/,'').replace(/\s+/g,'-').replace(/[^a-z0-9-]/g,'').slice(0,40);
         var filename = (Date.now() + i) + '-' + base + '.' + ext;
         var filePath = pasta + filename;
@@ -993,6 +995,32 @@ function lerArquivoBase64(file) {
     reader.onload = function(ev) { resolve(ev.target.result.split(',')[1]); };
     reader.onerror = reject;
     reader.readAsDataURL(file);
+  });
+}
+
+// Redimensiona/comprime a imagem no navegador antes do upload.
+// Garante arquivos leves (<25MB do Cloudflare Pages) e site rápido.
+function processarImagemBase64(file, maxDim, quality) {
+  return new Promise(function(resolve, reject) {
+    var url = URL.createObjectURL(file);
+    var img = new Image();
+    img.onload = function() {
+      try {
+        var w = img.naturalWidth, h = img.naturalHeight;
+        var scale = Math.min(1, maxDim / Math.max(w, h));
+        var nw = Math.max(1, Math.round(w * scale)), nh = Math.max(1, Math.round(h * scale));
+        var canvas = document.createElement('canvas');
+        canvas.width = nw; canvas.height = nh;
+        var ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, nw, nh); // fundo branco p/ PNG transparente
+        ctx.drawImage(img, 0, 0, nw, nh);
+        var dataUrl = canvas.toDataURL('image/jpeg', quality);
+        URL.revokeObjectURL(url);
+        resolve({ b64: dataUrl.split(',')[1], ext: 'jpg' });
+      } catch (err) { URL.revokeObjectURL(url); reject(err); }
+    };
+    img.onerror = function() { URL.revokeObjectURL(url); reject(new Error('Não foi possível ler a imagem.')); };
+    img.src = url;
   });
 }
 
