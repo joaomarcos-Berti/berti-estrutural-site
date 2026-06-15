@@ -71,8 +71,14 @@ function HomeMapa() {
       markersRef.current = markers;
       mapRef.current = map;
 
-      const group = L.featureGroup(Object.values(markers));
-      try { map.fitBounds(group.getBounds().pad(0.3)); } catch (e) {}
+      if (obras.length === 1) {
+        map.setView([obras[0].lat, obras[0].lng], 14);
+      } else {
+        const group = L.featureGroup(Object.values(markers));
+        try { map.fitBounds(group.getBounds().pad(0.3)); } catch (e) {}
+      }
+      // Corrige dimensionamento dentro do container flex
+      setTimeout(function () { map.invalidateSize(); }, 250);
     };
     init();
   }, [obras]);
@@ -80,7 +86,11 @@ function HomeMapa() {
   function focar(i) {
     setSel(i);
     const map = mapRef.current, m = markersRef.current[i];
-    if (map && m) { map.flyTo(m.getLatLng(), 15, { duration: 0.8 }); m.openPopup(); }
+    if (!map || !m) return;
+    map.invalidateSize();
+    map.closePopup();
+    map.once('moveend', function () { m.openPopup(); });
+    map.flyTo(m.getLatLng(), 16, { duration: 0.8 });
   }
 
   if (!obras.length) return null;
@@ -120,17 +130,29 @@ function HomeMapa() {
               const on = sel === i;
               return (
                 <div key={o.id || i} onClick={function () { focar(i); }} style={{
-                  flex: isMobile ? '0 0 220px' : 'initial',
-                  cursor: 'pointer', borderRadius: 14, overflow: 'hidden', background: '#fff',
-                  border: '1px solid ' + (on ? blue : 'rgba(6,25,34,.1)'),
-                  boxShadow: on ? '0 8px 20px rgba(7,127,191,.18)' : '0 4px 12px rgba(6,25,34,.06)',
-                  transition: 'border-color .18s, box-shadow .18s',
-                }}>
-                  {o.cover && <img src={o.cover} alt={o.title} style={{ width: '100%', height: 96, objectFit: 'cover', display: 'block' }} />}
-                  <div style={{ padding: '10px 14px' }}>
-                    <div style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 17, textTransform: 'uppercase', color: ink, lineHeight: 1 }}>{o.title}</div>
-                    <div style={{ marginTop: 5, fontSize: 12.5, color: blueDark, display: 'flex', alignItems: 'center', gap: 6 }}>
-                      <span>◢</span><span>{o.city || o.address}</span>
+                  position: 'relative', flex: isMobile ? '0 0 230px' : 'initial',
+                  height: isMobile ? 150 : 134, cursor: 'pointer', borderRadius: 16, overflow: 'hidden',
+                  background: '#0b1b24',
+                  border: '2px solid ' + (on ? blue : 'transparent'),
+                  boxShadow: on ? '0 10px 26px rgba(7,127,191,.30)' : '0 4px 14px rgba(6,25,34,.10)',
+                  transform: on ? 'translateY(-2px)' : 'none',
+                  transition: 'border-color .2s, box-shadow .2s, transform .2s',
+                }}
+                onMouseEnter={function (e) { if (!on) e.currentTarget.style.boxShadow = '0 12px 26px rgba(6,25,34,.22)'; }}
+                onMouseLeave={function (e) { if (!on) e.currentTarget.style.boxShadow = '0 4px 14px rgba(6,25,34,.10)'; }}>
+                  {o.cover && <img src={o.cover} alt={o.title} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
+                  <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(180deg, rgba(6,25,34,0) 28%, rgba(6,25,34,.85) 100%)' }} />
+                  <div style={{
+                    position: 'absolute', top: 10, left: 10, display: 'inline-flex', alignItems: 'center', gap: 6,
+                    background: 'rgba(71,182,241,.95)', color: '#05222e', padding: '4px 9px', borderRadius: 999,
+                    fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 10.5, letterSpacing: '.1em', textTransform: 'uppercase',
+                  }}>
+                    <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#05222e', display: 'inline-block' }} /> Em andamento
+                  </div>
+                  <div style={{ position: 'absolute', left: 14, right: 14, bottom: 11, color: '#fff' }}>
+                    <div style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 800, fontSize: 20, textTransform: 'uppercase', lineHeight: 1, textShadow: '0 2px 8px rgba(0,0,0,.55)' }}>{o.title}</div>
+                    <div style={{ marginTop: 5, fontSize: 12, color: 'rgba(255,255,255,.88)', display: 'flex', alignItems: 'center', gap: 5 }}>
+                      <span style={{ color: blue }}>◢</span><span>{o.city || o.address}</span>
                     </div>
                   </div>
                 </div>
