@@ -94,7 +94,7 @@ function HomeEstrutura3D() {
                 <img src="assets/photos/palladium-aerea.jpg" alt="A mesma estrutura, já construída"
                   style={{ width: 256, height: 156, objectFit: 'cover', display: 'block' }} />
                 <div style={{ fontFamily: '"Caveat", cursive', fontWeight: 700, fontSize: 27, color: ink, textAlign: 'center', marginTop: 7, lineHeight: 1 }}>
-                  a mesma obra, <span style={{ color: blueDark }}>pronta</span>
+                  A mesma obra, <span style={{ color: blueDark }}>pronta</span>
                 </div>
               </div>
             </div>
@@ -116,7 +116,7 @@ function HomeEstrutura3D() {
 
               <div style={{ position: 'absolute', left: 0, top: 50, width: 340, zIndex: 3, pointerEvents: 'none' }}>
                 <div style={{ fontFamily: '"Caveat", cursive', fontWeight: 700, fontSize: 40, lineHeight: 1.08, color: ink }}>
-                  <span style={underline}>sem solda</span>, montagem <span style={underline}>rápida</span>
+                  <span style={underline}>Sem solda</span>, montagem <span style={underline}>rápida</span>
                 </div>
                 <div style={{ fontFamily: '"Open Sans", sans-serif', fontSize: 15, color: '#5b6b75', marginTop: 7, maxWidth: 300 }}>
                   100% parafusada · execução completa em 120 dias
@@ -125,10 +125,26 @@ function HomeEstrutura3D() {
 
               <div style={{ position: 'absolute', right: 0, bottom: 56, width: 280, textAlign: 'right', zIndex: 3, pointerEvents: 'none' }}>
                 <div style={{ fontFamily: '"Caveat", cursive', fontWeight: 700, fontSize: 40, lineHeight: 1.04, color: ink }}>
-                  mezaninos <span style={{ boxShadow: 'inset 0 -0.30em 0 0 rgba(71,182,241,0.55)', borderRadius: 2 }}>mais leves</span>
+                  Mezaninos <span style={{ boxShadow: 'inset 0 -0.30em 0 0 rgba(71,182,241,0.55)', borderRadius: 2 }}>mais leves</span>
                 </div>
                 <div style={{ fontFamily: '"Open Sans", sans-serif', fontSize: 15, color: '#5b6b75', marginTop: 6, marginLeft: 'auto', maxWidth: 260 }}>
                   estrutura metálica, muito menos peso na obra
+                </div>
+              </div>
+
+              {/* Seta + legenda à caneta — esquerda-baixo (terceira vantagem) */}
+              <svg width="104" height="78" viewBox="0 0 132 98" fill="none"
+                style={{ position: 'absolute', left: 196, bottom: 150, zIndex: 2, pointerEvents: 'none', overflow: 'visible', filter: 'drop-shadow(0 0 3px rgba(255,255,255,0.95))' }}>
+                <path d="M6 88 C50 76 80 54 114 18" stroke={blue} strokeWidth="6.5" strokeLinecap="round" />
+                <path d="M114 18 L94 20 M114 18 L110 40" stroke={blue} strokeWidth="6.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+
+              <div style={{ position: 'absolute', left: 0, bottom: 56, width: 300, zIndex: 3, pointerEvents: 'none' }}>
+                <div style={{ fontFamily: '"Caveat", cursive', fontWeight: 700, fontSize: 40, lineHeight: 1.08, color: ink }}>
+                  Estrutura <span style={underline}>100% em BIM</span>
+                </div>
+                <div style={{ fontFamily: '"Open Sans", sans-serif', fontSize: 15, color: '#5b6b75', marginTop: 7, maxWidth: 280 }}>
+                  cada peça calculada e detalhada antes de fabricar
                 </div>
               </div>
             </React.Fragment>
