@@ -5,7 +5,7 @@
 
 const CT_STEPS = [
   {
-    n:'01', tag:'Avaliação de Projeto',
+    n:'01', tag:'Avaliação de Projeto', word:'Avaliação',
     title:'Avaliação & Recebimento',
     body:'O cliente encaminha a proposta e nossa equipe avalia se o projeto se enquadra nos padrões Berti para iniciar o orçamento.',
     note:'viabilidade + padrão de execução',
@@ -14,7 +14,7 @@ const CT_STEPS = [
     href:'Empresa.html#proc-0',
   },
   {
-    n:'02', tag:'Orçamento',
+    n:'02', tag:'Orçamento', word:'Orçamento',
     title:'Estudo Técnico & Orçamento',
     body:'Apresentamos um modelo inicial em realidade virtual com os valores, materiais e soluções otimizadas para redução de custos.',
     note:'realidade virtual · materiais · custos',
@@ -23,7 +23,7 @@ const CT_STEPS = [
     href:'Empresa.html#proc-1',
   },
   {
-    n:'03', tag:'Concepção de Projeto',
+    n:'03', tag:'Concepção de Projeto', word:'BIM',
     title:'Cálculo & Modelagem BIM',
     body:'Softwares avançados de engenharia calculam e modelam em BIM cada peça — listas de fabricação geradas para encaixe perfeito.',
     note:'cálculo estrutural + modelagem BIM',
@@ -32,7 +32,7 @@ const CT_STEPS = [
     href:'Empresa.html#proc-2',
   },
   {
-    n:'04', tag:'Fabricação',
+    n:'04', tag:'Fabricação', word:'Fabricação',
     title:'Fabricação nas Melhores Fábricas',
     body:'Enviamos as listas para as principais fábricas de aço do país — estrutura e cobertura com qualidade e rastreabilidade.',
     note:'fábricas certificadas · estrutura + cobertura',
@@ -41,7 +41,7 @@ const CT_STEPS = [
     href:'Empresa.html#proc-3',
   },
   {
-    n:'05', tag:'Montagem',
+    n:'05', tag:'Montagem', word:'Montagem',
     title:'Montagem 100% Parafusada',
     body:'Peças montadas como um quebra-cabeça — processo 100% parafusado, sem solda em campo, com precisão e agilidade.',
     note:'sem solda · numerado · zero retrabalho',
@@ -162,15 +162,17 @@ function StepCard({ s, i, spanFull }) {
         })}
       </div>
 
-      {/* Tag */}
+      {/* Teaser permanente — sinaliza interatividade antes do hover */}
       <div style={{
+        display:'inline-flex', alignItems:'center', gap:4,
         fontFamily:'"Barlow Condensed",sans-serif', fontWeight:700,
-        textTransform:'uppercase', letterSpacing:'0.14em',
-        fontSize:'clamp(11px,0.9vw,13px)',
-        color: hov ? '#077fbf' : '#9fb0c0',
-        transition:'color 0.2s', marginBottom:8,
+        textTransform:'uppercase', letterSpacing:'0.05em',
+        fontSize:'clamp(12px,0.95vw,13.5px)', color:'#077fbf',
+        borderBottom: hov ? '1px solid #077fbf' : '1px dashed rgba(7,127,191,0.5)',
+        paddingBottom:2, marginBottom:9, transition:'border-color 0.2s',
       }}>
-        {s.tag}
+        {s.word || s.tag}
+        <span style={{ fontSize:14, lineHeight:1 }} aria-hidden="true">›</span>
       </div>
 
       {/* Title */}
