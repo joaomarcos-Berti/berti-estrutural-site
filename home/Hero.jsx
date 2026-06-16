@@ -18,20 +18,49 @@ const HERO_FRAMES = [
 // Vídeo institucional do canal (autoplay mudo; clique para ativar som)
 const HERO_VIDEO_ID = 'ROzn_Gl4R2Q';
 
-function HeroVideo({ accent }) {
-  const [comSom, setComSom] = useStateHero(false);
-  const base = `https://www.youtube.com/embed/${HERO_VIDEO_ID}?rel=0&modestbranding=1&playsinline=1&autoplay=1`;
-  const src = comSom
-    ? `${base}&mute=0&controls=1`
-    : `${base}&mute=1&controls=0&loop=1&playlist=${HERO_VIDEO_ID}`;
+// Modal "tela grande" com o vídeo institucional (abre ao clicar na pílula do Hero)
+function HeroVideoModal({ accent, onClose }) {
+  useEffectHero(() => {
+    const onKey = (e) => { if (e.key === 'Escape') onClose(); };
+    document.addEventListener('keydown', onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => { document.removeEventListener('keydown', onKey); document.body.style.overflow = prev; };
+  }, []);
+
+  const src = `https://www.youtube.com/embed/${HERO_VIDEO_ID}?autoplay=1&rel=0&modestbranding=1&playsinline=1`;
 
   return (
-    <div style={{ width: '100%', maxWidth: 680, flexShrink: 0 }}>
+    <div onClick={onClose} style={{
+      position: 'fixed', inset: 0, zIndex: 9999,
+      background: 'rgba(4,20,28,0.92)', backdropFilter: 'blur(6px)',
+      display: 'flex', alignItems: 'center', justifyContent: 'center',
+      padding: 'clamp(16px, 4vw, 56px)', animation: 'beHeroFade .25s ease both',
+    }}>
+      <style>{'@keyframes beHeroFade{from{opacity:0}to{opacity:1}}'}</style>
+
+      {/* Rótulo */}
       <div style={{
-        position: 'relative', width: '100%', aspectRatio: '16 / 9',
-        borderRadius: 8, overflow: 'hidden',
-        boxShadow: '0 28px 64px rgba(0,0,0,0.55)',
-        border: '1px solid rgba(255,255,255,0.14)', background: '#000',
+        position: 'absolute', top: 22, left: 26, display: 'flex', alignItems: 'center', gap: 9,
+        fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 600, fontSize: 13,
+        letterSpacing: '0.18em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.85)',
+      }}>
+        <span style={{ width: 8, height: 8, borderRadius: '50%', background: accent, display: 'inline-block' }} />
+        Vídeo institucional · Berti Estrutural
+      </div>
+
+      {/* Fechar */}
+      <button onClick={onClose} aria-label="Fechar vídeo" style={{
+        position: 'absolute', top: 18, right: 20, width: 44, height: 44, borderRadius: '50%',
+        background: 'rgba(0,0,0,0.45)', border: '1px solid rgba(255,255,255,0.25)', color: '#fff',
+        fontSize: 18, cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>✕</button>
+
+      {/* Player 16:9 */}
+      <div onClick={(e) => e.stopPropagation()} style={{
+        position: 'relative', width: '100%', maxWidth: 1120, aspectRatio: '16 / 9',
+        borderRadius: 10, overflow: 'hidden', background: '#000',
+        boxShadow: '0 30px 80px rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.14)',
       }}>
         <iframe
           title="Vídeo institucional Berti Estrutural"
@@ -40,26 +69,6 @@ function HeroVideo({ accent }) {
           allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
           allowFullScreen
         />
-        {!comSom && (
-          <button onClick={() => setComSom(true)} aria-label="Ativar som do vídeo" style={{
-            position: 'absolute', right: 12, bottom: 12,
-            display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(0,0,0,0.6)', color: '#fff', border: '1px solid rgba(255,255,255,0.3)',
-            padding: '9px 16px', borderRadius: 999, cursor: 'pointer',
-            fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 13,
-            letterSpacing: '0.1em', textTransform: 'uppercase', backdropFilter: 'blur(4px)',
-          }}>
-            <span aria-hidden="true">🔊</span> Ativar som
-          </button>
-        )}
-      </div>
-      <div style={{
-        marginTop: 14, display: 'flex', alignItems: 'center', gap: 10,
-        fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 600, fontSize: 13,
-        letterSpacing: '0.2em', textTransform: 'uppercase', color: 'rgba(255,255,255,0.75)',
-      }}>
-        <span style={{ width: 22, height: 1, background: accent, display: 'inline-block' }} />
-        Vídeo institucional
       </div>
     </div>
   );
@@ -73,6 +82,7 @@ function HomeHero({
   ctaSecondary = 'outline', // 'outline' | 'whatsapp'
 }) {
   const [idx, setIdx] = useStateHero(0);
+  const [videoOpen, setVideoOpen] = useStateHero(false);
   const isMobile = useMobile();
 
   useEffectHero(() => {
@@ -224,6 +234,26 @@ function HomeHero({
             )}
           </div>
 
+          {/* Pílula "Assistir vídeo institucional" — abre o vídeo em tela grande */}
+          <button
+            onClick={() => setVideoOpen(true)}
+            style={{
+              marginTop: 28, display: 'inline-flex', alignItems: 'center', gap: 13,
+              background: 'rgba(6,25,34,0.5)', backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255,255,255,0.18)', borderRadius: 40,
+              padding: '9px 20px 9px 9px', cursor: 'pointer',
+              transition: 'background 180ms ease, border-color 180ms ease',
+            }}
+            onMouseEnter={(e) => { e.currentTarget.style.background = 'rgba(6,25,34,0.72)'; e.currentTarget.style.borderColor = 'rgba(71,182,241,0.6)'; }}
+            onMouseLeave={(e) => { e.currentTarget.style.background = 'rgba(6,25,34,0.5)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.18)'; }}
+          >
+            <span style={{ display: 'inline-flex', width: 38, height: 38, borderRadius: '50%', background: accent, alignItems: 'center', justifyContent: 'center', color: '#061922', fontSize: 13, paddingLeft: 2 }}>▶</span>
+            <span style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.15, textAlign: 'left' }}>
+              <span style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 15, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#fff' }}>Assistir vídeo institucional</span>
+              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', letterSpacing: '0.04em' }}>Conheça a Berti em 1:42</span>
+            </span>
+          </button>
+
           {/* Stats compactos */}
           <div style={{
             display: 'flex', gap: isMobile ? 28 : 48, marginTop: isMobile ? 40 : 64,
@@ -255,8 +285,6 @@ function HomeHero({
           </div>
         </div>
 
-        {/* Painel de vídeo institucional (desktop) */}
-        {!isMobile && <HeroVideo accent={accent} />}
       </div>
 
       {/* =================== Indicadores de slide + legenda =================== */}
@@ -292,6 +320,8 @@ function HomeHero({
       }}>
         Role para ver <span style={{ width: 1, height: 36, background: 'rgba(255,255,255,0.4)' }} />
       </div>
+
+      {videoOpen && <HeroVideoModal accent={accent} onClose={() => setVideoOpen(false)} />}
     </section>
   );
 }
