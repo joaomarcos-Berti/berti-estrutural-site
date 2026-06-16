@@ -123,7 +123,7 @@ function StepCard({ s, i, spanFull }) {
           <div style={{
             fontFamily:'Caveat, cursive',
             color: s.n==='03' ? '#47b6f1' : '#1853b8',
-            fontWeight:600, fontSize:14, lineHeight:1.2,
+            fontWeight:700, fontSize:17, lineHeight:1.25,
             paddingTop:8, textAlign:'center',
           }}>
             {s.note}
@@ -186,10 +186,10 @@ function StepCard({ s, i, spanFull }) {
 
       {/* Body — expands on hover */}
       <div style={{
-        fontSize:'clamp(13px,0.95vw,15px)', lineHeight:1.55, color:'#4a606e',
-        textAlign:'center', maxWidth:180,
+        fontSize:'clamp(13.5px,0.95vw,15px)', lineHeight:1.55, color:'#4a606e',
+        textAlign:'center', maxWidth:210,
         opacity: hov ? 1 : 0,
-        maxHeight: hov ? 80 : 0,
+        maxHeight: hov ? 240 : 0,
         overflow:'hidden',
         transition:'opacity 0.25s ease, max-height 0.3s ease',
       }}>
