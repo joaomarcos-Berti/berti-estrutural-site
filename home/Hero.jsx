@@ -102,8 +102,8 @@ function HomeHero({
           }}>
             <img src={f.src} alt="" style={{
               width: '100%', height: '100%', objectFit: 'cover',
-              transform: i === idx ? 'scale(1.08)' : 'scale(1)',
-              transition: `transform ${cycleMs + 1500}ms linear`,
+              transform: (!isMobile && i === idx) ? 'scale(1.08)' : 'scale(1)',
+              transition: isMobile ? 'none' : `transform ${cycleMs + 1500}ms linear`,
               filter: 'grayscale(0.1) contrast(1.05)',
               display: 'block',
             }} />

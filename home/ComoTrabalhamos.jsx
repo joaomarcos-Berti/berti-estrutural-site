@@ -51,7 +51,7 @@ const CT_STEPS = [
   },
 ];
 
-function StepCard({ s, i }) {
+function StepCard({ s, i, spanFull }) {
   const { useState, useEffect } = React;
   const [hov, setHov] = useState(false);
   const isMobile = useMobile();
@@ -73,6 +73,7 @@ function StepCard({ s, i }) {
       onMouseLeave={() => setHov(false)}
       style={{
         position:'relative',
+        gridColumn: spanFull ? '1 / -1' : undefined,
         display:'flex', flexDirection:'column', alignItems:'center',
         textDecoration:'none', color:'inherit',
         cursor:'pointer',
@@ -253,7 +254,7 @@ function HomeComoTrabalhamos() {
         {/* Connector line */}
         <div style={{ position:'absolute', top:38, left:'10%', right:'10%', height:1, background:'linear-gradient(90deg, transparent, #c6d4e2 20%, #c6d4e2 80%, transparent)', zIndex:0, pointerEvents:'none' }}/>
 
-        {CT_STEPS.map((s, i) => <StepCard key={s.n} s={s} i={i}/>)}
+        {CT_STEPS.map((s, i) => <StepCard key={s.n} s={s} i={i} spanFull={isMobile && CT_STEPS.length % 2 === 1 && i === CT_STEPS.length - 1}/>)}
       </div>
 
       {/* CTA */}

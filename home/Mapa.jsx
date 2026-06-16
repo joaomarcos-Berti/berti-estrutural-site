@@ -15,6 +15,7 @@ function HomeMapa() {
 
   const [obras, setObras] = useStateMapa([]);
   const [sel, setSel] = useStateMapa(null);
+  const [visMobile, setVisMobile] = useStateMapa(3);
   const mapEl = useRefMapa(null);
   const mapRef = useRefMapa(null);
   const markersRef = useRefMapa({});
@@ -130,7 +131,7 @@ function HomeMapa() {
             overflowY: isMobile ? 'visible' : 'auto', maxHeight: isMobile ? 'none' : 600,
             borderRight: isMobile ? 'none' : '1px solid rgba(6,25,34,.08)',
           }}>
-            {obras.map(function (o, i) {
+            {(isMobile ? obras.slice(0, visMobile) : obras).map(function (o, i) {
               const on = sel === i;
               return (
                 <div key={o.id || i} onClick={function () { focar(i); }} style={{
@@ -155,6 +156,26 @@ function HomeMapa() {
                 </div>
               );
             })}
+            {isMobile && obras.length > 3 && (
+              <button
+                onClick={function () {
+                  setVisMobile(function (v) { return v >= obras.length ? 3 : Math.min(obras.length, v + 3); });
+                }}
+                style={{
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                  marginTop: 4, padding: '12px 18px', cursor: 'pointer', width: '100%',
+                  background: '#fff', color: blueDark,
+                  border: '1.5px solid rgba(6,25,34,.14)', borderRadius: 12,
+                  fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700,
+                  fontSize: 13, letterSpacing: '.12em', textTransform: 'uppercase',
+                }}
+              >
+                {visMobile >= obras.length
+                  ? 'Recolher obras'
+                  : 'Ver mais (' + Math.min(visMobile, obras.length) + '/' + obras.length + ')'}
+                <span aria-hidden="true" style={{ fontSize: 15, lineHeight: 1, display: 'inline-block', transform: visMobile >= obras.length ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }}>↓</span>
+              </button>
+            )}
           </div>
 
           {/* Mapa */}
