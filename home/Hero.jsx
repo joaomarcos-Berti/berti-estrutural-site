@@ -262,7 +262,6 @@ function HomeHero({
           }}>
             {[
               { v: '17', u: 'anos', l: 'no mercado' },
-              { v: '+30', u: 'mil t', l: 'de aço entregue' },
               { v: 'BIM', u: '', l: 'projeto digital' },
             ].map((s) => (
               <div key={s.l}>
