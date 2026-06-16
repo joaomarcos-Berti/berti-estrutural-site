@@ -63,7 +63,7 @@ function HomeEstrutura3D() {
             rotation-per-second="18deg"
             interaction-prompt="none"
             field-of-view="30deg"
-            camera-orbit="35deg 75deg auto"
+            camera-orbit="35deg 75deg 72%"
             shadow-intensity="0.6"
             shadow-softness="1"
             exposure="1.15"
