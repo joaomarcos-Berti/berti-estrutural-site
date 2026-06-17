@@ -2,7 +2,7 @@
 // ============================================================================
 // BLOG · HERO + DESTAQUE + FILTRO + GRADE DE ARTIGOS
 // ============================================================================
-const { useState } = React;
+const { useState, useEffect } = React;
 
 function BlogIndex() {
   const accent = HOME_BRAND.blue;
@@ -13,6 +13,31 @@ function BlogIndex() {
   const rest = BLOG_POSTS.filter((p) => p !== featured);
   const visible = rest.filter((p) => filter === 'todas' || p.cat === filter);
   const openPost = openId ? BLOG_POSTS.find((p) => p.id === openId) : null;
+
+  // Deep-link: Blog.html?post=<id> abre o artigo; back/forward e abrir/fechar sincronizam a URL
+  useEffect(() => {
+    const sync = () => {
+      const id = new URLSearchParams(window.location.search).get('post');
+      setOpenId(id && BLOG_POSTS.some((p) => p.id === id) ? id : null);
+    };
+    sync();
+    window.addEventListener('popstate', sync);
+    return () => window.removeEventListener('popstate', sync);
+  }, []);
+
+  const abrirPost = (id) => {
+    setOpenId(id);
+    const u = new URL(window.location.href);
+    u.searchParams.set('post', id);
+    window.history.pushState({ post: id }, '', u);
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+  const fecharPost = () => {
+    setOpenId(null);
+    const u = new URL(window.location.href);
+    u.searchParams.delete('post');
+    window.history.pushState({}, '', u.pathname + (u.search || ''));
+  };
 
   return (
     <>
@@ -56,7 +81,7 @@ function BlogIndex() {
         <div style={{ maxWidth: 1240, margin: '0 auto' }}>
 
           {/* Post em destaque */}
-          <article onClick={() => setOpenId(featured.id)} style={{
+          <article onClick={() => abrirPost(featured.id)} style={{
             display: 'grid', gridTemplateColumns: '1.25fr 1fr', gap: 0,
             cursor: 'pointer', marginBottom: 72,
             border: '1px solid rgba(10,10,10,0.1)',
@@ -144,13 +169,13 @@ function BlogIndex() {
           {/* Grade de artigos */}
           <div className="blog-grid">
             {visible.map((p) => (
-              <BlogCard key={p.id} post={p} accent={accent} onClick={() => setOpenId(p.id)} />
+              <BlogCard key={p.id} post={p} accent={accent} onClick={() => abrirPost(p.id)} />
             ))}
           </div>
         </div>
       </section>
 
-      <BlogArtigo post={openPost} onClose={() => setOpenId(null)} />
+      <BlogArtigo post={openPost} onClose={fecharPost} />
 
       <style>{`
         .blog-grid {

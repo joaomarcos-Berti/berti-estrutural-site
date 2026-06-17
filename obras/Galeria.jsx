@@ -73,6 +73,37 @@ function ObrasGaleria() {
   }, {});
   counts['andamento'] = lista.filter(emAndamento).length;
 
+  // Deep-link: Obras.html?obra=<slug-do-titulo> abre o lightbox da obra
+  const obraSlug = (o) => (o && o.title ? o.title : '')
+    .toString().normalize('NFD').replace(/[̀-ͯ]/g, '')
+    .toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+
+  const setObraUrl = (o) => {
+    const u = new URL(window.location.href);
+    if (o) u.searchParams.set('obra', obraSlug(o)); else u.searchParams.delete('obra');
+    window.history.replaceState({}, '', u.pathname + (u.search || '') + (u.hash || ''));
+  };
+  const abrirObra = (i) => { setOpenIdx(i); setObraUrl(visible[i]); };
+  const fecharObra = () => { setOpenIdx(-1); setObraUrl(null); };
+  const navObra = (delta) => {
+    if (openIdx < 0 || !visible.length) return;
+    const ni = (openIdx + delta + visible.length) % visible.length;
+    setOpenIdx(ni); setObraUrl(visible[ni]);
+  };
+
+  React.useEffect(() => {
+    const key = new URLSearchParams(window.location.search).get('obra');
+    if (!key) return;
+    const target = lista.find((o) => obraSlug(o) === key);
+    if (!target) return;
+    const tf = emAndamento(target) ? 'andamento' : (target.cat || 'todas');
+    const vis = tf === 'andamento'
+      ? lista.filter(emAndamento)
+      : lista.filter((o) => !emAndamento(o) && (tf === 'todas' || o.cat === tf));
+    const idx = vis.findIndex((o) => obraSlug(o) === key);
+    if (idx >= 0) { setFilter(tf); setOpenIdx(idx); }
+  }, [lista]);
+
   return (
     <>
       {/* ── HERO ───────────────────────────────────────────────────────── */}
@@ -184,7 +215,7 @@ function ObrasGaleria() {
         <div ref={gridRef} className="obra-grid" style={{ maxWidth: 1340, margin: '0 auto' }}>
           {visible.map((o, i) => (
             <ObraCard key={(o.id != null ? o.id : 'idx') + '-' + i} obra={o} idx={i} accent={accent}
-              onClick={() => setOpenIdx(i)} />
+              onClick={() => abrirObra(i)} />
           ))}
         </div>
       </section>
@@ -192,9 +223,9 @@ function ObrasGaleria() {
       {/* ── LIGHTBOX ───────────────────────────────────────────────────── */}
       <ObrasLightbox
         obra={openIdx >= 0 ? visible[openIdx] : null}
-        onClose={() => setOpenIdx(-1)}
-        onPrev={() => setOpenIdx((p) => (p - 1 + visible.length) % visible.length)}
-        onNext={() => setOpenIdx((p) => (p + 1) % visible.length)}
+        onClose={fecharObra}
+        onPrev={() => navObra(-1)}
+        onNext={() => navObra(1)}
       />
 
       <style>{`
