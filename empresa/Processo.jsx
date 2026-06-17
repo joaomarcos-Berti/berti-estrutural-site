@@ -13,7 +13,7 @@ const PROC_STEPS = [
     note: 'viabilidade + padrão de execução',
     cap: 'projeto recebido', meta: 'Avaliação técnica',
     mode: 'frame',
-    img: 'assets/process/cad-monitor.jpg', alt: 'Projeto estrutural em AutoCAD',
+    img: 'assets/process/avaliacao-tekla.jpg', alt: 'Projeto estrutural avaliado em software BIM (Tekla)',
   },
   {
     n: '02', tag: 'Orçamento', kind: 'render',
