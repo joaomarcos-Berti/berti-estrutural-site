@@ -102,8 +102,7 @@ function HomeYoutube() {
                 <iframe
                   src={`https://www.youtube.com/embed/${current.id}?autoplay=1&rel=0&modestbranding=1`}
                   title={current.title}
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                  allowFullScreen
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
                   style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 'none' }}
                 />
               ) : (

@@ -160,7 +160,8 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
               <iframe
                 width="100%" height="200"
                 src={`https://www.youtube.com/embed/${(obra.youtube.match(/(?:youtu\.be\/|v=)([^&?#]+)/)||[])[1]||''}`}
-                title="Vídeo da obra" frameBorder="0" allowFullScreen
+                title="Vídeo da obra" frameBorder="0"
+                allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
                 style={{ borderRadius: 4, display: 'block' }} />
             </div>
           )}

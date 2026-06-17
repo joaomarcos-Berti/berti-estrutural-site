@@ -67,7 +67,6 @@ function HeroVideoModal({ accent, onClose }) {
           src={src}
           style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', border: 0 }}
           allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
-          allowFullScreen
         />
       </div>
     </div>
