@@ -9,8 +9,8 @@ const CT_STEPS = [
     title:'Avaliação & Recebimento',
     body:'O cliente encaminha a proposta e nossa equipe avalia se o projeto se enquadra nos padrões Berti para iniciar o orçamento.',
     note:'viabilidade + padrão de execução',
-    img:'assets/process/cad-monitor.jpg',
-    alt:'Projeto estrutural em AutoCAD',
+    img:'assets/process/avaliacao-tekla.jpg',
+    alt:'Projeto estrutural avaliado em software BIM (Tekla)',
     href:'Empresa.html#proc-0',
   },
   {
