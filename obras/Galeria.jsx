@@ -125,6 +125,7 @@ function ObrasGaleria() {
           maxWidth: 1340, margin: '0 auto',
           display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center',
         }}>
+          <style>{'@media(max-width:768px){.obras-andamento-btn{margin-left:0 !important}}'}</style>
           {OBRAS_CATS.map((c) => {
             const on = filter === c.key;
             return (
@@ -153,7 +154,7 @@ function ObrasGaleria() {
           })}
 
           {counts['andamento'] > 0 && (
-            <button onClick={() => setFilter('andamento')} style={{
+            <button className="obras-andamento-btn" onClick={() => setFilter('andamento')} style={{
               display: 'inline-flex', alignItems: 'center', gap: 9,
               padding: '11px 20px', cursor: 'pointer', marginLeft: 'auto',
               border: `1px solid ${filter === 'andamento' ? accent : 'rgba(71,182,241,0.5)'}`,
