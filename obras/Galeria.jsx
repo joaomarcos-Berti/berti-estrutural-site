@@ -326,11 +326,9 @@ function ObraCard({ obra, accent, onClick, idx }) {
           fontSize: 12.5, color: 'rgba(255,255,255,0.78)', letterSpacing: '0.02em',
           display: 'flex', gap: 12, flexWrap: 'wrap',
         }}>
-          <span>{obra.city}</span>
-          <span style={{ color: 'rgba(255,255,255,0.4)' }}>·</span>
-          <span>{obra.area}</span>
-          <span style={{ color: 'rgba(255,255,255,0.4)' }}>·</span>
-          <span>{obra.tons}</span>
+          {obra.city && <span>{obra.city}</span>}
+          {obra.city && obra.area && <span style={{ color: 'rgba(255,255,255,0.4)' }}>·</span>}
+          {obra.area && <span>{obra.area}</span>}
         </div>
         {/* Ver detalhes (hover) */}
         <div data-go style={{

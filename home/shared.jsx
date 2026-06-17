@@ -275,7 +275,7 @@ function HomeFooter() {
             fontSize: 11, letterSpacing: '0.16em', textTransform: 'uppercase',
             marginBottom: 18, color: HOME_BRAND.blue, fontWeight: 700,
           }}>Segmentos</div>
-          {['Supermercados', 'Comercial', 'Industrial', 'Esportivo'].map((it) => (
+          {['Supermercados', 'Comercial', 'Industrial'].map((it) => (
             <a key={it} href="Obras.html" style={{
               display: 'block', color: 'rgba(255,255,255,0.7)', textDecoration: 'none',
               fontSize: 13.5, padding: '6px 0',

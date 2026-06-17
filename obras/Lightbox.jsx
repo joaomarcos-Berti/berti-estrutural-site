@@ -31,6 +31,12 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
 
   if (!obra) return null;
 
+  // Galeria de imagens: usa a galeria quando houver, senão cai para a capa.
+  // (gallery: [] é um array "truthy", então o fallback || não cobre esse caso.)
+  const imgs = (Array.isArray(obra.gallery) && obra.gallery.length)
+    ? obra.gallery
+    : (obra.cover ? [obra.cover] : []);
+
   const specs = [
     { k: 'Cidade',  v: obra.city },
     { k: 'Área',    v: obra.area },
@@ -76,7 +82,7 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
         {/* Lado imagem */}
         <div style={{ position: 'relative', background: '#05080c', minHeight: 0, display: 'flex', flexDirection: 'column' }}>
           <div style={{ position: 'relative', flex: 1, minHeight: 0 }}>
-            <img key={(obra.gallery || [obra.cover])[active]} src={(obra.gallery || [obra.cover])[active]} alt={obra.title} style={{
+            <img key={imgs[active]} src={imgs[active]} alt={obra.title} style={{
               position: 'absolute', inset: 0, width: '100%', height: '100%',
               objectFit: 'contain', background: '#0a0a0a', display: 'block', animation: 'obraFade 280ms ease',
             }} />
@@ -90,9 +96,9 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
             }}>{obra.catLabel}</div>
           </div>
           {/* Miniaturas */}
-          {(obra.gallery || [obra.cover]).length > 1 && (
+          {imgs.length > 1 && (
             <div style={{ display: 'flex', gap: 8, padding: 12, background: '#05080c' }}>
-              {(obra.gallery || [obra.cover]).map((g, i) => (
+              {imgs.map((g, i) => (
                 <button key={g} onClick={() => setActive(i)} style={{
                   width: 84, height: 58, padding: 0, border: 'none', cursor: 'pointer',
                   outline: i === active ? `2px solid ${accent}` : '2px solid transparent',
@@ -158,7 +164,7 @@ function ObrasLightbox({ obra, onClose, onPrev, onNext }) {
                 style={{ borderRadius: 4, display: 'block' }} />
             </div>
           )}
-          <a href="Home%20Berti.html#orcamento" style={{
+          <a href="Contato.html" style={{
             display: 'inline-flex', alignItems: 'center', gap: 10, marginTop: 28,
             background: accent, color: '#000', padding: '14px 26px',
             fontSize: 12.5, fontWeight: 800, letterSpacing: '0.14em', textTransform: 'uppercase',
