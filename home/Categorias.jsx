@@ -120,15 +120,15 @@ function HomeCategorias({ accent = HOME_BRAND.blue, bg = HOME_BRAND.paper }) {
           }}
           >
             {/* Foto · 2 camadas que fazem cross-fade no hover */}
-            <div style={{ position: 'relative', height: 320, overflow: 'hidden', background: '#000' }}>
-              <img data-photo-base src={cat.photo} alt={cat.title} style={{
+            <div style={{ position: 'relative', height: isMobile ? 240 : 320, overflow: 'hidden', background: '#000' }}>
+              <img data-photo-base src={cat.photo} alt={cat.title} loading="lazy" style={{
                 position: 'absolute', inset: 0,
                 width: '100%', height: '100%', objectFit: 'cover',
                 display: 'block',
                 opacity: 1,
                 transition: 'opacity 500ms ease, transform 700ms ease',
               }} />
-              <img data-photo-hover src={cat.photoHover} alt="" aria-hidden="true" style={{
+              <img data-photo-hover src={cat.photoHover} alt="" aria-hidden="true" loading="lazy" style={{
                 position: 'absolute', inset: 0,
                 width: '100%', height: '100%', objectFit: 'cover',
                 display: 'block',

@@ -115,7 +115,7 @@ function HomeYoutube() {
                   }}
                   aria-label={`Reproduzir ${current.title}`}
                 >
-                  <img src={current.poster || thumbUrl(current.id)} alt={current.title} style={{
+                  <img src={current.poster || thumbUrl(current.id)} alt={current.title} loading="lazy" style={{
                     width: '100%', height: '100%', objectFit: 'cover', display: 'block',
                   }} />
                   <div style={{
@@ -143,6 +143,17 @@ function HomeYoutube() {
               )}
             </div>
           </div>
+
+          {isMobile && (
+            <a href={CHANNEL_URL} target="_blank" rel="noopener noreferrer" style={{
+              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 10,
+              padding: 14, background: '#FF0000', color: '#fff', borderRadius: 6,
+              fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 800,
+              fontSize: 14, letterSpacing: '0.08em', textTransform: 'uppercase', textDecoration: 'none',
+            }}>
+              <YouTubeBadge size={15} /> Ver todos os vídeos no YouTube
+            </a>
+          )}
 
           {/* Vídeos secundários (4) — coluna que enche a altura do principal */}
           <div style={{
@@ -174,7 +185,7 @@ function HomeYoutube() {
                     border: isCurrent ? `2px solid ${HOME_BRAND.blue}` : '2px solid transparent',
                     transition: 'border-color 200ms ease',
                   }}>
-                    <img src={thumbUrl(v.id)} alt={v.title} style={{
+                    <img src={thumbUrl(v.id)} alt={v.title} loading="lazy" style={{
                       width: '100%', height: '100%', objectFit: 'cover', display: 'block',
                     }} />
                     <div style={{

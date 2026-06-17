@@ -15,7 +15,7 @@ function HomeMapa() {
 
   const [obras, setObras] = useStateMapa([]);
   const [sel, setSel] = useStateMapa(null);
-  const [visMobile, setVisMobile] = useStateMapa(3);
+  const [mapExpand, setMapExpand] = useStateMapa(false);
   const mapEl = useRefMapa(null);
   const mapRef = useRefMapa(null);
   const markersRef = useRefMapa({});
@@ -103,7 +103,7 @@ function HomeMapa() {
     }}>
       <div style={{ maxWidth: 1320, margin: '0 auto' }}>
 
-        <style>{'@keyframes beSpin{to{transform:rotate(360deg)}} .be-spin{width:15px;height:15px;border:2.5px solid rgba(7,127,191,.25);border-top-color:#077fbf;border-radius:50%;display:inline-block;animation:beSpin .8s linear infinite;flex-shrink:0}'}</style>
+        <style>{'@keyframes beSpin{to{transform:rotate(360deg)}} .be-spin{width:15px;height:15px;border:2.5px solid rgba(7,127,191,.25);border-top-color:#077fbf;border-radius:50%;display:inline-block;animation:beSpin .8s linear infinite;flex-shrink:0} .obras-carousel::-webkit-scrollbar{display:none}'}</style>
 
         {/* Cabeçalho */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 11, marginBottom: 8 }}>
@@ -120,22 +120,31 @@ function HomeMapa() {
         {/* Lista lateral + mapa lado a lado */}
         <div style={{
           display: 'grid',
-          gridTemplateColumns: isMobile ? '1fr' : '400px 1fr',
+          gridTemplateColumns: isMobile ? 'minmax(0, 1fr)' : '400px 1fr',
           background: '#fff', border: '1px solid rgba(6,25,34,.1)', borderRadius: 20,
           overflow: 'hidden', boxShadow: '0 24px 60px rgba(6,25,34,.12)',
         }}>
-          {/* Lista lateral — cards retangulares horizontais */}
-          <div style={{
-            order: isMobile ? 2 : 1,
-            padding: 14, display: 'flex', flexDirection: 'column', gap: 10,
-            overflowY: isMobile ? 'visible' : 'auto', maxHeight: isMobile ? 'none' : 600,
+          {/* Lista — coluna no desktop, carrossel horizontal no mobile */}
+          <div className={isMobile ? 'obras-carousel' : undefined} style={{
+            order: 1, minWidth: 0,
+            padding: 14, display: 'flex',
+            flexDirection: isMobile ? 'row' : 'column',
+            gap: isMobile ? 12 : 10,
+            overflowX: isMobile ? 'auto' : 'visible',
+            overflowY: isMobile ? 'visible' : 'auto',
+            maxHeight: isMobile ? 'none' : 600,
             borderRight: isMobile ? 'none' : '1px solid rgba(6,25,34,.08)',
+            scrollSnapType: isMobile ? 'x mandatory' : undefined,
+            scrollbarWidth: isMobile ? 'none' : undefined,
+            WebkitOverflowScrolling: 'touch',
           }}>
-            {(isMobile ? obras.slice(0, visMobile) : obras).map(function (o, i) {
+            {obras.map(function (o, i) {
               const on = sel === i;
               return (
                 <div key={o.id || i} onClick={function () { focar(i); }} style={{
                   display: 'flex', alignItems: 'stretch', cursor: 'pointer',
+                  flex: isMobile ? '0 0 240px' : 'initial',
+                  scrollSnapAlign: isMobile ? 'start' : undefined,
                   borderRadius: 12, overflow: 'hidden', background: '#fff',
                   border: '1.5px solid ' + (on ? blue : 'rgba(6,25,34,.12)'),
                   boxShadow: on ? '0 8px 20px rgba(7,127,191,.18)' : '0 1px 3px rgba(6,25,34,.06)',
@@ -144,7 +153,7 @@ function HomeMapa() {
                 onMouseEnter={function (e) { if (!on) e.currentTarget.style.boxShadow = '0 6px 16px rgba(6,25,34,.14)'; }}
                 onMouseLeave={function (e) { if (!on) e.currentTarget.style.boxShadow = '0 1px 3px rgba(6,25,34,.06)'; }}>
                   <div style={{ flex: '0 0 108px', alignSelf: 'stretch', minHeight: 86, background: '#dfe6ec' }}>
-                    {o.cover && <img src={o.cover} alt={o.title} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
+                    {o.cover && <img src={o.cover} alt={o.title} loading="lazy" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />}
                   </div>
                   <div style={{ flex: 1, minWidth: 0, padding: '11px 13px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                     <div style={{ display: 'inline-flex', alignItems: 'center', gap: 5, marginBottom: 5 }}>
@@ -156,30 +165,31 @@ function HomeMapa() {
                 </div>
               );
             })}
-            {isMobile && obras.length > 3 && (
-              <button
-                onClick={function () {
-                  setVisMobile(function (v) { return v >= obras.length ? 3 : Math.min(obras.length, v + 3); });
-                }}
-                style={{
-                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-                  marginTop: 4, padding: '12px 18px', cursor: 'pointer', width: '100%',
-                  background: '#fff', color: blueDark,
-                  border: '1.5px solid rgba(6,25,34,.14)', borderRadius: 12,
-                  fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700,
-                  fontSize: 13, letterSpacing: '.12em', textTransform: 'uppercase',
-                }}
-              >
-                {visMobile >= obras.length
-                  ? 'Recolher obras'
-                  : 'Ver mais (' + Math.min(visMobile, obras.length) + '/' + obras.length + ')'}
-                <span aria-hidden="true" style={{ fontSize: 15, lineHeight: 1, display: 'inline-block', transform: visMobile >= obras.length ? 'rotate(180deg)' : 'none', transition: 'transform .2s' }}>↓</span>
-              </button>
-            )}
           </div>
 
           {/* Mapa */}
-          <div ref={mapEl} style={{ order: isMobile ? 1 : 2, position: 'relative', zIndex: 0, minHeight: isMobile ? 340 : 600, background: '#e7ebef' }} />
+          <div ref={mapEl} style={{ order: 2, position: 'relative', zIndex: 0, minHeight: isMobile ? (mapExpand ? '85vh' : 280) : 600, background: '#e7ebef', transition: 'min-height .25s ease' }} />
+
+          {/* Mobile: expandir/recolher o mapa em tela cheia */}
+          {isMobile && (
+            <button
+              onClick={function () {
+                const nv = !mapExpand;
+                setMapExpand(nv);
+                const m = mapRef.current;
+                if (m) setTimeout(function () { m.invalidateSize(); }, 180);
+              }}
+              style={{
+                order: 3, margin: '12px 14px 14px', padding: 12, cursor: 'pointer',
+                textAlign: 'center', background: 'transparent',
+                border: '1.5px solid ' + blueDark, borderRadius: 10, color: blueDark,
+                fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700,
+                fontSize: 13, letterSpacing: '.1em', textTransform: 'uppercase',
+              }}
+            >
+              {mapExpand ? '✕ Recolher mapa' : 'Ver mapa completo'}
+            </button>
+          )}
         </div>
       </div>
     </section>

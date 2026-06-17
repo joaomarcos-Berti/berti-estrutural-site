@@ -42,8 +42,9 @@ function HomeEstrutura3D() {
           textTransform: 'uppercase', color: ink,
         }}>A estrutura<br/>por dentro.</h2>
 
-        {/* ===================== STAGE ===================== */}
-        <div style={{ position: 'relative', width: '100%', height: isMobile ? 420 : 620, marginTop: 8 }}>
+        {/* ===================== STAGE (somente desktop — 3D não carrega no mobile) ===================== */}
+        {!isMobile && (
+        <div style={{ position: 'relative', width: '100%', height: 620, marginTop: 8 }}>
 
           {/* Sombra no chão */}
           <div style={{
@@ -91,7 +92,7 @@ function HomeEstrutura3D() {
               <div style={{ position: 'absolute', left: 14, top: -13, width: 78, height: 26, background: 'rgba(71,182,241,0.32)', transform: 'rotate(-25deg)', boxShadow: '0 1px 3px rgba(6,25,34,0.14)' }} />
               <div style={{ position: 'absolute', right: 12, top: -13, width: 78, height: 26, background: 'rgba(71,182,241,0.32)', transform: 'rotate(23deg)', boxShadow: '0 1px 3px rgba(6,25,34,0.14)' }} />
               <div style={{ background: '#fff', padding: '11px 11px 9px', borderRadius: 2, boxShadow: '0 16px 32px rgba(6,25,34,0.22)' }}>
-                <img src="assets/photos/palladium-aerea.jpg" alt="A mesma estrutura, já construída"
+                <img src="assets/photos/palladium-aerea.jpg" alt="A mesma estrutura, já construída" loading="lazy"
                   style={{ width: 256, height: 156, objectFit: 'cover', display: 'block' }} />
                 <div style={{ fontFamily: '"Caveat", cursive', fontWeight: 700, fontSize: 27, color: ink, textAlign: 'center', marginTop: 7, lineHeight: 1 }}>
                   A mesma obra, <span style={{ color: blueDark }}>pronta</span>
@@ -164,9 +165,43 @@ function HomeEstrutura3D() {
           </div>
 
         </div>
+        )}
+
+        {/* ===================== MOBILE: cards de vantagem (3D oculto) ===================== */}
+        {isMobile && (
+          <div style={{ marginTop: 18 }}>
+            {[
+              { icon: 'bolt', t: 'Sem solda, montagem rápida', d: '100% parafusada · execução completa em 120 dias' },
+              { icon: 'bim',  t: 'Estrutura 100% em BIM',      d: 'cada peça calculada e detalhada antes de fabricar' },
+              { icon: 'leve', t: 'Mezaninos mais leves',       d: 'estrutura metálica, muito menos peso na obra' },
+            ].map(function (v, k) {
+              return (
+                <div key={k} style={{ display: 'flex', alignItems: 'flex-start', gap: 14, padding: '20px 0', borderBottom: k < 2 ? '1px solid #e3eaf1' : 'none' }}>
+                  <span style={{ flexShrink: 0, width: 44, height: 44, borderRadius: 11, background: 'rgba(71,182,241,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                    <Vant3DIcon kind={v.icon} />
+                  </span>
+                  <div>
+                    <div style={{ fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 800, fontSize: 18, textTransform: 'uppercase', letterSpacing: '0.01em', color: ink, lineHeight: 1.1, marginBottom: 4 }}>{v.t}</div>
+                    <div style={{ fontSize: 14, color: '#5b6b75', lineHeight: 1.5 }}>{v.d}</div>
+                  </div>
+                </div>
+              );
+            })}
+            <div style={{ textAlign: 'center', marginTop: 22, padding: '13px 14px', border: '1.5px solid rgba(7,127,191,0.4)', borderRadius: 8, color: blueDark, fontFamily: '"Barlow Condensed", sans-serif', fontWeight: 700, fontSize: 12.5, letterSpacing: '0.06em', textTransform: 'uppercase' }}>
+              Modelo 3D interativo disponível no computador
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );
+}
+
+function Vant3DIcon({ kind }) {
+  const c = '#077fbf';
+  if (kind === 'bolt') return (<svg width="22" height="22" viewBox="0 0 24 24" fill={c}><path d="M13 2 L4 14 h6 l-1 8 9-12 h-6 z" /></svg>);
+  if (kind === 'bim') return (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2" strokeLinejoin="round"><path d="M12 2 L21 7 V17 L12 22 L3 17 V7 Z" /><path d="M3 7 L12 12 L21 7" /><path d="M12 12 V22" /></svg>);
+  return (<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke={c} strokeWidth="2" strokeLinejoin="round"><path d="M12 3 L2 8 L12 13 L22 8 Z" /><path d="M2 13 L12 18 L22 13" /></svg>);
 }
 
 window.HomeEstrutura3D = HomeEstrutura3D;

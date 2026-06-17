@@ -51,7 +51,7 @@ const CT_STEPS = [
   },
 ];
 
-function StepCard({ s, i, spanFull }) {
+function StepCard({ s, i, spanFull, isOpen, onToggle }) {
   const { useState, useEffect } = React;
   const [hov, setHov] = useState(false);
   const isMobile = useMobile();
@@ -65,6 +65,41 @@ function StepCard({ s, i, spanFull }) {
       document.head.appendChild(l);
     }
   }, []);
+
+  // ---- MOBILE: acordeão (toque abre imagem + descrição) ----
+  if (isMobile) {
+    return (
+      <div style={{ borderBottom:'1px solid rgba(7,127,191,0.2)' }}>
+        <button onClick={onToggle} aria-expanded={isOpen} style={{
+          width:'100%', display:'flex', alignItems:'center', gap:14,
+          padding:'18px 2px', background:'transparent', border:'none', cursor:'pointer', textAlign:'left',
+        }}>
+          <span style={{
+            width:48, height:48, borderRadius:'50%', flexShrink:0,
+            border:`2px solid ${isOpen ? '#077fbf' : '#c6d4e2'}`,
+            background: isOpen ? '#077fbf' : '#fff', color: isOpen ? '#fff' : '#1853b8',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            fontFamily:'Caveat, cursive', fontWeight:700, fontSize:20, transition:'all .25s ease',
+          }}>{s.n}</span>
+          <span style={{ flex:1, minWidth:0 }}>
+            <span style={{ display:'block', fontFamily:'"Barlow Condensed",sans-serif', fontWeight:700, fontSize:11, letterSpacing:'0.12em', textTransform:'uppercase', color:'#077fbf', marginBottom:3 }}>{s.word || s.tag}</span>
+            <span style={{ display:'block', fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, fontSize:15.5, letterSpacing:'0.03em', textTransform:'uppercase', color:'#10212c', lineHeight:1.12 }}>{s.title}</span>
+          </span>
+          <span aria-hidden="true" style={{ marginLeft:'auto', fontSize:26, lineHeight:1, color:'#077fbf', transform: isOpen ? 'rotate(90deg)' : 'rotate(0)', transition:'transform .3s ease', flexShrink:0 }}>›</span>
+        </button>
+        {isOpen && (
+          <div style={{ padding:'0 2px 22px' }}>
+            <img src={s.img} alt={s.alt} loading="lazy" style={{
+              width:'100%', height:190, objectFit: s.n==='03' ? 'contain' : 'cover',
+              borderRadius:8, marginBottom:12, background: s.n==='03' ? '#0e1b24' : '#eef3f8', display:'block',
+            }} />
+            <p style={{ margin:0, fontSize:14.5, lineHeight:1.6, color:'#4a606e' }}>{s.body}</p>
+            <a href={s.href} style={{ display:'inline-block', marginTop:10, fontFamily:'"Barlow Condensed",sans-serif', fontWeight:700, fontSize:12.5, letterSpacing:'0.1em', textTransform:'uppercase', color:'#077fbf', textDecoration:'none' }}>ver etapa →</a>
+          </div>
+        )}
+      </div>
+    );
+  }
 
   return (
     <a
@@ -113,7 +148,7 @@ function StepCard({ s, i, spanFull }) {
             display:'block',
           }}/>
           <img
-            src={s.img} alt={s.alt}
+            src={s.img} alt={s.alt} loading="lazy"
             style={{
               display:'block', width:'100%', height:130,
               objectFit: s.n==='03' ? 'contain' : 'cover',
@@ -215,6 +250,7 @@ function StepCard({ s, i, spanFull }) {
 
 function HomeComoTrabalhamos() {
   const isMobile = useMobile();
+  const [openIdx, setOpenIdx] = React.useState(0); // 1ª etapa aberta por padrão (mobile)
   const gridBg = {
     backgroundImage:[
       'linear-gradient(#d5e3f4 1px, transparent 1px)',
@@ -251,12 +287,12 @@ function HomeComoTrabalhamos() {
         </p>
       </div>
 
-      {/* Steps */}
-      <div style={{ display:'grid', gridTemplateColumns: isMobile ? 'repeat(2,1fr)' : 'repeat(5,1fr)', gap: isMobile ? '20px' : 'clamp(12px,2vw,28px)', maxWidth:1280, margin:'0 auto', position:'relative', zIndex:1 }}>
-        {/* Connector line */}
-        <div style={{ position:'absolute', top:38, left:'10%', right:'10%', height:1, background:'linear-gradient(90deg, transparent, #c6d4e2 20%, #c6d4e2 80%, transparent)', zIndex:0, pointerEvents:'none' }}/>
+      {/* Steps — grade no desktop, acordeão (1 coluna) no mobile */}
+      <div style={{ display: isMobile ? 'block' : 'grid', gridTemplateColumns: isMobile ? undefined : 'repeat(5,1fr)', gap: isMobile ? 0 : 'clamp(12px,2vw,28px)', maxWidth: isMobile ? 560 : 1280, margin:'0 auto', position:'relative', zIndex:1, borderTop: isMobile ? '1px solid rgba(7,127,191,0.2)' : 'none' }}>
+        {/* Connector line (desktop) */}
+        {!isMobile && <div style={{ position:'absolute', top:38, left:'10%', right:'10%', height:1, background:'linear-gradient(90deg, transparent, #c6d4e2 20%, #c6d4e2 80%, transparent)', zIndex:0, pointerEvents:'none' }}/>}
 
-        {CT_STEPS.map((s, i) => <StepCard key={s.n} s={s} i={i} spanFull={isMobile && CT_STEPS.length % 2 === 1 && i === CT_STEPS.length - 1}/>)}
+        {CT_STEPS.map((s, i) => <StepCard key={s.n} s={s} i={i} spanFull={false} isOpen={openIdx===i} onToggle={() => setOpenIdx(openIdx===i ? -1 : i)}/>)}
       </div>
 
       {/* CTA */}

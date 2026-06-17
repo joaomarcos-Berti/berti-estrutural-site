@@ -110,7 +110,7 @@ function HomeHero({
             opacity: i === idx ? 1 : 0,
             transition: 'opacity 1500ms ease-in-out',
           }}>
-            <img src={f.src} alt="" style={{
+            <img src={f.src} alt="" loading={i === 0 ? 'eager' : 'lazy'} fetchPriority={i === 0 ? 'high' : 'low'} style={{
               width: '100%', height: '100%', objectFit: 'cover',
               transform: (!isMobile && i === idx) ? 'scale(1.08)' : 'scale(1)',
               transition: isMobile ? 'none' : `transform ${cycleMs + 1500}ms linear`,
