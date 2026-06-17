@@ -27,8 +27,8 @@ const CT_STEPS = [
     title:'Cálculo & Modelagem BIM',
     body:'Softwares avançados de engenharia calculam e modelam em BIM cada peça — listas de fabricação geradas para encaixe perfeito.',
     note:'cálculo estrutural + modelagem BIM',
-    img:'assets/process/bim-float.png',
-    alt:'Modelo BIM estrutural',
+    img:'assets/process/cad-monitor.jpg',
+    alt:'Engenheiro modelando a estrutura em BIM',
     href:'Empresa.html#proc-2',
   },
   {
@@ -90,8 +90,8 @@ function StepCard({ s, i, spanFull, isOpen, onToggle }) {
         {isOpen && (
           <div style={{ padding:'0 2px 22px' }}>
             <img src={s.img} alt={s.alt} loading="lazy" style={{
-              width:'100%', height:190, objectFit: s.n==='03' ? 'contain' : 'cover',
-              borderRadius:8, marginBottom:12, background: s.n==='03' ? '#0e1b24' : '#eef3f8', display:'block',
+              width:'100%', height:190, objectFit:'cover',
+              borderRadius:8, marginBottom:12, background:'#eef3f8', display:'block',
             }} />
             <p style={{ margin:0, fontSize:14.5, lineHeight:1.6, color:'#4a606e' }}>{s.body}</p>
             <a href={s.href} style={{ display:'inline-block', marginTop:10, fontFamily:'"Barlow Condensed",sans-serif', fontWeight:700, fontSize:12.5, letterSpacing:'0.1em', textTransform:'uppercase', color:'#077fbf', textDecoration:'none' }}>ver etapa →</a>
@@ -131,7 +131,7 @@ function StepCard({ s, i, spanFull, isOpen, onToggle }) {
       }}>
         {/* Polaroid frame */}
         <div style={{
-          background: s.n==='03' ? '#0e1b24' : '#fff',
+          background: '#fff',
           padding:'10px 10px 12px',
           borderRadius:3,
           boxShadow:'0 20px 48px -14px rgba(16,33,44,.55), 0 2px 0 rgba(16,33,44,.04)',
@@ -151,13 +151,13 @@ function StepCard({ s, i, spanFull, isOpen, onToggle }) {
             src={s.img} alt={s.alt} loading="lazy"
             style={{
               display:'block', width:'100%', height:130,
-              objectFit: s.n==='03' ? 'contain' : 'cover',
+              objectFit:'cover',
               borderRadius:1,
             }}
           />
           <div style={{
             fontFamily:'Caveat, cursive',
-            color: s.n==='03' ? '#47b6f1' : '#1853b8',
+            color: '#1853b8',
             fontWeight:700, fontSize:17, lineHeight:1.25,
             paddingTop:8, textAlign:'center',
           }}>
