@@ -72,12 +72,10 @@ function HomeMapa() {
       markersRef.current = markers;
       mapRef.current = map;
 
-      if (obras.length === 1) {
-        map.setView([obras[0].lat, obras[0].lng], 14);
-      } else {
-        const group = L.featureGroup(Object.values(markers));
-        try { map.fitBounds(group.getBounds().pad(0.3)); } catch (e) {}
-      }
+      // Abre sempre centralizado em Londrina (maior concentração de obras).
+      // As demais (Arapongas, Cornélio etc.) seguem plotadas e acessíveis pela
+      // lista lateral, que dá flyTo na obra clicada.
+      map.setView([-23.3299, -51.1816], 12);
       // Corrige dimensionamento dentro do container flex
       setTimeout(function () { map.invalidateSize(); }, 250);
     };

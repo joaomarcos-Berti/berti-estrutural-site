@@ -96,7 +96,7 @@ function HomeHero({
   return (
     <section id="top" style={{
       position: 'relative',
-      height: '100vh', minHeight: 720,
+      height: isMobile ? 'auto' : '100vh', minHeight: isMobile ? '100vh' : 720,
       width: '100%', overflow: 'hidden',
       background: '#000', color: '#fff',
       fontFamily: '"Open Sans", system-ui, sans-serif',
@@ -139,10 +139,10 @@ function HomeHero({
         position: 'relative', zIndex: 5,
         height: '100%',
         display: 'flex',
-        alignItems: 'center',
+        alignItems: isMobile ? 'flex-start' : 'center',
         justifyContent: isMobile ? 'flex-start' : 'space-between',
         gap: isMobile ? 0 : 'clamp(24px, 3vw, 56px)',
-        padding: '120px 0 80px',
+        padding: isMobile ? '96px 0 64px' : '120px 0 80px',
         maxWidth: 1540,
         margin: '0 auto',
         // Folga lateral pra o título não colar na borda
