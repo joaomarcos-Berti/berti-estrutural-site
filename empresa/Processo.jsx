@@ -169,7 +169,7 @@ function ProcessPanel({ s, index }) {
 
         {/* TEXT */}
         <div ref={textRef} style={{ position:'relative', display:'flex', flexDirection:'column', gap:18, willChange:'transform,opacity', order: isMobile ? 1 : (isLeft ? 2 : 1) }}>
-          <span style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, color:'transparent', WebkitTextStroke:'2px rgba(24,83,184,0.16)', letterSpacing:'-0.02em', lineHeight:0.8, userSelect:'none', fontSize:'clamp(120px,15vw,230px)', position:'absolute', top:'-0.42em', left:'-0.06em', zIndex:-1 }}>{s.n}</span>
+          <span style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, color:'transparent', WebkitTextStroke:'2px rgba(24,83,184,0.16)', letterSpacing:'-0.02em', lineHeight:0.8, userSelect:'none', fontSize: isMobile ? 'clamp(96px,30vw,150px)' : 'clamp(120px,15vw,230px)', position:'absolute', top: isMobile ? '0' : '-0.42em', left:'-0.06em', zIndex:-1 }}>{s.n}</span>
           <div style={{ display:'flex', alignItems:'center', gap:14 }}>
             <div style={{ width:46, height:46, flexShrink:0, display:'grid', placeItems:'center', fontFamily:'Caveat, cursive', fontWeight:700, fontSize:26, color:'#1853b8', position:'relative' }}>
               {s.n}<CircleScribble/>
