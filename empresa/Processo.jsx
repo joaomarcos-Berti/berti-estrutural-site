@@ -200,6 +200,7 @@ function ProcessPanel({ s, index }) {
 }
 
 function EmpresaProcesso() {
+  const isMobile = useMobile();
   const [active, setActive] = useState(0);
 
   useEffect(() => {
@@ -270,7 +271,7 @@ function EmpresaProcesso() {
       </main>
 
       {/* Outro */}
-      <footer style={{ position:'relative', zIndex:2, minHeight:'56vh', display:'flex', flexDirection:'column', justifyContent:'center', gap:22, padding:'9vh clamp(24px,5vw,84px) 13vh calc(max(48px,5vw) + 40px)' }}>
+      <footer style={{ position:'relative', zIndex:2, minHeight: isMobile ? '0' : '56vh', display:'flex', flexDirection:'column', justifyContent:'center', gap:22, padding: isMobile ? '6vh 24px 10vh 24px' : '9vh clamp(24px,5vw,84px) 13vh calc(max(48px,5vw) + 40px)' }}>
         <div style={{ fontFamily:'Caveat, cursive', color:'#1853b8', fontSize:'clamp(26px,3vw,44px)', fontWeight:700, lineHeight:1, transform:'rotate(-2deg)', display:'inline-block' }}>e o resultado…</div>
         <h2 style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, textTransform:'uppercase', fontSize:'clamp(30px,4vw,58px)', lineHeight:1, color:'#10212c', margin:0, maxWidth:'18ch' }}>
           Estrutura <em style={{ fontStyle:'normal', color:'#077fbf' }}>numerada, parafusada</em> e entregue no prazo.
