@@ -164,12 +164,12 @@ function ProcessPanel({ s, index }) {
   }, [isLeft]);
 
   return (
-    <section id={'proc-' + index} style={{ position:'relative', minHeight: isMobile ? '0' : '74vh', display:'flex', alignItems:'center', overflow:'hidden', zIndex:1 }}>
+    <section id={'proc-' + index} style={{ position:'relative', minHeight: isMobile ? '0' : '74vh', display:'flex', alignItems:'center', overflow: isMobile ? 'visible' : 'hidden', zIndex:1 }}>
       <div style={{ width:'100%', maxWidth:1320, margin:'0 auto', padding:'3.5vh clamp(24px,5vw,84px)', display:'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: isMobile ? 'clamp(24px,3vw,48px)' : 'clamp(36px,5vw,84px)', alignItems:'center' }}>
 
         {/* TEXT */}
         <div ref={textRef} style={{ position:'relative', display:'flex', flexDirection:'column', gap:18, willChange:'transform,opacity', order: isMobile ? 1 : (isLeft ? 2 : 1) }}>
-          <span style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, color:'transparent', WebkitTextStroke:'2px rgba(24,83,184,0.16)', letterSpacing:'-0.02em', lineHeight:0.8, userSelect:'none', fontSize: isMobile ? 'clamp(96px,30vw,150px)' : 'clamp(120px,15vw,230px)', position:'absolute', top: isMobile ? '0' : '-0.42em', left:'-0.06em', zIndex:-1 }}>{s.n}</span>
+          <span style={{ fontFamily:'"Barlow Condensed",sans-serif', fontWeight:800, color:'transparent', WebkitTextStroke:'2px rgba(24,83,184,0.16)', letterSpacing:'-0.02em', lineHeight:0.8, userSelect:'none', fontSize: isMobile ? 'clamp(96px,30vw,150px)' : 'clamp(120px,15vw,230px)', position:'absolute', top: isMobile ? '-0.34em' : '-0.42em', left:'-0.06em', zIndex:-1 }}>{s.n}</span>
           <div style={{ display:'flex', alignItems:'center', gap:14 }}>
             <div style={{ width:46, height:46, flexShrink:0, display:'grid', placeItems:'center', fontFamily:'Caveat, cursive', fontWeight:700, fontSize:26, color:'#1853b8', position:'relative' }}>
               {s.n}<CircleScribble/>
