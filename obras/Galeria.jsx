@@ -145,7 +145,7 @@ function ObrasGaleria() {
       </section>
 
       {/* ── FILTRO (botões) ───────────────────────────────────────────── */}
-      <div style={{
+      <div className="obras-filter" style={{
         position: 'sticky', top: 0, zIndex: 50,
         background: 'rgba(8,10,12,0.92)', backdropFilter: 'blur(8px)', WebkitBackdropFilter: 'blur(8px)',
         borderBottom: '1px solid rgba(255,255,255,0.08)',
@@ -156,7 +156,7 @@ function ObrasGaleria() {
           maxWidth: 1340, margin: '0 auto',
           display: 'flex', flexWrap: 'wrap', gap: 10, alignItems: 'center',
         }}>
-          <style>{'@media(max-width:768px){.obras-andamento-btn{margin-left:0 !important}}'}</style>
+          <style>{'@media(max-width:768px){.obras-andamento-btn{margin-left:0 !important}.obras-filter{position:static !important}}'}</style>
           {OBRAS_CATS.map((c) => {
             const on = filter === c.key;
             return (
