@@ -410,6 +410,9 @@ $OBRAS_CSS = @'
   .ocard__seg{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; background:rgba(4,8,12,0.62); color:var(--blue); padding:5px 10px; }
   .ocard__st{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff; display:inline-flex; align-items:center; gap:6px; }
   .ocard__st i{ width:7px; height:7px; border-radius:50%; background:currentColor; display:inline-block; }
+  .badge-live{ display:inline-flex; align-items:center; gap:7px; background:#e11d2a; color:#fff !important; padding:5px 11px; border-radius:5px; font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:800; letter-spacing:0.12em; text-transform:uppercase; box-shadow:0 2px 12px rgba(225,29,42,0.55); }
+  .badge-live i{ width:8px !important; height:8px !important; border-radius:50%; background:#fff !important; display:inline-block; animation:livePulse 1.1s ease-in-out infinite; }
+  @keyframes livePulse{ 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.25; transform:scale(.55); } }
   .ocard__bot{ position:absolute; left:18px; right:18px; bottom:16px; }
   .ocard__bot h3{ font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:26px; line-height:0.98; letter-spacing:-0.01em; text-transform:uppercase; margin:0 0 6px; }
   .ocard__bot .m{ font-size:12.5px; color:rgba(255,255,255,0.78); display:flex; gap:12px; flex-wrap:wrap; }
@@ -510,7 +513,7 @@ foreach($o in $obras){
       <a class="odback" href="/obras">&larr; Todas as obras</a>
       <div class="odhero__seg">$(HtmlEnc $o.catLabel)</div>
       <h1>$(HtmlEnc $o.title)</h1>
-      <div class="odhero__meta">$(if($o.city){"<span>$(HtmlEnc $o.city)</span>"})$(if($o.area){"<span>$(HtmlEnc $o.area)</span>"})$(if($o.status){"<span class=`"st`">$(HtmlEnc $o.status)</span>"})</div>
+      <div class="odhero__meta">$(if($o.city){"<span>$(HtmlEnc $o.city)</span>"})$(if($o.area){"<span>$(HtmlEnc $o.area)</span>"})$(if($isAnd){'<span class="st badge-live"><i></i>Em andamento</span>'}elseif($o.status){"<span class=`"st`">$(HtmlEnc $o.status)</span>"})</div>
     </div></div>
   </section>
   <section class="odbody"><div class="wrap">
@@ -550,12 +553,13 @@ foreach($o in $obras){
   $isAnd = ($o.status -eq 'Em andamento')
   $stat = if($isAnd){ 'andamento' } else { 'feita' }
   $scol = StatusColor $o.status
+  $stBadge = if($isAnd){ '<span class="ocard__st badge-live"><i></i>Em andamento</span>' } else { "<span class=`"ocard__st`" style=`"color:$scol`"><i></i>$(HtmlEnc $o.status)</span>" }
   [void]$ocardsHtml.Append(@"
 <a class="ocard" data-cat="$($o.cat)" data-status="$stat" data-k="$($o._slug)" href="/obras/$($o._slug)">
   <img src="/$($o.cover)" alt="$(AttrEnc $o.title)" loading="lazy" />
   <div class="ocard__sh"></div>
   <div class="ocard__ov"></div>
-  <div class="ocard__top"><span class="ocard__seg">$(HtmlEnc $o.catLabel)</span><span class="ocard__st" style="color:$scol"><i></i>$(HtmlEnc $o.status)</span></div>
+  <div class="ocard__top"><span class="ocard__seg">$(HtmlEnc $o.catLabel)</span>$stBadge</div>
   <div class="ocard__bot"><h3>$(HtmlEnc $o.title)</h3><div class="m">$(if($o.city){"<span>$(HtmlEnc $o.city)</span>"})$(if($o.city -and $o.area){'<span style="opacity:.5">·</span>'})$(if($o.area){"<span>$(HtmlEnc $o.area)</span>"})</div><div class="ocard__go">Ver obra &rarr;</div></div>
 </a>
 "@)
