@@ -47,6 +47,10 @@
   .ocard img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 760ms cubic-bezier(.2,.8,.2,1); }
   .ocard:hover img{ transform:scale(1.07); }
   .ocard__sh{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,0.82) 100%); }
+  .ocard__ov{ position:absolute; inset:0; opacity:0; background:linear-gradient(180deg,rgba(7,127,191,0.12) 0%,rgba(7,127,191,0.32) 100%); transition:opacity 320ms ease; }
+  .ocard:hover .ocard__ov{ opacity:1; }
+  .ocard__go{ margin-top:12px; opacity:0; transform:translateY(8px); transition:opacity 300ms ease, transform 300ms ease; display:inline-flex; align-items:center; gap:8px; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--blue); }
+  .ocard:hover .ocard__go{ opacity:1; transform:translateY(0); }
   .ocard__top{ position:absolute; top:16px; left:16px; right:16px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
   .ocard__seg{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; background:rgba(4,8,12,0.62); color:var(--blue); padding:5px 10px; }
   .ocard__st{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff; display:inline-flex; align-items:center; gap:6px; }

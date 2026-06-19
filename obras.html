@@ -47,6 +47,10 @@
   .ocard img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 760ms cubic-bezier(.2,.8,.2,1); }
   .ocard:hover img{ transform:scale(1.07); }
   .ocard__sh{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,0.82) 100%); }
+  .ocard__ov{ position:absolute; inset:0; opacity:0; background:linear-gradient(180deg,rgba(7,127,191,0.12) 0%,rgba(7,127,191,0.32) 100%); transition:opacity 320ms ease; }
+  .ocard:hover .ocard__ov{ opacity:1; }
+  .ocard__go{ margin-top:12px; opacity:0; transform:translateY(8px); transition:opacity 300ms ease, transform 300ms ease; display:inline-flex; align-items:center; gap:8px; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--blue); }
+  .ocard:hover .ocard__go{ opacity:1; transform:translateY(0); }
   .ocard__top{ position:absolute; top:16px; left:16px; right:16px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
   .ocard__seg{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; background:rgba(4,8,12,0.62); color:var(--blue); padding:5px 10px; }
   .ocard__st{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff; display:inline-flex; align-items:center; gap:6px; }
@@ -152,182 +156,225 @@
     </div>
   </section>
   <div class="ofilter"><div class="in"><button class=" on" data-f="todas">Todas<span class="n">23</span></button><button class="" data-f="supermercado">Supermercado<span class="n">8</span></button><button class="" data-f="industrial">Industrial<span class="n">6</span></button><button class="" data-f="comercial">Comercial<span class="n">9</span></button><button class="amd" data-f="andamento"><i style="width:8px;height:8px;border-radius:50%;background:var(--blue);display:inline-block"></i>Em andamento<span class="n">11</span></button></div></div>
-  <section class="owrap"><div class="ogrid" id="ogrid"><a class="ocard" data-cat="comercial" data-status="andamento" href="/obras/sixmall">
+  <section class="owrap"><div class="ogrid" id="ogrid"><a class="ocard" data-cat="comercial" data-status="andamento" data-k="sixmall" href="/obras/sixmall">
   <img src="/assets/photos/1781204261182-whatsapp-image-2026-06-02-at-135133.jpeg" alt="SixMall" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:var(--blue)"><i></i>Em andamento</span></div>
-  <div class="ocard__bot"><h3>SixMall</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>7.541 m²</span></div></div>
-</a><a class="ocard" data-cat="industrial" data-status="andamento" href="/obras/demobile">
+  <div class="ocard__bot"><h3>SixMall</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>7.541 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="industrial" data-status="andamento" data-k="demobile" href="/obras/demobile">
   <img src="/assets/photos/1781524251524-foto-10-06-2025-11-57-25.jpg" alt="Demobile" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Industrial</span><span class="ocard__st" style="color:var(--blue)"><i></i>Em andamento</span></div>
-  <div class="ocard__bot"><h3>Demobile</h3><div class="m"><span>Arapongas PR</span><span style="opacity:.5">·</span><span>20.385 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="andamento" href="/obras/novo-mall-raul-fulgencio">
+  <div class="ocard__bot"><h3>Demobile</h3><div class="m"><span>Arapongas PR</span><span style="opacity:.5">·</span><span>20.385 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="andamento" data-k="novo-mall-raul-fulgencio" href="/obras/novo-mall-raul-fulgencio">
   <img src="/assets/photos/1781527070813-whatsapp-image-2026-05-14-at-160656.jpeg" alt="Novo Mall Raul Fulgencio" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:var(--blue)"><i></i>Em andamento</span></div>
-  <div class="ocard__bot"><h3>Novo Mall Raul Fulgencio</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>1.407 m²</span></div></div>
-</a><a class="ocard" data-cat="industrial" data-status="andamento" href="/obras/comtrafo">
+  <div class="ocard__bot"><h3>Novo Mall Raul Fulgencio</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>1.407 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="industrial" data-status="andamento" data-k="comtrafo" href="/obras/comtrafo">
   <img src="/assets/photos/1781529524608-imagem17.png" alt="Comtrafo" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Industrial</span><span class="ocard__st" style="color:var(--blue)"><i></i>Em andamento</span></div>
-  <div class="ocard__bot"><h3>Comtrafo</h3><div class="m"><span>Cornélio Procópio-PR</span><span style="opacity:.5">·</span><span>11.220 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="andamento" href="/obras/alameda-bela-suica">
+  <div class="ocard__bot"><h3>Comtrafo</h3><div class="m"><span>Cornélio Procópio-PR</span><span style="opacity:.5">·</span><span>11.220 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="andamento" data-k="alameda-bela-suica" href="/obras/alameda-bela-suica">
   <img src="/assets/photos/1781529474013-dji0228.jpg" alt="Alameda Bela Suíça" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:var(--blue)"><i></i>Em andamento</span></div>
-  <div class="ocard__bot"><h3>Alameda Bela Suíça</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>360 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="andamento" href="/obras/girabens-mall">
+  <div class="ocard__bot"><h3>Alameda Bela Suíça</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>360 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="andamento" data-k="girabens-mall" href="/obras/girabens-mall">
   <img src="/assets/photos/1781549740758-dji0974.jpg" alt="GIRABENS MALL" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:var(--blue)"><i></i>Em andamento</span></div>
-  <div class="ocard__bot"><h3>GIRABENS MALL</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>3.280 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="andamento" href="/obras/comercial-auguri">
+  <div class="ocard__bot"><h3>GIRABENS MALL</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>3.280 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="andamento" data-k="comercial-auguri" href="/obras/comercial-auguri">
   <img src="/assets/photos/1781529138647-dji0409.jpg" alt="Comercial Auguri" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:var(--blue)"><i></i>Em andamento</span></div>
-  <div class="ocard__bot"><h3>Comercial Auguri</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>855 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="andamento" href="/obras/mall-itamar">
+  <div class="ocard__bot"><h3>Comercial Auguri</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>855 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="andamento" data-k="mall-itamar" href="/obras/mall-itamar">
   <img src="/assets/photos/1781529381760-dji0208.jpg" alt="Mall Itamar" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:var(--blue)"><i></i>Em andamento</span></div>
-  <div class="ocard__bot"><h3>Mall Itamar</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>980 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="andamento" href="/obras/mall-santos">
+  <div class="ocard__bot"><h3>Mall Itamar</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>980 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="andamento" data-k="mall-santos" href="/obras/mall-santos">
   <img src="/assets/photos/1781530293472-captura-de-tela-2026-06-15-103118.png" alt="Mall Santos" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:var(--blue)"><i></i>Em andamento</span></div>
-  <div class="ocard__bot"><h3>Mall Santos</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>492 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="andamento" href="/obras/mall-arthur-thomas">
+  <div class="ocard__bot"><h3>Mall Santos</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>492 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="andamento" data-k="mall-arthur-thomas" href="/obras/mall-arthur-thomas">
   <img src="/assets/photos/1781530937605-captura-de-tela-2026-06-15-104207.png" alt="Mall Arthur Thomas" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:var(--blue)"><i></i>Em andamento</span></div>
-  <div class="ocard__bot"><h3>Mall Arthur Thomas</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>2.995 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="andamento" href="/obras/passarela-catuai">
+  <div class="ocard__bot"><h3>Mall Arthur Thomas</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>2.995 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="andamento" data-k="passarela-catuai" href="/obras/passarela-catuai">
   <img src="/assets/photos/1781532565347-design-sem-nome.jpg" alt="Passarela Catuai" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:var(--blue)"><i></i>Em andamento</span></div>
-  <div class="ocard__bot"><h3>Passarela Catuai</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>150 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="feita" href="/obras/skymall">
+  <div class="ocard__bot"><h3>Passarela Catuai</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>150 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="feita" data-k="skymall" href="/obras/skymall">
   <img src="/assets/photos/1781548985206-dji-skymall.jpg" alt="SKYMALL" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>SKYMALL</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>3.500 m²</span></div></div>
-</a><a class="ocard" data-cat="industrial" data-status="feita" href="/obras/comercial-ivaipora">
+  <div class="ocard__bot"><h3>SKYMALL</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>3.500 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="industrial" data-status="feita" data-k="comercial-ivaipora" href="/obras/comercial-ivaipora">
   <img src="/assets/photos/comercial-ivaipora-capa.jpg" alt="Comercial Ivaiporã" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Industrial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Comercial Ivaiporã</h3><div class="m"><span>Ivaiporã - PR</span><span style="opacity:.5">·</span><span>17.000m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="feita" href="/obras/tropical-mall">
+  <div class="ocard__bot"><h3>Comercial Ivaiporã</h3><div class="m"><span>Ivaiporã - PR</span><span style="opacity:.5">·</span><span>17.000m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="feita" data-k="tropical-mall" href="/obras/tropical-mall">
   <img src="/assets/photos/tropical-mall-capa.jpg" alt="Tropical Mall" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Tropical Mall</h3><div class="m"><span>Cambé – PR</span><span style="opacity:.5">·</span><span>2.700 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="feita" href="/obras/biggs">
+  <div class="ocard__bot"><h3>Tropical Mall</h3><div class="m"><span>Cambé – PR</span><span style="opacity:.5">·</span><span>2.700 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="feita" data-k="biggs" href="/obras/biggs">
   <img src="/assets/photos/1781550294446-dji0365.jpg" alt="Biggs" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Biggs</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>412 m²</span></div></div>
-</a><a class="ocard" data-cat="supermercado" data-status="feita" href="/obras/supermercado-hmais">
+  <div class="ocard__bot"><h3>Biggs</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>412 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="supermercado" data-status="feita" data-k="supermercado-hmais" href="/obras/supermercado-hmais">
   <img src="/assets/photos/supermercado-hmais-capa.jpg" alt="Supermercado Hmais" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Supermercado</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Supermercado Hmais</h3><div class="m"><span>Palmeira – PR</span><span style="opacity:.5">·</span><span>3.105 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="feita" href="/obras/carbamall">
+  <div class="ocard__bot"><h3>Supermercado Hmais</h3><div class="m"><span>Palmeira – PR</span><span style="opacity:.5">·</span><span>3.105 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="feita" data-k="carbamall" href="/obras/carbamall">
   <img src="/assets/photos/carbamall-capa.jpg" alt="Carbamall" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Carbamall</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>2.700 m²</span></div></div>
-</a><a class="ocard" data-cat="supermercado" data-status="feita" href="/obras/supermercado-camilo">
+  <div class="ocard__bot"><h3>Carbamall</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>2.700 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="supermercado" data-status="feita" data-k="supermercado-camilo" href="/obras/supermercado-camilo">
   <img src="/assets/photos/supermercado-camilo-capa.jpg" alt="Supermercado Camilo" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Supermercado</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Supermercado Camilo</h3><div class="m"><span>Marialva PR</span><span style="opacity:.5">·</span><span>9.000 m²</span></div></div>
-</a><a class="ocard" data-cat="industrial" data-status="feita" href="/obras/transportadora-falcao">
+  <div class="ocard__bot"><h3>Supermercado Camilo</h3><div class="m"><span>Marialva PR</span><span style="opacity:.5">·</span><span>9.000 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="industrial" data-status="feita" data-k="transportadora-falcao" href="/obras/transportadora-falcao">
   <img src="/assets/photos/transportadora-falcao-capa.jpeg" alt="Transportadora Falcão" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Industrial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Transportadora Falcão</h3><div class="m"><span>Uruguaiana - RS</span><span style="opacity:.5">·</span><span>6.100m²</span></div></div>
-</a><a class="ocard" data-cat="supermercado" data-status="feita" href="/obras/muffato-apucarana">
+  <div class="ocard__bot"><h3>Transportadora Falcão</h3><div class="m"><span>Uruguaiana - RS</span><span style="opacity:.5">·</span><span>6.100m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="supermercado" data-status="feita" data-k="muffato-apucarana" href="/obras/muffato-apucarana">
   <img src="/assets/photos/muffato-apucarana-capa.jpg" alt="Muffato Apucarana" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Supermercado</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Muffato Apucarana</h3><div class="m"><span>Apucarana – PR</span><span style="opacity:.5">·</span><span>7.300 m²</span></div></div>
-</a><a class="ocard" data-cat="industrial" data-status="feita" href="/obras/viacao-garcia">
+  <div class="ocard__bot"><h3>Muffato Apucarana</h3><div class="m"><span>Apucarana – PR</span><span style="opacity:.5">·</span><span>7.300 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="industrial" data-status="feita" data-k="viacao-garcia" href="/obras/viacao-garcia">
   <img src="/assets/photos/viacao-garcia-capa.jpg" alt="Viação Garcia" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Industrial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Viação Garcia</h3><div class="m"><span>Londrina - PR</span><span style="opacity:.5">·</span><span>18.000m²</span></div></div>
-</a><a class="ocard" data-cat="industrial" data-status="feita" href="/obras/fast-gondolas">
+  <div class="ocard__bot"><h3>Viação Garcia</h3><div class="m"><span>Londrina - PR</span><span style="opacity:.5">·</span><span>18.000m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="industrial" data-status="feita" data-k="fast-gondolas" href="/obras/fast-gondolas">
   <img src="/assets/photos/fast-gondolas-capa.jpg" alt="Fast Gôndolas" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Industrial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Fast Gôndolas</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>13.000 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="feita" href="/obras/balaroti">
+  <div class="ocard__bot"><h3>Fast Gôndolas</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>13.000 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="feita" data-k="balaroti" href="/obras/balaroti">
   <img src="/assets/photos/balaroti-capa.jpg" alt="Balaroti" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Balaroti</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>2.000 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="feita" href="/obras/inga-mall">
+  <div class="ocard__bot"><h3>Balaroti</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>2.000 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="feita" data-k="inga-mall" href="/obras/inga-mall">
   <img src="/assets/photos/inga-mall-capa.jpg" alt="Inga Mall" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Inga Mall</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>3.095 m²</span></div></div>
-</a><a class="ocard" data-cat="supermercado" data-status="feita" href="/obras/muffato-beltrao">
+  <div class="ocard__bot"><h3>Inga Mall</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>3.095 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="supermercado" data-status="feita" data-k="muffato-beltrao" href="/obras/muffato-beltrao">
   <img src="/assets/photos/muffato-beltrao-capa.jpg" alt="Muffato Beltrão" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Supermercado</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Muffato Beltrão</h3><div class="m"><span>Francisco Beltrão – PR</span><span style="opacity:.5">·</span><span>8.600 m²</span></div></div>
-</a><a class="ocard" data-cat="supermercado" data-status="feita" href="/obras/bavaresco">
+  <div class="ocard__bot"><h3>Muffato Beltrão</h3><div class="m"><span>Francisco Beltrão – PR</span><span style="opacity:.5">·</span><span>8.600 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="supermercado" data-status="feita" data-k="bavaresco" href="/obras/bavaresco">
   <img src="/assets/photos/bavaresco-capa.jpg" alt="Bavaresco" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Supermercado</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Bavaresco</h3><div class="m"><span>Pontal do Paraná – PR</span><span style="opacity:.5">·</span><span>9.000 m²</span></div></div>
-</a><a class="ocard" data-cat="industrial" data-status="feita" href="/obras/nipponflex-espumacao">
+  <div class="ocard__bot"><h3>Bavaresco</h3><div class="m"><span>Pontal do Paraná – PR</span><span style="opacity:.5">·</span><span>9.000 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="industrial" data-status="feita" data-k="nipponflex-espumacao" href="/obras/nipponflex-espumacao">
   <img src="/assets/photos/nippon-capa.jpg" alt="Nipponflex Espumação" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Industrial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Nipponflex Espumação</h3><div class="m"><span>Maringá – PR</span><span style="opacity:.5">·</span><span>15.000 m²</span></div></div>
-</a><a class="ocard" data-cat="industrial" data-status="feita" href="/obras/tic-curitiba">
+  <div class="ocard__bot"><h3>Nipponflex Espumação</h3><div class="m"><span>Maringá – PR</span><span style="opacity:.5">·</span><span>15.000 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="industrial" data-status="feita" data-k="tic-curitiba" href="/obras/tic-curitiba">
   <img src="/assets/photos/tic-curitiba-capa.jpg" alt="TIC Curitiba" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Industrial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>TIC Curitiba</h3><div class="m"><span>Curitiba – PR</span><span style="opacity:.5">·</span><span>6.780 m²</span></div></div>
-</a><a class="ocard" data-cat="supermercado" data-status="feita" href="/obras/muffato-medianeira">
+  <div class="ocard__bot"><h3>TIC Curitiba</h3><div class="m"><span>Curitiba – PR</span><span style="opacity:.5">·</span><span>6.780 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="supermercado" data-status="feita" data-k="muffato-medianeira" href="/obras/muffato-medianeira">
   <img src="/assets/photos/muffato-medianeira-capa.jpg" alt="Muffato Medianeira" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Supermercado</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Muffato Medianeira</h3><div class="m"><span>Medianeira – PR</span><span style="opacity:.5">·</span><span>11.100 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="feita" href="/obras/chacara-graciosa">
+  <div class="ocard__bot"><h3>Muffato Medianeira</h3><div class="m"><span>Medianeira – PR</span><span style="opacity:.5">·</span><span>11.100 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="feita" data-k="chacara-graciosa" href="/obras/chacara-graciosa">
   <img src="/assets/photos/chacara-graciosa-capa.jpg" alt="Chácara Graciosa" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Chácara Graciosa</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>1.000 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="feita" href="/obras/millenium-mall">
+  <div class="ocard__bot"><h3>Chácara Graciosa</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>1.000 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="feita" data-k="millenium-mall" href="/obras/millenium-mall">
   <img src="/assets/photos/millenium-mall-capa.jpg" alt="Millenium Mall" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Millenium Mall</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>1.750 m²</span></div></div>
-</a><a class="ocard" data-cat="supermercado" data-status="feita" href="/obras/super-golff">
+  <div class="ocard__bot"><h3>Millenium Mall</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>1.750 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="supermercado" data-status="feita" data-k="super-golff" href="/obras/super-golff">
   <img src="/assets/photos/super-golff-01.jpg" alt="Super Golff" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Supermercado</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Super Golff</h3><div class="m"><span>Cambé – PR</span><span style="opacity:.5">·</span><span>4.600 m²</span></div></div>
-</a><a class="ocard" data-cat="supermercado" data-status="feita" href="/obras/super-88">
+  <div class="ocard__bot"><h3>Super Golff</h3><div class="m"><span>Cambé – PR</span><span style="opacity:.5">·</span><span>4.600 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="supermercado" data-status="feita" data-k="super-88" href="/obras/super-88">
   <img src="/assets/photos/super-88-capa.jpg" alt="Super 88" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Supermercado</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Super 88</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>6.500 m²</span></div></div>
-</a><a class="ocard" data-cat="comercial" data-status="feita" href="/obras/jeep-maringa">
+  <div class="ocard__bot"><h3>Super 88</h3><div class="m"><span>Londrina – PR</span><span style="opacity:.5">·</span><span>6.500 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
+</a><a class="ocard" data-cat="comercial" data-status="feita" data-k="jeep-maringa" href="/obras/jeep-maringa">
   <img src="/assets/photos/jeep-maringa-capa.jpg" alt="Jeep Maringá" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">Comercial</span><span class="ocard__st" style="color:rgba(255,255,255,0.9)"><i></i>Entregue</span></div>
-  <div class="ocard__bot"><h3>Jeep Maringá</h3><div class="m"><span>Maringá – PR</span><span style="opacity:.5">·</span><span>1.800 m²</span></div></div>
+  <div class="ocard__bot"><h3>Jeep Maringá</h3><div class="m"><span>Maringá – PR</span><span style="opacity:.5">·</span><span>1.800 m²</span></div><div class="ocard__go">Ver obra &rarr;</div></div>
 </a></div></section>
 </main>
 <script>
-(function(){var btns=document.querySelectorAll('.ofilter button'),cards=document.querySelectorAll('#ogrid .ocard');
- btns.forEach(function(b){b.addEventListener('click',function(){btns.forEach(function(x){x.classList.remove('on')});b.classList.add('on');
-   var f=b.getAttribute('data-f');cards.forEach(function(c){var show=(f==='todas')||(f==='andamento'?c.getAttribute('data-status')==='andamento':c.getAttribute('data-cat')===f);c.style.display=show?'':'none';});});});})();
+(function(){var btns=document.querySelectorAll('.ofilter button'),cards=Array.prototype.slice.call(document.querySelectorAll('#ogrid .ocard'));
+ function shown(c,f){return (f==='todas')||(f==='andamento'?c.getAttribute('data-status')==='andamento':c.getAttribute('data-cat')===f);}
+ function applyFilter(f){
+   var first={}; cards.forEach(function(c){ if(c.style.display!=='none') first[c.getAttribute('data-k')]=c.getBoundingClientRect(); });
+   cards.forEach(function(c){ c.style.display=shown(c,f)?'':'none'; });
+   cards.forEach(function(c){ if(c.style.display==='none')return; var k=c.getAttribute('data-k'),last=c.getBoundingClientRect(),f0=first[k];
+     if(f0){ var dx=f0.left-last.left, dy=f0.top-last.top; if(dx||dy){ c.style.transition='none'; c.style.transform='translate('+dx+'px,'+dy+'px)'; requestAnimationFrame(function(){ c.style.transition='transform 520ms cubic-bezier(.2,.85,.25,1)'; c.style.transform=''; }); } }
+     else { c.style.transition='none'; c.style.opacity='0'; c.style.transform='scale(.94)'; requestAnimationFrame(function(){ c.style.transition='opacity 460ms ease, transform 460ms ease'; c.style.opacity='1'; c.style.transform=''; }); }
+   });
+ }
+ btns.forEach(function(b){b.addEventListener('click',function(){btns.forEach(function(x){x.classList.remove('on')});b.classList.add('on');applyFilter(b.getAttribute('data-f'));});});
+})();
 </script>
 <footer class="ft">
   <div class="ft__grid">

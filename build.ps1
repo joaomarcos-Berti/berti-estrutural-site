@@ -402,6 +402,10 @@ $OBRAS_CSS = @'
   .ocard img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:transform 760ms cubic-bezier(.2,.8,.2,1); }
   .ocard:hover img{ transform:scale(1.07); }
   .ocard__sh{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,0.82) 100%); }
+  .ocard__ov{ position:absolute; inset:0; opacity:0; background:linear-gradient(180deg,rgba(7,127,191,0.12) 0%,rgba(7,127,191,0.32) 100%); transition:opacity 320ms ease; }
+  .ocard:hover .ocard__ov{ opacity:1; }
+  .ocard__go{ margin-top:12px; opacity:0; transform:translateY(8px); transition:opacity 300ms ease, transform 300ms ease; display:inline-flex; align-items:center; gap:8px; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--blue); }
+  .ocard:hover .ocard__go{ opacity:1; transform:translateY(0); }
   .ocard__top{ position:absolute; top:16px; left:16px; right:16px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
   .ocard__seg{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; background:rgba(4,8,12,0.62); color:var(--blue); padding:5px 10px; }
   .ocard__st{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff; display:inline-flex; align-items:center; gap:6px; }
@@ -547,11 +551,12 @@ foreach($o in $obras){
   $stat = if($isAnd){ 'andamento' } else { 'feita' }
   $scol = StatusColor $o.status
   [void]$ocardsHtml.Append(@"
-<a class="ocard" data-cat="$($o.cat)" data-status="$stat" href="/obras/$($o._slug)">
+<a class="ocard" data-cat="$($o.cat)" data-status="$stat" data-k="$($o._slug)" href="/obras/$($o._slug)">
   <img src="/$($o.cover)" alt="$(AttrEnc $o.title)" loading="lazy" />
   <div class="ocard__sh"></div>
+  <div class="ocard__ov"></div>
   <div class="ocard__top"><span class="ocard__seg">$(HtmlEnc $o.catLabel)</span><span class="ocard__st" style="color:$scol"><i></i>$(HtmlEnc $o.status)</span></div>
-  <div class="ocard__bot"><h3>$(HtmlEnc $o.title)</h3><div class="m">$(if($o.city){"<span>$(HtmlEnc $o.city)</span>"})$(if($o.city -and $o.area){'<span style="opacity:.5">·</span>'})$(if($o.area){"<span>$(HtmlEnc $o.area)</span>"})</div></div>
+  <div class="ocard__bot"><h3>$(HtmlEnc $o.title)</h3><div class="m">$(if($o.city){"<span>$(HtmlEnc $o.city)</span>"})$(if($o.city -and $o.area){'<span style="opacity:.5">·</span>'})$(if($o.area){"<span>$(HtmlEnc $o.area)</span>"})</div><div class="ocard__go">Ver obra &rarr;</div></div>
 </a>
 "@)
 }
@@ -576,9 +581,18 @@ $oindexMain = @"
   <section class="owrap"><div class="ogrid" id="ogrid">$($ocardsHtml.ToString())</div></section>
 </main>
 <script>
-(function(){var btns=document.querySelectorAll('.ofilter button'),cards=document.querySelectorAll('#ogrid .ocard');
- btns.forEach(function(b){b.addEventListener('click',function(){btns.forEach(function(x){x.classList.remove('on')});b.classList.add('on');
-   var f=b.getAttribute('data-f');cards.forEach(function(c){var show=(f==='todas')||(f==='andamento'?c.getAttribute('data-status')==='andamento':c.getAttribute('data-cat')===f);c.style.display=show?'':'none';});});});})();
+(function(){var btns=document.querySelectorAll('.ofilter button'),cards=Array.prototype.slice.call(document.querySelectorAll('#ogrid .ocard'));
+ function shown(c,f){return (f==='todas')||(f==='andamento'?c.getAttribute('data-status')==='andamento':c.getAttribute('data-cat')===f);}
+ function applyFilter(f){
+   var first={}; cards.forEach(function(c){ if(c.style.display!=='none') first[c.getAttribute('data-k')]=c.getBoundingClientRect(); });
+   cards.forEach(function(c){ c.style.display=shown(c,f)?'':'none'; });
+   cards.forEach(function(c){ if(c.style.display==='none')return; var k=c.getAttribute('data-k'),last=c.getBoundingClientRect(),f0=first[k];
+     if(f0){ var dx=f0.left-last.left, dy=f0.top-last.top; if(dx||dy){ c.style.transition='none'; c.style.transform='translate('+dx+'px,'+dy+'px)'; requestAnimationFrame(function(){ c.style.transition='transform 520ms cubic-bezier(.2,.85,.25,1)'; c.style.transform=''; }); } }
+     else { c.style.transition='none'; c.style.opacity='0'; c.style.transform='scale(.94)'; requestAnimationFrame(function(){ c.style.transition='opacity 460ms ease, transform 460ms ease'; c.style.opacity='1'; c.style.transform=''; }); }
+   });
+ }
+ btns.forEach(function(b){b.addEventListener('click',function(){btns.forEach(function(x){x.classList.remove('on')});b.classList.add('on');applyFilter(b.getAttribute('data-f'));});});
+})();
 </script>
 "@
 $oindexHtml = RenderPage @{ title='Obras — Estrutura metálica | Berti Estrutural'; desc='Portfólio de obras em estrutura metálica: supermercados, comercial e industrial. Veja a engenharia de cada projeto da Berti Estrutural.'; canon="$SITE/obras"; ogtype='website'; ogtitle='Obras — Berti Estrutural'; ogimg="$SITE/assets/photos/aerial.jpg"; extrahead=($obrasJsonld + $OBRAS_CSS); main=$oindexMain }
