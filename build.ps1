@@ -1265,7 +1265,7 @@ $HOME_CSS = @"
   $PARCEIROS_CSS
   @media(max-width:980px){
     .e3stage{ display:none; } .e3__adv{ display:grid; grid-template-columns:1fr; } .e3__note{ display:block; text-align:center; margin-top:18px; padding:13px 14px; border:1.5px solid rgba(7,127,191,0.4); border-radius:8px; color:var(--blue-dark); font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; }
-    .mp__grid{ grid-template-columns:1fr; } .mp__list{ flex-direction:row; max-height:none; overflow-x:auto; border-right:none; } .mp__it{ flex:0 0 240px; }
+    .mp__grid{ grid-template-columns:1fr; } .mp__list{ flex-direction:row; max-height:none; overflow-x:auto; border-right:none; } .mp__it{ flex:0 0 240px; } #mp_map{ min-height:300px; }
     .ct__grid{ grid-template-columns:repeat(2,1fr); gap:32px 20px; } .ct__pop{ display:none; } .ct__b{ opacity:1; max-height:none; } .ct__more{ display:none; }
     .cg__head{ grid-template-columns:1fr; gap:20px; } .cg__head p{ justify-self:start; } .cg__grid{ grid-template-columns:1fr; }
     .dp__grid{ grid-template-columns:1fr; }
@@ -1492,7 +1492,7 @@ $homeMain = @"
   var MAP=[$($mapData.ToString())];
   function initMap(){
     if(!window.L||!document.getElementById('mp_map')){return;}
-    var map=L.map('mp_map',{zoomControl:false,scrollWheelZoom:false}).setView([-23.3299,-51.1816],12);
+    var map=L.map('mp_map',{zoomControl:false,scrollWheelZoom:false,dragging:window.innerWidth>900}).setView([-23.3299,-51.1816],12);
     L.control.zoom({position:'bottomright'}).addTo(map);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:20}).addTo(map);
     var mk=[];
