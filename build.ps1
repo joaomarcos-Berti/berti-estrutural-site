@@ -1492,7 +1492,7 @@ $homeMain = @"
   var MAP=[$($mapData.ToString())];
   function initMap(){
     if(!window.L||!document.getElementById('mp_map')){return;}
-    var map=L.map('mp_map',{zoomControl:false,scrollWheelZoom:false,dragging:window.innerWidth>900}).setView([-23.3299,-51.1816],12);
+    var map=L.map('mp_map',{zoomControl:false,scrollWheelZoom:false}).setView([-23.3299,-51.1816],12);
     L.control.zoom({position:'bottomright'}).addTo(map);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:20}).addTo(map);
     var mk=[];
