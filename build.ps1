@@ -481,11 +481,7 @@ $OBRAS_CSS = @'
 
 # cor do status (pontinho) por tipo
 function StatusColor([string]$st){ if($st -eq 'Em andamento' -or $st -eq 'Em obra'){ 'var(--blue)' } elseif($st -eq 'Em projeto'){ '#c9a227' } else { 'rgba(255,255,255,0.9)' } }
-function ObraDesc($o){
-  if($o.desc -and $o.desc.Trim() -ne ''){ return ($o.desc.Trim() -replace '\s+',' ') }
-  $seg=$o.catLabel.ToLower(); $loc=if($o.city){" em $($o.city)"}else{''}; $ar=if($o.area){" com $($o.area) de estrutura metálica"}else{''}
-  return "$($o.title) é uma obra do segmento $seg executada pela Berti Estrutural$loc$ar. Projeto, fabricação e montagem com ligações parafusadas e detalhamento em BIM."
-}
+function ObraDesc($o){ if($o.desc -and $o.desc.Trim() -ne ''){ return ($o.desc.Trim() -replace '\s+',' ') } return '' }
 
 # ---- detalhe de cada OBRA ----
 foreach($o in $obras){
@@ -502,17 +498,10 @@ foreach($o in $obras){
   if($o.area){ [void]$fatos.Append("<div><div class=`"k`">Area</div><div class=`"v`">$(HtmlEnc $o.area)</div></div>") }
   if($o.status){ [void]$fatos.Append("<div><div class=`"k`">Status</div><div class=`"v`">$(HtmlEnc $o.status)</div></div>") }
 
-  # descricao: usa a do JSON; se vazia, gera uma a partir dos fatos
-  $descTxt = ''
-  if($o.desc -and $o.desc.Trim() -ne ''){ $descTxt = $o.desc.Trim() }
-  else {
-    $seg = $o.catLabel.ToLower()
-    $loc = if($o.city){ " em $($o.city)" } else { '' }
-    $ar  = if($o.area){ " com $($o.area) de estrutura metálica" } else { '' }
-    $st  = if($isAnd){ ' Obra atualmente em andamento.' } else { '' }
-    $descTxt = "$($o.title) é uma obra do segmento $seg executada pela Berti Estrutural$loc$ar. Projeto, fabricação e montagem de estrutura metálica com ligações parafusadas e detalhamento em BIM.$st"
-  }
-  $descMeta = if($o.desc -and $o.desc.Trim() -ne ''){ ($o.desc.Trim() -replace '\s+',' ') } else { "$($o.title) — estrutura metálica $($o.catLabel.ToLower())$(if($o.city){ ' em ' + $o.city })$(if($o.area){ ' · ' + $o.area }). Projeto, fabricação e montagem pela Berti Estrutural." }
+  # descricao: SOMENTE o que foi editado no /admin (vazio = vazio, sem texto inventado)
+  $descTxt = if($o.desc -and $o.desc.Trim() -ne ''){ ($o.desc.Trim() -replace '\s+',' ') } else { '' }
+  # meta (snippet do Google, invisivel na pagina): usa a descricao se houver; senao, apenas os dados reais da obra
+  $descMeta = if($o.desc -and $o.desc.Trim() -ne ''){ ($o.desc.Trim() -replace '\s+',' ') } else { "$($o.title) — $($o.catLabel)$(if($o.city){ ' · ' + $o.city })$(if($o.area){ ' · ' + $o.area }) · Berti Estrutural" }
   if($descMeta.Length -gt 300){ $descMeta = $descMeta.Substring(0,297) + '...' }
 
   # galeria (capa + gallery, sem repetir a capa)
@@ -551,7 +540,7 @@ foreach($o in $obras){
   </section>
   <section class="odbody"><div class="wrap">
     <div class="ofatos">$($fatos.ToString())</div>
-    <div class="oprose"><p>$(HtmlEnc $descTxt)</p></div>
+    $(if($descTxt){"<div class=`"oprose`"><p>$(HtmlEnc $descTxt)</p></div>"})
     $ytSection
     $galSection
     <div class="odcta"><strong>Tem um projeto parecido?</strong><a href="/contato">Solicitar orçamento <span>&rarr;</span></a></div>
@@ -653,7 +642,7 @@ var OBRAS={$($lbData.ToString())};
     var specs=''; if(o.c)specs+='<div><div class="k">Cidade</div><div class="v">'+o.c+'</div></div>'; if(o.a)specs+='<div><div class="k">Area</div><div class="v">'+o.a+'</div></div>'; if(o.st)specs+='<div><div class="k">Status</div><div class="v">'+o.st+'</div></div>';
     var yid=ytId(o.y); var yt=yid?'<div class="olb__yt"><iframe src="https://www.youtube-nocookie.com/embed/'+yid+'?rel=0" title="Video da obra" allowfullscreen></iframe></div>':'';
     var live=o.and?'<span class="badge-live"><i></i>Em andamento</span>':'';
-    panel.innerHTML='<div class="olb__imgside"><div class="olb__imgwrap"><img class="olb__img" id="olb_img" src="'+(imgs[0]||'')+'" alt="'+o.t+'"/><span class="olb__seg">'+o.seg+'</span></div>'+thumbs+'</div>'+'<div class="olb__ficha"><div class="olb__city">'+(o.c||'')+live+'</div><h3>'+o.t+'</h3><p class="olb__desc">'+o.d+'</p><div class="olb__specs">'+specs+'</div>'+yt+'<div><a class="olb__cta" href="/contato">Quero uma obra assim <span>&rarr;</span></a><a class="olb__full" href="/obras/'+slug+'">Ver pagina completa</a></div></div>';
+    panel.innerHTML='<div class="olb__imgside"><div class="olb__imgwrap"><img class="olb__img" id="olb_img" src="'+(imgs[0]||'')+'" alt="'+o.t+'"/><span class="olb__seg">'+o.seg+'</span></div>'+thumbs+'</div>'+'<div class="olb__ficha"><div class="olb__city">'+(o.c||'')+live+'</div><h3>'+o.t+'</h3>'+(o.d?'<p class="olb__desc">'+o.d+'</p>':'')+'<div class="olb__specs">'+specs+'</div>'+yt+'<div><a class="olb__cta" href="/contato">Quero uma obra assim <span>&rarr;</span></a><a class="olb__full" href="/obras/'+slug+'">Ver pagina completa</a></div></div>';
     var ths=panel.querySelectorAll('.olb__th'),mi=document.getElementById('olb_img');
     for(var i=0;i<ths.length;i++){(function(b){b.addEventListener('click',function(){mi.src=imgs[+b.getAttribute('data-i')];for(var j=0;j<ths.length;j++)ths[j].classList.remove('on');b.classList.add('on');});})(ths[i]);}
   }
