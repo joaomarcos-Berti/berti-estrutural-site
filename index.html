@@ -80,8 +80,27 @@
   .h2{ font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(32px,3.6vw,52px); line-height:0.96; letter-spacing:-0.02em; text-transform:uppercase; margin:0; color:var(--ink); }
   /* ESTRUTURA 3D */
   .e3{ background:#fff; }
-  .e3 model-viewer{ width:100%; height:560px; background:transparent; --poster-color:transparent; }
-  .e3__adv{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:24px; }
+  .e3stage{ position:relative; width:100%; height:620px; margin-top:8px; }
+  .e3stage model-viewer{ position:absolute; inset:0; width:100%; height:100%; z-index:1; background:transparent; --poster-color:transparent; }
+  .e3shadow{ position:absolute; left:50%; bottom:70px; width:720px; max-width:90%; height:110px; transform:translateX(-50%); background:radial-gradient(ellipse at center, rgba(6,25,34,0.13), rgba(6,25,34,0)); filter:blur(6px); z-index:0; }
+  .e3photo{ position:absolute; right:-6px; top:0; z-index:5; transform:rotate(2.5deg); pointer-events:none; }
+  .e3photo .tape1{ position:absolute; left:14px; top:-13px; width:78px; height:26px; background:rgba(71,182,241,0.32); transform:rotate(-25deg); }
+  .e3photo .tape2{ position:absolute; right:12px; top:-13px; width:78px; height:26px; background:rgba(71,182,241,0.32); transform:rotate(23deg); }
+  .e3photo .fr{ background:#fff; padding:11px 11px 9px; border-radius:2px; box-shadow:0 16px 32px rgba(6,25,34,0.22); }
+  .e3photo img{ width:256px; height:156px; object-fit:cover; display:block; }
+  .e3photo .cap{ font-family:'Caveat',cursive; font-weight:700; font-size:27px; color:#061922; text-align:center; margin-top:7px; line-height:1; }
+  .e3photo .cap b{ color:#077fbf; }
+  .e3arrow{ position:absolute; z-index:2; pointer-events:none; overflow:visible; filter:drop-shadow(0 0 3px rgba(255,255,255,0.95)); }
+  .e3ann{ position:absolute; z-index:3; pointer-events:none; }
+  .e3ann .big{ font-family:'Caveat',cursive; font-weight:700; font-size:40px; line-height:1.08; color:#061922; }
+  .e3ann .hl{ box-shadow:inset 0 -0.28em 0 0 rgba(71,182,241,0.55); border-radius:2px; }
+  .e3ann .sub{ font-family:'Open Sans',sans-serif; font-size:15px; color:#5b6b75; margin-top:7px; }
+  .e3ann.a1{ left:0; top:50px; width:340px; } .e3ann.a1 .sub{ max-width:300px; }
+  .e3ann.a2{ right:0; bottom:56px; width:280px; text-align:right; } .e3ann.a2 .sub{ margin-left:auto; max-width:260px; }
+  .e3ann.a3{ left:0; bottom:56px; width:300px; } .e3ann.a3 .sub{ max-width:280px; }
+  .e3hint{ position:absolute; left:50%; bottom:6px; transform:translateX(-50%); z-index:4; display:inline-flex; align-items:center; gap:9px; padding:9px 18px; background:#fff; border:1.5px solid rgba(7,127,191,0.25); border-radius:999px; box-shadow:0 6px 18px rgba(6,25,34,0.08); pointer-events:none; }
+  .e3hint span{ font-family:'Caveat',cursive; font-weight:700; font-size:24px; color:#077fbf; line-height:1; }
+  .e3__adv{ display:none; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:24px; }
   .e3__c{ display:flex; gap:14px; align-items:flex-start; }
   .e3__c .ic{ flex-shrink:0; width:44px; height:44px; border-radius:11px; background:rgba(71,182,241,0.14); display:flex; align-items:center; justify-content:center; }
   .e3__c b{ font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:18px; text-transform:uppercase; color:var(--ink); display:block; line-height:1.1; margin-bottom:4px; }
@@ -93,7 +112,8 @@
   .mp__list{ padding:14px; display:flex; flex-direction:column; gap:10px; max-height:560px; overflow-y:auto; border-right:1px solid rgba(6,25,34,.08); }
   .mp__it{ display:flex; cursor:pointer; border-radius:12px; overflow:hidden; border:1.5px solid rgba(6,25,34,.12); text-decoration:none; color:inherit; }
   .mp__it:hover{ box-shadow:0 6px 16px rgba(6,25,34,.14); }
-  .mp__it img{ flex:0 0 100px; height:84px; object-fit:cover; background:#dfe6ec; }
+  .mp__it{ min-height:86px; }
+  .mp__it img{ flex:0 0 100px; align-self:stretch; min-height:86px; object-fit:cover; background:#dfe6ec; }
   .mp__it .tx{ padding:10px 12px; display:flex; flex-direction:column; justify-content:center; }
   .mp__it .tag{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:9.5px; letter-spacing:.12em; text-transform:uppercase; color:var(--blue-dark); margin-bottom:4px; }
   .mp__it h3{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:16px; text-transform:uppercase; color:var(--ink); margin:0; line-height:1.08; }
@@ -102,12 +122,22 @@
   .ct{ background:#fbfcfe; background-image:linear-gradient(#d5e3f4 1px,transparent 1px),linear-gradient(90deg,#d5e3f4 1px,transparent 1px),linear-gradient(#eaf0f8 1px,transparent 1px),linear-gradient(90deg,#eaf0f8 1px,transparent 1px); background-size:120px 120px,120px 120px,24px 24px,24px 24px; text-align:center; }
   .ct__hand{ font-family:'Caveat',cursive; color:#1853b8; font-size:clamp(22px,2.4vw,34px); font-weight:700; transform:rotate(-2deg); display:inline-block; margin-bottom:14px; }
   .ct__grid{ display:grid; grid-template-columns:repeat(5,1fr); gap:clamp(12px,2vw,28px); max-width:1280px; margin:48px auto 0; text-align:center; }
-  .ct__s{ display:flex; flex-direction:column; align-items:center; text-decoration:none; color:inherit; }
-  .ct__n{ width:72px; height:72px; border-radius:50%; border:2px solid #c6d4e2; background:#fff; display:flex; align-items:center; justify-content:center; font-family:'Caveat',cursive; font-weight:700; font-size:26px; color:#1853b8; margin-bottom:16px; }
-  .ct__s:hover .ct__n{ background:#077fbf; color:#fff; border-color:#077fbf; }
+  .ct__s{ position:relative; display:flex; flex-direction:column; align-items:center; text-decoration:none; color:inherit; transition:transform 300ms cubic-bezier(.2,.8,.2,1); }
+  .ct__s:hover{ transform:translateY(-8px); z-index:10; }
+  .ct__n{ width:72px; height:72px; border-radius:50%; border:2px solid #c6d4e2; background:#fff; display:flex; align-items:center; justify-content:center; font-family:'Caveat',cursive; font-weight:700; font-size:26px; color:#1853b8; margin-bottom:16px; transition:all 280ms ease; }
+  .ct__s:hover .ct__n{ background:#077fbf; color:#fff; border-color:#077fbf; box-shadow:0 12px 28px -10px rgba(7,127,191,0.5); }
   .ct__w{ font-family:'Barlow Condensed',sans-serif; font-weight:700; text-transform:uppercase; letter-spacing:0.05em; font-size:13px; color:#077fbf; border-bottom:1px dashed rgba(7,127,191,0.5); padding-bottom:2px; margin-bottom:9px; }
   .ct__t{ font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase; font-size:clamp(15px,1.3vw,19px); line-height:1.05; color:#10212c; margin-bottom:10px; }
-  .ct__b{ font-size:14px; line-height:1.55; color:#4a606e; max-width:210px; }
+  .ct__b{ font-size:14px; line-height:1.55; color:#4a606e; max-width:210px; opacity:0; max-height:0; overflow:hidden; transition:opacity .25s ease, max-height .3s ease; }
+  .ct__s:hover .ct__b{ opacity:1; max-height:260px; }
+  .ct__pop{ position:absolute; bottom:calc(100% + 12px); left:50%; transform:translateX(-50%) translateY(24px); opacity:0; pointer-events:none; width:220px; z-index:20; transition:opacity 260ms ease, transform 300ms cubic-bezier(.2,.8,.2,1); }
+  .ct__s:hover .ct__pop{ opacity:1; transform:translateX(-50%) translateY(0); }
+  .ct__pop .fr{ position:relative; background:#fff; padding:10px 10px 12px; border-radius:3px; box-shadow:0 20px 48px -14px rgba(16,33,44,.55); }
+  .ct__pop .fr:before{ content:''; position:absolute; top:-12px; left:50%; transform:translateX(-50%) rotate(-2deg); width:90px; height:24px; background:rgba(71,182,241,.22); border-left:1px dashed rgba(7,127,191,.35); border-right:1px dashed rgba(7,127,191,.35); }
+  .ct__pop .fr img{ display:block; width:100%; height:130px; object-fit:cover; border-radius:1px; }
+  .ct__pop .nt{ font-family:'Caveat',cursive; color:#1853b8; font-weight:700; font-size:17px; text-align:center; padding-top:8px; line-height:1.25; }
+  .ct__more{ opacity:0; max-height:0; overflow:hidden; transition:opacity .25s ease, max-height .3s ease; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:12px; letter-spacing:.12em; text-transform:uppercase; color:#077fbf; }
+  .ct__s:hover .ct__more{ opacity:1; max-height:24px; margin-top:10px; }
   /* CATEGORIAS */
   .cg{ background:#f4f1ea; }
   .cg__head{ display:grid; grid-template-columns:1fr 1.4fr; gap:64px; align-items:end; max-width:1440px; margin:0 auto 48px; }
@@ -116,8 +146,12 @@
   .cg__c{ background:#fff; text-decoration:none; color:inherit; overflow:hidden; transition:transform 280ms ease, box-shadow 280ms ease; display:block; }
   .cg__c:hover{ transform:translateY(-6px); box-shadow:0 24px 60px -20px rgba(7,61,87,0.35); }
   .cg__img{ position:relative; height:320px; overflow:hidden; background:#000; }
-  .cg__img img{ width:100%; height:100%; object-fit:cover; transition:transform 700ms ease; }
-  .cg__c:hover .cg__img img{ transform:scale(1.06); }
+  .cg__img img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; transition:opacity 500ms ease, transform 700ms ease; }
+  .cg__img .hov{ opacity:0; }
+  .cg__c:hover .cg__img .base{ opacity:0; transform:scale(1.06); }
+  .cg__c:hover .cg__img .hov{ opacity:1; transform:scale(1.06); }
+  .cg__go i{ transition:transform 240ms ease; }
+  .cg__c:hover .cg__go i{ transform:translateX(6px); }
   .cg__sh{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(0,0,0,0) 30%,rgba(0,0,0,0.55)); }
   .cg__num{ position:absolute; left:22px; top:22px; font-family:'Barlow Condensed',sans-serif; font-size:14px; font-weight:700; letter-spacing:0.22em; color:var(--blue); text-transform:uppercase; }
   .cg__ti{ position:absolute; left:22px; right:22px; bottom:22px; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:38px; line-height:0.95; text-transform:uppercase; color:#fff; }
@@ -182,9 +216,9 @@
   .pc__i img:hover{ opacity:0.85; filter:grayscale(0%); }
   @keyframes pc-marquee{ from{ transform:translateX(0); } to{ transform:translateX(-50%); } }
   @media(max-width:980px){
-    .e3__adv{ grid-template-columns:1fr; } .e3 model-viewer{ display:none; } .e3__note{ display:block; text-align:center; margin-top:18px; padding:13px 14px; border:1.5px solid rgba(7,127,191,0.4); border-radius:8px; color:var(--blue-dark); font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; }
+    .e3stage{ display:none; } .e3__adv{ display:grid; grid-template-columns:1fr; } .e3__note{ display:block; text-align:center; margin-top:18px; padding:13px 14px; border:1.5px solid rgba(7,127,191,0.4); border-radius:8px; color:var(--blue-dark); font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:12.5px; letter-spacing:0.06em; text-transform:uppercase; }
     .mp__grid{ grid-template-columns:1fr; } .mp__list{ flex-direction:row; max-height:none; overflow-x:auto; border-right:none; } .mp__it{ flex:0 0 240px; }
-    .ct__grid{ grid-template-columns:repeat(2,1fr); gap:32px 20px; }
+    .ct__grid{ grid-template-columns:repeat(2,1fr); gap:32px 20px; } .ct__pop{ display:none; } .ct__b{ opacity:1; max-height:none; } .ct__more{ display:none; }
     .cg__head{ grid-template-columns:1fr; gap:20px; } .cg__head p{ justify-self:start; } .cg__grid{ grid-template-columns:1fr; }
     .dp__grid{ grid-template-columns:1fr; }
     .yt__grid{ grid-template-columns:1fr; } .yt__side{ display:none; }
@@ -201,7 +235,10 @@
   .nav{ position:fixed; top:0; left:0; right:0; z-index:100; color:#fff; display:flex; align-items:center; justify-content:space-between; padding:18px 64px; background:transparent; border-bottom:1px solid transparent; transition:background 240ms ease, border-color 240ms ease; }
   .nav.solid{ background:rgba(8,10,12,0.96); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,0.06); }
   .nav__logo{ display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
-  .nav__logo img{ height:44px; display:block; }
+  .nav__logo img{ height:44px; display:block; flex-shrink:0; }
+  .nav__wordmark{ display:inline-block; overflow:hidden; white-space:nowrap; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:22px; letter-spacing:0.05em; text-transform:uppercase; color:#fff; line-height:1; width:0; opacity:0; margin-left:0; transition:width 280ms ease, opacity 220ms ease 60ms, margin-left 280ms ease; }
+  .nav__wordmark b{ color:var(--blue); }
+  .nav__logo:hover .nav__wordmark{ width:215px; opacity:1; margin-left:14px; }
   .nav__links{ display:flex; gap:36px; font-size:12.5px; letter-spacing:0.12em; text-transform:uppercase; }
   .nav__links a{ color:rgba(255,255,255,0.82); text-decoration:none; transition:color 180ms ease; }
   .nav__links a:hover{ color:#fff; }
@@ -214,6 +251,7 @@
   .nav__mobile .nav__cta{ text-align:center; margin-top:16px; padding:16px 24px; font-size:13px; }
   @media(max-width:900px){
     .nav{ padding:14px 20px; } .nav__logo img{ height:36px; }
+    .nav__wordmark{ width:auto !important; opacity:1 !important; margin-left:12px !important; font-size:19px; }
     .nav__links{ display:none; } .nav__burger{ display:flex; }
     .nav.open .nav__mobile{ display:flex; }
     .nav.open .nav__burger span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
@@ -232,7 +270,7 @@
 </head>
 <body>
 <header class="nav" id="nav">
-  <a class="nav__logo" href="/"><img src="/assets/logo-be-mark.png" alt="Berti Estrutural" /></a>
+  <a class="nav__logo" href="/"><img src="/assets/logo-be-mark.png" alt="Berti Estrutural" /><span class="nav__wordmark">BERTI <b>ESTRUTURAL</b></span></a>
   <nav class="nav__links">
     <a href="/">Home</a><a href="/empresa">Empresa</a><a href="/obras">Obras</a><a href="/blog">Blog</a><a href="/contato">Contato</a>
     <a class="nav__cta" href="/contato">Solicitar Orçamento</a>
@@ -274,7 +312,18 @@
     <div style="max-width:1200px;margin:0 auto">
       <div class="eye"><span></span>Galpões em aço · modelo 3D</div>
       <h2 class="h2" style="font-weight:900;font-size:clamp(40px,5vw,56px)">A estrutura<br/>por dentro.</h2>
-      <model-viewer src="/assets/3d/palladium.glb" alt="Estrutura metálica Palladium — Berti Estrutural" camera-controls auto-rotate auto-rotate-delay="0" rotation-per-second="18deg" interaction-prompt="none" field-of-view="30deg" camera-orbit="35deg 75deg 72%" shadow-intensity="0.6" exposure="1.15" tone-mapping="neutral" environment-image="legacy" loading="lazy"></model-viewer>
+      <div class="e3stage">
+        <div class="e3shadow"></div>
+        <model-viewer src="/assets/3d/palladium.glb" alt="Estrutura metálica Palladium — Berti Estrutural" camera-controls disable-zoom auto-rotate auto-rotate-delay="0" rotation-per-second="18deg" interaction-prompt="none" field-of-view="30deg" camera-orbit="35deg 75deg 72%" shadow-intensity="0.6" exposure="1.15" tone-mapping="neutral" environment-image="legacy" loading="lazy"></model-viewer>
+        <div class="e3photo"><span class="tape1"></span><span class="tape2"></span><div class="fr"><img src="/assets/photos/palladium-aerea.jpg" alt="A mesma estrutura, já construída" loading="lazy" /><div class="cap">A mesma obra, <b>pronta</b></div></div></div>
+        <svg class="e3arrow" width="104" height="78" viewBox="0 0 132 98" fill="none" style="left:214px;top:172px"><path d="M6 10 C50 22 80 44 114 80" stroke="#47b6f1" stroke-width="6.5" stroke-linecap="round"/><path d="M114 80 L94 78 M114 80 L110 58" stroke="#47b6f1" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="e3ann a1"><div class="big"><span class="hl">Sem solda</span>, montagem <span class="hl">rápida</span></div><div class="sub">100% parafusada · execução completa em 120 dias</div></div>
+        <svg class="e3arrow" width="104" height="78" viewBox="0 0 132 98" fill="none" style="right:196px;bottom:150px"><path d="M126 88 C82 76 52 54 18 18" stroke="#47b6f1" stroke-width="6.5" stroke-linecap="round"/><path d="M18 18 L38 20 M18 18 L22 40" stroke="#47b6f1" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="e3ann a2"><div class="big">Mezaninos <span class="hl">mais leves</span></div><div class="sub">estrutura metálica, muito menos peso na obra</div></div>
+        <svg class="e3arrow" width="104" height="78" viewBox="0 0 132 98" fill="none" style="left:196px;bottom:150px"><path d="M6 88 C50 76 80 54 114 18" stroke="#47b6f1" stroke-width="6.5" stroke-linecap="round"/><path d="M114 18 L94 20 M114 18 L110 40" stroke="#47b6f1" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        <div class="e3ann a3"><div class="big">Estrutura <span class="hl">100% em BIM</span></div><div class="sub">cada peça calculada e detalhada antes de fabricar</div></div>
+        <div class="e3hint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="#077fbf" stroke-width="2.4" stroke-linecap="round"/><path d="M20 4v4h-4" stroke="#077fbf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>arraste pra girar</span></div>
+      </div>
       <div class="e3__adv">
         <div class="e3__c"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="#077fbf"><path d="M13 2 L4 14 h6 l-1 8 9-12 h-6 z"/></svg></span><div><b>Sem solda, montagem rápida</b><span>100% parafusada · execução completa em 120 dias</span></div></div>
         <div class="e3__c"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#077fbf" stroke-width="2" stroke-linejoin="round"><path d="M12 2 L21 7 V17 L12 22 L3 17 V7 Z"/><path d="M3 7 L12 12 L21 7"/><path d="M12 12 V22"/></svg></span><div><b>Estrutura 100% em BIM</b><span>cada peça calculada e detalhada antes de fabricar</span></div></div>
@@ -302,11 +351,11 @@
     <h2 class="h2" style="text-align:center">Como <span style="color:#077fbf">trabalhamos</span></h2>
     <p style="max-width:540px;margin:16px auto 0;font-size:16px;line-height:1.58;color:#4a606e">Cinco etapas, um único responsável — do recebimento do projeto à montagem parafusada em obra.</p>
     <div class="ct__grid">
-      <a class="ct__s" href="/empresa"><div class="ct__n">01</div><div class="ct__w">Avaliação</div><div class="ct__t">Avaliação &amp; Recebimento</div><div class="ct__b">O cliente encaminha a proposta e nossa equipe avalia se o projeto se enquadra nos padrões Berti.</div></a>
-      <a class="ct__s" href="/empresa"><div class="ct__n">02</div><div class="ct__w">Orçamento</div><div class="ct__t">Estudo Técnico &amp; Orçamento</div><div class="ct__b">Modelo inicial em realidade virtual com valores, materiais e soluções para redução de custos.</div></a>
-      <a class="ct__s" href="/empresa"><div class="ct__n">03</div><div class="ct__w">BIM</div><div class="ct__t">Cálculo &amp; Modelagem BIM</div><div class="ct__b">Softwares avançados calculam e modelam cada peça — listas de fabricação para encaixe perfeito.</div></a>
-      <a class="ct__s" href="/empresa"><div class="ct__n">04</div><div class="ct__w">Fabricação</div><div class="ct__t">Melhores Fábricas</div><div class="ct__b">Principais fábricas de aço do país — estrutura e cobertura com qualidade e rastreabilidade.</div></a>
-      <a class="ct__s" href="/empresa"><div class="ct__n">05</div><div class="ct__w">Montagem</div><div class="ct__t">Montagem 100% Parafusada</div><div class="ct__b">Peças montadas como um quebra-cabeça — sem solda em campo, com precisão e agilidade.</div></a>
+      <a class="ct__s" href="/empresa"><div class="ct__pop"><div class="fr"><img src="/assets/process/avaliacao-tekla.jpg" alt="" loading="lazy" /><div class="nt">viabilidade + padrão de execução</div></div></div><div class="ct__n">01</div><div class="ct__w">Avaliação</div><div class="ct__t">Avaliação &amp; Recebimento</div><div class="ct__b">O cliente encaminha a proposta e nossa equipe avalia se o projeto se enquadra nos padrões Berti.</div><div class="ct__more">ver etapa &rarr;</div></a>
+      <a class="ct__s" href="/empresa"><div class="ct__pop"><div class="fr"><img src="/assets/process/render-aerea.jpg" alt="" loading="lazy" /><div class="nt">realidade virtual · materiais · custos</div></div></div><div class="ct__n">02</div><div class="ct__w">Orçamento</div><div class="ct__t">Estudo Técnico &amp; Orçamento</div><div class="ct__b">Modelo inicial em realidade virtual com valores, materiais e soluções para redução de custos.</div><div class="ct__more">ver etapa &rarr;</div></a>
+      <a class="ct__s" href="/empresa"><div class="ct__pop"><div class="fr"><img src="/assets/process/bim-float.png" alt="" loading="lazy" /><div class="nt">cálculo estrutural + modelagem BIM</div></div></div><div class="ct__n">03</div><div class="ct__w">BIM</div><div class="ct__t">Cálculo &amp; Modelagem BIM</div><div class="ct__b">Softwares avançados calculam e modelam cada peça — listas de fabricação para encaixe perfeito.</div><div class="ct__more">ver etapa &rarr;</div></a>
+      <a class="ct__s" href="/empresa"><div class="ct__pop"><div class="fr"><img src="/assets/process/obra-aerea.jpg" alt="" loading="lazy" /><div class="nt">fábricas certificadas · estrutura + cobertura</div></div></div><div class="ct__n">04</div><div class="ct__w">Fabricação</div><div class="ct__t">Melhores Fábricas</div><div class="ct__b">Principais fábricas de aço do país — estrutura e cobertura com qualidade e rastreabilidade.</div><div class="ct__more">ver etapa &rarr;</div></a>
+      <a class="ct__s" href="/empresa"><div class="ct__pop"><div class="fr"><img src="/assets/process/estrutura-telhado.jpg" alt="" loading="lazy" /><div class="nt">sem solda · numerado · zero retrabalho</div></div></div><div class="ct__n">05</div><div class="ct__w">Montagem</div><div class="ct__t">Montagem 100% Parafusada</div><div class="ct__b">Peças montadas como um quebra-cabeça — sem solda em campo, com precisão e agilidade.</div><div class="ct__more">ver etapa &rarr;</div></a>
     </div>
     <div style="text-align:center;margin-top:48px"><a href="/empresa" style="font-family:'Barlow Condensed',sans-serif;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;font-size:14px;color:#077fbf;text-decoration:none;border-bottom:1.5px solid #077fbf;padding-bottom:2px">Ver processo completo &nbsp;&rarr;</a></div>
   </section>
@@ -318,9 +367,9 @@
       <p>Soluções personalizadas, com segurança, certificação e excelente custo-benefício. Supermercados, comercial e industrial — três frentes com o mesmo padrão de engenharia BIM, fabricação certificada e montagem 100% parafusada.</p>
     </div>
     <div class="cg__grid">
-      <a class="cg__c" href="/obras"><div class="cg__img"><img src="/assets/portfolio/supermercado-1.webp" alt="Supermercados em estrutura metálica" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">01</div><div class="cg__ti">Supermercados</div></div><div class="cg__bd"><p>Coberturas de grande vão livre, mezaninos e estruturas para varejo de alto fluxo. Obra rápida, com a loja já operando.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
-      <a class="cg__c" href="/obras"><div class="cg__img"><img src="/assets/portfolio/comercial-1.webp" alt="Obras comerciais em estrutura metálica" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">02</div><div class="cg__ti">Comercial</div></div><div class="cg__bd"><p>Showrooms, concessionárias, lojas de materiais e centros logísticos urbanos. Pé-direito generoso e fachada limpa.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
-      <a class="cg__c" href="/obras"><div class="cg__img"><img src="/assets/portfolio/industrial-1.webp" alt="Obras industriais em estrutura metálica" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">03</div><div class="cg__ti">Industrial</div></div><div class="cg__bd"><p>Galpões fabris, plantas industriais e pavilhões logísticos de grande porte. Engenharia para cargas pesadas e operação 24/7.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
+      <a class="cg__c" href="/obras"><div class="cg__img"><img class="base" src="/assets/portfolio/supermercado-1.webp" alt="Supermercados em estrutura metálica" loading="lazy" /><img class="hov" src="/assets/portfolio/supermercado-2.webp" alt="" aria-hidden="true" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">01</div><div class="cg__ti">Supermercados</div></div><div class="cg__bd"><p>Coberturas de grande vão livre, mezaninos e estruturas para varejo de alto fluxo. Obra rápida, com a loja já operando.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
+      <a class="cg__c" href="/obras"><div class="cg__img"><img class="base" src="/assets/portfolio/comercial-1.webp" alt="Obras comerciais em estrutura metálica" loading="lazy" /><img class="hov" src="/assets/portfolio/comercial-2.webp" alt="" aria-hidden="true" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">02</div><div class="cg__ti">Comercial</div></div><div class="cg__bd"><p>Showrooms, concessionárias, lojas de materiais e centros logísticos urbanos. Pé-direito generoso e fachada limpa.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
+      <a class="cg__c" href="/obras"><div class="cg__img"><img class="base" src="/assets/portfolio/industrial-1.webp" alt="Obras industriais em estrutura metálica" loading="lazy" /><img class="hov" src="/assets/portfolio/industrial-2.webp" alt="" aria-hidden="true" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">03</div><div class="cg__ti">Industrial</div></div><div class="cg__bd"><p>Galpões fabris, plantas industriais e pavilhões logísticos de grande porte. Engenharia para cargas pesadas e operação 24/7.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
     </div>
     <div style="text-align:center;margin-top:56px"><a class="btn-ghost" style="color:var(--ink);border-color:var(--ink)" href="/obras">Ver portfólio completo <span>&rarr;</span></a></div>
   </section>

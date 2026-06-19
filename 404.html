@@ -32,7 +32,10 @@
   .nav{ position:fixed; top:0; left:0; right:0; z-index:100; color:#fff; display:flex; align-items:center; justify-content:space-between; padding:18px 64px; background:transparent; border-bottom:1px solid transparent; transition:background 240ms ease, border-color 240ms ease; }
   .nav.solid{ background:rgba(8,10,12,0.96); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,0.06); }
   .nav__logo{ display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
-  .nav__logo img{ height:44px; display:block; }
+  .nav__logo img{ height:44px; display:block; flex-shrink:0; }
+  .nav__wordmark{ display:inline-block; overflow:hidden; white-space:nowrap; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:22px; letter-spacing:0.05em; text-transform:uppercase; color:#fff; line-height:1; width:0; opacity:0; margin-left:0; transition:width 280ms ease, opacity 220ms ease 60ms, margin-left 280ms ease; }
+  .nav__wordmark b{ color:var(--blue); }
+  .nav__logo:hover .nav__wordmark{ width:215px; opacity:1; margin-left:14px; }
   .nav__links{ display:flex; gap:36px; font-size:12.5px; letter-spacing:0.12em; text-transform:uppercase; }
   .nav__links a{ color:rgba(255,255,255,0.82); text-decoration:none; transition:color 180ms ease; }
   .nav__links a:hover{ color:#fff; }
@@ -45,6 +48,7 @@
   .nav__mobile .nav__cta{ text-align:center; margin-top:16px; padding:16px 24px; font-size:13px; }
   @media(max-width:900px){
     .nav{ padding:14px 20px; } .nav__logo img{ height:36px; }
+    .nav__wordmark{ width:auto !important; opacity:1 !important; margin-left:12px !important; font-size:19px; }
     .nav__links{ display:none; } .nav__burger{ display:flex; }
     .nav.open .nav__mobile{ display:flex; }
     .nav.open .nav__burger span:nth-child(1){ transform:translateY(7px) rotate(45deg); }
@@ -63,7 +67,7 @@
 </head>
 <body>
 <header class="nav" id="nav">
-  <a class="nav__logo" href="/"><img src="/assets/logo-be-mark.png" alt="Berti Estrutural" /></a>
+  <a class="nav__logo" href="/"><img src="/assets/logo-be-mark.png" alt="Berti Estrutural" /><span class="nav__wordmark">BERTI <b>ESTRUTURAL</b></span></a>
   <nav class="nav__links">
     <a href="/">Home</a><a href="/empresa">Empresa</a><a href="/obras">Obras</a><a href="/blog">Blog</a><a href="/contato">Contato</a>
     <a class="nav__cta" href="/contato">Solicitar Orçamento</a>
