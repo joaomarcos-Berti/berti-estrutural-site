@@ -406,6 +406,34 @@ $OBRAS_CSS = @'
   .ocard:hover .ocard__ov{ opacity:1; }
   .ocard__go{ margin-top:12px; opacity:0; transform:translateY(8px); transition:opacity 300ms ease, transform 300ms ease; display:inline-flex; align-items:center; gap:8px; font-family:'Barlow Condensed',sans-serif; font-size:13px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--blue); }
   .ocard:hover .ocard__go{ opacity:1; transform:translateY(0); }
+  .olb{ position:fixed; inset:0; z-index:1000; background:rgba(4,8,12,0.92); backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px); display:none; align-items:center; justify-content:center; padding:clamp(16px,4vw,56px); }
+  .olb.on{ display:flex; }
+  .olb__x{ position:absolute; top:22px; right:26px; z-index:3; width:48px; height:48px; border:1px solid rgba(255,255,255,0.25); background:transparent; color:#fff; cursor:pointer; font-size:22px; }
+  .olb__x:hover{ background:var(--blue); color:#000; border-color:var(--blue); }
+  .olb__nav{ position:absolute; top:50%; transform:translateY(-50%); z-index:3; width:54px; height:54px; border-radius:50%; border:1px solid rgba(255,255,255,0.25); background:rgba(4,8,12,0.5); color:#fff; cursor:pointer; font-size:22px; display:flex; align-items:center; justify-content:center; }
+  .olb__nav:hover{ background:var(--blue); color:#000; border-color:var(--blue); }
+  .olb__prev{ left:clamp(8px,2vw,24px); } .olb__next{ right:clamp(8px,2vw,24px); }
+  .olb__panel{ display:grid; grid-template-columns:1.5fr 1fr; max-width:1180px; width:100%; max-height:88vh; background:var(--ink); overflow:hidden; box-shadow:0 40px 120px -30px rgba(0,0,0,0.8); }
+  .olb__imgside{ position:relative; background:#05080c; display:flex; flex-direction:column; min-height:0; }
+  .olb__imgwrap{ position:relative; flex:1; min-height:0; }
+  .olb__img{ position:absolute; inset:0; width:100%; height:100%; object-fit:contain; background:#0a0a0a; display:block; }
+  .olb__seg{ position:absolute; top:18px; left:18px; background:rgba(4,8,12,0.78); color:var(--blue); font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.18em; text-transform:uppercase; padding:7px 13px; }
+  .olb__thumbs{ display:flex; gap:8px; padding:12px; background:#05080c; overflow-x:auto; }
+  .olb__th{ width:84px; height:58px; padding:0; border:none; cursor:pointer; outline:2px solid transparent; outline-offset:-2px; flex-shrink:0; background:#000; opacity:0.55; }
+  .olb__th.on{ outline-color:var(--blue); opacity:1; }
+  .olb__th img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .olb__ficha{ padding:clamp(28px,3vw,44px); color:#fff; overflow-y:auto; }
+  .olb__city{ font-family:'Barlow Condensed',sans-serif; color:var(--blue); font-size:13px; font-weight:700; letter-spacing:0.2em; text-transform:uppercase; margin-bottom:12px; display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+  .olb__ficha h3{ font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(30px,3vw,44px); line-height:0.98; letter-spacing:-0.01em; text-transform:uppercase; margin:0 0 20px; }
+  .olb__desc{ font-size:15.5px; line-height:1.62; color:rgba(255,255,255,0.74); margin:0 0 28px; }
+  .olb__specs{ display:grid; grid-template-columns:1fr 1fr; border-top:1px solid rgba(255,255,255,0.12); }
+  .olb__specs > div{ padding:16px 4px; border-bottom:1px solid rgba(255,255,255,0.12); }
+  .olb__specs .k{ font-size:11px; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.5); font-weight:600; margin-bottom:6px; }
+  .olb__specs .v{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:22px; }
+  .olb__yt{ margin-top:16px; aspect-ratio:16/9; } .olb__yt iframe{ width:100%; height:100%; border:0; }
+  .olb__cta{ display:inline-flex; align-items:center; gap:10px; margin-top:24px; background:var(--blue); color:#000; padding:14px 26px; font-size:12.5px; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; }
+  .olb__full{ display:inline-block; margin-top:14px; margin-left:16px; color:rgba(255,255,255,0.6); font-size:13px; }
+  @media(max-width:860px){ .olb__panel{ grid-template-columns:1fr; max-height:92vh; overflow-y:auto; } .olb__imgwrap{ height:46vh; } .olb__nav{ display:none; } }
   .ocard__top{ position:absolute; top:16px; left:16px; right:16px; display:flex; justify-content:space-between; align-items:flex-start; gap:10px; }
   .ocard__seg{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; background:rgba(4,8,12,0.62); color:var(--blue); padding:5px 10px; }
   .ocard__st{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.1em; text-transform:uppercase; color:#fff; display:inline-flex; align-items:center; gap:6px; }
@@ -453,6 +481,11 @@ $OBRAS_CSS = @'
 
 # cor do status (pontinho) por tipo
 function StatusColor([string]$st){ if($st -eq 'Em andamento' -or $st -eq 'Em obra'){ 'var(--blue)' } elseif($st -eq 'Em projeto'){ '#c9a227' } else { 'rgba(255,255,255,0.9)' } }
+function ObraDesc($o){
+  if($o.desc -and $o.desc.Trim() -ne ''){ return ($o.desc.Trim() -replace '\s+',' ') }
+  $seg=$o.catLabel.ToLower(); $loc=if($o.city){" em $($o.city)"}else{''}; $ar=if($o.area){" com $($o.area) de estrutura metálica"}else{''}
+  return "$($o.title) é uma obra do segmento $seg executada pela Berti Estrutural$loc$ar. Projeto, fabricação e montagem com ligações parafusadas e detalhamento em BIM."
+}
 
 # ---- detalhe de cada OBRA ----
 foreach($o in $obras){
@@ -549,11 +582,15 @@ if($emand.Count -gt 0){
 }
 
 $ocardsHtml = New-Object System.Text.StringBuilder
+$lbData = New-Object System.Text.StringBuilder
 foreach($o in $obras){
   $isAnd = ($o.status -eq 'Em andamento')
   $stat = if($isAnd){ 'andamento' } else { 'feita' }
   $scol = StatusColor $o.status
   $stBadge = if($isAnd){ '<span class="ocard__st badge-live"><i></i>Em andamento</span>' } else { "<span class=`"ocard__st`" style=`"color:$scol`"><i></i>$(HtmlEnc $o.status)</span>" }
+  $imgsLb=@("/$($o.cover)"); if($o.gallery){ foreach($g in $o.gallery){ if($g){ $gg="/$g"; if($imgsLb -notcontains $gg){ $imgsLb+=$gg } } } }
+  $gJs='[' + (($imgsLb | ForEach-Object { '"'+(JsonStr $_)+'"' }) -join ',') + ']'
+  [void]$lbData.Append("`"$($o._slug)`":{t:`"$(JsonStr $o.title)`",c:`"$(JsonStr $o.city)`",a:`"$(JsonStr $o.area)`",st:`"$(JsonStr $o.status)`",seg:`"$(JsonStr $o.catLabel)`",and:$(if($isAnd){'true'}else{'false'}),g:$gJs,d:`"$(JsonStr (ObraDesc $o))`",y:`"$(JsonStr $o.youtube)`"},")
   [void]$ocardsHtml.Append(@"
 <a class="ocard" data-cat="$($o.cat)" data-status="$stat" data-k="$($o._slug)" href="/obras/$($o._slug)">
   <img src="/$($o.cover)" alt="$(AttrEnc $o.title)" loading="lazy" />
@@ -583,6 +620,12 @@ $oindexMain = @"
   </section>
   <div class="ofilter"><div class="in">$($ofilterBtns.ToString())</div></div>
   <section class="owrap"><div class="ogrid" id="ogrid">$($ocardsHtml.ToString())</div></section>
+  <div class="olb" id="olb" aria-hidden="true">
+    <button class="olb__x" id="olb_x" aria-label="Fechar">&times;</button>
+    <button class="olb__nav olb__prev" id="olb_prev" aria-label="Anterior">&larr;</button>
+    <button class="olb__nav olb__next" id="olb_next" aria-label="Próxima">&rarr;</button>
+    <div class="olb__panel" id="olb_panel"></div>
+  </div>
 </main>
 <script>
 (function(){var btns=document.querySelectorAll('.ofilter button'),cards=Array.prototype.slice.call(document.querySelectorAll('#ogrid .ocard'));
@@ -596,6 +639,36 @@ $oindexMain = @"
    });
  }
  btns.forEach(function(b){b.addEventListener('click',function(){btns.forEach(function(x){x.classList.remove('on')});b.classList.add('on');applyFilter(b.getAttribute('data-f'));});});
+})();
+</script>
+<script>
+var OBRAS={$($lbData.ToString())};
+(function(){
+  var olb=document.getElementById('olb'),panel=document.getElementById('olb_panel'),curr=null;
+  if(!olb)return;
+  function ytId(u){ if(!u)return''; var s=String(u); var m=s.match(/(?:youtu\.be\/|v=|embed\/)([^&?#\/]+)/); if(m)return m[1]; return (s.length>0 && s.length<20 && s.indexOf('/')<0)?s:''; }
+  function vis(){ return Array.prototype.slice.call(document.querySelectorAll('#ogrid .ocard')).filter(function(c){return c.style.display!=='none';}).map(function(c){return c.getAttribute('data-k');}); }
+  function render(slug){ var o=OBRAS[slug]; if(!o)return; var imgs=(o.g&&o.g.length)?o.g:[];
+    var thumbs=imgs.length>1?'<div class="olb__thumbs">'+imgs.map(function(g,i){return '<button class="olb__th'+(i===0?' on':'')+'" data-i="'+i+'"><img src="'+g+'" alt=""/></button>';}).join('')+'</div>':'';
+    var specs=''; if(o.c)specs+='<div><div class="k">Cidade</div><div class="v">'+o.c+'</div></div>'; if(o.a)specs+='<div><div class="k">Area</div><div class="v">'+o.a+'</div></div>'; if(o.st)specs+='<div><div class="k">Status</div><div class="v">'+o.st+'</div></div>';
+    var yid=ytId(o.y); var yt=yid?'<div class="olb__yt"><iframe src="https://www.youtube-nocookie.com/embed/'+yid+'?rel=0" title="Video da obra" allowfullscreen></iframe></div>':'';
+    var live=o.and?'<span class="badge-live"><i></i>Em andamento</span>':'';
+    panel.innerHTML='<div class="olb__imgside"><div class="olb__imgwrap"><img class="olb__img" id="olb_img" src="'+(imgs[0]||'')+'" alt="'+o.t+'"/><span class="olb__seg">'+o.seg+'</span></div>'+thumbs+'</div>'+'<div class="olb__ficha"><div class="olb__city">'+(o.c||'')+live+'</div><h3>'+o.t+'</h3><p class="olb__desc">'+o.d+'</p><div class="olb__specs">'+specs+'</div>'+yt+'<div><a class="olb__cta" href="/contato">Quero uma obra assim <span>&rarr;</span></a><a class="olb__full" href="/obras/'+slug+'">Ver pagina completa</a></div></div>';
+    var ths=panel.querySelectorAll('.olb__th'),mi=document.getElementById('olb_img');
+    for(var i=0;i<ths.length;i++){(function(b){b.addEventListener('click',function(){mi.src=imgs[+b.getAttribute('data-i')];for(var j=0;j<ths.length;j++)ths[j].classList.remove('on');b.classList.add('on');});})(ths[i]);}
+  }
+  function openLB(slug,mode){ if(!OBRAS[slug])return; curr=slug; render(slug); olb.classList.add('on'); document.body.style.overflow='hidden';
+    if(mode==='push')history.pushState({lb:slug},'','/obras/'+slug); else if(mode==='replace')history.replaceState({lb:slug},'','/obras/'+slug); }
+  function hide(){ olb.classList.remove('on'); document.body.style.overflow=''; curr=null; panel.innerHTML=''; }
+  function closeLB(){ if(history.state&&history.state.lb)history.back(); else hide(); }
+  function step(d){ if(!curr)return; var v=vis(),i=v.indexOf(curr); if(i<0)return; openLB(v[(i+d+v.length)%v.length],'replace'); }
+  document.getElementById('olb_x').addEventListener('click',closeLB);
+  document.getElementById('olb_prev').addEventListener('click',function(){step(-1);});
+  document.getElementById('olb_next').addEventListener('click',function(){step(1);});
+  olb.addEventListener('click',function(e){if(e.target===olb)closeLB();});
+  document.addEventListener('keydown',function(e){if(!olb.classList.contains('on'))return;if(e.key==='Escape')closeLB();else if(e.key==='ArrowRight')step(1);else if(e.key==='ArrowLeft')step(-1);});
+  window.addEventListener('popstate',function(e){if(e.state&&e.state.lb)openLB(e.state.lb,'none');else if(olb.classList.contains('on'))hide();});
+  document.querySelectorAll('#ogrid .ocard').forEach(function(c){c.addEventListener('click',function(e){e.preventDefault();openLB(c.getAttribute('data-k'),'push');});});
 })();
 </script>
 "@
