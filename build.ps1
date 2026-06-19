@@ -819,7 +819,13 @@ $EMPRESA_CSS = @"
   .pr__intro h2{ font-family:'Barlow Condensed',sans-serif; font-weight:800; text-transform:uppercase; font-size:clamp(36px,4.8vw,68px); line-height:0.98; margin:0 0 16px; letter-spacing:-0.01em; }
   .pr__intro h2 em{ font-style:normal; color:#077fbf; }
   .pr__intro p{ max-width:52ch; margin:0 auto; font-size:clamp(16px,1.2vw,19px); line-height:1.6; color:#4a606e; }
-  .pstep{ max-width:1320px; margin:0 auto; padding:clamp(28px,4vh,52px) clamp(24px,5vw,84px); display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px,5vw,84px); align-items:center; }
+  .pstep{ max-width:1320px; margin:0 auto; padding:clamp(28px,4vh,52px) clamp(24px,5vw,84px); min-height:72vh; display:grid; grid-template-columns:1fr 1fr; gap:clamp(36px,5vw,84px); align-items:center; }
+  .pstep:nth-of-type(even) .ptext{ order:2; }
+  .pstep:nth-of-type(even) .pmedia{ order:1; }
+  .pr.anim .ptext{ opacity:0; transform:translateY(24px); transition:opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
+  .pr.anim .pmedia{ opacity:0; transform:translateX(48px); transition:opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+  .pr.anim .pstep:nth-of-type(even) .pmedia{ transform:translateX(-48px); }
+  .pr.anim .pstep.in .ptext, .pr.anim .pstep.in .pmedia{ opacity:1; transform:none; }
   .ptext{ position:relative; display:flex; flex-direction:column; gap:18px; }
   .pghost{ position:absolute; top:-0.42em; left:-0.06em; z-index:0; font-family:'Barlow Condensed',sans-serif; font-weight:800; color:transparent; -webkit-text-stroke:2px rgba(24,83,184,0.16); letter-spacing:-0.02em; line-height:0.8; font-size:clamp(120px,15vw,230px); user-select:none; }
   .ptext > *{ position:relative; z-index:1; }
@@ -875,7 +881,7 @@ $EMPRESA_CSS = @"
   .df__stats .k{ font-size:12px; letter-spacing:0.16em; text-transform:uppercase; color:rgba(255,255,255,0.5); margin-top:10px; font-weight:600; }
   $PARCEIROS_CSS
   @media(max-width:900px){
-    .pstep{ grid-template-columns:1fr; gap:clamp(20px,3vw,40px); }
+    .pstep{ grid-template-columns:1fr; gap:clamp(20px,3vw,40px); min-height:auto; } .pstep .ptext{ order:0 !important; } .pstep .pmedia{ order:1 !important; }
     .pframe img{ height:min(40vh,360px); }
     .df__grid{ grid-template-columns:1fr; }
     .df__stats{ grid-template-columns:1fr; }
@@ -983,7 +989,13 @@ $empresaMain = @"
 (function(){var fr=document.querySelectorAll('.eh__f'),dt=document.querySelectorAll('#eh_dots button'),i=0;
  function go(n){i=n;fr.forEach(function(f,k){f.classList.toggle('on',k===i);});dt.forEach(function(d,k){d.classList.toggle('on',k===i);});}
  dt.forEach(function(d){d.addEventListener('click',function(){go(+d.getAttribute('data-i'));});});
- setInterval(function(){go((i+1)%fr.length);},6000);})();
+ setInterval(function(){go((i+1)%fr.length);},6000);
+ var pr=document.querySelector('.pr');
+ if(pr && 'IntersectionObserver' in window){ pr.classList.add('anim');
+   var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}});},{threshold:0.18});
+   document.querySelectorAll('.pstep').forEach(function(p){io.observe(p);});
+ }
+})();
 </script>
 "@
 $empresaHtml = RenderPage @{ title='A Empresa — Engenharia em estrutura metálica | Berti Estrutural'; desc='A estrutura por trás de grandes obras. Engenharia, fabricação e montagem de estruturas metálicas — do modelo BIM à peça instalada. Desde 2009, em Londrina-PR.'; canon="$SITE/empresa"; ogtype='website'; ogtitle='A Empresa — Berti Estrutural'; ogimg="$SITE/assets/photos/hero-01.jpg"; extrahead=($empresaLd + $FONTS_CAVEAT + $EMPRESA_CSS); main=$empresaMain }
