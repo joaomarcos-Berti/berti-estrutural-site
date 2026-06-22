@@ -4,7 +4,8 @@
 # Uso:  powershell -ExecutionPolicy Bypass -File build.ps1
 # ============================================================================
 $ErrorActionPreference = 'Stop'
-$SITE = 'https://www.bertiestrutural.com.br'
+# No dia da virada do dominio, trocar para: https://www.bertiestrutural.com.br
+$SITE = 'https://berti-estrutural-site.pages.dev'
 $root = if (Test-Path (Join-Path $PSScriptRoot 'content')) { $PSScriptRoot } else { Join-Path $PSScriptRoot 'repo' }
 $enc  = New-Object System.Text.UTF8Encoding($false)   # UTF-8 sem BOM
 
@@ -628,6 +629,7 @@ $oindexMain = @"
    });
  }
  btns.forEach(function(b){b.addEventListener('click',function(){btns.forEach(function(x){x.classList.remove('on')});b.classList.add('on');applyFilter(b.getAttribute('data-f'));});});
+ var _h=(location.hash||'').replace('#','');if(_h){var _b=document.querySelector('.ofilter button[data-f="'+_h+'"]');if(_b)_b.click();}
 })();
 </script>
 <script>
@@ -852,7 +854,7 @@ $parceirosList = @(
   @{n='Super Golff';l='assets/parceiros/super-golff.png'}, @{n='Plaenge';l='assets/parceiros/plaenge.png'}
 )
 $pcItems = New-Object System.Text.StringBuilder
-foreach($x in ($parceirosList + $parceirosList)){ [void]$pcItems.Append("<div class=`"pc__i`"><img src=`"/$($x.l)`" alt=`"$(AttrEnc $x.n)`" title=`"$(AttrEnc $x.n)`" loading=`"lazy`" /></div>") }
+foreach($x in ($parceirosList + $parceirosList + $parceirosList + $parceirosList)){ [void]$pcItems.Append("<div class=`"pc__i`"><img src=`"/$($x.l)`" alt=`"$(AttrEnc $x.n)`" title=`"$(AttrEnc $x.n)`" /></div>") }
 $PARCEIROS = @"
 <section class="pc">
   <div class="pc__lb">Quem já construiu com a Berti</div>
@@ -863,7 +865,7 @@ $PARCEIROS_CSS = @'
   .pc{ background:#fff; border-top:1px solid rgba(10,10,10,0.07); border-bottom:1px solid rgba(10,10,10,0.07); padding:14px 0 16px; overflow:hidden; }
   .pc__lb{ text-align:center; margin-bottom:10px; font-family:'Barlow Condensed',sans-serif; font-weight:600; font-size:11px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(10,10,10,0.28); }
   .pc__mask{ position:relative; width:100%; -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%); mask-image:linear-gradient(90deg,transparent 0,#000 6%,#000 94%,transparent 100%); }
-  .pc__track{ display:flex; width:fit-content; animation:pc-marquee 44s linear infinite; }
+  .pc__track{ display:flex; width:fit-content; animation:pc-marquee 80s linear infinite; }
   .pc__track:hover{ animation-play-state:paused; }
   .pc__i{ flex:0 0 auto; width:130px; height:56px; display:flex; align-items:center; justify-content:center; padding:0 18px; border-right:1px solid rgba(10,10,10,0.05); }
   .pc__i img{ max-width:100%; max-height:100%; object-fit:contain; opacity:0.5; filter:grayscale(100%); transition:opacity 280ms ease, filter 280ms ease; }
@@ -1401,9 +1403,9 @@ $homeMain = @"
       <p>Soluções personalizadas, com segurança, certificação e excelente custo-benefício. Supermercados, comercial e industrial — três frentes com o mesmo padrão de engenharia BIM, fabricação certificada e montagem 100% parafusada.</p>
     </div>
     <div class="cg__grid">
-      <a class="cg__c" href="/obras"><div class="cg__img"><img class="base" src="/assets/portfolio/supermercado-1.webp" alt="Supermercados em estrutura metálica" loading="lazy" /><img class="hov" src="/assets/portfolio/supermercado-2.webp" alt="" aria-hidden="true" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">01</div><div class="cg__ti">Supermercados</div></div><div class="cg__bd"><p>Coberturas de grande vão livre, mezaninos e estruturas para varejo de alto fluxo. Obra rápida, com a loja já operando.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
-      <a class="cg__c" href="/obras"><div class="cg__img"><img class="base" src="/assets/portfolio/comercial-1.webp" alt="Obras comerciais em estrutura metálica" loading="lazy" /><img class="hov" src="/assets/portfolio/comercial-2.webp" alt="" aria-hidden="true" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">02</div><div class="cg__ti">Comercial</div></div><div class="cg__bd"><p>Showrooms, concessionárias, lojas de materiais e centros logísticos urbanos. Pé-direito generoso e fachada limpa.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
-      <a class="cg__c" href="/obras"><div class="cg__img"><img class="base" src="/assets/portfolio/industrial-1.webp" alt="Obras industriais em estrutura metálica" loading="lazy" /><img class="hov" src="/assets/portfolio/industrial-2.webp" alt="" aria-hidden="true" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">03</div><div class="cg__ti">Industrial</div></div><div class="cg__bd"><p>Galpões fabris, plantas industriais e pavilhões logísticos de grande porte. Engenharia para cargas pesadas e operação 24/7.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
+      <a class="cg__c" href="/obras#supermercado"><div class="cg__img"><img class="base" src="/assets/portfolio/supermercado-1.webp" alt="Supermercados em estrutura metálica" loading="lazy" /><img class="hov" src="/assets/portfolio/supermercado-2.webp" alt="" aria-hidden="true" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">01</div><div class="cg__ti">Supermercados</div></div><div class="cg__bd"><p>Coberturas de grande vão livre, mezaninos e estruturas para varejo de alto fluxo. Obra rápida, com a loja já operando.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
+      <a class="cg__c" href="/obras#comercial"><div class="cg__img"><img class="base" src="/assets/portfolio/comercial-1.webp" alt="Obras comerciais em estrutura metálica" loading="lazy" /><img class="hov" src="/assets/portfolio/comercial-2.webp" alt="" aria-hidden="true" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">02</div><div class="cg__ti">Comercial</div></div><div class="cg__bd"><p>Showrooms, concessionárias, lojas de materiais e centros logísticos urbanos. Pé-direito generoso e fachada limpa.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
+      <a class="cg__c" href="/obras#industrial"><div class="cg__img"><img class="base" src="/assets/portfolio/industrial-1.webp" alt="Obras industriais em estrutura metálica" loading="lazy" /><img class="hov" src="/assets/portfolio/industrial-2.webp" alt="" aria-hidden="true" loading="lazy" /><div class="cg__sh"></div><div class="cg__num">03</div><div class="cg__ti">Industrial</div></div><div class="cg__bd"><p>Galpões fabris, plantas industriais e pavilhões logísticos de grande porte. Engenharia para cargas pesadas e operação 24/7.</p><div class="cg__go"><b>Ver obras</b><i>&rarr;</i></div></div></a>
     </div>
     <div style="text-align:center;margin-top:56px"><a class="btn-ghost" style="color:var(--ink);border-color:var(--ink)" href="/obras">Ver portfólio completo <span>&rarr;</span></a></div>
   </section>
