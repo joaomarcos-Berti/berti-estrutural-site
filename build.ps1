@@ -292,7 +292,7 @@ foreach($p in $posts){
       <span class="art__badge">$(HtmlEnc $p.catLabel)</span>
     </div>
     <div class="art__body">
-      <div class="art__meta"><span>$(HtmlEnc $p.date)</span><span class="dot">•</span><span>$(HtmlEnc $p.read) de leitura</span><span class="dot">•</span><span>$(HtmlEnc $p.author)</span></div>
+      <div class="art__meta"><span>$(HtmlEnc $p.date)</span><span class="dot">•</span><span>$(HtmlEnc $p.author)</span></div>
       <h1>$(HtmlEnc $p.title)</h1>
       <div class="art__rule"></div>
       $(BodyHtml $p.body "$($p.catLabel) — Berti Estrutural")
@@ -317,7 +317,7 @@ foreach($p in $rest){
   [void]$cardsHtml.Append(@"
 <a class="bcard" data-cat="$($p.cat)" href="/blog/$($p.id)">
   <div class="bcard__img"><img src="/$($p.cover)" alt="$(AttrEnc $p.title)" loading="lazy" /><span class="bcard__tag">$(HtmlEnc $p.catLabel)</span></div>
-  <div class="bcard__body"><div class="bmeta"><span>$(HtmlEnc $p.date)</span><span class="dot">•</span><span>$(HtmlEnc $p.read)</span></div>
+  <div class="bcard__body"><div class="bmeta"><span>$(HtmlEnc $p.date)</span></div>
   <h3>$(HtmlEnc $p.title)</h3><p>$(HtmlEnc $p.excerpt)</p><span class="blink">Ler artigo <span>&rarr;</span></span></div>
 </a>
 "@)
@@ -345,7 +345,7 @@ $indexMain = @"
     <a class="bfeat" href="/blog/$($feat.id)">
       <div class="bfeat__img"><img src="/$($feat.cover)" alt="$(AttrEnc $feat.title)" /><span class="bfeat__tag">Destaque</span></div>
       <div class="bfeat__body">
-        <div class="bmeta"><span>$(HtmlEnc $feat.catLabel)</span><span class="dot">•</span><span>$(HtmlEnc $feat.date)</span><span class="dot">•</span><span>$(HtmlEnc $feat.read)</span></div>
+        <div class="bmeta"><span>$(HtmlEnc $feat.catLabel)</span><span class="dot">•</span><span>$(HtmlEnc $feat.date)</span></div>
         <h2>$(HtmlEnc $feat.title)</h2><p>$(HtmlEnc $feat.excerpt)</p><span class="blink">Ler artigo <span>&rarr;</span></span>
       </div>
     </a>
@@ -1159,6 +1159,10 @@ $HOME_CSS = @"
   .e3ann.a3{ left:0; bottom:56px; width:300px; } .e3ann.a3 .sub{ max-width:280px; }
   .e3hint{ position:absolute; left:50%; bottom:6px; transform:translateX(-50%); z-index:4; display:inline-flex; align-items:center; gap:9px; padding:9px 18px; background:#fff; border:1.5px solid rgba(7,127,191,0.25); border-radius:999px; box-shadow:0 6px 18px rgba(6,25,34,0.08); pointer-events:none; }
   .e3hint span{ font-family:'Caveat',cursive; font-weight:700; font-size:24px; color:#077fbf; line-height:1; }
+  .e3hint{ transition:border-color .2s, box-shadow .2s; }
+  .e3stage--zoom{ cursor:ns-resize; }
+  .e3stage--zoom .e3hint{ border-color:rgba(7,127,191,0.65); box-shadow:0 8px 22px rgba(7,127,191,0.28); }
+  .e3stage--zoom .e3hint span{ color:#055a87; }
   .e3__adv{ display:none; grid-template-columns:repeat(3,1fr); gap:24px; margin-top:24px; }
   .e3__c{ display:flex; gap:14px; align-items:flex-start; }
   .e3__c .ic{ flex-shrink:0; width:44px; height:44px; border-radius:11px; background:rgba(71,182,241,0.14); display:flex; align-items:center; justify-content:center; }
@@ -1283,7 +1287,7 @@ $HOME_CSS = @"
 # blog: 3 mais recentes
 $hb = New-Object System.Text.StringBuilder
 foreach($p in ($posts | Select-Object -First 3)){
-  [void]$hb.Append("<a class=`"hb__c`" href=`"/blog/$($p.id)`"><div class=`"hb__im`"><img src=`"/$($p.cover)`" alt=`"$(AttrEnc $p.title)`" loading=`"lazy`" /><span>$(HtmlEnc $p.catLabel)</span></div><div class=`"hb__bd`"><div class=`"dt`">$(HtmlEnc $p.date) · $(HtmlEnc $p.read)</div><h3>$(HtmlEnc $p.title)</h3><p>$(HtmlEnc $p.excerpt)</p></div></a>")
+  [void]$hb.Append("<a class=`"hb__c`" href=`"/blog/$($p.id)`"><div class=`"hb__im`"><img src=`"/$($p.cover)`" alt=`"$(AttrEnc $p.title)`" loading=`"lazy`" /><span>$(HtmlEnc $p.catLabel)</span></div><div class=`"hb__bd`"><div class=`"dt`">$(HtmlEnc $p.date)</div><h3>$(HtmlEnc $p.title)</h3><p>$(HtmlEnc $p.excerpt)</p></div></a>")
 }
 
 # mapa: obras em andamento com coordenadas
@@ -1359,7 +1363,7 @@ $homeMain = @"
         <div class="e3ann a2"><div class="big">Mezaninos <span class="hl">mais leves</span></div><div class="sub">estrutura metálica, muito menos peso na obra</div></div>
         <svg class="e3arrow" width="60" height="45" viewBox="0 0 132 98" fill="none" style="left:206px;bottom:208px"><path d="M6 88 C50 76 80 54 114 18" stroke="#47b6f1" stroke-width="6.5" stroke-linecap="round"/><path d="M114 18 L94 20 M114 18 L110 40" stroke="#47b6f1" stroke-width="6.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         <div class="e3ann a3"><div class="big">Estrutura <span class="hl">100% em BIM</span></div><div class="sub">cada peça calculada e detalhada antes de fabricar</div></div>
-        <div class="e3hint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="#077fbf" stroke-width="2.4" stroke-linecap="round"/><path d="M20 4v4h-4" stroke="#077fbf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>arraste pra girar</span></div>
+        <div class="e3hint"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 12a8 8 0 1 1-2.3-5.6" stroke="#077fbf" stroke-width="2.4" stroke-linecap="round"/><path d="M20 4v4h-4" stroke="#077fbf" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg><span>clique pra dar zoom · arraste pra girar</span></div>
       </div>
       <div class="e3__adv">
         <div class="e3__c"><span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="#077fbf"><path d="M13 2 L4 14 h6 l-1 8 9-12 h-6 z"/></svg></span><div><b>Sem solda, montagem rápida</b><span>100% parafusada · execução completa em 120 dias</span></div></div>
@@ -1511,6 +1515,19 @@ $homeMain = @"
     setTimeout(function(){map.invalidateSize();},250);
   }
   if(MAP.length){ if(window.L){initMap();}else{var t=0,iv=setInterval(function(){if(window.L||t++>40){clearInterval(iv);if(window.L)initMap();}},80);} }
+  // 3D: clique ativa o zoom pela rodinha; fora do 3D a rodinha rola a pagina
+  (function(){
+    var stage=document.querySelector('.e3stage'); if(!stage)return;
+    var mv=stage.querySelector('model-viewer'); if(!mv)return;
+    var hint=stage.querySelector('.e3hint span');
+    var idle=hint?hint.textContent:'';
+    var on=false;
+    function activate(){ if(on)return; on=true; mv.removeAttribute('disable-zoom'); stage.classList.add('e3stage--zoom'); if(hint)hint.textContent='rodinha dá zoom · saia pra rolar a página'; }
+    function deactivate(){ if(!on)return; on=false; mv.setAttribute('disable-zoom',''); stage.classList.remove('e3stage--zoom'); if(hint)hint.textContent=idle; }
+    mv.addEventListener('click',activate);
+    stage.addEventListener('mouseleave',deactivate);
+    document.addEventListener('pointerdown',function(e){ if(on && !stage.contains(e.target)) deactivate(); });
+  })();
 })();
 </script>
 "@
