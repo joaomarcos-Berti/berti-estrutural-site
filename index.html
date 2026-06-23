@@ -81,7 +81,8 @@
   /* ESTRUTURA 3D */
   .e3{ background:#fff; }
   .e3stage{ position:relative; width:100%; height:620px; margin-top:8px; }
-  .e3stage model-viewer{ position:absolute; inset:0; width:100%; height:100%; z-index:1; background:transparent; --poster-color:transparent; }
+  .e3stage model-viewer{ position:absolute; inset:0; width:100%; height:100%; z-index:1; background:transparent; --poster-color:transparent; --progress-bar-color:transparent; --progress-bar-height:0px; }
+  .e3stage model-viewer::part(default-progress-bar){ display:none !important; }
   .e3shadow{ position:absolute; left:50%; bottom:70px; width:720px; max-width:90%; height:110px; transform:translateX(-50%); background:radial-gradient(ellipse at center, rgba(6,25,34,0.13), rgba(6,25,34,0)); filter:blur(6px); z-index:0; }
   .e3photo{ position:absolute; right:-6px; top:0; z-index:5; transform:rotate(2.5deg); pointer-events:none; }
   .e3photo .tape1{ position:absolute; left:14px; top:-13px; width:78px; height:26px; background:rgba(71,182,241,0.32); transform:rotate(-25deg); }
