@@ -23,7 +23,7 @@
       "city": "Londrina \u2013 PR",
       "cat": "comercial",
       "catLabel": "Comercial",
-      "area": "7.541 m²",
+      "area": "7.541 m\u00b2",
       "status": "Em andamento",
       "youtube": "",
       "desc": "",
@@ -31,8 +31,8 @@
       "gallery": [
         "assets/photos/1781204272910-whatsapp-image-2026-06-02-at-135134.jpeg",
         "assets/photos/1781204274453-whatsapp-image-2026-06-11-at-082533.jpeg",
-        "assets/photos/1781204276067-whatsapp-image-2026-06-11-at-082459-1.jpeg",
-        "assets/photos/1781527201410-imagem-3.jpg"
+        "assets/photos/1781527201410-imagem-3.jpg",
+        "assets/photos/1782217456090-35b9e392-e49b-4357-b493-001fd1aaf34b.jpg"
       ],
       "lat": -23.33842,
       "lng": -51.184307,
