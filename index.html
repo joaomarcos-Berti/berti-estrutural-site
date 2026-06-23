@@ -54,7 +54,7 @@
   .btn-primary:hover{ background:#fff; transform:translateY(-2px); }
   .btn-ghost{ background:transparent; color:#fff; padding:17px 32px; border:1.5px solid rgba(255,255,255,0.55); font-size:13.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.14em; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all 180ms ease; }
   .btn-ghost:hover{ border-color:#fff; background:rgba(255,255,255,0.08); }
-  .hh__pill{ margin-top:28px; display:inline-flex; align-items:center; gap:13px; background:rgba(6,25,34,0.5); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.18); border-radius:40px; padding:9px 20px 9px 9px; cursor:pointer; color:#fff; }
+  .hh__pill{ margin-top:28px; display:inline-flex; align-items:center; gap:13px; background:rgba(6,25,34,0.62); border:1px solid rgba(255,255,255,0.18); border-radius:40px; padding:9px 20px 9px 9px; cursor:pointer; color:#fff; }
   .hh__pill:hover{ background:rgba(6,25,34,0.72); border-color:rgba(71,182,241,0.6); }
   .hh__pill .pl{ width:38px; height:38px; border-radius:50%; background:var(--blue); display:inline-flex; align-items:center; justify-content:center; color:#061922; font-size:13px; }
   .hh__pill b{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:15px; letter-spacing:0.06em; text-transform:uppercase; display:block; }
@@ -234,7 +234,7 @@
   ::selection{ background:var(--blue); color:#000; }
   a{ color:inherit; } img{ max-width:100%; }
   .nav{ position:fixed; top:0; left:0; right:0; z-index:100; color:#fff; display:flex; align-items:center; justify-content:space-between; padding:18px 64px; background:transparent; border-bottom:1px solid transparent; transition:background 240ms ease, border-color 240ms ease; }
-  .nav.solid{ background:rgba(8,10,12,0.96); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,0.06); }
+  .nav.solid{ background:rgba(8,10,12,0.97); border-bottom:1px solid rgba(255,255,255,0.06); }
   .nav__logo{ display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
   .nav__logo img{ height:44px; display:block; flex-shrink:0; }
   .nav__wordmark{ display:inline-block; overflow:hidden; white-space:nowrap; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:22px; letter-spacing:0.05em; text-transform:uppercase; color:#fff; line-height:1; width:0; opacity:0; margin-left:0; transition:width 280ms ease, opacity 220ms ease 60ms, margin-left 280ms ease; }
@@ -462,7 +462,7 @@
   var MAP=[{t:"SixMall",c:"/assets/photos/1781204261182-whatsapp-image-2026-06-02-at-135133.jpeg",a:"Londrina – PR",lat:-23.33842,lng:-51.184307},{t:"Demobile",c:"/assets/photos/1781524251524-foto-10-06-2025-11-57-25.jpg",a:"Arapongas PR",lat:-23.413093,lng:-51.470722},{t:"Novo Mall Raul Fulgencio",c:"/assets/photos/1782217497440-whatsapp-image-2026-06-22-at-144120.jpg",a:"Londrina – PR",lat:-23.351339,lng:-51.18333},{t:"Comtrafo",c:"/assets/photos/1781529524608-imagem17.png",a:"164, Rod. Congonhas, 788, Cornélio Procópio",lat:-23.217914,lng:-50.671186},{t:"Alameda Bela Suíça",c:"/assets/photos/1781529474013-dji0228.jpg",a:"Londrina – PR",lat:-23.335161,lng:-51.166461},{t:"GIRABENS MALL",c:"/assets/photos/1781549740758-dji0974.jpg",a:"Londrina – PR",lat:-23.298557,lng:-51.190978},{t:"Comercial Auguri",c:"/assets/photos/1781529138647-dji0409.jpg",a:"Londrina – PR",lat:-23.33468,lng:-51.162924},{t:"Mall Itamar",c:"/assets/photos/1781529381760-dji0208.jpg",a:"Londrina – PR",lat:-23.317595,lng:-51.164795},{t:"Mall Santos",c:"/assets/photos/1781530293472-captura-de-tela-2026-06-15-103118.png",a:"RUA SANTOS, 516, CENTRO londrina",lat:-23.311699,lng:-51.167975},{t:"Mall Arthur Thomas",c:"/assets/photos/1781530937605-captura-de-tela-2026-06-15-104207.png",a:"Londrina – PR",lat:-23.305074,lng:-51.198235},{t:"Passarela Catuai",c:"/assets/photos/1781532565347-design-sem-nome.jpg",a:"Londrina – PR",lat:-23.343381,lng:-51.187859},];
   function initMap(){
     if(!window.L||!document.getElementById('mp_map')){return;}
-    var map=L.map('mp_map',{zoomControl:false,scrollWheelZoom:false}).setView([-23.3299,-51.1816],12);
+    var map=L.map('mp_map',{zoomControl:false,scrollWheelZoom:true}).setView([-23.3299,-51.1816],12);
     L.control.zoom({position:'bottomright'}).addTo(map);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:20}).addTo(map);
     var mk=[];

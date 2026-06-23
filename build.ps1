@@ -66,7 +66,7 @@ $CSS = @'
   ::selection{ background:var(--blue); color:#000; }
   a{ color:inherit; } img{ max-width:100%; }
   .nav{ position:fixed; top:0; left:0; right:0; z-index:100; color:#fff; display:flex; align-items:center; justify-content:space-between; padding:18px 64px; background:transparent; border-bottom:1px solid transparent; transition:background 240ms ease, border-color 240ms ease; }
-  .nav.solid{ background:rgba(8,10,12,0.96); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,0.06); }
+  .nav.solid{ background:rgba(8,10,12,0.97); border-bottom:1px solid rgba(255,255,255,0.06); }
   .nav__logo{ display:flex; align-items:center; gap:12px; text-decoration:none; color:inherit; }
   .nav__logo img{ height:44px; display:block; flex-shrink:0; }
   .nav__wordmark{ display:inline-block; overflow:hidden; white-space:nowrap; font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:22px; letter-spacing:0.05em; text-transform:uppercase; color:#fff; line-height:1; width:0; opacity:0; margin-left:0; transition:width 280ms ease, opacity 220ms ease 60ms, margin-left 280ms ease; }
@@ -390,7 +390,7 @@ $OBRAS_CSS = @'
   .kick span{ width:30px; height:1px; background:var(--blue); }
   .ohero h1{ font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(48px,8vw,120px); line-height:0.88; letter-spacing:-0.02em; text-transform:uppercase; margin:0 0 20px; }
   .ohero p{ font-size:18px; line-height:1.6; color:rgba(255,255,255,0.7); max-width:560px; margin:0; }
-  .ofilter{ position:sticky; top:0; z-index:50; background:rgba(8,10,12,0.92); backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px); border-bottom:1px solid rgba(255,255,255,0.08); padding:16px clamp(40px,8vw,140px); }
+  .ofilter{ position:sticky; top:0; z-index:50; background:rgba(8,10,12,0.96); border-bottom:1px solid rgba(255,255,255,0.08); padding:16px clamp(40px,8vw,140px); }
   .ofilter .in{ max-width:1340px; margin:0 auto; display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
   .ofilter button{ display:inline-flex; align-items:center; gap:9px; padding:11px 20px; cursor:pointer; border:1px solid rgba(255,255,255,0.2); background:transparent; color:rgba(255,255,255,0.82); font-family:'Barlow Condensed',sans-serif; font-size:16px; font-weight:700; letter-spacing:0.08em; text-transform:uppercase; transition:all 200ms ease; }
   .ofilter button.on{ border-color:var(--blue); background:var(--blue); color:#05080c; }
@@ -1078,7 +1078,7 @@ $empresaMain = @"
      t.style.transform='translateY('+(n*14)+'px)'; t.style.opacity=String(1-Math.min(1,Math.abs(n))*0.3);
    });
  }
- if(steps.length){ window.addEventListener('scroll',par,{passive:true}); window.addEventListener('resize',par); par(); }
+ if(steps.length){ var _tick=false; function onsc(){ if(_tick)return; _tick=true; requestAnimationFrame(function(){ par(); _tick=false; }); } window.addEventListener('scroll',onsc,{passive:true}); window.addEventListener('resize',onsc); par(); }
 })();
 </script>
 "@
@@ -1112,7 +1112,7 @@ $HOME_CSS = @"
   .btn-primary:hover{ background:#fff; transform:translateY(-2px); }
   .btn-ghost{ background:transparent; color:#fff; padding:17px 32px; border:1.5px solid rgba(255,255,255,0.55); font-size:13.5px; font-weight:800; text-transform:uppercase; letter-spacing:0.14em; text-decoration:none; display:inline-flex; align-items:center; gap:10px; transition:all 180ms ease; }
   .btn-ghost:hover{ border-color:#fff; background:rgba(255,255,255,0.08); }
-  .hh__pill{ margin-top:28px; display:inline-flex; align-items:center; gap:13px; background:rgba(6,25,34,0.5); backdrop-filter:blur(10px); border:1px solid rgba(255,255,255,0.18); border-radius:40px; padding:9px 20px 9px 9px; cursor:pointer; color:#fff; }
+  .hh__pill{ margin-top:28px; display:inline-flex; align-items:center; gap:13px; background:rgba(6,25,34,0.62); border:1px solid rgba(255,255,255,0.18); border-radius:40px; padding:9px 20px 9px 9px; cursor:pointer; color:#fff; }
   .hh__pill:hover{ background:rgba(6,25,34,0.72); border-color:rgba(71,182,241,0.6); }
   .hh__pill .pl{ width:38px; height:38px; border-radius:50%; background:var(--blue); display:inline-flex; align-items:center; justify-content:center; color:#061922; font-size:13px; }
   .hh__pill b{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:15px; letter-spacing:0.06em; text-transform:uppercase; display:block; }
@@ -1495,7 +1495,7 @@ $homeMain = @"
   var MAP=[$($mapData.ToString())];
   function initMap(){
     if(!window.L||!document.getElementById('mp_map')){return;}
-    var map=L.map('mp_map',{zoomControl:false,scrollWheelZoom:false}).setView([-23.3299,-51.1816],12);
+    var map=L.map('mp_map',{zoomControl:false,scrollWheelZoom:true}).setView([-23.3299,-51.1816],12);
     L.control.zoom({position:'bottomright'}).addTo(map);
     L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:20}).addTo(map);
     var mk=[];
