@@ -906,7 +906,7 @@ $EMPRESA_CSS = @"
   .pstep:nth-of-type(even) .pmedia{ order:1; }
   .pmedia, .ptext{ transition:transform 120ms linear, opacity 120ms linear; will-change:transform, opacity; }
   .ptext{ position:relative; display:flex; flex-direction:column; gap:18px; }
-  .pghost{ position:absolute; top:-0.42em; left:-0.06em; z-index:0; font-family:'Barlow Condensed',sans-serif; font-weight:800; color:transparent; -webkit-text-stroke:2px rgba(24,83,184,0.16); letter-spacing:-0.02em; line-height:0.8; font-size:clamp(120px,15vw,230px); user-select:none; }
+  .ptext > .pghost{ position:absolute; top:-0.18em; left:-0.06em; z-index:0; font-family:'Barlow Condensed',sans-serif; font-weight:800; color:transparent; -webkit-text-stroke:2px rgba(24,83,184,0.16); letter-spacing:-0.02em; line-height:0.8; font-size:clamp(120px,15vw,230px); user-select:none; pointer-events:none; }
   .ptext > *{ position:relative; z-index:1; }
   .phead{ display:flex; align-items:center; gap:14px; }
   .pnum{ font-family:'Caveat',cursive; font-weight:700; font-size:26px; color:#1853b8; }
@@ -1097,7 +1097,10 @@ $HOME_CSS = @"
   .hh{ position:relative; min-height:100vh; overflow:hidden; background:#000; color:#fff; }
   .hh__f{ position:absolute; inset:0; opacity:0; transition:opacity 1500ms ease-in-out; }
   .hh__f.on{ opacity:1; }
-  .hh__f img{ width:100%; height:100%; object-fit:cover; filter:grayscale(0.1) contrast(1.05); }
+  .hh__f img{ width:100%; height:100%; object-fit:cover; filter:grayscale(0.1) contrast(1.05); transform-origin:center center; transition:transform 1500ms ease-out; will-change:transform; }
+  .hh__f.on img{ animation:hhZoom 7000ms ease-out both; }
+  @keyframes hhZoom{ from{ transform:scale(1); } to{ transform:scale(1.07); } }
+  @media(prefers-reduced-motion:reduce){ .hh__f.on img{ animation:none; } }
   .hh__veil{ position:absolute; inset:0; background:linear-gradient(270deg,rgba(0,0,0,0.28),rgba(0,0,0,0.34) 40%,rgba(0,0,0,0.8)); }
   .hh__vig{ position:absolute; inset:0; background:radial-gradient(ellipse at center,transparent 50%,rgba(0,0,0,0.45)); pointer-events:none; }
   .hh__in{ position:relative; z-index:5; min-height:100vh; display:flex; align-items:center; max-width:1540px; margin:0 auto; padding:120px clamp(20px,4vw,80px) 120px; }
