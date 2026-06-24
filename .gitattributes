@@ -1,0 +1,16 @@
+# Fim-de-linha consistente entre Windows (local) e Linux (GitHub Actions):
+# tudo LF no repositorio E no working tree -> sem commits "fantasma" de EOL.
+* text=auto eol=lf
+
+# Binarios: nunca processar EOL nem tentar diff de texto
+*.jpg   binary
+*.jpeg  binary
+*.png   binary
+*.webp  binary
+*.gif   binary
+*.ico   binary
+*.glb   binary
+*.woff  binary
+*.woff2 binary
+*.ttf   binary
+*.pdf   binary

@@ -14,6 +14,8 @@ function HtmlEnc([string]$s){ if($null -eq $s){return ''}; $s -replace '&','&amp
 function AttrEnc([string]$s){ (HtmlEnc $s) -replace '"','&quot;' }
 function JsonStr([string]$s){ if($null -eq $s){return ''}; $s -replace '\\','\\' -replace '"','\"' -replace "`r",'' -replace "`n",' ' }
 function Fill([string]$tpl,[hashtable]$map){ foreach($k in $map.Keys){ $tpl = $tpl.Replace('{{'+$k+'}}', [string]$map[$k]) }; $tpl }
+# URL-encode determinístico (mesmo resultado no .NET Framework do Windows e no .NET Core do Actions/Linux)
+function UrlEnc([string]$s){ $e=[uri]::EscapeDataString($s); $e -replace '!','%21' -replace '\*','%2A' -replace "'",'%27' -replace '\(','%28' -replace '\)','%29' }
 function Slug([string]$s){
   if($null -eq $s){ return '' }
   $n = $s.Normalize([System.Text.NormalizationForm]::FormD)
@@ -731,11 +733,11 @@ $contatoMain = @"
     <h1>Vamos construir<br/><span>a sua obra.</span></h1>
     <p>Conte seu projeto pelo canal que preferir. Respondemos rápido — e já com um time de engenheiros pronto para orientar a melhor solução.</p>
     <div class="ccanais">
-      <a class="ccanal wa" href="https://wa.me/${WHATS}?text=$([uri]::EscapeDataString('Olá, Berti! Gostaria de falar sobre um projeto em estrutura metálica.'))" target="_blank" rel="noopener noreferrer">
+      <a class="ccanal wa" href="https://wa.me/${WHATS}?text=$(UrlEnc 'Olá, Berti! Gostaria de falar sobre um projeto em estrutura metálica.')" target="_blank" rel="noopener noreferrer">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.6-5.9c-.3-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.6 4 5.2 5.2 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3z"/></svg></span>
         <span><span class="lb">WhatsApp</span><span class="vl">Resposta imediata</span></span>
       </a>
-      <a class="ccanal" href="mailto:${EMAIL}?subject=$([uri]::EscapeDataString('Contato pelo site — Berti Estrutural'))">
+      <a class="ccanal" href="mailto:${EMAIL}?subject=$(UrlEnc 'Contato pelo site — Berti Estrutural')">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M4 7l8 6 8-6"/></svg></span>
         <span><span class="lb">E-mail</span><span class="vl">$EMAIL</span></span>
       </a>
@@ -1539,3 +1541,12 @@ $homeMain = @"
 $homeHtml = RenderPage @{ title='Berti Estrutural — Engenharia em estruturas metálicas | Londrina-PR'; desc='A estrutura por trás de grandes obras. Projeto, fabricação e montagem de estruturas metálicas para supermercados, comércio e indústria. Engenharia BIM e montagem 100% parafusada — Londrina/PR.'; canon="$SITE/"; ogtype='website'; ogtitle='Berti Estrutural — A estrutura por trás de grandes obras'; ogimg="$SITE/assets/photos/hero-01.jpg"; extrahead=$homeExtra; main=$homeMain }
 [System.IO.File]::WriteAllText((Join-Path $root 'index.html'), $homeHtml, $enc)
 Write-Output "Home gerada (index.html) — $($mapObras.Count) obras no mapa"
+
+# Normaliza fim-de-linha p/ LF nos arquivos GERADOS (consistencia Windows/Linux; zero ruido de EOL no git).
+# Escopo: HTML/XML/TXT na raiz + blog/ + obras/ (nao toca admin/, content/, assets/).
+$genFiles = @()
+$genFiles += Get-ChildItem $root -File | Where-Object { $_.Extension -in '.html','.xml','.txt' }
+foreach($sub in @('blog','obras')){ $d = Join-Path $root $sub; if(Test-Path $d){ $genFiles += Get-ChildItem $d -File -Filter *.html } }
+$norm = 0
+foreach($f in $genFiles){ $t=[System.IO.File]::ReadAllText($f.FullName); if($t.IndexOf([char]13) -ge 0){ [System.IO.File]::WriteAllText($f.FullName, ($t -replace "`r`n","`n" -replace "`r","`n"), $enc); $norm++ } }
+Write-Output "EOL normalizado p/ LF: $norm arquivo(s)"
