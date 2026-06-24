@@ -149,12 +149,12 @@
       <p>Preencha os campos e escolha como prefere enviar. Montamos a mensagem para você.</p>
       <form id="cform" onsubmit="return bertiSend(event)">
         <div class="crow">
-          <div><label class="clabel">Nome *</label><input class="cfield" id="f_nome" placeholder="Seu nome" /></div>
-          <div><label class="clabel">Segmento</label><select class="cfield" id="f_seg"><option>Comercial</option><option>Mercado / Supermercado</option><option>Industrial</option><option>Outro</option></select></div>
-          <div><label class="clabel">E-mail <span id="f_emreq"></span></label><input class="cfield" id="f_email" type="email" placeholder="voce@email.com" /></div>
-          <div><label class="clabel">Telefone</label><input class="cfield" id="f_tel" placeholder="(00) 00000-0000" /></div>
+          <div><label class="clabel" for="f_nome">Nome *</label><input class="cfield" id="f_nome" placeholder="Seu nome" /></div>
+          <div><label class="clabel" for="f_seg">Segmento</label><select class="cfield" id="f_seg"><option>Comercial</option><option>Mercado / Supermercado</option><option>Industrial</option><option>Outro</option></select></div>
+          <div><label class="clabel" for="f_email">E-mail <span id="f_emreq"></span></label><input class="cfield" id="f_email" type="email" placeholder="voce@email.com" /></div>
+          <div><label class="clabel" for="f_tel">Telefone</label><input class="cfield" id="f_tel" placeholder="(00) 00000-0000" /></div>
         </div>
-        <div style="margin-bottom:22px"><label class="clabel">Mensagem *</label><textarea class="cfield" id="f_msg" placeholder="Conte sobre seu projeto: tipo de obra, área aproximada, prazo..."></textarea></div>
+        <div style="margin-bottom:22px"><label class="clabel" for="f_msg">Mensagem *</label><textarea class="cfield" id="f_msg" placeholder="Conte sobre seu projeto: tipo de obra, área aproximada, prazo..."></textarea></div>
         <div style="margin-bottom:22px"><label class="clabel">Enviar por</label>
           <div class="cchan"><button type="button" class="on" id="ch_wa" onclick="bertiChan('whatsapp')">WhatsApp</button><button type="button" id="ch_em" onclick="bertiChan('email')">E-mail</button></div>
         </div>

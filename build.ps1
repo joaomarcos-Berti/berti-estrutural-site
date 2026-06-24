@@ -754,12 +754,12 @@ $contatoMain = @"
       <p>Preencha os campos e escolha como prefere enviar. Montamos a mensagem para você.</p>
       <form id="cform" onsubmit="return bertiSend(event)">
         <div class="crow">
-          <div><label class="clabel">Nome *</label><input class="cfield" id="f_nome" placeholder="Seu nome" /></div>
-          <div><label class="clabel">Segmento</label><select class="cfield" id="f_seg"><option>Comercial</option><option>Mercado / Supermercado</option><option>Industrial</option><option>Outro</option></select></div>
-          <div><label class="clabel">E-mail <span id="f_emreq"></span></label><input class="cfield" id="f_email" type="email" placeholder="voce@email.com" /></div>
-          <div><label class="clabel">Telefone</label><input class="cfield" id="f_tel" placeholder="(00) 00000-0000" /></div>
+          <div><label class="clabel" for="f_nome">Nome *</label><input class="cfield" id="f_nome" placeholder="Seu nome" /></div>
+          <div><label class="clabel" for="f_seg">Segmento</label><select class="cfield" id="f_seg"><option>Comercial</option><option>Mercado / Supermercado</option><option>Industrial</option><option>Outro</option></select></div>
+          <div><label class="clabel" for="f_email">E-mail <span id="f_emreq"></span></label><input class="cfield" id="f_email" type="email" placeholder="voce@email.com" /></div>
+          <div><label class="clabel" for="f_tel">Telefone</label><input class="cfield" id="f_tel" placeholder="(00) 00000-0000" /></div>
         </div>
-        <div style="margin-bottom:22px"><label class="clabel">Mensagem *</label><textarea class="cfield" id="f_msg" placeholder="Conte sobre seu projeto: tipo de obra, área aproximada, prazo..."></textarea></div>
+        <div style="margin-bottom:22px"><label class="clabel" for="f_msg">Mensagem *</label><textarea class="cfield" id="f_msg" placeholder="Conte sobre seu projeto: tipo de obra, área aproximada, prazo..."></textarea></div>
         <div style="margin-bottom:22px"><label class="clabel">Enviar por</label>
           <div class="cchan"><button type="button" class="on" id="ch_wa" onclick="bertiChan('whatsapp')">WhatsApp</button><button type="button" id="ch_em" onclick="bertiChan('email')">E-mail</button></div>
         </div>
@@ -1320,9 +1320,9 @@ $homeLd = @"
 
 $homeExtra = @"
 <link rel="preload" as="image" href="/assets/photos/hero-01.jpg" fetchpriority="high" />
-<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js"></script>
+<script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.5.0/model-viewer.min.js" integrity="sha384-Ftcjj/GNLxPvzNDftO/oryXB9aGxsGZY9JGqsXG0uUKgQDl9RfDgsx9NJ/4IVNPe" crossorigin="anonymous"></script>
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="anonymous" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
+<script defer src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin="anonymous"></script>
 $FONTS_CAVEAT
 $homeLd
 $HOME_CSS
