@@ -304,7 +304,8 @@ foreach($p in $posts){
   </article>
 </main>
 "@
-  $html = RenderPage @{ title="$($p.title) — Berti Estrutural"; desc=$p.excerpt; canon=$canon; ogtype='article'; ogtitle=$p.title; ogimg=$ogimg; extrahead=($jsonld + $BLOG_CSS); main=$main }
+  $bcld = "<script type=`"application/ld+json`">{`"@context`":`"https://schema.org`",`"@type`":`"BreadcrumbList`",`"itemListElement`":[{`"@type`":`"ListItem`",`"position`":1,`"name`":`"Início`",`"item`":`"$SITE/`"},{`"@type`":`"ListItem`",`"position`":2,`"name`":`"Blog`",`"item`":`"$SITE/blog`"},{`"@type`":`"ListItem`",`"position`":3,`"name`":`"$(JsonStr $p.title)`",`"item`":`"$canon`"}]}</script>"
+  $html = RenderPage @{ title="$($p.title) — Berti Estrutural"; desc=$p.excerpt; canon=$canon; ogtype='article'; ogtitle=$p.title; ogimg=$ogimg; extrahead=($jsonld + $bcld + $BLOG_CSS); main=$main }
   [System.IO.File]::WriteAllText((Join-Path $root "blog/$($p.id).html"), $html, $enc)
   $count++
 }
@@ -501,8 +502,16 @@ foreach($o in $obras){
   if($o.area){ [void]$fatos.Append("<div><div class=`"k`">Area</div><div class=`"v`">$(HtmlEnc $o.area)</div></div>") }
   if($o.status){ [void]$fatos.Append("<div><div class=`"k`">Status</div><div class=`"v`">$(HtmlEnc $o.status)</div></div>") }
 
-  # descricao: SOMENTE o que foi editado no /admin (vazio = vazio, sem texto inventado)
+  # descricao: usa o que foi editado no /admin; se vazio, gera um paragrafo FACTUAL so com dados reais da obra (sem inventar projeto)
   $descTxt = if($o.desc -and $o.desc.Trim() -ne ''){ ($o.desc.Trim() -replace '\s+',' ') } else { '' }
+  $descBody = $descTxt
+  if(-not $descBody){
+    $segl = ([string]$o.catLabel).ToLowerInvariant()
+    $loc  = if($o.city){ " em $($o.city)" } else { '' }
+    $ar   = if($o.area){ ", com $($o.area)" } else { '' }
+    $sts  = if($o.status -eq 'Em andamento'){ 'Obra em andamento' } else { 'Obra entregue' }
+    $descBody = "$($o.title): obra $segl em estrutura metálica$loc$ar. $sts pela Berti Estrutural — engenharia, fabricação e montagem 100% parafusada, do projeto BIM à peça instalada."
+  }
   # meta (snippet do Google, invisivel na pagina): usa a descricao se houver; senao, apenas os dados reais da obra
   $descMeta = if($o.desc -and $o.desc.Trim() -ne ''){ ($o.desc.Trim() -replace '\s+',' ') } else { "$($o.title) — $($o.catLabel)$(if($o.city){ ' · ' + $o.city })$(if($o.area){ ' · ' + $o.area }) · Berti Estrutural" }
   if($descMeta.Length -gt 300){ $descMeta = $descMeta.Substring(0,297) + '...' }
@@ -543,7 +552,7 @@ foreach($o in $obras){
   </section>
   <section class="odbody"><div class="wrap">
     <div class="ofatos">$($fatos.ToString())</div>
-    $(if($descTxt){"<div class=`"oprose`"><p>$(HtmlEnc $descTxt)</p></div>"})
+    $(if($descBody){"<div class=`"oprose`"><p>$(HtmlEnc $descBody)</p></div>"})
     $ytSection
     $galSection
     <div class="odcta"><strong>Tem um projeto parecido?</strong><a href="/contato">Solicitar orçamento <span>&rarr;</span></a></div>
@@ -552,7 +561,8 @@ foreach($o in $obras){
 <div class="lbx" id="lbx" onclick="this.classList.remove('on')"><button class="lbx__x" aria-label="Fechar">&times;</button><img id="lbxi" src="" alt="" /></div>
 <script>function lbx(s){var b=document.getElementById('lbx');document.getElementById('lbxi').src=s;b.classList.add('on');}</script>
 "@
-  $html = RenderPage @{ title="$($o.title) — Obra em estrutura metálica | Berti Estrutural"; desc=$descMeta; canon=$canon; ogtype='article'; ogtitle="$($o.title) — Berti Estrutural"; ogimg=$ogimg; extrahead=($jsonld + $OBRAS_CSS); main=$main }
+  $bcld = "<script type=`"application/ld+json`">{`"@context`":`"https://schema.org`",`"@type`":`"BreadcrumbList`",`"itemListElement`":[{`"@type`":`"ListItem`",`"position`":1,`"name`":`"Início`",`"item`":`"$SITE/`"},{`"@type`":`"ListItem`",`"position`":2,`"name`":`"Obras`",`"item`":`"$SITE/obras`"},{`"@type`":`"ListItem`",`"position`":3,`"name`":`"$(JsonStr $o.title)`",`"item`":`"$canon`"}]}</script>"
+  $html = RenderPage @{ title="$($o.title) — Obra em estrutura metálica | Berti Estrutural"; desc=$descMeta; canon=$canon; ogtype='article'; ogtitle="$($o.title) — Berti Estrutural"; ogimg=$ogimg; extrahead=($jsonld + $bcld + $OBRAS_CSS); main=$main }
   [System.IO.File]::WriteAllText((Join-Path $root "obras/$slug.html"), $html, $enc)
   $ocount++
 }
@@ -1508,7 +1518,8 @@ $homeMain = @"
     if(!window.L||!document.getElementById('mp_map')){return;}
     var map=L.map('mp_map',{zoomControl:false,scrollWheelZoom:true}).setView([-23.3299,-51.1816],12);
     L.control.zoom({position:'bottomright'}).addTo(map);
-    L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',subdomains:'abcd',maxZoom:20}).addTo(map);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}',{attribution:'Imagens &copy; Esri, Maxar, Earthstar Geographics',maxZoom:19,maxNativeZoom:19}).addTo(map);
+    L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Reference/World_Boundaries_and_Places/MapServer/tile/{z}/{y}/{x}',{maxZoom:19,maxNativeZoom:19}).addTo(map);
     var mk=[];
     for(var i=0;i<MAP.length;i++){
       var o=MAP[i];
