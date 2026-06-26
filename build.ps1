@@ -1525,7 +1525,7 @@ $homeMain = @"
       var o=MAP[i];
       var icon=L.divIcon({className:'',html:'<div style="width:54px;height:66px"><div style="width:54px;height:54px;border-radius:13px;overflow:hidden;border:3px solid #47b6f1;box-shadow:0 8px 18px rgba(6,25,34,.4);background:#fff center/cover no-repeat;background-image:url(\''+o.c+'\')"></div><div style="position:absolute;left:50%;bottom:0;transform:translateX(-50%) rotate(45deg);width:14px;height:14px;background:#47b6f1;border-radius:3px"></div></div>',iconSize:[54,66],iconAnchor:[27,66],popupAnchor:[0,-62]});
       var m=L.marker([o.lat,o.lng],{icon:icon}).addTo(map);
-      m.bindPopup('<div style="width:220px;font-family:Open Sans,sans-serif"><img src="'+o.c+'" style="width:100%;height:115px;object-fit:cover;display:block"/><div style="padding:11px 13px"><div style="font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:17px;text-transform:uppercase;color:#061922;line-height:1">'+o.t+'</div><div style="margin-top:5px;font-size:12.5px;color:#5b6b75">'+o.a+'</div></div></div>',{minWidth:220});
+      m.bindPopup('<div style="width:220px;font-family:Open Sans,sans-serif"><img src="'+o.c+'" alt="'+o.t+'" style="width:100%;height:115px;object-fit:cover;display:block"/><div style="padding:11px 13px"><div style="font-family:Barlow Condensed,sans-serif;font-weight:800;font-size:17px;text-transform:uppercase;color:#061922;line-height:1">'+o.t+'</div><div style="margin-top:5px;font-size:12.5px;color:#5b6b75">'+o.a+'</div></div></div>',{minWidth:220});
       mk.push(m);
     }
     var lis=document.querySelectorAll('.mp__it');
