@@ -638,19 +638,6 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
-    },
-    {
-      "title": "teste",
-      "city": "Londrina \u2013 PR",
-      "cat": "supermercado",
-      "catLabel": "Supermercado",
-      "area": "",
-      "status": "Entregue",
-      "youtube": "",
-      "desc": "",
-      "cover": "",
-      "gallery": [],
-      "id": 33
     }
   ]
 }
