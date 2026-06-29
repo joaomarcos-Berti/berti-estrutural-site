@@ -173,6 +173,9 @@ $PAGE = @'
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
+<!-- Google tag (gtag.js) — Google Analytics 4 -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B5M982KVN0"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-B5M982KVN0');</script>
 <title>{{TITLE}}</title>
 <meta name="description" content="{{DESC}}" />
 <link rel="canonical" href="{{CANON}}" />
