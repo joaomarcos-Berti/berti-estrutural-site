@@ -4,8 +4,8 @@
 # Uso:  powershell -ExecutionPolicy Bypass -File build.ps1
 # ============================================================================
 $ErrorActionPreference = 'Stop'
-# No dia da virada do dominio, trocar para: https://www.bertiestrutural.com.br
-$SITE = 'https://berti-estrutural-site.pages.dev'
+# Dominio oficial (virada concluida em 26/06/2026). O pages.dev segue como espelho.
+$SITE = 'https://www.bertiestrutural.com.br'
 $root = if (Test-Path (Join-Path $PSScriptRoot 'content')) { $PSScriptRoot } else { Join-Path $PSScriptRoot 'repo' }
 $enc  = New-Object System.Text.UTF8Encoding($false)   # UTF-8 sem BOM
 
