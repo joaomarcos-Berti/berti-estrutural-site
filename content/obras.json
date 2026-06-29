@@ -441,7 +441,7 @@
       "cat": "comercial",
       "catLabel": "Comercial",
       "cover": "assets/photos/inga-mall-capa.jpg",
-      "title": "Ingá Mall",
+      "title": "Ing\u00e1 Mall",
       "city": "Londrina \u2013 PR",
       "area": "3.095 m\u00b2",
       "status": "Entregue",
@@ -638,6 +638,19 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
+    },
+    {
+      "title": "teste",
+      "city": "Londrina \u2013 PR",
+      "cat": "supermercado",
+      "catLabel": "Supermercado",
+      "area": "",
+      "status": "Entregue",
+      "youtube": "",
+      "desc": "",
+      "cover": "",
+      "gallery": [],
+      "id": 33
     }
   ]
 }
