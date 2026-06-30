@@ -246,5 +246,6 @@ function bertiSend(ev){ev.preventDefault();
 @media(max-width:560px){#ck-consent{flex-direction:column;align-items:stretch}#ck-consent .ck-acts{justify-content:flex-end}}
 </style>
 <script>(function(){var K='berti_cookie_consent',el=document.getElementById('ck-consent');if(!el)return;try{if(localStorage.getItem(K)){return;}}catch(e){}el.hidden=false;function set(v){try{localStorage.setItem(K,v);}catch(e){}if(v==='accepted'&&typeof gtag==='function'){gtag('consent','update',{ad_storage:'granted',analytics_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});}el.hidden=true;}document.getElementById('ck-yes').addEventListener('click',function(){set('accepted');});document.getElementById('ck-no').addEventListener('click',function(){set('rejected');});})();</script>
+<script>(function(){function lead(m){if(typeof gtag==='function'){gtag('event','generate_lead',{method:m});}}document.addEventListener('click',function(e){var a=e.target.closest?e.target.closest('a'):null;if(!a)return;var h=(a.getAttribute('href')||'').toLowerCase();if(h.indexOf('wa.me')>-1||h.indexOf('api.whatsapp')>-1||h.indexOf('whatsapp.com')>-1){lead('whatsapp');}else if(h.indexOf('tel:')===0){lead('phone');}},true);document.addEventListener('submit',function(e){if(e.target&&e.target.tagName==='FORM'){lead('form');}},true);})();</script>
 </body>
 </html>
