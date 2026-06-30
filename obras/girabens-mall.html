@@ -5,7 +5,10 @@
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <!-- Google tag (gtag.js) — Google Analytics 4 -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-B5M982KVN0"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-B5M982KVN0');</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+gtag('consent','default',{ad_storage:'denied',analytics_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:500});
+try{if(localStorage.getItem('berti_cookie_consent')==='accepted'){gtag('consent','update',{ad_storage:'granted',analytics_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});}}catch(e){}
+gtag('js',new Date());gtag('config','G-B5M982KVN0');</script>
 <title>GIRABENS MALL — Obra em estrutura metálica | Berti Estrutural</title>
 <meta name="description" content="GIRABENS MALL — Comercial · Londrina – PR · 3.280 m² · Berti Estrutural" />
 <link rel="canonical" href="https://www.bertiestrutural.com.br/obras/girabens-mall" />
@@ -235,5 +238,21 @@
  window.addEventListener('scroll',s,{passive:true});s();
  if(b)b.addEventListener('click',function(){var o=n.classList.toggle('open');n.classList.add('solid');b.setAttribute('aria-label',o?'Fechar menu':'Abrir menu');});})();
 </script>
+<div id="ck-consent" role="dialog" aria-label="Aviso de cookies" hidden>
+<p>Usamos cookies para medir o tráfego do site (Google Analytics) e melhorar sua experiência. Você pode aceitar ou recusar a medição.</p>
+<div class="ck-acts"><button type="button" id="ck-no">Recusar</button><button type="button" id="ck-yes">Aceitar</button></div>
+</div>
+<style>
+#ck-consent{position:fixed;left:16px;right:16px;bottom:16px;z-index:9999;max-width:760px;margin:0 auto;background:#0a0f16;color:#e8eef4;border:1px solid rgba(71,182,241,.25);border-radius:14px;padding:16px 18px;display:flex;gap:14px;align-items:center;justify-content:space-between;flex-wrap:wrap;box-shadow:0 10px 40px rgba(0,0,0,.45);font:14px/1.5 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}
+#ck-consent p{margin:0;flex:1 1 320px}
+#ck-consent .ck-acts{display:flex;gap:10px;flex:0 0 auto}
+#ck-consent button{cursor:pointer;border-radius:9px;padding:9px 18px;font-weight:600;font-size:14px;border:1px solid transparent;transition:background .15s,border-color .15s}
+#ck-no{background:transparent;color:#cdd6df;border-color:rgba(255,255,255,.18)}
+#ck-no:hover{border-color:rgba(255,255,255,.45)}
+#ck-yes{background:#077fbf;color:#fff}
+#ck-yes:hover{background:#0a8fd6}
+@media(max-width:560px){#ck-consent{flex-direction:column;align-items:stretch}#ck-consent .ck-acts{justify-content:flex-end}}
+</style>
+<script>(function(){var K='berti_cookie_consent',el=document.getElementById('ck-consent');if(!el)return;try{if(localStorage.getItem(K)){return;}}catch(e){}el.hidden=false;function set(v){try{localStorage.setItem(K,v);}catch(e){}if(v==='accepted'&&typeof gtag==='function'){gtag('consent','update',{ad_storage:'granted',analytics_storage:'granted',ad_user_data:'granted',ad_personalization:'granted'});}el.hidden=true;}document.getElementById('ck-yes').addEventListener('click',function(){set('accepted');});document.getElementById('ck-no').addEventListener('click',function(){set('rejected');});})();</script>
 </body>
 </html>
