@@ -56,6 +56,7 @@
     .status-entregue{color:#16a34a;font-weight:600}
     .status-andamento{color:#d97706;font-weight:600}
     .featured-badge{background:#fde8ff;color:#7e22ce;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700}
+    .draft-badge{background:#fee2e2;color:#991b1b;padding:2px 8px;border-radius:20px;font-size:11px;font-weight:700}
 
     .card-acoes{display:flex;gap:8px;flex-shrink:0}
     .btn-editar{background:#e85d04;color:#fff;border:none;padding:8px 20px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;white-space:nowrap;transition:background .2s}
@@ -320,7 +321,7 @@
       <div class="form-row">
         <div class="form-group">
           <label>Slug (URL)</label>
-          <input type="text" id="p-slug" placeholder="titulo-do-artigo"/>
+          <input type="text" id="p-slug" placeholder="titulo-do-artigo" oninput="atualizarLinkPreview()"/>
           <p class="hint">Gerado automaticamente; edite se quiser</p>
         </div>
         <div class="form-group">
@@ -353,6 +354,18 @@
             <input type="checkbox" id="p-featured"/>
             <label for="p-featured">Destaque (featured)</label>
           </div>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label>Status</label>
+          <select id="p-status" onchange="atualizarLinkPreview()">
+            <option value="publicado">Publicado</option>
+            <option value="rascunho">Rascunho (link não listado)</option>
+          </select>
+        </div>
+        <div class="form-group" style="display:flex;align-items:flex-end;padding-bottom:4px">
+          <p class="hint" id="link-preview-post" style="display:none;margin:0"></p>
         </div>
       </div>
       <div class="form-group">
@@ -751,6 +764,7 @@ function renderizarListaBlog() {
           '<span>' + esc(p.date) + '</span>' +
           '<span>&middot; ' + esc(p.read) + '</span>' +
           (p.featured ? '<span class="featured-badge">&#11088; Destaque</span>' : '') +
+          (p.status === 'rascunho' ? '<span class="draft-badge">&#128221; Rascunho</span>' : '') +
         '</div>' +
       '</div>' +
       '<div class="card-acoes">' +
@@ -771,10 +785,12 @@ function novoPost() {
   document.getElementById('p-read').value = '4 min';
   document.getElementById('p-autor').value = 'Equipe Berti';
   document.getElementById('p-featured').checked = false;
+  document.getElementById('p-status').value = 'publicado';
   document.getElementById('p-excerpt').value = '';
   document.getElementById('p-cover').value = '';
   document.getElementById('p-body').value = '';
   atualizarPreviewCapa('p-cover','prev-capa-post');
+  atualizarLinkPreview();
   setStatusPost('','');
   document.getElementById('btn-salvar-post').disabled = false;
   mostrar('tela-editar-post');
@@ -791,10 +807,12 @@ function abrirEdicaoPost(i) {
   document.getElementById('p-read').value = p.read || '4 min';
   document.getElementById('p-autor').value = p.author || 'Equipe Berti';
   document.getElementById('p-featured').checked = !!p.featured;
+  document.getElementById('p-status').value = p.status === 'rascunho' ? 'rascunho' : 'publicado';
   document.getElementById('p-excerpt').value = p.excerpt || '';
   document.getElementById('p-cover').value = p.cover || '';
   document.getElementById('p-body').value = p.body || '';
   atualizarPreviewCapa('p-cover','prev-capa-post');
+  atualizarLinkPreview();
   setStatusPost('','');
   document.getElementById('btn-salvar-post').disabled = false;
   mostrar('tela-editar-post');
@@ -808,6 +826,20 @@ function gerarSlug() {
     .replace(/[ñ]/g,'n').replace(/[^a-z0-9\s-]/g,'').trim()
     .replace(/\s+/g,'-').replace(/-+/g,'-');
   document.getElementById('p-slug').value = slug;
+  atualizarLinkPreview();
+}
+
+function atualizarLinkPreview() {
+  var st = document.getElementById('p-status').value;
+  var slug = document.getElementById('p-slug').value.trim();
+  var el = document.getElementById('link-preview-post');
+  if (st === 'rascunho' && slug) {
+    var url = 'https://www.bertiestrutural.com.br/blog/' + slug;
+    el.innerHTML = 'Link não listado (só quem tem o link acessa): <a href="' + url + '" target="_blank">' + url + '</a>';
+    el.style.display = 'block';
+  } else {
+    el.style.display = 'none';
+  }
 }
 
 async function salvarPost() {
@@ -840,6 +872,7 @@ async function salvarPost() {
     read: document.getElementById('p-read').value.trim(),
     author: document.getElementById('p-autor').value.trim(),
     featured: document.getElementById('p-featured').checked,
+    status: document.getElementById('p-status').value,
     body: document.getElementById('p-body').value.trim()
   };
 
@@ -852,7 +885,10 @@ async function salvarPost() {
   try {
     var ok = await salvarJSON('content/blog.json', dadosBlog, shaBlog, 'Admin: ' + (i === -1 ? 'novo' : 'edita') + ' post "' + titulo + '"');
     shaBlog = ok.sha;
-    setStatusPost('ok', '✅ Salvo! O site atualiza em 1–2 minutos.');
+    var msgOk = novoPost.status === 'rascunho'
+      ? '✅ Salvo como rascunho! Em 1–2 minutos o link não listado estará ativo (veja acima).'
+      : '✅ Salvo! O site atualiza em 1–2 minutos.';
+    setStatusPost('ok', msgOk);
     if (i === -1) {
       // Atualizar índice para edição futura
       document.getElementById('idx-post').value = 0;

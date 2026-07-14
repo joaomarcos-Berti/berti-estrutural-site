@@ -182,7 +182,7 @@ gtag('js',new Date());gtag('config','G-B5M982KVN0');</script>
 <title>{{TITLE}}</title>
 <meta name="description" content="{{DESC}}" />
 <link rel="canonical" href="{{CANON}}" />
-<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="robots" content="{{ROBOTS}}" />
 <meta property="og:type" content="{{OGTYPE}}" />
 <meta property="og:site_name" content="Berti Estrutural" />
 <meta property="og:locale" content="pt_BR" />
@@ -229,9 +229,10 @@ function RenderPage([hashtable]$o){
   $ogtype  = if($o.ContainsKey('ogtype')){ $o.ogtype } else { 'website' }
   $ogtitle = if($o.ContainsKey('ogtitle')){ $o.ogtitle } else { $o.title }
   $extra   = if($o.ContainsKey('extrahead')){ $o.extrahead } else { '' }
+  $robots  = if($o.ContainsKey('robots')){ $o.robots } else { 'index, follow, max-image-preview:large' }
   Fill $PAGE @{
     TITLE=(AttrEnc $o.title); DESC=(AttrEnc $o.desc); CANON=$o.canon; OGTYPE=(AttrEnc $ogtype);
-    OGTITLE=(AttrEnc $ogtitle); OGIMG=$o.ogimg;
+    OGTITLE=(AttrEnc $ogtitle); OGIMG=$o.ogimg; ROBOTS=$robots;
     FAVICON=$FAVICON; FONTS=$FONTS; EXTRAHEAD=$extra; CSS=$CSS; NAV=$NAV; MAIN=$o.main; FOOTER=$FOOTER
   }
 }
@@ -241,6 +242,8 @@ function RenderPage([hashtable]$o){
 # ============================================================================
 $blog = Get-Content (Join-Path $root 'content/blog.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $posts = $blog.posts
+# posts em rascunho geram página (link não listado), mas ficam fora de índice/sitemap/vitrine
+$postsPub = $posts | Where-Object { $_.status -ne 'rascunho' }
 $count = 0
 
 # ---- CSS extra do artigo + índice ----
@@ -302,6 +305,7 @@ $BLOG_CSS = @'
 
 # ---- gera cada ARTIGO ----
 foreach($p in $posts){
+  $isDraft = ($p.status -eq 'rascunho')
   $iso = IsoDate $p.date
   $canon = "$SITE/blog/$($p.id)"
   $ogimg = "$SITE/$($p.cover)"
@@ -329,15 +333,16 @@ foreach($p in $posts){
 </main>
 "@
   $bcld = "<script type=`"application/ld+json`">{`"@context`":`"https://schema.org`",`"@type`":`"BreadcrumbList`",`"itemListElement`":[{`"@type`":`"ListItem`",`"position`":1,`"name`":`"Início`",`"item`":`"$SITE/`"},{`"@type`":`"ListItem`",`"position`":2,`"name`":`"Blog`",`"item`":`"$SITE/blog`"},{`"@type`":`"ListItem`",`"position`":3,`"name`":`"$(JsonStr $p.title)`",`"item`":`"$canon`"}]}</script>"
-  $html = RenderPage @{ title="$($p.title) — Berti Estrutural"; desc=$p.excerpt; canon=$canon; ogtype='article'; ogtitle=$p.title; ogimg=$ogimg; extrahead=($jsonld + $bcld + $BLOG_CSS); main=$main }
+  $robotsPost = if($isDraft){ 'noindex, nofollow' } else { 'index, follow, max-image-preview:large' }
+  $html = RenderPage @{ title="$($p.title) — Berti Estrutural"; desc=$p.excerpt; canon=$canon; ogtype='article'; ogtitle=$p.title; ogimg=$ogimg; extrahead=($jsonld + $bcld + $BLOG_CSS); main=$main; robots=$robotsPost }
   [System.IO.File]::WriteAllText((Join-Path $root "blog/$($p.id).html"), $html, $enc)
   $count++
 }
 
-# ---- gera o ÍNDICE do blog ----
-$feat = $posts | Where-Object { $_.featured } | Select-Object -First 1
-if(-not $feat){ $feat = $posts[0] }
-$rest = $posts | Where-Object { $_.id -ne $feat.id }
+# ---- gera o ÍNDICE do blog (só posts publicados; rascunhos ficam de fora) ----
+$feat = $postsPub | Where-Object { $_.featured } | Select-Object -First 1
+if(-not $feat){ $feat = $postsPub[0] }
+$rest = if($feat){ $postsPub | Where-Object { $_.id -ne $feat.id } } else { @() }
 
 $cardsHtml = New-Object System.Text.StringBuilder
 foreach($p in $rest){
@@ -874,7 +879,7 @@ SmAdd "$SITE/obras" $today '0.9'
 SmAdd "$SITE/blog" $today '0.8'
 SmAdd "$SITE/contato" $today '0.7'
 foreach($o in $obras){ SmAdd "$SITE/obras/$($o._slug)" $today '0.7' }
-foreach($p in $posts){ $d = IsoDate $p.date; if(-not $d){ $d = $today }; SmAdd "$SITE/blog/$($p.id)" $d '0.6' }
+foreach($p in $postsPub){ $d = IsoDate $p.date; if(-not $d){ $d = $today }; SmAdd "$SITE/blog/$($p.id)" $d '0.6' }
 [void]$sm.Append('</urlset>')
 [System.IO.File]::WriteAllText((Join-Path $root 'sitemap.xml'), $sm.ToString(), $enc)
 Write-Output "SEO infra: robots.txt + sitemap.xml ($([regex]::Matches($sm.ToString(),'<url>').Count) URLs)"
@@ -1325,9 +1330,9 @@ $HOME_CSS = @"
 </style>
 "@
 
-# blog: 3 mais recentes
+# blog: 3 mais recentes (só publicados)
 $hb = New-Object System.Text.StringBuilder
-foreach($p in ($posts | Select-Object -First 3)){
+foreach($p in ($postsPub | Select-Object -First 3)){
   [void]$hb.Append("<a class=`"hb__c`" href=`"/blog/$($p.id)`"><div class=`"hb__im`"><img src=`"/$($p.cover)`" alt=`"$(AttrEnc $p.title)`" loading=`"lazy`" /><span>$(HtmlEnc $p.catLabel)</span></div><div class=`"hb__bd`"><div class=`"dt`">$(HtmlEnc $p.date)</div><h3>$(HtmlEnc $p.title)</h3><p>$(HtmlEnc $p.excerpt)</p></div></a>")
 }
 
