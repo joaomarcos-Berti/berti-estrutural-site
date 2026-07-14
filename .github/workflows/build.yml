@@ -34,7 +34,19 @@ jobs:
           git add -A
           if git diff --cached --quiet; then
             echo "Nenhuma pagina mudou."
-          else
-            git commit -m "build: regenera HTML do site [skip ci]"
-            git push
+            exit 0
           fi
+          git commit -m "build: regenera HTML do site [skip ci]"
+          # Se alguem commitou (ex.: admin salvando de novo) enquanto o build rodava,
+          # o push direto seria rejeitado (non-fast-forward). Rebase + retry resolve a corrida.
+          for i in 1 2 3; do
+            if git push; then
+              exit 0
+            fi
+            echo "Push rejeitado (tentativa $i) - rebaseando sobre origin/main e tentando de novo..."
+            git fetch origin main
+            git rebase origin/main
+            sleep 3
+          done
+          echo "Push falhou apos 3 tentativas."
+          exit 1
