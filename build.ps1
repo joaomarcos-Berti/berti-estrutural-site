@@ -38,7 +38,21 @@ function IsoDate([string]$d){
   return ''
 }
 
-# Converte o corpo do artigo (texto com marcadores [img:...]) em HTML.
+# Aplica formatacao inline (negrito **t**, italico _t_, link [t](url)) sobre texto ja HTML-encoded.
+$LinkEval = [System.Text.RegularExpressions.MatchEvaluator]{
+  param($m)
+  '<a href="' + ($m.Groups[2].Value -replace '"','&quot;') + '">' + $m.Groups[1].Value + '</a>'
+}
+function InlineFormat([string]$s){
+  $t = HtmlEnc $s
+  $t = [regex]::Replace($t, '\[([^\]]+)\]\(([^)]+)\)', $LinkEval)
+  $t = [regex]::Replace($t, '\*\*(.+?)\*\*', '<strong>$1</strong>')
+  $t = [regex]::Replace($t, '(?<![a-zA-Z0-9])_(.+?)_(?![a-zA-Z0-9])', '<em>$1</em>')
+  $t
+}
+
+# Converte o corpo do artigo (texto com marcadores [img:...], **negrito**, _italico_,
+# ## titulo, listas "- item" e [link](url)) em HTML.
 # Corrige o bug: reconhece [img:...] mesmo grudado em texto.
 function BodyHtml([string]$body,[string]$alt){
   if($null -eq $body){ return '' }
@@ -53,7 +67,24 @@ function BodyHtml([string]$body,[string]$alt){
       $seg = $parts[$i]
       foreach($par in ($seg -split "`n{2,}")){
         $t = $par.Trim()
-        if($t -ne ''){ [void]$out.Append("<p>$(HtmlEnc $t)</p>`n") }
+        if($t -eq ''){ continue }
+        if($t -match '^##\s+(.*)$'){
+          [void]$out.Append("<h2>$(InlineFormat $Matches[1])</h2>`n")
+          continue
+        }
+        $linhas = $t -split "`n"
+        $naoVazias = $linhas | Where-Object { $_.Trim() -ne '' }
+        $ehLista = ($naoVazias.Count -gt 0) -and (-not ($naoVazias | Where-Object { $_.Trim() -notmatch '^-\s+' }))
+        if($ehLista){
+          [void]$out.Append("<ul>`n")
+          foreach($ln in $naoVazias){
+            $item = $ln.Trim() -replace '^-\s+',''
+            [void]$out.Append("<li>$(InlineFormat $item)</li>`n")
+          }
+          [void]$out.Append("</ul>`n")
+        } else {
+          [void]$out.Append("<p>$(InlineFormat $t)</p>`n")
+        }
       }
     }
   }
@@ -260,6 +291,12 @@ $BLOG_CSS = @'
   .art h1{ font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(30px,4vw,46px); line-height:1.0; letter-spacing:-0.01em; color:var(--ink); margin:0 0 28px; text-wrap:balance; }
   .art__rule{ width:56px; height:3px; background:var(--blue); margin-bottom:32px; }
   .art p{ font-size:17.5px; line-height:1.72; color:rgba(10,10,10,0.82); margin:0 0 22px; text-wrap:pretty; }
+  .art p strong{ color:var(--ink); font-weight:700; }
+  .art p a{ color:var(--blue-dark); text-decoration:underline; text-underline-offset:2px; }
+  .art h2{ font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(22px,2.6vw,30px); line-height:1.15; letter-spacing:-0.01em; color:var(--ink); margin:36px 0 18px; text-wrap:balance; }
+  .art ul{ margin:0 0 22px; padding-left:22px; }
+  .art li{ font-size:17.5px; line-height:1.72; color:rgba(10,10,10,0.82); margin-bottom:10px; }
+  .art li::marker{ color:var(--blue-dark); }
   .art figure{ margin:8px 0 26px; }
   .art figure img{ width:100%; max-height:520px; object-fit:cover; display:block; }
   .art__cta{ margin-top:36px; padding-top:28px; border-top:1px solid rgba(10,10,10,0.1); display:flex; flex-wrap:wrap; gap:16px; align-items:center; justify-content:space-between; }
