@@ -252,6 +252,7 @@ $BLOG_CSS = @'
   .art{ max-width:820px; margin:0 auto; background:#fff; }
   .art__cover{ position:relative; height:clamp(280px,46vh,440px); background:#000; }
   .art__cover img{ position:absolute; inset:0; width:100%; height:100%; object-fit:cover; display:block; }
+  .art__sh{ position:absolute; inset:0; background:linear-gradient(180deg,rgba(5,8,12,0.78) 0%,rgba(5,8,12,0.25) 24%,rgba(5,8,12,0) 46%); pointer-events:none; }
   .art__badge{ position:absolute; top:90px; left:18px; background:var(--blue); color:#05080c; font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; padding:6px 12px; }
   .art__body{ padding:clamp(28px,5vw,60px); }
   .art__meta{ display:flex; gap:14px; align-items:center; flex-wrap:wrap; font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:13px; letter-spacing:0.08em; text-transform:uppercase; color:var(--blue-dark); margin-bottom:18px; }
@@ -319,6 +320,7 @@ foreach($p in $posts){
   <article class="art">
     <div class="art__cover">
       <img src="/$($p.cover)" alt="$(AttrEnc $p.title)" />
+      <div class="art__sh"></div>
       <span class="art__badge">$(HtmlEnc $p.catLabel)</span>
     </div>
     <div class="art__body">
