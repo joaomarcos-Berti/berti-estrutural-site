@@ -1,131 +1,131 @@
 {
-  "cats": [
-    {
-      "key": "todas",
-      "label": "Todos"
-    },
-    {
-      "key": "engenharia",
-      "label": "Engenharia"
-    },
-    {
-      "key": "tecnologia",
-      "label": "Tecnologia"
-    },
-    {
-      "key": "materiais",
-      "label": "Materiais"
-    },
-    {
-      "key": "gestao",
-      "label": "Gest\u00e3o de Obra"
-    }
-  ],
-  "posts": [
-    {
-      "id": "estrutura-metalica-vs-concreto-armado-qual-sistema-escolher-para-a-sua-obra",
-      "cat": "engenharia",
-      "catLabel": "Engenharia",
-      "title": "Estrutura Met\u00e1lica vs. Concreto Armado: qual sistema escolher para a sua obra?",
-      "excerpt": "Concreto armado ou estrutura met\u00e1lica: qual a melhor escolha para a sua obra?\n   No mercado de m\u00e9dio e grande porte, essa decis\u00e3o define o ritmo, o custo e o sucesso do empreendimento. Enquanto o a\u00e7o se destaca pela velocidade, reduzindo o tempo de execu\u00e7\u00e3o em at\u00e9 40% e vencendo v\u00e3os livres acima de 15 metros, o concreto armado se consolida pela robustez, in\u00e9rcia t\u00e9rmica e competitividade em m\u00faltiplos pavimentos. A grande virada do mercado atual est\u00e1 na uni\u00e3o desses dois mundos: a combina\u00e7\u00e3o de estrutura met\u00e1lica com concreto pr\u00e9-moldado, aliando a agilidade do a\u00e7o \u00e0 economia do concreto. Descubra como a tecnologia do a\u00e7o galvanizado ZAR 400 pode otimizar seu projeto com montagem r\u00e1pida e manuten\u00e7\u00e3o m\u00ednima em uma leitura r\u00e1pida de apenas 5 minutos.",
-      "cover": "assets/photos/1784120163783-geminigeneratedimagee4x3rpe4x3rpe4x3.jpg",
-      "date": "14 jul 2026",
-      "read": "5 min",
-      "author": "Equipe Berti",
-      "featured": false,
-      "status": "rascunho",
-      "body": "Por Berti Estrutural | Engenharia & Constru\u00e7\u00e3o\n\n\n\n  No mercado brasileiro de obras de m\u00e9dio e grande porte, dois sistemas estruturais dominam as especifica\u00e7\u00f5es t\u00e9cnicas: a estrutura met\u00e1lica e o concreto armado. A pergunta que engenheiros, incorporadores e gestores de obras se fazem com frequ\u00eancia \u00e9 direta \u2014 qual dos dois \u00e9 melhor? A resposta, por\u00e9m, raramente \u00e9 simples.\n\n  A verdade \u00e9 que ambos os sistemas s\u00e3o eficazes, possuem custos e performances distintas e, na maioria dos projetos bem concebidos, trabalham de forma complementar. A escolha certa depende de vari\u00e1veis espec\u00edficas de cada empreendimento: finalidade, prazo, v\u00e3o livre necess\u00e1rio, condi\u00e7\u00f5es de funda\u00e7\u00e3o e or\u00e7amento dispon\u00edvel.\n\n\n[img:assets/photos/1784119953745-dji0001.jpg]\n\n ** O que diferencia cada sistema**\n\nEstrutura Met\u00e1lica:\n\n  A estrutura de a\u00e7o \u00e9 reconhecida por sua velocidade de montagem e leveza relativa. Por ser fabricada industrialmente com alto controle dimensional, chega \u00e0 obra praticamente pronta para montagem, o que reduz significativamente o tempo de execu\u00e7\u00e3o em campo. Estudos comparativos publicados no Brasil apontam que obras em estrutura met\u00e1lica podem ser conclu\u00eddas at\u00e9 40% mais r\u00e1pido do que m\u00e9todos construtivos convencionais em concreto moldado in loco \u2014 vantagem decisiva para galp\u00f5es industriais e edif\u00edcios comerciais onde cada dia parado representa custo operacional (Compara\u00e7\u00e3o de custos e prazos de galp\u00f5es industriais em concreto pr\u00e9-moldado e estrutura met\u00e1lica \u2014 ResearchGate, 2020).\n\n  Outra caracter\u00edstica t\u00e9cnica relevante \u00e9 a capacidade de vencer grandes v\u00e3os livres com menor n\u00famero de pilares. Enquanto estruturas em concreto armado convencional tendem a demandar mais apoios intermedi\u00e1rios para v\u00e3os acima de 15 metros, o a\u00e7o estrutural permite coberturas e pavimentos com v\u00e3os expressivos sem comprometer a funcionalidade do espa\u00e7o interno \u2014 fundamental em armaz\u00e9ns log\u00edsticos, centros de distribui\u00e7\u00e3o e pavilh\u00f5es industriais.\n\n  A leveza do sistema met\u00e1lico tamb\u00e9m reduz as cargas transmitidas \u00e0 funda\u00e7\u00e3o, que responde por parcela significativa do custo total de qualquer obra. Em solos de menor capacidade de carga, essa vantagem pode representar economia real no dimensionamento das sapatas ou estacas.\n\n  Por fim, a estrutura met\u00e1lica oferece facilidade de amplia\u00e7\u00e3o futura e reversibilidade. Diferentemente do concreto, um pavilh\u00e3o met\u00e1lico pode ser desmontado, relocado ou expandido com altera\u00e7\u00f5es estruturais vi\u00e1veis \u2014 flexibilidade que o concreto armado simplesmente n\u00e3o oferece no mesmo grau.\n\n  Principal desvantagem: o custo de material \u00e9, em geral, mais elevado que o do concreto. O a\u00e7o estrutural tamb\u00e9m demanda aten\u00e7\u00e3o ao comportamento em situa\u00e7\u00e3o de inc\u00eandio \u2014 acima de aproximadamente 500\u00b0C, o a\u00e7o perde resist\u00eancia mec\u00e2nica de forma progressiva. Isso n\u00e3o inviabiliza o sistema, mas exige projeto de prote\u00e7\u00e3o passiva (tintas intumescentes, revestimentos) compat\u00edvel com a classe de risco da edifica\u00e7\u00e3o, conforme exige a ABNT NBR 14323:2013 (Dimensionamento de estruturas de a\u00e7o em situa\u00e7\u00e3o de inc\u00eandio).\n\n\nConcreto Armado:\n\n  O concreto armado \u00e9 o sistema estrutural mais utilizado no mundo. Sua robustez, in\u00e9rcia t\u00e9rmica e resist\u00eancia ao fogo s\u00e3o caracter\u00edsticas consagradas. O material apresenta bom comportamento sob cargas de compress\u00e3o, durabilidade elevada em ambientes agressivos e, quando bem executado, baixa necessidade de manuten\u00e7\u00e3o ao longo de d\u00e9cadas.\n\n  Do ponto de vista financeiro, o concreto \u00e9 competitivo, especialmente em obras com v\u00e3os menores, estruturas de m\u00faltiplos pavimentos com lajes maci\u00e7as e constru\u00e7\u00f5es onde a m\u00e3o de obra local \u00e9 o fator determinante de custo. A ABNT NBR 6118:2023 (Projeto de estruturas de concreto \u2014 Procedimento) estabelece os par\u00e2metros de dimensionamento que garantem a seguran\u00e7a e a durabilidade do sistema.\n\n  Principal desvantagem: o tempo de execu\u00e7\u00e3o. O concreto moldado in loco exige cura, f\u00f4rmas, escoramento e sequ\u00eancia de concretagem que aumentam o prazo da obra. Al\u00e9m disso, seu peso pr\u00f3prio elevado \u2014 em torno de 2.500 kg/m\u00b3 \u2014 implica funda\u00e7\u00f5es mais robustas e, consequentemente, mais caras.\n\n\n  A combina\u00e7\u00e3o entre os dois sistemas: o melhor dos dois mundos\nUma abordagem que vem ganhando consist\u00eancia no mercado brasileiro \u00e9 a utiliza\u00e7\u00e3o conjunta de estrutura met\u00e1lica e concreto pr\u00e9-moldado. O pr\u00e9-moldado chega \u00e0 obra com pe\u00e7as prontas, fabricadas em ambiente controlado de f\u00e1brica, o que garante maior qualidade de execu\u00e7\u00e3o, menos entulho no canteiro e montagem \u00e1gil. Quando combinado \u00e0 estrutura met\u00e1lica, o conjunto une a leveza e a velocidade do a\u00e7o \u00e0 robustez e ao custo competitivo do concreto \u2014 um equil\u00edbrio t\u00e9cnico e econ\u00f4mico que tem se mostrado eficiente em galp\u00f5es log\u00edsticos, plantas industriais e grandes empreendimentos comerciais.\n\n\n  O a\u00e7o ZAR 400: alta resist\u00eancia com prote\u00e7\u00e3o integrada\nNem todo a\u00e7o estrutural \u00e9 igual. Na Berti, trabalhamos com o a\u00e7o ZAR 400, especificado pela norma brasileira ABNT NBR 10735, um a\u00e7o de alta resist\u00eancia mec\u00e2nica \u2014 com limite de escoamento de 400 MPa \u2014 j\u00e1 dotado de revestimento galvanizado a quente de f\u00e1brica. Essa caracter\u00edstica elimina uma etapa de prote\u00e7\u00e3o anticorrosiva que seria necess\u00e1ria em a\u00e7os comuns, reduzindo custos de manuten\u00e7\u00e3o ao longo da vida \u00fatil da estrutura e aumentando a durabilidade em ambientes externos ou \u00famidos.\n\n  Associado ao nosso sistema 100% parafusado, que dispensa solda em campo, o ZAR 400 entrega uma estrutura com:\n\n  Montagem mais r\u00e1pida e limpa, com menos depend\u00eancia de m\u00e3o de obra especializada em soldagem;\nManuten\u00e7\u00e3o m\u00ednima ao longo da vida \u00fatil;\nPossibilidade real de desmontagem e reloca\u00e7\u00e3o, caso o empreendimento demande altera\u00e7\u00f5es futuras;\nMaior seguran\u00e7a estrutural, dado o padr\u00e3o de resist\u00eancia superior ao a\u00e7o carbono convencional.\n\n\n[img:assets/photos/1784120350352-djifly20250508080150241746702706618photo.jpg]\n\n  Ent\u00e3o, qual sistema \u00e9 o mais econ\u00f4mico para a sua obra?\nN\u00e3o existe uma resposta universal \u2014 e qualquer empresa que afirme o contr\u00e1rio sem analisar o projeto espec\u00edfico merece desconfian\u00e7a. A decis\u00e3o depende de vari\u00e1veis como v\u00e3o livre necess\u00e1rio, prazo de entrega, tipo de uso, n\u00edvel de agressividade ambiental, caracter\u00edsticas do solo e or\u00e7amento dispon\u00edvel. Para v\u00e3os acima de 15 metros, a estrutura met\u00e1lica tende a ser mais competitiva. Para edifica\u00e7\u00f5es com m\u00faltiplos pavimentos compactos e cargas concentradas, o concreto pode ser mais adequado.\n\n  Na pr\u00e1tica, muitas obras que chegam \u00e0 Berti com or\u00e7amento preliminar em a\u00e7o terminam com a solu\u00e7\u00e3o mista \u2014 a\u00e7o + pr\u00e9-moldado \u2014 como a mais vi\u00e1vel. Outras que chegam com projeto em concreto convencional ganham efici\u00eancia significativa ao migrar para o met\u00e1lico.\n\n  O que fazemos \u00e9 analisar cada caso com transpar\u00eancia, cobrindo desde o projeto estrutural met\u00e1lico at\u00e9 a montagem em obra, em parceria com fornecedores de pr\u00e9-moldados de confian\u00e7a. O objetivo \u00e9 sempre entregar a solu\u00e7\u00e3o mais vi\u00e1vel \u2014 n\u00e3o a mais cara, n\u00e3o a mais r\u00e1pida por si s\u00f3, mas a que melhor serve ao seu projeto.\n\n  Se voc\u00ea est\u00e1 em fase de decis\u00e3o, solicite um or\u00e7amento. Analisamos as vari\u00e1veis do seu empreendimento e apresentamos uma compara\u00e7\u00e3o fundamentada.\n\n[img:assets/photos/1784120371632-djifly202504151148561531744728598299phot.jpg]\n\n\nRefer\u00eancias\nABNT NBR 8800:2008 \u2014 Projeto de estruturas de a\u00e7o e de estruturas mistas de a\u00e7o e concreto de edif\u00edcios\nABNT NBR 6118:2023 \u2014 Projeto de estruturas de concreto \u2014 Procedimento\nABNT NBR 14323:2013 \u2014 Dimensionamento de estruturas de a\u00e7o em situa\u00e7\u00e3o de inc\u00eandio\nABNT NBR 10735 \u2014 Chapas e tiras de a\u00e7o de alta resist\u00eancia mec\u00e2nica para conforma\u00e7\u00e3o a frio galvanizadas por imers\u00e3o a quente (ZAR 345 / ZAR 400)\nReis, A. M. O. \u2014 Estudo preliminar comparativo entre estruturas met\u00e1licas e concreto armado \u2014 Reposit\u00f3rio Cogna, 2021\nResearchGate (2020) \u2014 Compara\u00e7\u00e3o de custos e prazos de galp\u00f5es industriais em concreto pr\u00e9-moldado e estrutura met\u00e1lica\nTotal Materia \u2014 ZAR 400 (NBR): Properties, Composition, and Best Uses"
-    },
-    {
-      "id": "ligacoes-parafusadas",
-      "cat": "engenharia",
-      "catLabel": "Engenharia",
-      "title": "Por que estruturas 100% parafusadas mudam o jogo da sua obra",
-      "excerpt": "Sem solda no canteiro, a montagem fica mais r\u00e1pida, limpa e previs\u00edvel. Entenda o que isso significa para prazo, seguran\u00e7a e qualidade final.",
-      "cover": "assets/photos/1781182680010-dsc09756.jpg",
-      "date": "12 mai 2026",
-      "read": "4 min",
-      "author": "Equipe Berti",
-      "featured": true,
-      "body": "Quando uma estrutura \u00e9 concebida para ser 100% parafusada, todo o trabalho pesado acontece na f\u00e1brica \u2014 com corte, fura\u00e7\u00e3o e tratamento sob controle rigoroso. No canteiro, a equipe apenas posiciona e aperta. O resultado \u00e9 uma montagem que se parece mais com encaixar pe\u00e7as de um quebra-cabe\u00e7a do que com uma obra tradicional.\n\n[img:assets/photos/1781182729626-cpia-de-dsc1445.jpg]\n\nIsso elimina a solda em campo, que \u00e9 uma das maiores fontes de atraso, retrabalho e varia\u00e7\u00e3o de qualidade. Sem ma\u00e7arico em obra, reduz-se o risco de inc\u00eandio, a depend\u00eancia de soldadores qualificados no local e a necessidade de inspe\u00e7\u00e3o destrutiva pe\u00e7a a pe\u00e7a.\n\nNa pr\u00e1tica, o cliente ganha um cronograma mais curto e confi\u00e1vel, um canteiro mais seguro e uma estrutura cuja qualidade j\u00e1 foi auditada antes mesmo de chegar \u00e0 obra. \u00c9 a diferen\u00e7a entre construir e simplesmente montar.\n[img:assets/photos/1781182702168-dsc09716.jpg]\n\n[img:assets/photos/1781182789825-cpia-de-dsc4843.jpg]\n\n\n[img:assets/photos/1781182986965-cpia-de-dsc1423.jpg]"
-    },
-    {
-      "id": "bim-na-pratica",
-      "cat": "tecnologia",
-      "catLabel": "Tecnologia",
-      "title": "BIM na pr\u00e1tica: como o 3D evita surpresas no canteiro",
-      "excerpt": "Modelar a obra inteira antes de fabricar a primeira pe\u00e7a revela interfer\u00eancias que custariam caro em campo. Veja como funciona.",
-      "cover": "assets/photos/1781183864425-2.jpg",
-      "date": "28 abr 2026",
-      "read": "5 min",
-      "author": "Equipe Berti",
-      "featured": false,
-      "body": "A metodologia BIM permite construir a obra duas vezes: primeiro no computador, depois no mundo real. No modelo 3D, cada viga, pilar e liga\u00e7\u00e3o existe com sua geometria exata \u2014 e \u00e9 a\u00ed que as interfer\u00eancias aparecem, muito antes de virarem um problema no canteiro.\n\n[img:assets/photos/1781184009839-3d-3.jpg]\n\n[img:assets/photos/1781184038652-dji0345.jpg]\n\n\n  Um furo que n\u00e3o bate, uma tubula\u00e7\u00e3o que cruza uma treli\u00e7a, uma folga insuficiente para a montagem: tudo isso \u00e9 identificado e corrigido na tela. Mudan\u00e7as que custariam dias de obra e desperd\u00edcio de material s\u00e3o resolvidas em minutos de projeto.\n\n\n\n  Al\u00e9m disso, o modelo gera automaticamente as listas de fabrica\u00e7\u00e3o que alimentam as m\u00e1quinas CNC, garantindo que a pe\u00e7a produzida seja exatamente a pe\u00e7a projetada.\n\n\n[img:assets/photos/1781184184205-3d-1.jpg]\n\n[img:assets/photos/1781184190592-dji0575.jpg]"
-    },
-    {
-      "id": "galvanizacao-vs-pintura",
-      "cat": "materiais",
-      "catLabel": "Materiais",
-      "title": "Galvaniza\u00e7\u00e3o ou pintura: qual prote\u00e7\u00e3o escolher para o a\u00e7o",
-      "excerpt": "Cada ambiente pede uma estrat\u00e9gia de prote\u00e7\u00e3o. Comparamos durabilidade, manuten\u00e7\u00e3o e custo das duas solu\u00e7\u00f5es mais usadas.",
-      "cover": "assets/photos/1781184576632-geminigeneratedimageqmqtyxqmqtyxqmqt.jpg",
-      "date": "15 abr 2026",
-      "read": "4 min",
-      "author": "Equipe Berti",
-      "featured": false,
-      "body": "A corros\u00e3o \u00e9 o principal inimigo de uma estrutura met\u00e1lica ao longo do tempo. Por isso, a escolha do sistema de prote\u00e7\u00e3o \u00e9 uma decis\u00e3o de engenharia \u2014 n\u00e3o apenas de est\u00e9tica.\n\n[img:assets/photos/1781184698710-aco-inoxidavel.jpg]\n\nA galvaniza\u00e7\u00e3o a fogo forma uma barreira de zinco que protege o a\u00e7o por dentro e por fora, com vida \u00fatil de d\u00e9cadas e praticamente sem manuten\u00e7\u00e3o. \u00c9 a escolha natural para ambientes agressivos, \u00e1reas externas e obras onde o acesso futuro para repintura seria dif\u00edcil.\n\n\n[img:assets/photos/1781184947104-djifly202507220746287331753181228516phot.jpg]\n\n\nJ\u00e1 a pintura industrial oferece liberdade de cor e bom desempenho em ambientes controlados, com custo inicial menor. A decis\u00e3o certa depende da exposi\u00e7\u00e3o, da expectativa de vida da obra e do plano de manuten\u00e7\u00e3o do cliente.\n\n\n[img:assets/photos/1781185009824-dsc09780.jpg]\n\n[img:assets/photos/1781185017366-dsc09775.jpg]\n\n[img:assets/photos/1781185025195-dsc09767.jpg]"
-    },
-    {
-      "id": "fabricacao-cnc",
-      "cat": "engenharia",
-      "catLabel": "Engenharia",
-      "title": "Como a fabrica\u00e7\u00e3o CNC garante o encaixe milim\u00e9trico",
-      "excerpt": "A precis\u00e3o da f\u00e1brica \u00e9 o que permite montar sem ajustes em obra. Entenda o caminho do modelo 3D at\u00e9 a pe\u00e7a pronta.",
-      "cover": "assets/photos/1781188332857-0f347e71-94d7-4772-9558-c6ce20060bec.jpg",
-      "date": "2 abr 2026",
-      "read": "3 min",
-      "author": "Equipe Berti",
-      "featured": false,
-      "body": "Depois que o modelo BIM \u00e9 aprovado, ele se transforma em instru\u00e7\u00f5es para m\u00e1quinas de comando num\u00e9rico. S\u00e3o elas que cortam, furam e marcam cada pe\u00e7a com toler\u00e2ncias que a m\u00e3o humana dificilmente alcan\u00e7aria de forma consistente.\n\n[img:assets/photos/1781188346642-captura-de-tela-2026-06-11-112459.png]\n\n\n[img:assets/photos/1781188372000-captura-de-tela-2026-06-11-112555.png]\n\n\nEssa precis\u00e3o \u00e9 o que torna poss\u00edvel a montagem 100% parafusada: se cada furo est\u00e1 exatamente onde deveria, as pe\u00e7as se conectam sem ajuste, sem corte e sem improviso no canteiro.\n\nO ganho \u00e9 duplo \u2014 rastreabilidade total de cada pe\u00e7a e um tempo de montagem drasticamente menor, porque nada precisa ser refeito.\n\n\n[img:assets/photos/1781188522733-dsc09738.jpg]"
-    },
-    {
-      "id": "prazo-de-obra",
-      "cat": "gestao",
-      "catLabel": "Gest\u00e3o de Obra",
-      "title": "Prazo de obra: o que realmente acelera uma estrutura met\u00e1lica",
-      "excerpt": "Velocidade n\u00e3o \u00e9 sorte, \u00e9 m\u00e9todo. Os fatores que mais impactam o cronograma de uma obra em a\u00e7o.",
-      "cover": "assets/photos/aerial.jpg",
-      "date": "20 mar 2026",
-      "read": "5 min",
-      "author": "Equipe Berti",
-      "featured": false,
-      "body": "A estrutura met\u00e1lica \u00e9 conhecida pela rapidez, mas o prazo real depende de decis\u00f5es tomadas muito antes da montagem. A fabrica\u00e7\u00e3o acontece em paralelo \u00e0s funda\u00e7\u00f5es, o que significa que, enquanto o concreto cura, o a\u00e7o j\u00e1 est\u00e1 sendo produzido.\n\nProjetos bem detalhados em BIM, log\u00edstica de transporte planejada e liga\u00e7\u00f5es parafusadas s\u00e3o os tr\u00eas fatores que mais comprimem o cronograma. Eles eliminam as tr\u00eas maiores causas de atraso: retrabalho, espera por material e improviso em campo.\n\nNo fim, entregar no prazo \u00e9 menos sobre correr e mais sobre antecipar \u2014 resolver no projeto o que custaria caro na obra."
-    },
-    {
-      "id": "grandes-vaos",
-      "cat": "engenharia",
-      "catLabel": "Engenharia",
-      "title": "Grandes v\u00e3os livres: engenharia para varejo e log\u00edstica",
-      "excerpt": "Pisos de venda e galp\u00f5es pedem \u00e1reas sem pilares. Como o a\u00e7o viabiliza v\u00e3os que o concreto n\u00e3o alcan\u00e7a.",
-      "cover": "assets/photos/1781186576584-dji0067.jpg",
-      "date": "8 mar 2026",
-      "read": "4 min",
-      "author": "Equipe Berti",
-      "featured": false,
-      "body": "Um supermercado eficiente ou um centro log\u00edstico produtivo t\u00eam algo em comum: precisam de grandes \u00e1reas livres, sem pilares atrapalhando o fluxo de pessoas, produtos e empilhadeiras.\n\n\u00c9 aqui que a estrutura met\u00e1lica brilha. Treli\u00e7as e vigas de alma cheia permitem v\u00e3os de dezenas de metros com peso pr\u00f3prio reduzido, liberando o espa\u00e7o interno e dando flexibilidade total para o layout do cliente.\n\n[img:assets/photos/1781186606500-dji0039.jpg]\n\n\n V\u00e3os maiores tamb\u00e9m significam menos funda\u00e7\u00f5es, o que reduz custo e tempo de obra \u2014 um ganho que se paga ao longo de toda a opera\u00e7\u00e3o do empreendimento.\n[img:assets/photos/1781186627183-dji0055.jpg]\n\n[img:assets/photos/1781186683097-dji0842.jpg]"
-    },
-    {
-      "id": "realidade-virtual",
-      "cat": "tecnologia",
-      "catLabel": "Tecnologia",
-      "title": "Realidade virtual: visite sua obra antes da primeira funda\u00e7\u00e3o",
-      "excerpt": "\u00d3culos de VR transformam o modelo 3D em uma experi\u00eancia imersiva \u2014 e em decis\u00f5es mais seguras de compra.",
-      "cover": "assets/photos/1781186964909-imagem20000.jpg",
-      "date": "24 fev 2026",
-      "read": "3 min",
-      "author": "Equipe Berti",
-      "featured": false,
-      "body": "Ler uma planta exige treino; caminhar dentro da obra, n\u00e3o. Com o modelo BIM e \u00f3culos de realidade virtual, o cliente percorre o espa\u00e7o em escala real antes de a primeira funda\u00e7\u00e3o ser executada.\n\n\n[img:assets/photos/1781187106726-643136.webp]\n\nEssa imers\u00e3o antecipa percep\u00e7\u00f5es que nenhum desenho transmite: a sensa\u00e7\u00e3o do p\u00e9-direito, a rela\u00e7\u00e3o entre os ambientes, o impacto visual da estrutura aparente.\n\nO resultado \u00e9 uma decis\u00e3o de compra mais transparente e segura \u2014 e menos pedidos de mudan\u00e7a quando a obra j\u00e1 est\u00e1 em andamento.\n\n\n[img:assets/photos/1781187230161-p4.jpg]"
-    }
-  ]
+    "cats":  [
+                 {
+                     "key":  "todas",
+                     "label":  "Todos"
+                 },
+                 {
+                     "key":  "engenharia",
+                     "label":  "Engenharia"
+                 },
+                 {
+                     "key":  "tecnologia",
+                     "label":  "Tecnologia"
+                 },
+                 {
+                     "key":  "materiais",
+                     "label":  "Materiais"
+                 },
+                 {
+                     "key":  "gestao",
+                     "label":  "Gestão de Obra"
+                 }
+             ],
+    "posts":  [
+                  {
+                      "id":  "estrutura-metalica-vs-concreto-armado-qual-sistema-escolher-para-a-sua-obra",
+                      "cat":  "engenharia",
+                      "catLabel":  "Engenharia",
+                      "title":  "Estrutura Metálica vs. Concreto Armado: qual sistema escolher para a sua obra?",
+                      "excerpt":  "Concreto armado ou estrutura metálica: qual a melhor escolha para a sua obra?\n   No mercado de médio e grande porte, essa decisão define o ritmo, o custo e o sucesso do empreendimento. Enquanto o aço se destaca pela velocidade, reduzindo o tempo de execução em até 40% e vencendo vãos livres acima de 15 metros, o concreto armado se consolida pela robustez, inércia térmica e competitividade em múltiplos pavimentos. A grande virada do mercado atual está na união desses dois mundos: a combinação de estrutura metálica com concreto pré-moldado, aliando a agilidade do aço à economia do concreto. Descubra como a tecnologia do aço galvanizado ZAR 400 pode otimizar seu projeto com montagem rápida e manutenção mínima em uma leitura rápida de apenas 5 minutos.",
+                      "cover":  "assets/photos/1784120163783-geminigeneratedimagee4x3rpe4x3rpe4x3.jpg",
+                      "date":  "14 jul 2026",
+                      "read":  "5 min",
+                      "author":  "Equipe Berti",
+                      "featured":  false,
+                      "status":  "rascunho",
+                      "body":  "Por Berti Estrutural | Engenharia \u0026 Construção\n\nNo mercado brasileiro de obras de médio e grande porte, dois sistemas estruturais dominam as especificações técnicas: a estrutura metálica e o concreto armado. A pergunta que engenheiros, incorporadores e gestores de obras se fazem com frequência é direta — qual dos dois é melhor? A resposta, porém, raramente é simples.\n\nA verdade é que ambos os sistemas são eficazes, possuem custos e performances distintas e, na maioria dos projetos bem concebidos, trabalham de forma complementar. A escolha certa depende de variáveis específicas de cada empreendimento: finalidade, prazo, vão livre necessário, condições de fundação e orçamento disponível.\n\n[img:assets/photos/1784119953745-dji0001.jpg]\n\n## O que diferencia cada sistema\n\n**Estrutura Metálica:**\n\nA estrutura de aço é reconhecida por sua velocidade de montagem e leveza relativa. Por ser fabricada industrialmente com alto controle dimensional, chega à obra praticamente pronta para montagem, o que reduz significativamente o tempo de execução em campo. Estudos comparativos publicados no Brasil apontam que obras em estrutura metálica podem ser concluídas até 40% mais rápido do que métodos construtivos convencionais em concreto moldado in loco — vantagem decisiva para galpões industriais e edifícios comerciais onde cada dia parado representa custo operacional (Comparação de custos e prazos de galpões industriais em concreto pré-moldado e estrutura metálica — ResearchGate, 2020).\n\nOutra característica técnica relevante é a capacidade de vencer grandes vãos livres com menor número de pilares. Enquanto estruturas em concreto armado convencional tendem a demandar mais apoios intermediários para vãos acima de 15 metros, o aço estrutural permite coberturas e pavimentos com vãos expressivos sem comprometer a funcionalidade do espaço interno — fundamental em armazéns logísticos, centros de distribuição e pavilhões industriais.\n\nA leveza do sistema metálico também reduz as cargas transmitidas à fundação, que responde por parcela significativa do custo total de qualquer obra. Em solos de menor capacidade de carga, essa vantagem pode representar economia real no dimensionamento das sapatas ou estacas.\n\nPor fim, a estrutura metálica oferece facilidade de ampliação futura e reversibilidade. Diferentemente do concreto, um pavilhão metálico pode ser desmontado, relocado ou expandido com alterações estruturais viáveis — flexibilidade que o concreto armado simplesmente não oferece no mesmo grau.\n\nPrincipal desvantagem: o custo de material é, em geral, mais elevado que o do concreto. O aço estrutural também demanda atenção ao comportamento em situação de incêndio — acima de aproximadamente 500°C, o aço perde resistência mecânica de forma progressiva. Isso não inviabiliza o sistema, mas exige projeto de proteção passiva (tintas intumescentes, revestimentos) compatível com a classe de risco da edificação, conforme exige a ABNT NBR 14323:2013 (Dimensionamento de estruturas de aço em situação de incêndio).\n\n**Concreto Armado:**\n\nO concreto armado é o sistema estrutural mais utilizado no mundo. Sua robustez, inércia térmica e resistência ao fogo são características consagradas. O material apresenta bom comportamento sob cargas de compressão, durabilidade elevada em ambientes agressivos e, quando bem executado, baixa necessidade de manutenção ao longo de décadas.\n\nDo ponto de vista financeiro, o concreto é competitivo, especialmente em obras com vãos menores, estruturas de múltiplos pavimentos com lajes maciças e construções onde a mão de obra local é o fator determinante de custo. A ABNT NBR 6118:2023 (Projeto de estruturas de concreto — Procedimento) estabelece os parâmetros de dimensionamento que garantem a segurança e a durabilidade do sistema.\n\nPrincipal desvantagem: o tempo de execução. O concreto moldado in loco exige cura, fôrmas, escoramento e sequência de concretagem que aumentam o prazo da obra. Além disso, seu peso próprio elevado — em torno de 2.500 kg/m³ — implica fundações mais robustas e, consequentemente, mais caras.\n\n## A combinação entre os dois sistemas: o melhor dos dois mundos\n\nUma abordagem que vem ganhando consistência no mercado brasileiro é a utilização conjunta de estrutura metálica e concreto pré-moldado. O pré-moldado chega à obra com peças prontas, fabricadas em ambiente controlado de fábrica, o que garante maior qualidade de execução, menos entulho no canteiro e montagem ágil. Quando combinado à estrutura metálica, o conjunto une a leveza e a velocidade do aço à robustez e ao custo competitivo do concreto — um equilíbrio técnico e econômico que tem se mostrado eficiente em galpões logísticos, plantas industriais e grandes empreendimentos comerciais.\n\n## O aço ZAR 400: alta resistência com proteção integrada\n\nNem todo aço estrutural é igual. Na Berti, trabalhamos com o aço ZAR 400, especificado pela norma brasileira ABNT NBR 10735, um aço de alta resistência mecânica — com limite de escoamento de 400 MPa — já dotado de revestimento galvanizado a quente de fábrica. Essa característica elimina uma etapa de proteção anticorrosiva que seria necessária em aços comuns, reduzindo custos de manutenção ao longo da vida útil da estrutura e aumentando a durabilidade em ambientes externos ou úmidos.\n\nAssociado ao nosso sistema 100% parafusado, que dispensa solda em campo, o ZAR 400 entrega uma estrutura com:\n\n- Montagem mais rápida e limpa, com menos dependência de mão de obra especializada em soldagem\n- Manutenção mínima ao longo da vida útil\n- Possibilidade real de desmontagem e relocação, caso o empreendimento demande alterações futuras\n- Maior segurança estrutural, dado o padrão de resistência superior ao aço carbono convencional\n\n[img:assets/photos/1784120350352-djifly20250508080150241746702706618photo.jpg]\n\n## Então, qual sistema é o mais econômico para a sua obra?\n\nNão existe uma resposta universal — e qualquer empresa que afirme o contrário sem analisar o projeto específico merece desconfiança. A decisão depende de variáveis como vão livre necessário, prazo de entrega, tipo de uso, nível de agressividade ambiental, características do solo e orçamento disponível. Para vãos acima de 15 metros, a estrutura metálica tende a ser mais competitiva. Para edificações com múltiplos pavimentos compactos e cargas concentradas, o concreto pode ser mais adequado.\n\nNa prática, muitas obras que chegam à Berti com orçamento preliminar em aço terminam com a solução mista — aço + pré-moldado — como a mais viável. Outras que chegam com projeto em concreto convencional ganham eficiência significativa ao migrar para o metálico.\n\nO que fazemos é analisar cada caso com transparência, cobrindo desde o projeto estrutural metálico até a montagem em obra, em parceria com fornecedores de pré-moldados de confiança. O objetivo é sempre entregar a solução mais viável — não a mais cara, não a mais rápida por si só, mas a que melhor serve ao seu projeto.\n\nSe você está em fase de decisão, solicite um orçamento. Analisamos as variáveis do seu empreendimento e apresentamos uma comparação fundamentada.\n\n[img:assets/photos/1784120371632-djifly202504151148561531744728598299phot.jpg]\n\n## Referências\n\n- ABNT NBR 8800:2008 — Projeto de estruturas de aço e de estruturas mistas de aço e concreto de edifícios\n- ABNT NBR 6118:2023 — Projeto de estruturas de concreto — Procedimento\n- ABNT NBR 14323:2013 — Dimensionamento de estruturas de aço em situação de incêndio\n- ABNT NBR 10735 — Chapas e tiras de aço de alta resistência mecânica para conformação a frio galvanizadas por imersão a quente (ZAR 345 / ZAR 400)\n- Reis, A. M. O. — Estudo preliminar comparativo entre estruturas metálicas e concreto armado — Repositório Cogna, 2021\n- ResearchGate (2020) — Comparação de custos e prazos de galpões industriais em concreto pré-moldado e estrutura metálica\n- Total Materia — ZAR 400 (NBR): Properties, Composition, and Best Uses"
+                  },
+                  {
+                      "id":  "ligacoes-parafusadas",
+                      "cat":  "engenharia",
+                      "catLabel":  "Engenharia",
+                      "title":  "Por que estruturas 100% parafusadas mudam o jogo da sua obra",
+                      "excerpt":  "Sem solda no canteiro, a montagem fica mais rápida, limpa e previsível. Entenda o que isso significa para prazo, segurança e qualidade final.",
+                      "cover":  "assets/photos/1781182680010-dsc09756.jpg",
+                      "date":  "12 mai 2026",
+                      "read":  "4 min",
+                      "author":  "Equipe Berti",
+                      "featured":  true,
+                      "body":  "Quando uma estrutura é concebida para ser 100% parafusada, todo o trabalho pesado acontece na fábrica — com corte, furação e tratamento sob controle rigoroso. No canteiro, a equipe apenas posiciona e aperta. O resultado é uma montagem que se parece mais com encaixar peças de um quebra-cabeça do que com uma obra tradicional.\n\n[img:assets/photos/1781182729626-cpia-de-dsc1445.jpg]\n\nIsso elimina a solda em campo, que é uma das maiores fontes de atraso, retrabalho e variação de qualidade. Sem maçarico em obra, reduz-se o risco de incêndio, a dependência de soldadores qualificados no local e a necessidade de inspeção destrutiva peça a peça.\n\nNa prática, o cliente ganha um cronograma mais curto e confiável, um canteiro mais seguro e uma estrutura cuja qualidade já foi auditada antes mesmo de chegar à obra. É a diferença entre construir e simplesmente montar.\n[img:assets/photos/1781182702168-dsc09716.jpg]\n\n[img:assets/photos/1781182789825-cpia-de-dsc4843.jpg]\n\n\n[img:assets/photos/1781182986965-cpia-de-dsc1423.jpg]"
+                  },
+                  {
+                      "id":  "bim-na-pratica",
+                      "cat":  "tecnologia",
+                      "catLabel":  "Tecnologia",
+                      "title":  "BIM na prática: como o 3D evita surpresas no canteiro",
+                      "excerpt":  "Modelar a obra inteira antes de fabricar a primeira peça revela interferências que custariam caro em campo. Veja como funciona.",
+                      "cover":  "assets/photos/1781183864425-2.jpg",
+                      "date":  "28 abr 2026",
+                      "read":  "5 min",
+                      "author":  "Equipe Berti",
+                      "featured":  false,
+                      "body":  "A metodologia BIM permite construir a obra duas vezes: primeiro no computador, depois no mundo real. No modelo 3D, cada viga, pilar e ligação existe com sua geometria exata — e é aí que as interferências aparecem, muito antes de virarem um problema no canteiro.\n\n[img:assets/photos/1781184009839-3d-3.jpg]\n\n[img:assets/photos/1781184038652-dji0345.jpg]\n\n\n  Um furo que não bate, uma tubulação que cruza uma treliça, uma folga insuficiente para a montagem: tudo isso é identificado e corrigido na tela. Mudanças que custariam dias de obra e desperdício de material são resolvidas em minutos de projeto.\n\n\n\n  Além disso, o modelo gera automaticamente as listas de fabricação que alimentam as máquinas CNC, garantindo que a peça produzida seja exatamente a peça projetada.\n\n\n[img:assets/photos/1781184184205-3d-1.jpg]\n\n[img:assets/photos/1781184190592-dji0575.jpg]"
+                  },
+                  {
+                      "id":  "galvanizacao-vs-pintura",
+                      "cat":  "materiais",
+                      "catLabel":  "Materiais",
+                      "title":  "Galvanização ou pintura: qual proteção escolher para o aço",
+                      "excerpt":  "Cada ambiente pede uma estratégia de proteção. Comparamos durabilidade, manutenção e custo das duas soluções mais usadas.",
+                      "cover":  "assets/photos/1781184576632-geminigeneratedimageqmqtyxqmqtyxqmqt.jpg",
+                      "date":  "15 abr 2026",
+                      "read":  "4 min",
+                      "author":  "Equipe Berti",
+                      "featured":  false,
+                      "body":  "A corrosão é o principal inimigo de uma estrutura metálica ao longo do tempo. Por isso, a escolha do sistema de proteção é uma decisão de engenharia — não apenas de estética.\n\n[img:assets/photos/1781184698710-aco-inoxidavel.jpg]\n\nA galvanização a fogo forma uma barreira de zinco que protege o aço por dentro e por fora, com vida útil de décadas e praticamente sem manutenção. É a escolha natural para ambientes agressivos, áreas externas e obras onde o acesso futuro para repintura seria difícil.\n\n\n[img:assets/photos/1781184947104-djifly202507220746287331753181228516phot.jpg]\n\n\nJá a pintura industrial oferece liberdade de cor e bom desempenho em ambientes controlados, com custo inicial menor. A decisão certa depende da exposição, da expectativa de vida da obra e do plano de manutenção do cliente.\n\n\n[img:assets/photos/1781185009824-dsc09780.jpg]\n\n[img:assets/photos/1781185017366-dsc09775.jpg]\n\n[img:assets/photos/1781185025195-dsc09767.jpg]"
+                  },
+                  {
+                      "id":  "fabricacao-cnc",
+                      "cat":  "engenharia",
+                      "catLabel":  "Engenharia",
+                      "title":  "Como a fabricação CNC garante o encaixe milimétrico",
+                      "excerpt":  "A precisão da fábrica é o que permite montar sem ajustes em obra. Entenda o caminho do modelo 3D até a peça pronta.",
+                      "cover":  "assets/photos/1781188332857-0f347e71-94d7-4772-9558-c6ce20060bec.jpg",
+                      "date":  "2 abr 2026",
+                      "read":  "3 min",
+                      "author":  "Equipe Berti",
+                      "featured":  false,
+                      "body":  "Depois que o modelo BIM é aprovado, ele se transforma em instruções para máquinas de comando numérico. São elas que cortam, furam e marcam cada peça com tolerâncias que a mão humana dificilmente alcançaria de forma consistente.\n\n[img:assets/photos/1781188346642-captura-de-tela-2026-06-11-112459.png]\n\n\n[img:assets/photos/1781188372000-captura-de-tela-2026-06-11-112555.png]\n\n\nEssa precisão é o que torna possível a montagem 100% parafusada: se cada furo está exatamente onde deveria, as peças se conectam sem ajuste, sem corte e sem improviso no canteiro.\n\nO ganho é duplo — rastreabilidade total de cada peça e um tempo de montagem drasticamente menor, porque nada precisa ser refeito.\n\n\n[img:assets/photos/1781188522733-dsc09738.jpg]"
+                  },
+                  {
+                      "id":  "prazo-de-obra",
+                      "cat":  "gestao",
+                      "catLabel":  "Gestão de Obra",
+                      "title":  "Prazo de obra: o que realmente acelera uma estrutura metálica",
+                      "excerpt":  "Velocidade não é sorte, é método. Os fatores que mais impactam o cronograma de uma obra em aço.",
+                      "cover":  "assets/photos/aerial.jpg",
+                      "date":  "20 mar 2026",
+                      "read":  "5 min",
+                      "author":  "Equipe Berti",
+                      "featured":  false,
+                      "body":  "A estrutura metálica é conhecida pela rapidez, mas o prazo real depende de decisões tomadas muito antes da montagem. A fabricação acontece em paralelo às fundações, o que significa que, enquanto o concreto cura, o aço já está sendo produzido.\n\nProjetos bem detalhados em BIM, logística de transporte planejada e ligações parafusadas são os três fatores que mais comprimem o cronograma. Eles eliminam as três maiores causas de atraso: retrabalho, espera por material e improviso em campo.\n\nNo fim, entregar no prazo é menos sobre correr e mais sobre antecipar — resolver no projeto o que custaria caro na obra."
+                  },
+                  {
+                      "id":  "grandes-vaos",
+                      "cat":  "engenharia",
+                      "catLabel":  "Engenharia",
+                      "title":  "Grandes vãos livres: engenharia para varejo e logística",
+                      "excerpt":  "Pisos de venda e galpões pedem áreas sem pilares. Como o aço viabiliza vãos que o concreto não alcança.",
+                      "cover":  "assets/photos/1781186576584-dji0067.jpg",
+                      "date":  "8 mar 2026",
+                      "read":  "4 min",
+                      "author":  "Equipe Berti",
+                      "featured":  false,
+                      "body":  "Um supermercado eficiente ou um centro logístico produtivo têm algo em comum: precisam de grandes áreas livres, sem pilares atrapalhando o fluxo de pessoas, produtos e empilhadeiras.\n\nÉ aqui que a estrutura metálica brilha. Treliças e vigas de alma cheia permitem vãos de dezenas de metros com peso próprio reduzido, liberando o espaço interno e dando flexibilidade total para o layout do cliente.\n\n[img:assets/photos/1781186606500-dji0039.jpg]\n\n\n Vãos maiores também significam menos fundações, o que reduz custo e tempo de obra — um ganho que se paga ao longo de toda a operação do empreendimento.\n[img:assets/photos/1781186627183-dji0055.jpg]\n\n[img:assets/photos/1781186683097-dji0842.jpg]"
+                  },
+                  {
+                      "id":  "realidade-virtual",
+                      "cat":  "tecnologia",
+                      "catLabel":  "Tecnologia",
+                      "title":  "Realidade virtual: visite sua obra antes da primeira fundação",
+                      "excerpt":  "Óculos de VR transformam o modelo 3D em uma experiência imersiva — e em decisões mais seguras de compra.",
+                      "cover":  "assets/photos/1781186964909-imagem20000.jpg",
+                      "date":  "24 fev 2026",
+                      "read":  "3 min",
+                      "author":  "Equipe Berti",
+                      "featured":  false,
+                      "body":  "Ler uma planta exige treino; caminhar dentro da obra, não. Com o modelo BIM e óculos de realidade virtual, o cliente percorre o espaço em escala real antes de a primeira fundação ser executada.\n\n\n[img:assets/photos/1781187106726-643136.webp]\n\nEssa imersão antecipa percepções que nenhum desenho transmite: a sensação do pé-direito, a relação entre os ambientes, o impacto visual da estrutura aparente.\n\nO resultado é uma decisão de compra mais transparente e segura — e menos pedidos de mudança quando a obra já está em andamento.\n\n\n[img:assets/photos/1781187230161-p4.jpg]"
+                  }
+              ]
 }

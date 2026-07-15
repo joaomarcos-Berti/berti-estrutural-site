@@ -83,7 +83,12 @@ function BodyHtml([string]$body,[string]$alt){
           }
           [void]$out.Append("</ul>`n")
         } else {
-          [void]$out.Append("<p>$(InlineFormat $t)</p>`n")
+          # texto colado com 1 quebra de linha só (sem linha em branco) entre frases
+          # vira parágrafos separados, em vez de um bloco corrido só.
+          foreach($ln in $naoVazias){
+            $lt = $ln.Trim()
+            if($lt -ne ''){ [void]$out.Append("<p>$(InlineFormat $lt)</p>`n") }
+          }
         }
       }
     }
