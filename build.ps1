@@ -818,7 +818,7 @@ $contatoMain = @"
     <div class="ccanais">
       <a class="ccanal wa" href="https://wa.me/${WHATS}?text=$(UrlEnc 'Olá, Berti! Gostaria de falar sobre um projeto em estrutura metálica.')" target="_blank" rel="noopener noreferrer">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20zm4.6-5.9c-.3-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.5 6.5 0 0 1-1.9-1.2 7.2 7.2 0 0 1-1.3-1.7c-.1-.2 0-.4.1-.5l.4-.4.2-.4v-.4l-.8-1.9c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.6 4 5.2 5.2 0 0 0 3.2.7 2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .2-1.3c-.1-.1-.3-.2-.6-.3z"/></svg></span>
-        <span><span class="lb">WhatsApp</span><span class="vl">Resposta imediata</span></span>
+        <span><span class="lb">WhatsApp</span><span class="vl">$WHATS_DISP</span></span>
       </a>
       <a class="ccanal" href="mailto:${EMAIL}?subject=$(UrlEnc 'Contato pelo site — Berti Estrutural')">
         <span class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="5" width="18" height="14" rx="1.5"/><path d="M4 7l8 6 8-6"/></svg></span>
