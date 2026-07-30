@@ -1,0 +1,3 @@
+# Redirecionamentos permanentes (301) — Cloudflare Pages
+# URLs antigas (site WordPress anterior à migração) apontando para o endereço atual.
+/fale-conosco.html /contato 301
