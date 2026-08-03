@@ -598,11 +598,16 @@ foreach($o in $obras){
   }
   $galSection = if($galHtml.Length -gt 0){ "<div class=`"ogal`">$($galHtml.ToString())</div>" } else { '' }
 
-  # youtube (se houver) — facade simples
+  # youtube (se houver) — facade simples. Aceita URL completa ou so o ID (mesma logica do popup do mapa).
   $ytSection = ''
   if($o.youtube -and $o.youtube.Trim() -ne ''){
-    $yt = $o.youtube.Trim()
-    $ytSection = "<div style=`"margin-top:36px;aspect-ratio:16/9;max-width:900px`"><iframe style=`"width:100%;height:100%;border:0`" src=`"https://www.youtube-nocookie.com/embed/${yt}?rel=0`" title=`"$(AttrEnc $o.title)`" loading=`"lazy`" allowfullscreen></iframe></div>"
+    $ytRaw = $o.youtube.Trim()
+    $yt = ''
+    if($ytRaw -match '(?:youtu\.be/|[?&]v=|embed/)([^&?#/]+)'){ $yt = $Matches[1] }
+    elseif($ytRaw.Length -gt 0 -and $ytRaw.Length -lt 20 -and $ytRaw.IndexOf('/') -lt 0){ $yt = $ytRaw }
+    if($yt){
+      $ytSection = "<div style=`"margin-top:36px;aspect-ratio:16/9;max-width:900px`"><iframe style=`"width:100%;height:100%;border:0`" src=`"https://www.youtube-nocookie.com/embed/${yt}?rel=0`" title=`"$(AttrEnc $o.title)`" loading=`"lazy`" allowfullscreen></iframe></div>"
+    }
   }
 
   $jsonld = @"
