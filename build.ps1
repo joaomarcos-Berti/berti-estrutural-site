@@ -1183,6 +1183,43 @@ Write-Output "Empresa gerada (empresa.html)"
 # ============================================================================
 function Num($v){ ([double]$v).ToString([System.Globalization.CultureInfo]::InvariantCulture) }
 
+# ---- YouTube: busca os videos mais recentes do canal via RSS publico (sem API key, sem custo) ----
+# Feed atualiza sozinho a cada novo video postado no canal -- nada aqui precisa ser editado a mao.
+$YT_CHANNEL_ID = 'UCv8FlxXlZuID85cjdVH9WoQ'
+$ytVideos = @()
+try {
+  $ytResp = Invoke-WebRequest -Uri "https://www.youtube.com/feeds/videos.xml?channel_id=$YT_CHANNEL_ID" -UseBasicParsing -TimeoutSec 15
+  $ytXml = [xml]$ytResp.Content
+  $ytNs = New-Object System.Xml.XmlNamespaceManager($ytXml.NameTable)
+  $ytNs.AddNamespace('a','http://www.w3.org/2005/Atom')
+  $ytNs.AddNamespace('yt','http://www.youtube.com/xml/schemas/2015')
+  $ytEntries = $ytXml.SelectNodes('//a:entry', $ytNs)
+  foreach($e in $ytEntries){
+    if($ytVideos.Count -ge 5){ break }
+    $vid = $e.SelectSingleNode('yt:videoId', $ytNs).InnerText
+    $ttl = $e.SelectSingleNode('a:title', $ytNs).InnerText
+    $ytVideos += [PSCustomObject]@{ id = $vid; title = $ttl }
+  }
+} catch {
+  Write-Output "Aviso: falha ao buscar videos do YouTube via RSS, usando lista de reserva. $($_.Exception.Message)"
+}
+if($ytVideos.Count -eq 0){
+  # reserva (só usada se o RSS falhar no momento do build, ex.: sem internet)
+  $ytVideos = @(
+    [PSCustomObject]@{ id='otXMdsi8LIY'; title='Carba Mall – Londrina PR' },
+    [PSCustomObject]@{ id='Pj-tA7g7X1w'; title='Millenium Open Mall – Londrina' },
+    [PSCustomObject]@{ id='4qlqqPA_6hs'; title='Super Muffato – Medianeira PR' },
+    [PSCustomObject]@{ id='noonzrTGMuY'; title='Super Muffato – Francisco Beltrão PR' },
+    [PSCustomObject]@{ id='LqoWuLdZlNI'; title='Supermercado Bavaresco – Paranaguá PR' }
+  )
+}
+$ytMain = $ytVideos[0]
+$ytSideHtml = New-Object System.Text.StringBuilder
+foreach($v in ($ytVideos | Select-Object -Skip 1 -First 4)){
+  [void]$ytSideHtml.Append("<button class=`"yt__t`" data-id=`"$($v.id)`" data-t=`"$(AttrEnc $v.title)`"><span class=`"th`"><img src=`"https://i.ytimg.com/vi/$($v.id)/hqdefault.jpg`" alt=`"$(AttrEnc $v.title)`" loading=`"lazy`" /></span><b>$(HtmlEnc $v.title)</b></button>")
+}
+Write-Output "YouTube: $($ytVideos.Count) videos carregados do canal (destaque: $($ytMain.title))"
+
 $HOME_CSS = @"
 <style>
   /* HERO */
@@ -1528,17 +1565,12 @@ $homeMain = @"
       <a class="yt__sub" href="https://www.youtube.com/@Bertiestruturalengenharia" target="_blank" rel="noopener">Inscrever-se</a>
     </div>
     <div class="yt__grid">
-      <div class="yt__main" id="yt_main" data-id="otXMdsi8LIY">
-        <img src="/assets/photos/aerial.jpg" alt="Carba Mall – Londrina PR | Estrutura Metálica em BIM" id="yt_poster" />
+      <div class="yt__main" id="yt_main" data-id="$($ytMain.id)" data-t="$(AttrEnc $ytMain.title)">
+        <img src="https://i.ytimg.com/vi/$($ytMain.id)/maxresdefault.jpg" alt="$(AttrEnc $ytMain.title)" id="yt_poster" />
         <div class="yt__play" id="yt_playbtn"><svg width="30" height="34" viewBox="0 0 30 34"><polygon points="2,2 28,17 2,32" fill="#fff"/></svg></div>
-        <div class="yt__caption" id="yt_cap">Carba Mall – Londrina PR</div>
+        <div class="yt__caption" id="yt_cap">$(HtmlEnc $ytMain.title)</div>
       </div>
-      <div class="yt__side">
-        <button class="yt__t" data-id="Pj-tA7g7X1w" data-t="Millenium Open Mall – Londrina"><span class="th"><img src="https://i.ytimg.com/vi/Pj-tA7g7X1w/hqdefault.jpg" alt="Millenium Open Mall" loading="lazy" /></span><b>Millenium Open Mall – Londrina</b></button>
-        <button class="yt__t" data-id="4qlqqPA_6hs" data-t="Super Muffato – Medianeira PR"><span class="th"><img src="https://i.ytimg.com/vi/4qlqqPA_6hs/hqdefault.jpg" alt="Super Muffato Medianeira" loading="lazy" /></span><b>Super Muffato – Medianeira PR</b></button>
-        <button class="yt__t" data-id="noonzrTGMuY" data-t="Super Muffato – Francisco Beltrão PR"><span class="th"><img src="https://i.ytimg.com/vi/noonzrTGMuY/hqdefault.jpg" alt="Super Muffato Francisco Beltrão" loading="lazy" /></span><b>Super Muffato – Francisco Beltrão PR</b></button>
-        <button class="yt__t" data-id="LqoWuLdZlNI" data-t="Supermercado Bavaresco – Paranaguá PR"><span class="th"><img src="https://i.ytimg.com/vi/LqoWuLdZlNI/hqdefault.jpg" alt="Supermercado Bavaresco Paranaguá" loading="lazy" /></span><b>Supermercado Bavaresco – Paranaguá PR</b></button>
-      </div>
+      <div class="yt__side">$($ytSideHtml.ToString())</div>
     </div>
   </section>
 
@@ -1587,7 +1619,7 @@ $homeMain = @"
   document.addEventListener('keydown',function(e){if(e.key==='Escape')closeV();});
   // youtube facade
   function ytLoad(id,title){var m=document.getElementById('yt_main');m.innerHTML='<iframe src="https://www.youtube.com/embed/'+id+'?autoplay=1&rel=0&modestbranding=1" title="'+title+'" allow="autoplay; encrypted-media; fullscreen" allowfullscreen></iframe>';}
-  document.getElementById('yt_main').addEventListener('click',function(){ytLoad('otXMdsi8LIY','Carba Mall');});
+  document.getElementById('yt_main').addEventListener('click',function(){ytLoad(this.getAttribute('data-id'),this.getAttribute('data-t'));});
   var yts=document.querySelectorAll('.yt__t');
   for(var y=0;y<yts.length;y++){(function(btn){btn.addEventListener('click',function(){ytLoad(btn.getAttribute('data-id'),btn.getAttribute('data-t'));});})(yts[y]);}
   // mapa Leaflet

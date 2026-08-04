@@ -1,12 +1,16 @@
 name: Gerar site estatico
 
-# Roda quando o conteudo muda (edicoes feitas no painel /admin commitam content/*.json).
+# Roda quando o conteudo muda (edicoes feitas no painel /admin commitam content/*.json)
+# e tambem 1x por dia (agendado), pra pegar videos novos do canal do YouTube sozinho,
+# sem precisar de nenhuma edicao manual no /admin.
 # Regenera todo o HTML a partir dos JSON e faz commit de volta -> Cloudflare publica.
 on:
   push:
     branches: [main]
     paths:
       - 'content/**'
+  schedule:
+    - cron: '0 12 * * *'  # todo dia as 09h (horario de Brasilia, UTC-3)
   workflow_dispatch: {}
 
 permissions:
