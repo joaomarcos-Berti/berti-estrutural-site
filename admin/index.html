@@ -11,7 +11,9 @@
     /* ---- Header ---- */
     header{background:#1a1a2e;color:#fff;padding:14px 24px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 8px rgba(0,0,0,.3)}
     header .logo{font-size:17px;font-weight:700;letter-spacing:.3px}
-    header .actions{display:flex;gap:12px;align-items:center}
+    /* flex-wrap: com os links dos painéis o cabeçalho passa de cinco itens e,
+       sem quebrar linha, o botão Sair sai da tela em notebook. */
+    header .actions{display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
     .link-site{color:#e85d04;text-decoration:none;font-size:13px;font-weight:600}
     .link-site:hover{text-decoration:underline}
     .btn-sair{background:transparent;border:1px solid rgba(255,255,255,.25);color:#ccc;padding:5px 14px;border-radius:5px;cursor:pointer;font-size:13px}
@@ -35,6 +37,23 @@
     .tab-btn{background:none;border:none;padding:10px 24px;font-size:15px;font-weight:600;color:#888;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;transition:color .15s,border-color .15s}
     .tab-btn.ativo{color:#e85d04;border-bottom-color:#e85d04}
     .tab-btn:hover:not(.ativo){color:#444}
+
+    /* ---- Aba Painéis ---- */
+    .paineis{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px}
+    .painel-card{background:#fff;border-radius:12px;padding:20px;box-shadow:0 2px 10px rgba(0,0,0,.07);
+      display:flex;flex-direction:column}
+    .painel-card h3{margin:0 0 6px;font-size:17px;color:#1a1a2e}
+    .painel-card p{margin:0 0 16px;font-size:13.5px;color:#666;line-height:1.6;flex:1}
+    .painel-card .destinos{display:flex;flex-direction:column;gap:8px}
+    .painel-card a{display:block;text-decoration:none;font-size:13.5px;font-weight:600;
+      padding:9px 13px;border-radius:7px;transition:background .15s,color .15s}
+    .painel-card a.principal{background:#e85d04;color:#fff}
+    .painel-card a.principal:hover{background:#cf5204}
+    .painel-card a.secundario{background:#f2f4f7;color:#444}
+    .painel-card a.secundario:hover{background:#e6e9ee;color:#1a1a2e}
+    .painel-card .aqui{background:#eef3ee;color:#3c6b46;cursor:pointer;border:none;
+      font:inherit;font-weight:600;font-size:13.5px;text-align:left;padding:9px 13px;border-radius:7px}
+    .painel-card .aqui:hover{background:#e2ebe4}
 
     /* ---- Tela lista ---- */
     #tela-lista{display:none}
@@ -153,9 +172,10 @@
   <header>
     <span class="logo">&#127959; Berti Estrutural &mdash; Admin</span>
     <div class="actions">
-      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/1766-mse-londrina/" target="_blank">&#129405; 3D &Oacute;culos</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank">&#129405; Apresenta&ccedil;&otilde;es 3D</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank">&#127760; Tours 360</a>
       <a class="link-site" href="https://datastudio.google.com/reporting/ae46718e-2243-4e5b-a2f8-75e5cd3290b8" target="_blank">&#128202; Estatisticas</a>
-      <a class="link-site" href="https://berti-estrutural-site.pages.dev" target="_blank">&#8592; Ver Site</a>
+      <a class="link-site" href="https://www.bertiestrutural.com.br/" target="_blank">&#8592; Ver Site</a>
       <button class="btn-sair" onclick="sair()">Sair</button>
     </div>
   </header>
@@ -163,6 +183,7 @@
     <div class="tabs">
       <button class="tab-btn ativo" id="tab-obras" onclick="mudarAba('obras')">&#127959; Obras</button>
       <button class="tab-btn" id="tab-blog" onclick="mudarAba('blog')">&#128221; Blog</button>
+      <button class="tab-btn" id="tab-paineis" onclick="mudarAba('paineis')">&#129517; Pain&eacute;is</button>
     </div>
 
     <!-- Obras -->
@@ -186,6 +207,68 @@
       </div>
       <div id="lista-blog"><p class="loading-msg">Carregando posts...</p></div>
     </div>
+
+    <!-- Painéis: tudo o que a BERTI publica, e por onde se administra cada coisa.
+         Existe para não haver mais de um lugar a decorar — os endereços de
+         administração não ficam escritos em canto nenhum, e link de painel não é
+         algo que se ache no Google. -->
+    <div id="aba-paineis" style="display:none">
+      <div class="tela-cabecalho">
+        <p class="tela-titulo">Painéis</p>
+      </div>
+      <p style="font-size:13.5px;color:#666;margin:-10px 0 20px;line-height:1.6">
+        Cada coisa que a BERTI publica tem um painel para administrar e um endereço para
+        o cliente. Estão todos aqui.
+      </p>
+
+      <div class="paineis">
+
+        <div class="painel-card">
+          <h3>&#127959; Site</h3>
+          <p>Obras do portfólio e postagens do blog. O painel é este mesmo, nas abas ao lado.</p>
+          <div class="destinos">
+            <button class="aqui" onclick="mudarAba('obras')">Voc&ecirc; est&aacute; nele &mdash; ir para Obras</button>
+            <a class="secundario" href="https://www.bertiestrutural.com.br/" target="_blank">Ver o site publicado &#8594;</a>
+            <a class="secundario" href="https://www.bertiestrutural.com.br/blog.html" target="_blank">Ver o blog &#8594;</a>
+          </div>
+        </div>
+
+        <div class="painel-card">
+          <h3>&#129405; Apresenta&ccedil;&otilde;es 3D (VR)</h3>
+          <p>Estruturas em 3D para o cliente percorrer no óculos. Um link por cliente,
+             com prazo de validade renovável.</p>
+          <div class="destinos">
+            <a class="principal" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank">Abrir o painel &#8594;</a>
+            <a class="secundario" href="https://berti-estrutural-3d.pages.dev/" target="_blank">Ver o endere&ccedil;o &#8594;</a>
+          </div>
+        </div>
+
+        <div class="painel-card">
+          <h3>&#127760; Tours virtuais 360</h3>
+          <p>Mapa com pontos clicáveis, cada um abrindo um panorama navegável.
+             Cria, publica e gera o link do cliente pelo navegador.</p>
+          <div class="destinos">
+            <a class="principal" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank">Abrir o painel &#8594;</a>
+          </div>
+        </div>
+
+        <div class="painel-card">
+          <h3>&#128202; Estat&iacute;sticas</h3>
+          <p>Visitas, origem do tráfego e páginas mais vistas do site.</p>
+          <div class="destinos">
+            <a class="principal" href="https://datastudio.google.com/reporting/ae46718e-2243-4e5b-a2f8-75e5cd3290b8" target="_blank">Abrir o relat&oacute;rio &#8594;</a>
+          </div>
+        </div>
+
+      </div>
+
+      <p style="font-size:12.5px;color:#888;margin-top:22px;line-height:1.6">
+        <b>Sobre os tokens:</b> o 3D e os tours moram no mesmo endereço e dividem o mesmo
+        token &mdash; entrou num, entrou no outro. Este painel do site é outro repositório,
+        em outro endereço, e por isso pede um token só dele. São dois no total, e cada um
+        vale só para o seu.
+      </p>
+    </div>
   </div>
 </div>
 
@@ -194,9 +277,10 @@
   <header>
     <span class="logo">&#127959; Editando Obra</span>
     <div class="actions">
-      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/1766-mse-londrina/" target="_blank">&#129405; 3D &Oacute;culos</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank">&#129405; Apresenta&ccedil;&otilde;es 3D</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank">&#127760; Tours 360</a>
       <a class="link-site" href="https://datastudio.google.com/reporting/ae46718e-2243-4e5b-a2f8-75e5cd3290b8" target="_blank">&#128202; Estatisticas</a>
-      <a class="link-site" href="https://berti-estrutural-site.pages.dev" target="_blank">&#8592; Ver Site</a>
+      <a class="link-site" href="https://www.bertiestrutural.com.br/" target="_blank">&#8592; Ver Site</a>
       <button class="btn-sair" onclick="sair()">Sair</button>
     </div>
   </header>
@@ -309,9 +393,12 @@
   <header>
     <span class="logo">&#128221; Editando Post</span>
     <div class="actions">
-      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/1766-mse-londrina/" target="_blank">&#129405; 3D &Oacute;culos</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank">&#129405; Apresenta&ccedil;&otilde;es 3D</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank">&#127760; Tours 360</a>
       <a class="link-site" href="https://datastudio.google.com/reporting/ae46718e-2243-4e5b-a2f8-75e5cd3290b8" target="_blank">&#128202; Estatisticas</a>
-      <a class="link-site" href="https://berti-estrutural-site.pages.dev/Blog.html" target="_blank">&#8592; Ver Blog</a>
+      <!-- "blog.html" em minúsculas: o Cloudflare Pages diferencia caixa, e o
+           /Blog.html que estava aqui dava 404 nos dois endereços. -->
+      <a class="link-site" href="https://www.bertiestrutural.com.br/blog.html" target="_blank">&#8592; Ver Blog</a>
       <button class="btn-sair" onclick="sair()">Sair</button>
     </div>
   </header>
@@ -459,10 +546,10 @@ function mostrar(id) {
 // --- Abas ---
 function mudarAba(aba) {
   abaAtiva = aba;
-  document.getElementById('aba-obras').style.display = aba === 'obras' ? 'block' : 'none';
-  document.getElementById('aba-blog').style.display = aba === 'blog' ? 'block' : 'none';
-  document.getElementById('tab-obras').classList.toggle('ativo', aba === 'obras');
-  document.getElementById('tab-blog').classList.toggle('ativo', aba === 'blog');
+  ['obras', 'blog', 'paineis'].forEach(function (a) {
+    document.getElementById('aba-' + a).style.display = (a === aba) ? 'block' : 'none';
+    document.getElementById('tab-' + a).classList.toggle('ativo', a === aba);
+  });
 }
 
 // --- Login ---
