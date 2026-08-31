@@ -761,6 +761,555 @@ $oindexHtml = RenderPage @{ title='Obras — Estrutura metálica | Berti Estrutu
 Write-Output "Obras geradas: $ocount paginas + indice (obras.html)"
 
 # ============================================================================
+# ESTRUTURA 3D — tour com hotspots (le content/estrutura.json)
+# ============================================================================
+# Arquitetura (inspirada no cidade.saintgobainconstrucao.com.br, corrigindo o que
+# eles erraram): o GLB e "burro" e nao sabe nada de conteudo; quem liga peca ->
+# texto e a tabela de hotspots do JSON. Diferenca importante: la o hotspot aponta
+# para uma malha por NOME (materialId:"Hotel"); aqui isso nao funciona, porque o
+# IfcConvert exporta as 19.721 pecas como product-<GUID>-body, sem nome semantico.
+# Por isso o hotspot e ancorado por COORDENADA, capturada no modo calibracao.
+# E cada hotspot tambem gera uma pagina estatica indexavel — o site deles nao gera
+# nenhuma (1.457 bytes de HTML e 47 caracteres de texto no shell do SPA).
+$estr    = Get-Content (Join-Path $root 'content/estrutura.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$eMod    = $estr.modelo
+$eCam    = $eMod.camera
+$eCena   = $eMod.cena
+$eHots   = @($estr.hotspots)
+$THREEV  = '0.160.0'   # mesma versao validada no repo-3d/apresentacao.html
+
+foreach($h in $eHots){ $h | Add-Member -NotePropertyName _canon -NotePropertyValue "$SITE/estrutura/$($h.slug)" -Force }
+
+# ---- payload enxuto para o cliente (sem 'corpo': isso e so da pagina estatica) ----
+$ePayload = [ordered]@{
+  glb   = "/$($eMod.glb)"
+  obra  = $eMod.obra
+  cam   = $eCam
+  cena  = $eCena
+  home  = $eMod.home
+  hots  = @($eHots | ForEach-Object {
+            [ordered]@{
+              slug = $_.slug; rotulo = $_.rotulo; titulo = $_.titulo; resumo = $_.resumo
+              pin = $_.pinPos; cam = $_.cameraIn
+              specs = @($_.especificacoes | ForEach-Object { [ordered]@{ k=$_.k; v=$_.v } })
+            } })
+}
+$eJson = $ePayload | ConvertTo-Json -Depth 12 -Compress
+
+$ESTR_CSS = @'
+<style>
+  .e3{ position:fixed; inset:0; background:{{BG}}; overflow:hidden; }
+  .e3 canvas{ display:block; touch-action:none; }
+  /* --- carregando --- */
+  .e3ld{ position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:18px; background:{{BG}}; z-index:40; transition:opacity 520ms ease; }
+  .e3ld.off{ opacity:0; pointer-events:none; }
+  .e3ld__bar{ width:min(280px,52vw); height:2px; background:rgba(255,255,255,0.14); overflow:hidden; }
+  .e3ld__fill{ height:100%; width:0%; background:var(--blue); transition:width 220ms ease; }
+  .e3ld__t{ font-family:'Barlow Condensed',sans-serif; font-weight:700; font-size:13px; letter-spacing:0.22em; text-transform:uppercase; color:rgba(255,255,255,0.62); }
+  /* --- pinos --- */
+  .e3pins{ position:absolute; inset:0; pointer-events:none; z-index:20; }
+  .e3pin{ position:absolute; transform:translate(-50%,-100%); pointer-events:auto; background:none; border:0; padding:0; cursor:pointer; display:flex; flex-direction:column; align-items:center; gap:0; opacity:0; transition:opacity 260ms ease; font-family:'Barlow Condensed',sans-serif; }
+  .e3pin.on{ opacity:1; }
+  .e3pin__lb{ background:rgba(8,12,17,0.86); color:#fff; border:1px solid rgba(71,182,241,0.45); font-weight:700; font-size:12.5px; letter-spacing:0.14em; text-transform:uppercase; padding:7px 13px; white-space:nowrap; backdrop-filter:blur(6px); transition:background 200ms ease, border-color 200ms ease, transform 200ms ease; }
+  .e3pin:hover .e3pin__lb{ background:var(--blue); color:#05080c; border-color:var(--blue); transform:translateY(-2px); }
+  .e3pin__st{ width:1px; height:26px; background:linear-gradient(180deg,rgba(71,182,241,0.9),rgba(71,182,241,0)); }
+  .e3pin__dot{ width:9px; height:9px; border-radius:50%; background:var(--blue); box-shadow:0 0 0 4px rgba(71,182,241,0.22); margin-top:-4px; }
+  /* --- painel --- */
+  .e3p{ position:absolute; top:0; right:0; bottom:0; width:min(430px,92vw); background:rgba(9,13,18,0.95); backdrop-filter:blur(14px); border-left:1px solid rgba(255,255,255,0.09); color:#fff; z-index:30; transform:translateX(100%); transition:transform 520ms cubic-bezier(.2,.85,.25,1); display:flex; flex-direction:column; overflow-y:auto; }
+  .e3p.on{ transform:none; }
+  .e3p__x{ position:absolute; top:14px; right:14px; width:36px; height:36px; background:rgba(255,255,255,0.07); border:0; color:#fff; font-size:20px; cursor:pointer; line-height:1; }
+  .e3p__x:hover{ background:var(--blue); color:#05080c; }
+  .e3p__in{ padding:64px clamp(22px,4vw,34px) 34px; }
+  .e3p__kick{ display:inline-flex; align-items:center; gap:9px; font-family:'Barlow Condensed',sans-serif; color:var(--blue); font-size:12px; font-weight:700; letter-spacing:0.22em; text-transform:uppercase; margin-bottom:14px; }
+  .e3p__kick span{ width:24px; height:1px; background:var(--blue); }
+  .e3p h2{ font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(27px,3.4vw,37px); line-height:1.02; letter-spacing:-0.01em; text-transform:uppercase; margin:0 0 16px; text-wrap:balance; }
+  .e3p__rs{ font-size:15.5px; line-height:1.66; color:rgba(255,255,255,0.74); margin:0 0 26px; text-wrap:pretty; }
+  .e3p__sp{ display:grid; gap:1px; background:rgba(255,255,255,0.09); margin-bottom:26px; }
+  .e3p__sp>div{ background:rgba(255,255,255,0.03); padding:13px 15px; }
+  .e3p__sp .k{ font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--blue); margin-bottom:3px; }
+  .e3p__sp .v{ font-size:14.5px; color:rgba(255,255,255,0.92); }
+  .e3p__cta{ display:inline-flex; align-items:center; gap:10px; background:var(--blue); color:#05080c; padding:14px 24px; font-family:'Barlow Condensed',sans-serif; font-size:12.5px; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; }
+  .e3p__cta:hover{ background:#fff; }
+  .e3p__more{ display:block; margin-top:16px; font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:rgba(255,255,255,0.55); text-decoration:underline; text-underline-offset:3px; }
+  .e3p__more:hover{ color:var(--blue); }
+  /* --- rodape / instrucao --- */
+  .e3hud{ position:absolute; left:0; right:0; bottom:0; z-index:22; display:flex; align-items:flex-end; justify-content:space-between; gap:16px; padding:22px clamp(18px,4vw,40px); pointer-events:none; }
+  .e3hud__t{ font-family:'Barlow Condensed',sans-serif; color:rgba(255,255,255,0.5); font-size:12px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; }
+  .e3hud__t b{ color:var(--blue); font-weight:700; }
+  .e3back{ pointer-events:auto; background:rgba(8,12,17,0.8); border:1px solid rgba(255,255,255,0.14); color:#fff; font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; padding:11px 18px; cursor:pointer; opacity:0; transition:opacity 300ms ease; }
+  .e3back.on{ opacity:1; }
+  .e3back:hover{ background:var(--blue); color:#05080c; border-color:var(--blue); }
+  @media(max-width:760px){
+    .e3hud{ padding-bottom:16px; }
+    .e3hud__t{ display:none; }
+    .e3pin__lb{ font-size:11px; padding:6px 10px; letter-spacing:0.1em; }
+    .e3p__in{ padding-top:56px; }
+  }
+  /* --- modo calibracao (so com ?calibrar=1) --- */
+  .e3cal{ position:absolute; left:0; top:0; z-index:50; background:rgba(6,9,13,0.95); border:1px solid var(--blue); color:#fff; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:11.5px; line-height:1.6; padding:14px 16px; max-width:390px; max-height:100vh; overflow:auto; }
+  .e3cal h4{ font-family:'Barlow Condensed',sans-serif; font-size:13px; letter-spacing:0.16em; text-transform:uppercase; color:var(--blue); margin:0 0 10px; }
+  .e3cal select,.e3cal button{ font-family:inherit; font-size:11.5px; background:#11161d; color:#fff; border:1px solid rgba(255,255,255,0.24); padding:6px 9px; margin:3px 3px 3px 0; cursor:pointer; }
+  .e3cal button:hover{ background:var(--blue); color:#05080c; }
+  .e3cal button.on{ background:var(--blue); color:#05080c; }
+  .e3cal pre{ background:#0a0e13; border:1px solid rgba(255,255,255,0.1); padding:10px; margin:8px 0 0; white-space:pre-wrap; word-break:break-word; max-height:230px; overflow:auto; }
+  .e3cal .hint{ color:rgba(255,255,255,0.5); }
+</style>
+'@
+$ESTR_CSS = Fill $ESTR_CSS @{ BG=$eCena.corFundo }
+
+# ---- o visualizador ---------------------------------------------------------
+# Reaproveita as correcoes ja provadas no repo-3d/apresentacao.html: MeshoptDecoder,
+# Float32 antes de applyMatrix4, mesclagem por material preservando o indice e
+# DoubleSide (este IFC tem winding invertido em parte das pecas).
+$ESTR_JS = @'
+<script type="importmap">
+{"imports":{"three":"https://unpkg.com/three@{{TV}}/build/three.module.js","three/addons/":"https://unpkg.com/three@{{TV}}/examples/jsm/"}}
+</script>
+<script type="module">
+import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
+import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+import { MeshoptDecoder } from 'three/addons/libs/meshopt_decoder.module.js';
+import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
+
+const D = {{DATA}};
+const CAL = new URLSearchParams(location.search).has('calibrar');
+const stage = document.getElementById('e3'), pinsEl = document.getElementById('e3pins');
+const ld = document.getElementById('e3ld'), ldFill = document.getElementById('e3ldf');
+const panel = document.getElementById('e3p'), backBtn = document.getElementById('e3back');
+const isMob = () => window.matchMedia('(max-width:760px)').matches;
+const ev = (n,p) => { if (typeof gtag === 'function') gtag('event', n, p); };
+
+// ---------- cena ----------
+const renderer = new THREE.WebGLRenderer({ antialias:true, powerPreference:'high-performance' });
+// Teto de dpr: e o ajuste de maior impacto/esforco em WebGL. Em tela retina sem isso
+// o custo de sombreamento quadruplica sem ganho visual proporcional.
+renderer.setPixelRatio(Math.min(window.devicePixelRatio||1, D.cam.dprMax));
+renderer.setSize(innerWidth, innerHeight);
+renderer.toneMapping = THREE.NeutralToneMapping ?? THREE.ACESFilmicToneMapping;
+renderer.toneMappingExposure = D.cena.exposicao;
+stage.insertBefore(renderer.domElement, pinsEl);
+
+const scene = new THREE.Scene();
+scene.background = new THREE.Color(D.cena.corFundo);
+// A neblina na cor do ceu esconde a borda do mundo — e o que faz a cena parecer
+// "sem fim" sem custo nenhum de geometria.
+scene.fog = new THREE.Fog(D.cena.corNeblina, D.cena.neblinaPerto, D.cena.neblinaLonge);
+
+const camera = new THREE.PerspectiveCamera(D.cam.fov, innerWidth/innerHeight, D.cam.near, D.cam.far);
+camera.position.set(D.home.pos.x, D.home.pos.y, D.home.pos.z);
+
+const controls = new OrbitControls(camera, renderer.domElement);
+// Imersao vem de RESTRICAO, nao de liberdade: sem pan, angulo e distancia travados,
+// o visitante nunca ve o modelo por baixo nem se perde no vazio.
+controls.enableDamping = true; controls.dampingFactor = D.cam.dampingFactor;
+controls.enablePan = D.cam.enablePan; controls.rotateSpeed = D.cam.rotateSpeed;
+controls.minDistance = D.cam.minDistance; controls.maxDistance = D.cam.maxDistance;
+controls.minPolarAngle = THREE.MathUtils.degToRad(D.cam.minPolarAngleDeg);
+controls.maxPolarAngle = THREE.MathUtils.degToRad(D.cam.maxPolarAngleDeg);
+controls.target.set(D.home.target.x, D.home.target.y, D.home.target.z);
+
+scene.add(new THREE.HemisphereLight(0xdfefff, 0x0a0d12, 1.0));
+const sun = new THREE.DirectionalLight(0xffffff, 2.0);
+sun.position.set(120, 190, 90);
+scene.add(sun);
+
+const ground = new THREE.Mesh(
+  new THREE.PlaneGeometry(3000, 3000),
+  new THREE.MeshStandardMaterial({ color:D.cena.corChao, roughness:0.95, metalness:0 })
+);
+ground.rotation.x = -Math.PI/2; ground.position.y = -0.02; scene.add(ground);
+const grid = new THREE.GridHelper(3000, 150, 0x2a3644, 0x18202a);
+grid.material.opacity = 0.44; grid.material.transparent = true; scene.add(grid);
+
+// ---------- carregamento ----------
+// gltfpack grava posicoes como Uint16 contando com a matriz da peca pra remapear em
+// metros. applyMatrix4 escreveria float negativo de volta nesse array sem sinal (o
+// negativo estoura e vira ~65535, e o modelo desaba numa linha fina). Converter antes.
+function toFloat3(geom, name){
+  const a = geom.attributes[name];
+  if (!a || a.array.constructor === Float32Array) return;
+  const arr = new Float32Array(a.count*3);
+  for (let i=0;i<a.count;i++){ arr[i*3]=a.getX(i); arr[i*3+1]=a.getY(i); arr[i*3+2]=a.getZ(i); }
+  geom.setAttribute(name, new THREE.Float32BufferAttribute(arr,3));
+}
+// 19.721 pecas = 19.721 chamadas de desenho. Mesclando por material de origem cai
+// para uma por cor do IFC. O indice e preservado de proposito: este GLB tem ~5,9x de
+// reuso de vertice, entao toNonIndexed() aqui infla a memoria ~6x sem ganho nenhum.
+function buildStructure(root){
+  root.updateMatrixWorld(true);
+  const buckets = new Map();
+  root.traverse((o) => {
+    if (!o.isMesh || !o.geometry) return;
+    const src = Array.isArray(o.material) ? o.material[0] : o.material;
+    const g = o.geometry.clone();
+    toFloat3(g,'position'); toFloat3(g,'normal');
+    g.applyMatrix4(o.matrixWorld);
+    if (!buckets.has(src)) buckets.set(src, []);
+    buckets.get(src).push(g);
+  });
+  const group = new THREE.Group();
+  for (const [src, geoms] of buckets.entries()){
+    // Cor original do IFC preservada; so a resposta de superficie e normalizada —
+    // o IfcConvert entrega roughness 0.1, que e plastico polido e cintila em peca fina.
+    src.roughness = 0.55; src.metalness = 0.25;
+    // Winding invertido existe neste IFC: com FrontSide algumas faces desaparecem.
+    src.side = THREE.DoubleSide;
+    const indexed = geoms.filter((g)=>g.index!==null).length;
+    let batch = geoms;
+    if (indexed !== 0 && indexed !== geoms.length){
+      batch = geoms.map((g)=>{ if(!g.index) return g; const f=g.toNonIndexed(); g.dispose(); return f; });
+    }
+    batch.forEach((g)=>{ if(!g.attributes.normal) g.computeVertexNormals(); });
+    try {
+      group.add(new THREE.Mesh(mergeGeometries(batch,false), src));
+      batch.forEach((g)=>g.dispose());
+    } catch(e){
+      batch.forEach((g)=>group.add(new THREE.Mesh(g,src)));
+    }
+  }
+  root.traverse((o)=>{ if(o.isMesh && o.geometry) o.geometry.dispose(); });
+  return group;
+}
+
+let model = null;
+// Handle de diagnostico, so no modo calibracao. Serve pra conferir no console se a
+// mesclagem valeu: __e3.diag() deve mostrar poucas chamadas de desenho (uma por cor
+// do IFC), nao milhares. Sem numero nao se sabe se um ajuste ajudou.
+if (CAL) window.__e3 = { renderer, scene, camera, controls,
+  get model(){ return model; },
+  diag(){
+    renderer.info.reset(); renderer.render(scene, camera);
+    let malhas = 0; scene.traverse(o=>{ if(o.isMesh) malhas++; });
+    return { chamadasDeDesenho: renderer.info.render.calls,
+             triangulos: renderer.info.render.triangles,
+             malhasNaCena: malhas,
+             geometrias: renderer.info.memory.geometries,
+             dpr: renderer.getPixelRatio() };
+  } };
+const loader = new GLTFLoader();
+loader.setMeshoptDecoder(MeshoptDecoder);
+loader.load(D.glb, (gltf) => {
+  model = buildStructure(gltf.scene);
+  scene.add(model);
+  ld.classList.add('off');
+  setTimeout(()=>ld.remove(), 600);
+  ev('estrutura_3d_load', { obra: D.obra, pecas: D.hots.length });
+  const alvo = new URLSearchParams(location.search).get('ver');
+  if (alvo && D.hots.some(h=>h.slug===alvo)) abrir(alvo, 'replace');
+}, (p) => {
+  if (p.total) ldFill.style.width = Math.round(p.loaded/p.total*100) + '%';
+}, (e) => {
+  ld.querySelector('.e3ld__t').textContent = 'Nao foi possivel carregar o modelo';
+  console.error(e);
+});
+
+// ---------- pinos ----------
+const pins = D.hots.map((h) => {
+  const b = document.createElement('button');
+  b.className = 'e3pin';
+  b.innerHTML = '<span class="e3pin__lb"></span><span class="e3pin__st"></span><span class="e3pin__dot"></span>';
+  b.querySelector('.e3pin__lb').textContent = h.rotulo;
+  b.setAttribute('aria-label', h.titulo);
+  b.addEventListener('click', () => abrir(h.slug, 'push'));
+  pinsEl.appendChild(b);
+  return { h, el:b, v:new THREE.Vector3(h.pin[0], h.pin[1], h.pin[2]) };
+});
+
+const proj = new THREE.Vector3();
+function posicionarPinos(){
+  const w = innerWidth, hgt = innerHeight;
+  for (const p of pins){
+    proj.copy(p.v).project(camera);
+    const atras = proj.z > 1;
+    p.el.classList.toggle('on', !atras && !voando);
+    if (atras) continue;
+    p.el.style.left = ((proj.x*0.5+0.5)*w) + 'px';
+    p.el.style.top  = ((-proj.y*0.5+0.5)*hgt) + 'px';
+  }
+}
+
+// ---------- voo de camera ----------
+// Tween proprio em vez de gsap: sao 20 linhas e evita 70 KB de dependencia.
+let voando = false;
+const easeInOut = (t) => t<0.5 ? 4*t*t*t : 1-Math.pow(-2*t+2,3)/2;
+function voar(pos, tgt, ms, done){
+  const p0 = camera.position.clone(), t0 = controls.target.clone();
+  const p1 = new THREE.Vector3(pos.x,pos.y,pos.z), t1 = new THREE.Vector3(tgt.x,tgt.y,tgt.z);
+  const ini = performance.now();
+  voando = true; controls.enabled = false;
+  (function passo(){
+    const k = Math.min((performance.now()-ini)/ms, 1), e = easeInOut(k);
+    camera.position.lerpVectors(p0,p1,e);
+    controls.target.lerpVectors(t0,t1,e);
+    if (k < 1) requestAnimationFrame(passo);
+    else { voando = false; controls.enabled = true; if(done) done(); }
+  })();
+}
+
+// ---------- painel ----------
+let atual = null;
+function abrir(slug, modo){
+  const h = D.hots.find(x=>x.slug===slug); if(!h) return;
+  atual = slug;
+  const c = h.cam, mob = isMob();
+  voar(mob&&c.posMobile?c.posMobile:c.pos, mob&&c.targetMobile?c.targetMobile:c.target, D.cam.voo);
+  const specs = (h.specs||[]).map(s=>'<div><div class="k">'+s.k+'</div><div class="v">'+s.v+'</div></div>').join('');
+  panel.querySelector('.e3p__in').innerHTML =
+    '<div class="e3p__kick"><span></span>'+h.rotulo+'</div>'+
+    '<h2>'+h.titulo+'</h2>'+
+    '<p class="e3p__rs">'+h.resumo+'</p>'+
+    (specs?'<div class="e3p__sp">'+specs+'</div>':'')+
+    '<a class="e3p__cta" href="/contato">Quero um orcamento <span>&rarr;</span></a>'+
+    '<a class="e3p__more" href="/estrutura/'+h.slug+'">Ver a ficha completa desta peca</a>';
+  panel.classList.add('on'); backBtn.classList.add('on');
+  // O erro que a Saint-Gobain cometeu: GA4 instalado e nenhum evento disparado —
+  // eles nao sabem em qual predio o visitante clica. Aqui cada abertura e medida.
+  ev('hotspot_open', { hotspot: h.slug, peca: h.rotulo, obra: D.obra });
+  const url = '/estrutura?ver='+h.slug;
+  if (modo==='push') history.pushState({ver:h.slug},'',url);
+  else if (modo==='replace') history.replaceState({ver:h.slug},'',url);
+}
+function fechar(modo){
+  atual = null;
+  panel.classList.remove('on'); backBtn.classList.remove('on');
+  voar(D.home.pos, D.home.target, D.cam.voo);
+  ev('hotspot_close', { obra: D.obra });
+  if (modo!=='none') history.pushState({},'','/estrutura');
+}
+panel.querySelector('.e3p__x').addEventListener('click', ()=>fechar('push'));
+backBtn.addEventListener('click', ()=>fechar('push'));
+addEventListener('keydown', (e)=>{ if(e.key==='Escape' && atual) fechar('push'); });
+addEventListener('popstate', (e)=>{
+  const s = e.state && e.state.ver;
+  if (s) abrir(s,'none'); else if (atual) fechar('none');
+});
+
+// Ajuste de tamanho conferido a cada frame em vez de so no evento 'resize'. Motivo
+// medido: numa aba em segundo plano o viewport pode ser reportado como 0 na hora de
+// construir o renderer, e o evento nunca chega — o canvas ficaria 0x0 (tela preta)
+// para sempre. Comparar custa duas subtracoes por frame.
+function ajustarTamanho(){
+  const l = Math.max(1, innerWidth), a = Math.max(1, innerHeight);
+  const pr = Math.min(window.devicePixelRatio||1, D.cam.dprMax);
+  const c = renderer.domElement;
+  // Compara contra o tamanho do buffer que ESTE dpr produziria, senao com dprMax>1
+  // a condicao nunca fecharia e o renderer seria redimensionado a cada frame.
+  if (c.width === Math.floor(l*pr) && c.height === Math.floor(a*pr)) return;
+  renderer.setPixelRatio(pr);
+  renderer.setSize(l, a);
+  camera.aspect = l/a; camera.updateProjectionMatrix();
+}
+
+// Declarado ANTES do loop de propósito: o loop chama calTick() no primeiro frame, e
+// se o `let` viesse depois a leitura cairia na zona morta temporal (ReferenceError).
+let calBox = null, calPin = false, calMarker = null, calAlvo = null;
+
+(function loop(){
+  requestAnimationFrame(loop);
+  ajustarTamanho();
+  controls.update();
+  posicionarPinos();
+  if (CAL) calTick();
+  renderer.render(scene, camera);
+})();
+
+// ---------- modo calibracao ----------
+// Existe porque coordenada nao se escreve na mao. Voce enquadra a camera olhando,
+// clica na peca, e o painel devolve o bloco JSON pronto pra colar no estrutura.json.
+// (E assim que a Saint-Gobain chegou naqueles 250.2519929070977 — captura, nao calculo.)
+function calTick(){
+  if (!calBox) return;
+  const p = camera.position, t = controls.target;
+  calBox.querySelector('#calpos').textContent =
+    'pos    x '+p.x.toFixed(2)+'  y '+p.y.toFixed(2)+'  z '+p.z.toFixed(2);
+  calBox.querySelector('#caltgt').textContent =
+    'target x '+t.x.toFixed(2)+'  y '+t.y.toFixed(2)+'  z '+t.z.toFixed(2);
+}
+if (CAL){
+  calBox = document.createElement('div');
+  calBox.className = 'e3cal';
+  calBox.innerHTML =
+    '<h4>Calibracao</h4>'+
+    '<div id="calpos">pos</div><div id="caltgt">target</div>'+
+    '<div style="margin-top:9px">hotspot: <select id="calsel">'+
+      D.hots.map(h=>'<option value="'+h.slug+'">'+h.slug+'</option>').join('')+
+    '</select></div>'+
+    '<div><button id="calpinb">1. fixar pino (clicar na peca)</button></div>'+
+    '<div><button id="calcam">2. usar camera atual</button>'+
+    '<button id="calcopy">3. copiar JSON</button></div>'+
+    '<div class="hint">Enquadre girando o mouse; o zoom respeita os limites de '+
+      D.cam.minDistance+'-'+D.cam.maxDistance+' m do JSON.</div>'+
+    '<pre id="calout">—</pre>';
+  stage.appendChild(calBox);
+  const sel = calBox.querySelector('#calsel');
+  const out = calBox.querySelector('#calout');
+  const btnPin = calBox.querySelector('#calpinb');
+  const estado = {};
+  D.hots.forEach(h => estado[h.slug] = { pin:h.pin.slice(), cam:JSON.parse(JSON.stringify(h.cam)) });
+  calAlvo = D.hots[0].slug;
+  sel.addEventListener('change', ()=>{ calAlvo = sel.value; render(); });
+
+  function render(){
+    const s = estado[calAlvo];
+    out.textContent = JSON.stringify({
+      slug: calAlvo,
+      pinPos: s.pin.map(n=>+(+n).toFixed(2)),
+      cameraIn: {
+        pos: s.cam.pos, target: s.cam.target,
+        posMobile: s.cam.posMobile, targetMobile: s.cam.targetMobile
+      }
+    }, null, 2);
+  }
+  render();
+
+  btnPin.addEventListener('click', ()=>{ calPin = !calPin; btnPin.classList.toggle('on', calPin); });
+  calBox.querySelector('#calcam').addEventListener('click', ()=>{
+    const p = camera.position, t = controls.target;
+    const r2 = (v)=>+v.toFixed(2);
+    const s = estado[calAlvo];
+    s.cam.pos = { x:r2(p.x), y:r2(p.y), z:r2(p.z) };
+    s.cam.target = { x:r2(t.x), y:r2(t.y), z:r2(t.z) };
+    // Mobile comeca igual ao desktop; reenquadre no celular e clique de novo.
+    if (isMob()){ s.cam.posMobile = { ...s.cam.pos }; s.cam.targetMobile = { ...s.cam.target }; }
+    render();
+  });
+  calBox.querySelector('#calcopy').addEventListener('click', async ()=>{
+    try { await navigator.clipboard.writeText(out.textContent); btnPinFlash('copiado'); }
+    catch(e){ /* clipboard bloqueado: o texto ja esta visivel pra selecionar */ }
+  });
+  function btnPinFlash(t){
+    const b = calBox.querySelector('#calcopy'), o = b.textContent;
+    b.textContent = t; setTimeout(()=>b.textContent=o, 1200);
+  }
+  const ray = new THREE.Raycaster(), ndc = new THREE.Vector2();
+  renderer.domElement.addEventListener('click', (e)=>{
+    if (!calPin || !model) return;
+    ndc.x = (e.clientX/innerWidth)*2-1; ndc.y = -(e.clientY/innerHeight)*2+1;
+    ray.setFromCamera(ndc, camera);
+    const hit = ray.intersectObject(model, true)[0];
+    if (!hit) return;
+    estado[calAlvo].pin = [hit.point.x, hit.point.y, hit.point.z];
+    if (!calMarker){
+      calMarker = new THREE.Mesh(new THREE.SphereGeometry(0.55, 16, 12),
+        new THREE.MeshBasicMaterial({ color:0x47b6f1 }));
+      scene.add(calMarker);
+    }
+    calMarker.position.copy(hit.point);
+    render();
+  });
+}
+</script>
+'@
+$ESTR_JS = Fill $ESTR_JS @{ TV=$THREEV; DATA=$eJson }
+
+# ---- pagina interativa: /estrutura -----------------------------------------
+$eRot = ($eHots | ForEach-Object { $_.rotulo }) -join ', '
+$eMain = @"
+<main>
+  <div class="e3" id="e3">
+    <div class="e3pins" id="e3pins"></div>
+    <div class="e3ld" id="e3ld">
+      <div class="e3ld__t">Carregando a estrutura</div>
+      <div class="e3ld__bar"><div class="e3ld__fill" id="e3ldf"></div></div>
+    </div>
+    <div class="e3hud">
+      <div class="e3hud__t">Arraste para girar &middot; role para aproximar &middot; clique num <b>pino</b></div>
+      <button class="e3back" id="e3back">&larr; Voltar a vista geral</button>
+    </div>
+    <aside class="e3p" id="e3p" aria-live="polite">
+      <button class="e3p__x" aria-label="Fechar">&times;</button>
+      <div class="e3p__in"></div>
+    </aside>
+  </div>
+  <h1 style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap">Estrutura metalica em 3D — $(HtmlEnc $eMod.obra) | Berti Estrutural</h1>
+</main>
+"@
+$eJsonld = "<script type=`"application/ld+json`">{`"@context`":`"https://schema.org`",`"@type`":`"WebPage`",`"name`":`"Estrutura metalica em 3D — Berti Estrutural`",`"url`":`"$SITE/estrutura`",`"inLanguage`":`"pt-BR`",`"description`":`"Tour 3D interativo por uma estrutura metalica real da Berti Estrutural.`",`"publisher`":{`"@type`":`"Organization`",`"name`":`"Berti Estrutural`"}}</script>"
+$eIndexHtml = RenderPage @{
+  title   = 'Estrutura metálica em 3D — tour interativo | Berti Estrutural'
+  desc    = "Explore uma estrutura metálica real em 3D: $eRot. Gire, aproxime e veja como cada peça é fabricada e montada pela Berti Estrutural."
+  canon   = "$SITE/estrutura"
+  ogtype  = 'website'
+  ogtitle = 'Estrutura metálica em 3D — Berti Estrutural'
+  ogimg   = "$SITE/assets/photos/aerial.jpg"
+  extrahead = ($eJsonld + $ESTR_CSS)
+  main    = ($eMain + $ESTR_JS)
+}
+[System.IO.File]::WriteAllText((Join-Path $root 'estrutura.html'), $eIndexHtml, $enc)
+
+# ---- uma pagina estatica indexavel por hotspot: /estrutura/<slug> ----------
+$eDir = Join-Path $root 'estrutura'
+if (-not (Test-Path $eDir)) { [void](New-Item -ItemType Directory -Path $eDir) }
+$ESTR_PG_CSS = @'
+<style>
+  .ep{ max-width:820px; margin:0 auto; background:#fff; }
+  .ephero{ background:var(--ink); color:#fff; padding:150px clamp(40px,8vw,140px) 56px; }
+  .ephero .kick{ display:inline-flex; align-items:center; gap:10px; font-family:'Barlow Condensed',sans-serif; color:var(--blue); font-size:13px; font-weight:700; letter-spacing:0.24em; text-transform:uppercase; margin-bottom:18px; }
+  .ephero .kick span{ width:30px; height:1px; background:var(--blue); }
+  .ephero h1{ font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(38px,6vw,82px); line-height:0.94; letter-spacing:-0.02em; text-transform:uppercase; margin:0 0 20px; text-wrap:balance; }
+  .ephero p{ font-size:18px; line-height:1.62; color:rgba(255,255,255,0.72); max-width:620px; margin:0; text-wrap:pretty; }
+  .ep3d{ display:inline-flex; align-items:center; gap:11px; margin-top:28px; background:var(--blue); color:#05080c; padding:15px 26px; font-family:'Barlow Condensed',sans-serif; font-size:12.5px; font-weight:800; letter-spacing:0.14em; text-transform:uppercase; text-decoration:none; }
+  .ep3d:hover{ background:#fff; }
+  .epbody{ padding:clamp(30px,5vw,62px) clamp(24px,5vw,40px); }
+  .epbody p{ font-size:17.5px; line-height:1.72; color:rgba(10,10,10,0.82); margin:0 0 22px; text-wrap:pretty; }
+  .epbody h2{ font-family:'Barlow Condensed',sans-serif; font-weight:800; font-size:clamp(22px,2.6vw,30px); line-height:1.15; color:var(--ink); margin:34px 0 16px; text-transform:uppercase; }
+  .epbody ul{ margin:0 0 22px; padding-left:22px; }
+  .epbody li{ font-size:17.5px; line-height:1.72; color:rgba(10,10,10,0.82); margin-bottom:10px; }
+  .epbody li::marker{ color:var(--blue-dark); }
+  .epsp{ display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:1px; background:rgba(10,10,10,0.12); margin:0 0 30px; }
+  .epsp>div{ background:#fff; padding:15px 17px; }
+  .epsp .k{ font-family:'Barlow Condensed',sans-serif; font-size:11px; font-weight:700; letter-spacing:0.16em; text-transform:uppercase; color:var(--blue-dark); margin-bottom:4px; }
+  .epsp .v{ font-size:15px; color:var(--ink); }
+  .epnav{ border-top:1px solid rgba(10,10,10,0.1); margin-top:38px; padding-top:26px; display:flex; flex-wrap:wrap; gap:12px; }
+  .epnav a{ font-family:'Barlow Condensed',sans-serif; font-size:12px; font-weight:700; letter-spacing:0.14em; text-transform:uppercase; color:var(--blue-dark); text-decoration:none; border:1px solid rgba(10,10,10,0.16); padding:11px 17px; }
+  .epnav a:hover{ background:var(--blue); border-color:var(--blue); color:#05080c; }
+</style>
+'@
+$ecount = 0
+foreach($h in $eHots){
+  $specs = New-Object System.Text.StringBuilder
+  foreach($s in $h.especificacoes){ [void]$specs.Append("<div><div class=`"k`">$(HtmlEnc $s.k)</div><div class=`"v`">$(HtmlEnc $s.v)</div></div>") }
+  $outros = New-Object System.Text.StringBuilder
+  [void]$outros.Append("<a href=`"/estrutura?ver=$($h.slug)`">Ver esta peca no modelo 3D</a>")
+  foreach($o in $eHots){ if($o.slug -ne $h.slug){ [void]$outros.Append("<a href=`"/estrutura/$($o.slug)`">$(HtmlEnc $o.rotulo)</a>") } }
+  $eDesc = ($h.resumo -replace '\s+',' ').Trim()
+  if($eDesc.Length -gt 158){ $eDesc = $eDesc.Substring(0,155).TrimEnd() + '...' }
+  $eBody = BodyHtml $h.corpo $h.titulo
+  $ePgMain = @"
+<main>
+  <section class="ephero">
+    <div class="kick"><span></span>Estrutura em 3D &middot; $(HtmlEnc $h.rotulo)</div>
+    <h1>$(HtmlEnc $h.titulo)</h1>
+    <p>$(HtmlEnc $eDesc)</p>
+    <a class="ep3d" href="/estrutura?ver=$($h.slug)">Ver no modelo 3D <span>&rarr;</span></a>
+  </section>
+  <article class="ep">
+    <div class="epbody">
+      $(if($specs.Length -gt 0){ "<div class=`"epsp`">$($specs.ToString())</div>" })
+      $eBody
+      <div class="epnav">$($outros.ToString())</div>
+    </div>
+  </article>
+</main>
+"@
+  $eBc = "<script type=`"application/ld+json`">{`"@context`":`"https://schema.org`",`"@type`":`"BreadcrumbList`",`"itemListElement`":[{`"@type`":`"ListItem`",`"position`":1,`"name`":`"Início`",`"item`":`"$SITE/`"},{`"@type`":`"ListItem`",`"position`":2,`"name`":`"Estrutura 3D`",`"item`":`"$SITE/estrutura`"},{`"@type`":`"ListItem`",`"position`":3,`"name`":`"$(JsonStr $h.titulo)`",`"item`":`"$($h._canon)`"}]}</script>"
+  $ePgHtml = RenderPage @{
+    title   = "$($h.titulo) — estrutura metálica | Berti Estrutural"
+    desc    = $eDesc
+    canon   = $h._canon
+    ogtype  = 'article'
+    ogtitle = "$($h.titulo) — Berti Estrutural"
+    ogimg   = "$SITE/assets/photos/aerial.jpg"
+    extrahead = ($eBc + $ESTR_PG_CSS)
+    main    = $ePgMain
+  }
+  [System.IO.File]::WriteAllText((Join-Path $eDir "$($h.slug).html"), $ePgHtml, $enc)
+  $ecount++
+}
+Write-Output "Estrutura 3D: /estrutura + $ecount fichas indexaveis (calibrar em /estrutura?calibrar=1)"
+
+# ============================================================================
 # CONTATO
 # ============================================================================
 $WHATS      = '5543999864022'     # 55 + DDD 43 + 99986-4022
@@ -927,7 +1476,9 @@ SmAdd "$SITE/empresa" $today '0.8'
 SmAdd "$SITE/obras" $today '0.9'
 SmAdd "$SITE/blog" $today '0.8'
 SmAdd "$SITE/contato" $today '0.7'
+SmAdd "$SITE/estrutura" $today '0.8'
 foreach($o in $obras){ SmAdd "$SITE/obras/$($o._slug)" $today '0.7' }
+foreach($h in $eHots){ SmAdd "$SITE/estrutura/$($h.slug)" $today '0.6' }
 foreach($p in $postsPub){ $d = IsoDate $p.date; if(-not $d){ $d = $today }; SmAdd "$SITE/blog/$($p.id)" $d '0.6' }
 [void]$sm.Append('</urlset>')
 [System.IO.File]::WriteAllText((Join-Path $root 'sitemap.xml'), $sm.ToString(), $enc)
@@ -1304,8 +1855,8 @@ $HOME_CSS = @"
   /* MAPA */
   .mp{ background:#f4f1ea; }
   .mp__grid{ display:grid; grid-template-columns:380px 1fr; background:#fff; border:1px solid rgba(6,25,34,.1); border-radius:20px; overflow:hidden; box-shadow:0 24px 60px rgba(6,25,34,.12); margin-top:22px; }
-  .mp__list{ padding:14px; display:flex; flex-direction:column; gap:10px; max-height:560px; overflow-y:auto; border-right:1px solid rgba(6,25,34,.08); }
-  .mp__it{ display:flex; cursor:pointer; border-radius:12px; overflow:hidden; border:1.5px solid rgba(6,25,34,.12); text-decoration:none; color:inherit; }
+  .mp__list{ padding:14px; display:flex; flex-direction:column; gap:10px; max-height:560px; overflow-y:auto; border-right:1px solid rgba(6,25,34,.08); align-self:start; }
+  .mp__it{ display:flex; flex-shrink:0; cursor:pointer; border-radius:12px; overflow:hidden; border:1.5px solid rgba(6,25,34,.12); text-decoration:none; color:inherit; }
   .mp__it:hover{ box-shadow:0 6px 16px rgba(6,25,34,.14); }
   .mp__it{ align-items:center; }
   .mp__it img{ flex:0 0 108px; width:108px; height:96px; object-fit:cover; background:#dfe6ec; }
