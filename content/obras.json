@@ -640,6 +640,24 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
+    },
+    {
+      "title": "PAROQUIA SANTANA",
+      "city": "Londrina \u2013 PR",
+      "cat": "outros",
+      "catLabel": "Outros",
+      "area": "",
+      "status": "Em andamento",
+      "youtube": "",
+      "desc": "",
+      "cover": "",
+      "gallery": [
+        "assets/photos/1788183002866-geminigeneratedimageff5r7sff5r7sff5r.jpg"
+      ],
+      "address": "",
+      "lat": -23.348993,
+      "lng": 51.193887,
+      "id": 33
     }
   ]
 }
