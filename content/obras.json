@@ -206,6 +206,22 @@
       "id": 29
     },
     {
+      "title": "AREL - Associa\u00e7\u00e3o Recreativa e Esportiva Londrinense",
+      "city": "Londrina \u2013 PR",
+      "cat": "outros",
+      "catLabel": "Outros",
+      "area": "",
+      "status": "Em andamento",
+      "youtube": "",
+      "desc": "",
+      "cover": "assets/photos/1788186714989-imagem3.jpg",
+      "gallery": [],
+      "address": "R. Henrique Dias, 567 - Londrina",
+      "lat": -23.334406,
+      "lng": -51.155882,
+      "id": 34
+    },
+    {
       "title": "PAROQUIA SANTANA",
       "city": "Londrina \u2013 PR",
       "cat": "outros",
@@ -656,22 +672,6 @@
         "assets/photos/jeep-maringa-01.jpg",
         "assets/photos/jeep-maringa-02.jpg"
       ]
-    },
-    {
-      "title": "AREL - Associa\u00e7\u00e3o Recreativa e Esportiva Londrinense",
-      "city": "Londrina \u2013 PR",
-      "cat": "outros",
-      "catLabel": "Outros",
-      "area": "",
-      "status": "Em andamento",
-      "youtube": "",
-      "desc": "",
-      "cover": "assets/photos/1788186714989-imagem3.jpg",
-      "gallery": [],
-      "address": "R. Henrique Dias, 567 - Londrina",
-      "lat": -23.334406,
-      "lng": -51.155882,
-      "id": 34
     }
   ]
 }
