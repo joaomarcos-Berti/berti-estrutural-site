@@ -771,7 +771,10 @@ Write-Output "Obras geradas: $ocount paginas + indice (obras.html)"
 # Por isso o hotspot e ancorado por COORDENADA, capturada no modo calibracao.
 # E cada hotspot tambem gera uma pagina estatica indexavel — o site deles nao gera
 # nenhuma (1.457 bytes de HTML e 47 caracteres de texto no shell do SPA).
-$estr    = Get-Content (Join-Path $root 'content/estrutura.json') -Raw -Encoding UTF8 | ConvertFrom-Json
+$estruturaJsonPath = Join-Path $root 'content/estrutura.json'
+$eHots = @()   # default seguro caso a secao abaixo seja pulada (usado depois, na geracao do sitemap)
+if(Test-Path $estruturaJsonPath){
+$estr    = Get-Content $estruturaJsonPath -Raw -Encoding UTF8 | ConvertFrom-Json
 $eMod    = $estr.modelo
 $eCam    = $eMod.camera
 $eCena   = $eMod.cena
@@ -1308,6 +1311,9 @@ foreach($h in $eHots){
   $ecount++
 }
 Write-Output "Estrutura 3D: /estrutura + $ecount fichas indexaveis (calibrar em /estrutura?calibrar=1)"
+} else {
+  Write-Output "Estrutura 3D: content/estrutura.json nao encontrado, secao pulada (normal se essa funcionalidade ainda nao foi publicada)."
+}
 
 # ============================================================================
 # CONTATO
