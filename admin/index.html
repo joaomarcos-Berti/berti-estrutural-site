@@ -154,11 +154,11 @@
     <h1>Berti Estrutural</h1>
     <p>Painel de administra&ccedil;&atilde;o do site</p>
     <div style="text-align:left;width:100%">
-      <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:8px">GitHub Personal Access Token</label>
-      <input type="password" id="input-token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx"
+      <label style="display:block;font-size:13px;font-weight:600;color:#555;margin-bottom:8px">Senha do painel</label>
+      <input type="password" id="input-token" placeholder="Senha do painel"
         style="width:100%;padding:10px 12px;border:1.5px solid #ddd;border-radius:7px;font-size:14px;font-family:monospace;margin-bottom:6px;box-sizing:border-box"
         onkeydown="if(event.key==='Enter') fazerLogin()"/>
-      <p style="font-size:12px;color:#aaa;margin:0 0 20px">Token com permiss&atilde;o <code>repo</code> &mdash; salvo localmente no seu navegador</p>
+      <p style="font-size:12px;color:#aaa;margin:0 0 20px">A mesma senha vale em qualquer computador &mdash; fica salva s&oacute; neste navegador. (Um token do GitHub <code>ghp_&hellip;</code> ainda funciona como alternativa.)</p>
     </div>
     <button class="btn-github" onclick="fazerLogin()" style="width:100%;justify-content:center">
       Entrar
@@ -269,10 +269,9 @@
       </div>
 
       <p style="font-size:12.5px;color:#888;margin-top:22px;line-height:1.6">
-        <b>Sobre os tokens:</b> o 3D e os tours moram no mesmo endereço e dividem o mesmo
-        token &mdash; entrou num, entrou no outro. Este painel do site é outro repositório,
-        em outro endereço, e por isso pede um token só dele. São dois no total, e cada um
-        vale só para o seu.
+        <b>Sobre os logins:</b> este painel do site entra com a <b>senha geral</b> (a mesma em
+        qualquer computador). O 3D e os tours moram em outro endereço e dividem um token do
+        GitHub entre si &mdash; entrou num, entrou no outro &mdash; e esse login continua separado.
       </p>
     </div>
   </div>
@@ -527,6 +526,18 @@ var CAT_LABELS = {supermercado:'Supermercado',industrial:'Industrial',comercial:
 var CAT_BLOG = {engenharia:'Engenharia',tecnologia:'Tecnologia',materiais:'Materiais',gestao:'Gestão de Obra'};
 
 var token = localStorage.getItem('berti_token');
+
+// "token" guarda a SENHA do painel (modo normal, via /api/gh) ou, como alternativa,
+// um token do GitHub (ghp_/github_pat_), que fala direto com a API do GitHub.
+function tokenGithub(t) { return /^(ghp_|gho_|github_pat_)/.test(t || ''); }
+function ghUrl(caminho) {
+  return tokenGithub(token) ? 'https://api.github.com/repos/' + REPO + '/contents/' + caminho : '/api/gh/' + caminho;
+}
+function ghHeaders(extra) {
+  var h = extra || {};
+  if (tokenGithub(token)) h['Authorization'] = 'token ' + token; else h['X-Admin-Password'] = token;
+  return h;
+}
 var dadosObras = null, shaObras = null;
 var dadosBlog = null, shaBlog = null;
 var abaAtiva = 'obras';
@@ -561,15 +572,19 @@ function mudarAba(aba) {
 // --- Login ---
 async function fazerLogin() {
   var t = document.getElementById('input-token').value.trim();
-  if (!t) { mostrarErroLogin('Cole o token antes de entrar.'); return; }
+  if (!t) { mostrarErroLogin('Digite a senha antes de entrar.'); return; }
   var btn = document.querySelector('.btn-github');
   btn.disabled = true; btn.textContent = 'Verificando...';
   try {
-    var r = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/obras.json', {
-      headers: {'Authorization': 'token ' + t}
+    var direto = tokenGithub(t);
+    var r = await fetch(direto ? 'https://api.github.com/repos/' + REPO + '/contents/content/obras.json' : '/api/gh/content/obras.json', {
+      headers: direto ? {'Authorization': 'token ' + t} : {'X-Admin-Password': t}
     });
-    if (r.status === 401 || r.status === 403) throw new Error('Token inválido ou sem permissão no repositório.');
-    if (!r.ok) throw new Error('Erro ' + r.status);
+    if (r.status === 401 || r.status === 403) throw new Error(direto ? 'Token inválido ou sem permissão no repositório.' : 'Senha incorreta.');
+    if (!r.ok) {
+      var det = ''; try { det = (await r.json()).message || ''; } catch(e2) {}
+      throw new Error(det || ('Erro ' + r.status));
+    }
     token = t;
     localStorage.setItem('berti_token', token);
     mostrar('tela-lista');
@@ -608,8 +623,8 @@ async function carregarObras() {
   document.getElementById('lista-obras').innerHTML = '<p class="loading-msg">Carregando obras...</p>';
   try {
     // Lê pela API (sempre atualizado) — raw.githubusercontent tem cache e atrasava a lista
-    var r = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/obras.json?ref=main&t=' + Date.now(), {
-      headers: {'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json'}, cache: 'no-store'
+    var r = await fetch(ghUrl('content/obras.json?ref=main&t=' + Date.now()), {
+      headers: ghHeaders({'Accept': 'application/vnd.github.v3+json'}), cache: 'no-store'
     });
     if (!r.ok) throw new Error('Erro ' + r.status);
     var meta = await r.json();
@@ -848,8 +863,8 @@ function setStatusObra(tipo, msg) {
 async function carregarBlog() {
   document.getElementById('lista-blog').innerHTML = '<p class="loading-msg">Carregando posts...</p>';
   try {
-    var r = await fetch('https://api.github.com/repos/' + REPO + '/contents/content/blog.json?ref=main&t=' + Date.now(), {
-      headers: {'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json'}, cache: 'no-store'
+    var r = await fetch(ghUrl('content/blog.json?ref=main&t=' + Date.now()), {
+      headers: ghHeaders({'Accept': 'application/vnd.github.v3+json'}), cache: 'no-store'
     });
     if (!r.ok) throw new Error('Erro ' + r.status);
     var meta = await r.json();
@@ -1080,9 +1095,9 @@ function uploadImagem(pasta, callback, btnId) {
       var filePath = pasta + filename;
       // Nome único por timestamp — nunca sobrescreve arquivo existente
       var body = { message: 'Admin: upload ' + filename, content: base64 };
-      var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + filePath, {
+      var resp = await fetch(ghUrl(filePath), {
         method: 'PUT',
-        headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json'},
+        headers: ghHeaders({'Content-Type': 'application/json'}),
         body: JSON.stringify(body)
       });
       if (!resp.ok) { var err = await resp.json(); throw new Error(err.message || 'Erro ' + resp.status); }
@@ -1116,9 +1131,9 @@ function uploadMultiplaImagem(pasta, btnId) {
         var filename = (Date.now() + i) + '-' + base + '.' + ext;
         var filePath = pasta + filename;
         var body = { message: 'Admin: upload ' + filename, content: base64 };
-        var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + filePath, {
+        var resp = await fetch(ghUrl(filePath), {
           method: 'PUT',
-          headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json'},
+          headers: ghHeaders({'Content-Type': 'application/json'}),
           body: JSON.stringify(body)
         });
         if (resp.ok) paths.push(filePath);
@@ -1171,8 +1186,8 @@ function processarImagemBase64(file, maxDim, quality) {
 
 async function buscarShaArquivo(path) {
   try {
-    var r = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + path, {
-      headers: {'Authorization': 'token ' + token}
+    var r = await fetch(ghUrl(path), {
+      headers: ghHeaders()
     });
     if (r.ok) { var meta = await r.json(); return meta.sha; }
   } catch(e) {}
@@ -1264,8 +1279,8 @@ function removerFotoGaleria(i) {
 
 async function obterShaAtual(caminho) {
   try {
-    var r = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + caminho + '?ref=main&t=' + Date.now(), {
-      headers: {'Authorization': 'token ' + token, 'Accept': 'application/vnd.github.v3+json'}, cache: 'no-store'
+    var r = await fetch(ghUrl(caminho + '?ref=main&t=' + Date.now()), {
+      headers: ghHeaders({'Accept': 'application/vnd.github.v3+json'}), cache: 'no-store'
     });
     if (r.ok) { var m = await r.json(); return m.sha; }
   } catch(e) {}
@@ -1278,9 +1293,9 @@ async function salvarJSON(caminho, dados, sha, msg) {
   var b64 = btoa(json);
 
   async function put(shaUse) {
-    var resp = await fetch('https://api.github.com/repos/' + REPO + '/contents/' + caminho, {
+    var resp = await fetch(ghUrl(caminho), {
       method: 'PUT',
-      headers: {'Authorization': 'token ' + token, 'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json'},
+      headers: ghHeaders({'Content-Type': 'application/json', 'Accept': 'application/vnd.github.v3+json'}),
       body: JSON.stringify({message: msg, content: b64, sha: shaUse})
     });
     var txt = await resp.text();
