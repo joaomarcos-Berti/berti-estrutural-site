@@ -172,8 +172,8 @@
   <header>
     <span class="logo">&#127959; Berti Estrutural &mdash; Admin</span>
     <div class="actions">
-      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank">&#129405; Apresenta&ccedil;&otilde;es 3D</a>
-      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank">&#127760; Tours 360</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank" onclick="return abrirPainel(this)">&#129405; Apresenta&ccedil;&otilde;es 3D</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank" onclick="return abrirPainel(this)">&#127760; Tours 360</a>
       <a class="link-site" href="https://datastudio.google.com/reporting/ae46718e-2243-4e5b-a2f8-75e5cd3290b8" target="_blank">&#128202; Estatisticas</a>
       <a class="link-site" href="https://www.bertiestrutural.com.br/" target="_blank">&#8592; Ver Site</a>
       <button class="btn-sair" onclick="sair()">Sair</button>
@@ -238,7 +238,7 @@
           <p>Estruturas em 3D para o cliente percorrer no óculos. Um link por cliente,
              com prazo de validade renovável.</p>
           <div class="destinos">
-            <a class="principal" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank">Abrir o painel &#8594;</a>
+            <a class="principal" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank" onclick="return abrirPainel(this)">Abrir o painel &#8594;</a>
             <a class="secundario" href="https://berti-estrutural-3d.pages.dev/" target="_blank">Ver o endere&ccedil;o &#8594;</a>
           </div>
         </div>
@@ -248,12 +248,11 @@
           <p>Mapa com pontos clicáveis, cada um abrindo um panorama navegável.
              Cria, publica e gera o link do cliente pelo navegador.</p>
           <p style="font-size:12.5px;color:#888;margin-top:-4px">
-            Na <b>primeira vez</b> ele pede um token próprio — é outro endereço, e o
-            navegador não deixa um domínio ler o login do outro. Depois de colar uma
-            vez, este botão passa a entrar direto.
+            Este botão entra <b>sozinho</b> com a mesma senha do painel do site — não precisa
+            digitar de novo.
           </p>
           <div class="destinos">
-            <a class="principal" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank">Abrir o painel &#8594;</a>
+            <a class="principal" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank" onclick="return abrirPainel(this)">Abrir o painel &#8594;</a>
             <a class="secundario" href="https://berti-estrutural-3d.pages.dev/" target="_blank">Ver o endere&ccedil;o &#8594;</a>
           </div>
         </div>
@@ -269,9 +268,9 @@
       </div>
 
       <p style="font-size:12.5px;color:#888;margin-top:22px;line-height:1.6">
-        <b>Sobre os logins:</b> este painel do site entra com a <b>senha geral</b> (a mesma em
-        qualquer computador). O 3D e os tours moram em outro endereço e dividem um token do
-        GitHub entre si &mdash; entrou num, entrou no outro &mdash; e esse login continua separado.
+        <b>Sobre o login:</b> uma senha só, a mesma em qualquer computador, vale para este painel,
+        para as Apresenta&ccedil;&otilde;es 3D e para os Tours 360. Ao abrir o 3D ou os tours por
+        este painel, a senha vai junto automaticamente.
       </p>
     </div>
   </div>
@@ -282,8 +281,8 @@
   <header>
     <span class="logo">&#127959; Editando Obra</span>
     <div class="actions">
-      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank">&#129405; Apresenta&ccedil;&otilde;es 3D</a>
-      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank">&#127760; Tours 360</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank" onclick="return abrirPainel(this)">&#129405; Apresenta&ccedil;&otilde;es 3D</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank" onclick="return abrirPainel(this)">&#127760; Tours 360</a>
       <a class="link-site" href="https://datastudio.google.com/reporting/ae46718e-2243-4e5b-a2f8-75e5cd3290b8" target="_blank">&#128202; Estatisticas</a>
       <a class="link-site" href="https://www.bertiestrutural.com.br/" target="_blank">&#8592; Ver Site</a>
       <button class="btn-sair" onclick="sair()">Sair</button>
@@ -398,8 +397,8 @@
   <header>
     <span class="logo">&#128221; Editando Post</span>
     <div class="actions">
-      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank">&#129405; Apresenta&ccedil;&otilde;es 3D</a>
-      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank">&#127760; Tours 360</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/admin/" target="_blank" onclick="return abrirPainel(this)">&#129405; Apresenta&ccedil;&otilde;es 3D</a>
+      <a class="link-site" href="https://berti-estrutural-3d.pages.dev/tour-admin/" target="_blank" onclick="return abrirPainel(this)">&#127760; Tours 360</a>
       <a class="link-site" href="https://datastudio.google.com/reporting/ae46718e-2243-4e5b-a2f8-75e5cd3290b8" target="_blank">&#128202; Estatisticas</a>
       <!-- "blog.html" em minúsculas: o Cloudflare Pages diferencia caixa, e o
            /Blog.html que estava aqui dava 404 nos dois endereços. -->
@@ -538,6 +537,24 @@ function ghHeaders(extra) {
   if (tokenGithub(token)) h['Authorization'] = 'token ' + token; else h['X-Admin-Password'] = token;
   return h;
 }
+
+// Abre o painel 3D / tours em outra aba e entrega a senha por postMessage (nada de senha na
+// barra de endereco). Só envia para o endereco exato do painel 3D e só quando ele pede.
+function abrirPainel(a) {
+  var url = a.href;
+  var w = window.open(url, '_blank');
+  if (!w) return true;                 // popup bloqueado: deixa o link abrir normalmente
+  if (tokenGithub(token)) return false; // token do GitHub nao e a senha do outro painel
+  var origem = new URL(url).origin;
+  function ouvir(e) {
+    if (e.origin !== origem || !e.data || !e.data.pedeSenha) return;
+    e.source.postMessage({ senha: token }, origem);
+  }
+  window.addEventListener('message', ouvir);
+  setTimeout(function () { window.removeEventListener('message', ouvir); }, 60000);
+  return false;
+}
+
 var dadosObras = null, shaObras = null;
 var dadosBlog = null, shaBlog = null;
 var abaAtiva = 'obras';
